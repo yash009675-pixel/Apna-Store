@@ -2,6 +2,9 @@
 -- Run after backend/schema.sql in Supabase SQL Editor.
 -- These policies are designed for a browser client using the publishable key.
 
+create schema if not exists private;
+grant usage on schema private to authenticated;
+
 create or replace function private.is_admin()
 returns boolean
 language sql
@@ -282,8 +285,6 @@ for each row execute procedure public.handle_new_user();
 
 
 -- Role-check helpers live in the private schema so they are not exposed as RPC endpoints.
-create schema if not exists private;
-
 create or replace function private.is_admin()
 returns boolean
 language sql
