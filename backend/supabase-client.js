@@ -1,16 +1,17 @@
-/* Apna Store — Supabase browser client
-   Fill these two values only after creating the Supabase project.
-   Never put a service-role key or database password here.
-*/
+/* Apna Store — Supabase browser client */
 window.APNA_SUPABASE_CONFIG = {
-  url: "",
-  anonKey: ""
+  url: "https://xxedwtmdylfufrfzyrdb.supabase.co",
+  anonKey: "sb_publishable_hYQybdzwpuTiT1CA7ZE0EA_SRHPyCOS"
 };
 
 window.apnaSupabaseReady = function () {
   return Boolean(
-    window.APNA_SUPABASE_CONFIG &&
     window.APNA_SUPABASE_CONFIG.url &&
     window.APNA_SUPABASE_CONFIG.anonKey
   );
 };
+
+window.apnaSupabase = window.supabase.createClient(
+  window.APNA_SUPABASE_CONFIG.url,
+  window.APNA_SUPABASE_CONFIG.anonKey
+);
