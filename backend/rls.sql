@@ -2,7 +2,7 @@
 -- Run after backend/schema.sql in Supabase SQL Editor.
 -- These policies are designed for a browser client using the publishable key.
 
-create or replace function public.is_admin()
+create or replace function private.is_admin()
 returns boolean
 language sql
 security definer
@@ -11,11 +11,11 @@ stable
 as $$
   select exists (
     select 1 from public.profiles
-    where id = auth.uid() and role = 'admin'
+    where id = (select auth.uid()) and role = 'admin'
   );
 $$;
 
-create or replace function public.is_seller()
+create or replace function private.is_seller()
 returns boolean
 language sql
 security definer
@@ -24,7 +24,7 @@ stable
 as $$
   select exists (
     select 1 from public.profiles
-    where id = auth.uid() and role in ('seller','admin')
+    where id = (select auth.uid()) and role in ('seller','admin')
   );
 $$;
 
@@ -42,20 +42,20 @@ alter table public.reviews enable row level security;
 drop policy if exists "profiles_select_own" on public.profiles;
 create policy "profiles_select_own" on public.profiles
 for select to authenticated
-using (id = auth.uid() or public.is_admin());
+using (id = (select auth.uid()) or private.is_admin());
 
 drop policy if exists "profiles_insert_own" on public.profiles;
 create policy "profiles_insert_own" on public.profiles
 for insert to authenticated
-with check (id = auth.uid() and role = 'customer');
+with check (id = (select auth.uid()) and role = 'customer');
 
 drop policy if exists "profiles_update_own" on public.profiles;
 create policy "profiles_update_own" on public.profiles
 for update to authenticated
-using (id = auth.uid() or public.is_admin())
+using (id = (select auth.uid()) or private.is_admin())
 with check (
-  public.is_admin()
-  or (id = auth.uid() and role = 'customer')
+  private.is_admin()
+  or (id = (select auth.uid()) and role = 'customer')
 );
 
 -- Categories
@@ -65,10 +65,12 @@ for select to anon, authenticated
 using (true);
 
 drop policy if exists "categories_admin_write" on public.categories;
-create policy "categories_admin_write" on public.categories
-for all to authenticated
-using (public.is_admin())
-with check (public.is_admin());
+drop policy if exists "categories_admin_insert" on public.categories;
+drop policy if exists "categories_admin_update" on public.categories;
+drop policy if exists "categories_admin_delete" on public.categories;
+create policy "categories_admin_insert" on public.categories for insert to authenticated with check (private.is_admin());
+create policy "categories_admin_update" on public.categories for update to authenticated using (private.is_admin()) with check (private.is_admin());
+create policy "categories_admin_delete" on public.categories for delete to authenticated using (private.is_admin());
 
 -- Products
 drop policy if exists "products_public_read_active" on public.products;
@@ -79,26 +81,26 @@ using (status = 'active');
 drop policy if exists "products_seller_read_private" on public.products;
 create policy "products_seller_read_private" on public.products
 for select to authenticated
-using (public.is_admin() or (seller_id = auth.uid() and public.is_seller()));
+using (private.is_admin() or (seller_id = (select auth.uid()) and private.is_seller()));
 
 drop policy if exists "products_seller_insert" on public.products;
 create policy "products_seller_insert" on public.products
 for insert to authenticated
 with check (
-  public.is_admin()
-  or (public.is_seller() and seller_id = auth.uid())
+  private.is_admin()
+  or (private.is_seller() and seller_id = (select auth.uid()))
 );
 
 drop policy if exists "products_seller_update" on public.products;
 create policy "products_seller_update" on public.products
 for update to authenticated
-using (public.is_admin() or (public.is_seller() and seller_id = auth.uid()))
-with check (public.is_admin() or (public.is_seller() and seller_id = auth.uid()));
+using (private.is_admin() or (private.is_seller() and seller_id = (select auth.uid())))
+with check (private.is_admin() or (private.is_seller() and seller_id = (select auth.uid())));
 
 drop policy if exists "products_seller_delete" on public.products;
 create policy "products_seller_delete" on public.products
 for delete to authenticated
-using (public.is_admin() or (public.is_seller() and seller_id = auth.uid()));
+using (private.is_admin() or (private.is_seller() and seller_id = (select auth.uid())));
 
 -- Product variants
 drop policy if exists "variants_public_read_active" on public.product_variants;
@@ -115,10 +117,10 @@ drop policy if exists "variants_seller_read_private" on public.product_variants;
 create policy "variants_seller_read_private" on public.product_variants
 for select to authenticated
 using (
-  public.is_admin()
+  private.is_admin()
   or exists (
     select 1 from public.products p
-    where p.id = product_id and p.seller_id = auth.uid() and public.is_seller()
+    where p.id = product_id and p.seller_id = (select auth.uid()) and private.is_seller()
   )
 );
 
@@ -126,12 +128,12 @@ drop policy if exists "variants_seller_insert" on public.product_variants;
 create policy "variants_seller_insert" on public.product_variants
 for insert to authenticated
 with check (
-  public.is_admin()
+  private.is_admin()
   or (
-    public.is_seller()
+    private.is_seller()
     and exists (
       select 1 from public.products p
-      where p.id = product_id and p.seller_id = auth.uid()
+      where p.id = product_id and p.seller_id = (select auth.uid())
     )
   )
 );
@@ -140,22 +142,22 @@ drop policy if exists "variants_seller_update" on public.product_variants;
 create policy "variants_seller_update" on public.product_variants
 for update to authenticated
 using (
-  public.is_admin()
+  private.is_admin()
   or (
-    public.is_seller()
+    private.is_seller()
     and exists (
       select 1 from public.products p
-      where p.id = product_id and p.seller_id = auth.uid()
+      where p.id = product_id and p.seller_id = (select auth.uid())
     )
   )
 )
 with check (
-  public.is_admin()
+  private.is_admin()
   or (
-    public.is_seller()
+    private.is_seller()
     and exists (
       select 1 from public.products p
-      where p.id = product_id and p.seller_id = auth.uid()
+      where p.id = product_id and p.seller_id = (select auth.uid())
     )
   )
 );
@@ -164,12 +166,12 @@ drop policy if exists "variants_seller_delete" on public.product_variants;
 create policy "variants_seller_delete" on public.product_variants
 for delete to authenticated
 using (
-  public.is_admin()
+  private.is_admin()
   or (
-    public.is_seller()
+    private.is_seller()
     and exists (
       select 1 from public.products p
-      where p.id = product_id and p.seller_id = auth.uid()
+      where p.id = product_id and p.seller_id = (select auth.uid())
     )
   )
 );
@@ -178,35 +180,35 @@ using (
 drop policy if exists "addresses_own" on public.addresses;
 create policy "addresses_own" on public.addresses
 for all to authenticated
-using (user_id = auth.uid() or public.is_admin())
-with check (user_id = auth.uid() or public.is_admin());
+using (user_id = (select auth.uid()) or private.is_admin())
+with check (user_id = (select auth.uid()) or private.is_admin());
 
 -- Orders
 drop policy if exists "orders_read_own" on public.orders;
 create policy "orders_read_own" on public.orders
 for select to authenticated
-using (user_id = auth.uid() or public.is_admin());
+using (user_id = (select auth.uid()) or private.is_admin());
 
 drop policy if exists "orders_insert_own" on public.orders;
 create policy "orders_insert_own" on public.orders
 for insert to authenticated
-with check (user_id = auth.uid());
+with check (user_id = (select auth.uid()));
 
 drop policy if exists "orders_admin_update" on public.orders;
 create policy "orders_admin_update" on public.orders
 for update to authenticated
-using (public.is_admin())
-with check (public.is_admin());
+using (private.is_admin())
+with check (private.is_admin());
 
 -- Order items
 drop policy if exists "order_items_read_own" on public.order_items;
 create policy "order_items_read_own" on public.order_items
 for select to authenticated
 using (
-  public.is_admin()
+  private.is_admin()
   or exists (
     select 1 from public.orders o
-    where o.id = order_id and o.user_id = auth.uid()
+    where o.id = order_id and o.user_id = (select auth.uid())
   )
 );
 
@@ -216,7 +218,7 @@ for insert to authenticated
 with check (
   exists (
     select 1 from public.orders o
-    where o.id = order_id and o.user_id = auth.uid()
+    where o.id = order_id and o.user_id = (select auth.uid())
   )
 );
 
@@ -224,8 +226,8 @@ with check (
 drop policy if exists "wishlist_own" on public.wishlists;
 create policy "wishlist_own" on public.wishlists
 for all to authenticated
-using (user_id = auth.uid())
-with check (user_id = auth.uid());
+using (user_id = (select auth.uid()))
+with check (user_id = (select auth.uid()));
 
 -- Reviews
 drop policy if exists "reviews_public_read" on public.reviews;
@@ -236,18 +238,18 @@ using (true);
 drop policy if exists "reviews_insert_own" on public.reviews;
 create policy "reviews_insert_own" on public.reviews
 for insert to authenticated
-with check (user_id = auth.uid());
+with check (user_id = (select auth.uid()));
 
 drop policy if exists "reviews_update_own" on public.reviews;
 create policy "reviews_update_own" on public.reviews
 for update to authenticated
-using (user_id = auth.uid() or public.is_admin())
-with check (user_id = auth.uid() or public.is_admin());
+using (user_id = (select auth.uid()) or private.is_admin())
+with check (user_id = (select auth.uid()) or private.is_admin());
 
 drop policy if exists "reviews_delete_own" on public.reviews;
 create policy "reviews_delete_own" on public.reviews
 for delete to authenticated
-using (user_id = auth.uid() or public.is_admin());
+using (user_id = (select auth.uid()) or private.is_admin());
 
 -- Create a customer profile automatically when a new Auth user signs up.
 create or replace function public.handle_new_user()
@@ -279,13 +281,40 @@ for each row execute procedure public.handle_new_user();
 -- Never let a public signup request choose its own seller/admin role.
 
 
--- Lock down SECURITY DEFINER helpers so they cannot be called as public RPC endpoints.
-revoke execute on function public.handle_new_user() from public, anon, authenticated;
-revoke execute on function public.is_admin() from public, anon;
-revoke execute on function public.is_seller() from public, anon;
-grant execute on function public.is_admin() to authenticated;
-grant execute on function public.is_seller() to authenticated;
+-- Role-check helpers live in the private schema so they are not exposed as RPC endpoints.
+create schema if not exists private;
 
+create or replace function private.is_admin()
+returns boolean
+language sql
+security definer
+set search_path = public
+stable
+as $
+  select exists (
+    select 1 from public.profiles
+    where id = (select auth.uid()) and role = 'admin'
+  );
+$;
+
+create or replace function private.is_seller()
+returns boolean
+language sql
+security definer
+set search_path = public
+stable
+as $
+  select exists (
+    select 1 from public.profiles
+    where id = (select auth.uid()) and role in ('seller','admin')
+  );
+$;
+
+grant usage on schema private to authenticated;
+grant execute on function private.is_admin() to authenticated;
+grant execute on function private.is_seller() to authenticated;
+
+revoke execute on function public.handle_new_user() from public, anon, authenticated;
 
 -- Orders must be created through public.create_order_secure so prices,
 -- totals and inventory are calculated atomically on the server.
