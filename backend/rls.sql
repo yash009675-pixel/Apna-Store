@@ -74,7 +74,12 @@ with check (public.is_admin());
 drop policy if exists "products_public_read_active" on public.products;
 create policy "products_public_read_active" on public.products
 for select to anon, authenticated
-using (status = 'active' or public.is_admin() or (seller_id = auth.uid() and public.is_seller()));
+using (status = 'active');
+
+drop policy if exists "products_seller_read_private" on public.products;
+create policy "products_seller_read_private" on public.products
+for select to authenticated
+using (public.is_admin() or (seller_id = auth.uid() and public.is_seller()));
 
 drop policy if exists "products_seller_insert" on public.products;
 create policy "products_seller_insert" on public.products
@@ -102,11 +107,18 @@ for select to anon, authenticated
 using (
   exists (
     select 1 from public.products p
-    where p.id = product_id and (
-      p.status = 'active'
-      or public.is_admin()
-      or (p.seller_id = auth.uid() and public.is_seller())
-    )
+    where p.id = product_id and p.status = 'active'
+  )
+);
+
+drop policy if exists "variants_seller_read_private" on public.product_variants;
+create policy "variants_seller_read_private" on public.product_variants
+for select to authenticated
+using (
+  public.is_admin()
+  or exists (
+    select 1 from public.products p
+    where p.id = product_id and p.seller_id = auth.uid() and public.is_seller()
   )
 );
 
