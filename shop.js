@@ -22,7 +22,23 @@ function render(){
  }).join(""):'<p>No products found.</p>';
 }
 function add(id){const p=products.find(x=>x.id===id);if(!p)return;const c=readCart(),e=c.find(x=>x.productId===p.id);e?e.qty++:c.push({productId:p.id,name:p.name,category:p.category,price:Number(p.price),qty:1});localStorage.setItem("apnaCart",JSON.stringify(c));cart()}
-function wishlist(id){const p=products.find(x=>x.id===id);if(!p)return;const w=readWishlist(),at=w.findIndex(x=>x.productId===p.id||x.name===p.name);if(at>=0)w.splice(at,1);else w.push({name:p.name,category:p.category,price:Number(p.price),productId:p.id});localStorage.setItem("apnaWishlist",JSON.stringify(w));render()}
+async function wishlist(id){
+ const p=products.find(x=>x.id===id);if(!p)return;
+ const {data:{session}}=await apnaSupabase.auth.getSession();
+ if(session){
+  const {data:existing,error:readError}=await apnaSupabase.from("wishlists").select("id").eq("user_id",session.user.id).eq("product_id",p.id).maybeSingle();
+  if(readError){console.error(readError);return}
+  const result=existing
+   ? await apnaSupabase.from("wishlists").delete().eq("id",existing.id)
+   : await apnaSupabase.from("wishlists").insert({user_id:session.user.id,product_id:p.id});
+  if(result.error){console.error("Wishlist update failed:",result.error);return}
+ }else{
+  const w=readWishlist(),at=w.findIndex(x=>x.productId===p.id||x.name===p.name);
+  if(at>=0)w.splice(at,1);else w.push({name:p.name,category:p.category,price:Number(p.price),productId:p.id});
+  localStorage.setItem("apnaWishlist",JSON.stringify(w));
+ }
+ render();
+}
 document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active"));b.classList.add("active");selected=b.dataset.cat;render()});
 document.getElementById("sort").onchange=render;
 document.getElementById("searchBtn")?.addEventListener("click",()=>location.href="search.html");
