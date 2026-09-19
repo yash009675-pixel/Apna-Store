@@ -1,0 +1,1 @@
+const o=JSON.parse(localStorage.getItem("apnaLastOrder")||"null");document.getElementById("orderText").textContent=o?"Your demo order "+o.id+" has been saved on this device. Total: ₹"+Number(o.total).toLocaleString("en-IN")+".":"No recent order found.";
