@@ -281,8 +281,10 @@ for each row execute procedure public.handle_new_user();
 
 -- Lock down SECURITY DEFINER helpers so they cannot be called as public RPC endpoints.
 revoke execute on function public.handle_new_user() from public, anon, authenticated;
-revoke execute on function public.is_admin() from public, anon, authenticated;
-revoke execute on function public.is_seller() from public, anon, authenticated;
+revoke execute on function public.is_admin() from public, anon;
+revoke execute on function public.is_seller() from public, anon;
+grant execute on function public.is_admin() to authenticated;
+grant execute on function public.is_seller() to authenticated;
 
 
 -- Orders must be created through public.create_order_secure so prices,
