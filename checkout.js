@@ -1,63 +1,28 @@
 const cart=JSON.parse(localStorage.getItem("apnaCart")||"[]"),summary=document.getElementById("checkoutSummary"),form=document.getElementById("checkoutForm"),nameInput=document.getElementById("name"),phoneInput=document.getElementById("phone"),addressInput=document.getElementById("address"),cityInput=document.getElementById("city"),stateInput=document.getElementById("state"),pincodeInput=document.getElementById("pincode"),note=document.getElementById("checkoutNote");
 function money(n){return "₹"+Number(n||0).toLocaleString("en-IN")}
 function render(){if(!cart.length){summary.innerHTML='<div class="checkout-card"><h2>Your bag is empty</h2><p>Add products before checkout.</p><a class="primary-btn" href="shop.html">Shop now →</a></div>';form.style.display="none";return}const subtotal=cart.reduce((s,x)=>s+Number(x.price||0)*Number(x.qty||1),0),shipping=subtotal>=999?0:49;summary.innerHTML='<div class="checkout-card summary-card"><p class="eyebrow">ORDER SUMMARY</p><h2>'+cart.length+' item'+(cart.length>1?"s":"")+'</h2>'+cart.map(x=>'<div class="summary-line"><span>'+x.name+' × '+x.qty+'</span><b>'+money(Number(x.price)*Number(x.qty))+'</b></div>').join("")+'<div class="summary-line"><span>Subtotal</span><b>'+money(subtotal)+'</b></div><div class="summary-line"><span>Delivery</span><b>'+(shipping?money(shipping):"FREE")+'</b></div><div class="summary-total"><span>Total</span><b>'+money(subtotal+shipping)+'</b></div></div>')}
-async function createCloudOrder(session){
-  const shippingAddress={
-    full_name:nameInput.value.trim(),
-    phone:phoneInput.value.trim(),
-    address_line:addressInput.value.trim(),
-    city:cityInput.value.trim(),
-    state:stateInput.value.trim(),
-    pincode:pincodeInput.value.trim()
-  };
-  const items=cart.map(x=>({
-    product_id:x.productId||null,
-    variant_id:x.variantId||null,
-    quantity:Number(x.qty||1)
-  }));
-  const {data,error}=await apnaSupabase.rpc("create_order_secure",{
-    p_items:items,
-    p_shipping:shippingAddress,
-    p_payment_method:"cod"
-  });
+async function createCloudOrder(){
+  const shippingAddress={full_name:nameInput.value.trim(),phone:phoneInput.value.trim(),address_line:addressInput.value.trim(),city:cityInput.value.trim(),state:stateInput.value.trim(),pincode:pincodeInput.value.trim()};
+  const items=cart.map(x=>({product_id:x.productId||null,variant_id:x.variantId||null,quantity:Number(x.qty||1)}));
+  const {data,error}=await apnaSupabase.rpc("create_order_secure",{p_items:items,p_shipping:shippingAddress,p_payment_method:"cod"});
   if(error) throw error;
   const result=Array.isArray(data)?data[0]:data;
   if(!result?.order_id) throw new Error("Order was not created");
-  const subtotal=cart.reduce((s,x)=>s+Number(x.price||0)*Number(x.qty||1),0);
-  const deliveryFee=subtotal>=999?0:49;
-  return {
-    id:result.order_number,
-    dbId:result.order_id,
-    items:cart,
-    customer:{
-      name:shippingAddress.full_name,
-      phone:shippingAddress.phone,
-      address:shippingAddress.address_line,
-      city:shippingAddress.city,
-      state:shippingAddress.state,
-      pincode:shippingAddress.pincode
-    },
-    total:Number(result.total),
-    subtotal,
-    deliveryFee,
-    createdAt:new Date().toISOString(),
-    cloud:true
-  };
+  return {id:result.order_number,dbId:result.order_id,items:cart,customer:{name:shippingAddress.full_name,phone:shippingAddress.phone,address:shippingAddress.address_line,city:shippingAddress.city,state:shippingAddress.state,pincode:shippingAddress.pincode},total:Number(result.total),subtotal:Number(result.subtotal),deliveryFee:Number(result.delivery_fee),createdAt:new Date().toISOString(),cloud:true};
 }
 async function placeOrder(e){e.preventDefault();if(!form.reportValidity()||!cart.length)return;const subtotal=cart.reduce((s,x)=>s+Number(x.price||0)*Number(x.qty||1),0),total=subtotal+(subtotal>=999?0:49),fallbackId="APNA-"+Date.now().toString().slice(-8);let order={id:fallbackId,items:cart,customer:{name:nameInput.value.trim(),phone:phoneInput.value.trim(),address:addressInput.value.trim(),city:cityInput.value.trim(),state:stateInput.value.trim(),pincode:pincodeInput.value.trim()},total,createdAt:new Date().toISOString(),cloud:false};
   const {data:{session}}=await apnaSupabase.auth.getSession();
   if(session){
     for(const item of cart){
-      if(!item.productId) continue;
+      if(!item.productId||!item.variantId){alert("One of the items in your bag is missing a valid product variant. Please remove it and add it again from the product page.");return}
       const {data:p,error:pe}=await apnaSupabase.from("products").select("id,name,price").eq("id",item.productId).eq("status","active").maybeSingle();
       if(pe||!p){alert("One of the products in your bag is no longer available.");return}
-      if(item.variantId){
-        const {data:v,error:ve}=await apnaSupabase.from("product_variants").select("stock").eq("id",item.variantId).eq("product_id",item.productId).maybeSingle();
-        if(ve||!v||Number(v.stock)<Number(item.qty)){alert(item.name+" has only "+Number(v?.stock||0)+" item(s) available. Please update your bag.");return}
-      }
+      const {data:v,error:ve}=await apnaSupabase.from("product_variants").select("id,stock").eq("id",item.variantId).eq("product_id",item.productId).maybeSingle();
+      if(ve||!v){alert("The selected size/color for "+item.name+" is no longer available.");return}
+      if(Number(v.stock)<Number(item.qty)){alert(item.name+" has only "+Number(v.stock)+" item(s) available. Please update your bag.");return}
     }
   }
-  try{if(session){order=await createCloudOrder(session)}else{const orders=JSON.parse(localStorage.getItem("apnaOrders")||"[]");orders.unshift(order);localStorage.setItem("apnaOrders",JSON.stringify(orders))}}catch(error){console.error("Cloud order creation failed:",error);alert("We could not save your order to your account. Please try again. Your cart is still safe.");return}
+  try{if(session){order=await createCloudOrder()}else{const orders=JSON.parse(localStorage.getItem("apnaOrders")||"[]");orders.unshift(order);localStorage.setItem("apnaOrders",JSON.stringify(orders))}}catch(error){console.error("Cloud order creation failed:",error);alert("We could not save your order to your account. Please try again. Your cart is still safe.");return}
   localStorage.setItem("apnaLastOrder",JSON.stringify(order));localStorage.removeItem("apnaCart");location.href="order-success.html";
 }
 form.addEventListener("submit",placeOrder);(async()=>{const {data:{session}}=await apnaSupabase.auth.getSession();if(session)note.textContent="You are signed in. This order will be saved to your Apna Store account.";})();render();
