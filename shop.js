@@ -8,7 +8,7 @@ const fallbackProducts=[
 {id:"cf4547e1-b242-4c9c-9dd3-f65ec851bfb6",name:"Mini Weekend Set",category:"Kids",price:699,description:"Comfortable kids set."},
 {id:"3cb85e55-1880-4c2d-933d-d93b3558d9c3",name:"Daily Court Sneaker",category:"Footwear",price:1499,description:"Everyday court sneaker."}
 ];
-let products=[];let selected="All";
+let products=[];let selected=new URLSearchParams(location.search).get("category")||"All";
 const root=document.getElementById("shopProducts"),count=document.getElementById("cartCount");
 function readCart(){try{const c=JSON.parse(localStorage.getItem("apnaCart")||"[]");return Array.isArray(c)?c:[]}catch{return[]}}
 function cart(){if(count)count.textContent=readCart().reduce((n,x)=>n+(Number(x.qty)||0),0)}
@@ -19,13 +19,20 @@ async function loadProducts(){
  if(error){
   console.error("Shop product query failed:",error);
   products=fallbackProducts;
+  syncCategoryChip();
   render();
   return;
  }
  const categoryNames={"678e7007-3084-4a96-a465-bf196e923837":"Footwear","94223447-f3b5-46c9-9349-55f9b4aa44d1":"Kids","93428b48-e9ce-464a-bae5-093db1aafa2e":"Men","9e6636b6-fa6f-492c-a25b-9089dff87863":"Women"};
  products=(data||[]).map(p=>({...p,category:categoryNames[p.category_id]||"Apna Store"}));
  if(!products.length) products=fallbackProducts;
+ syncCategoryChip();
  render();
+}
+function syncCategoryChip(){
+ const valid=["All","Women","Men","Kids","Footwear"];
+ if(!valid.includes(selected))selected="All";
+ document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("active",x.dataset.cat===selected));
 }
 function render(){
  let list=products.filter(p=>selected==="All"||p.category===selected);
@@ -56,7 +63,7 @@ async function wishlist(id){
  }
  render();
 }
-document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active"));b.classList.add("active");selected=b.dataset.cat;render()});
+document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active"));b.classList.add("active");selected=b.dataset.cat;history.replaceState(null,"",selected==="All"?"shop.html":"shop.html?category="+encodeURIComponent(selected));render()});
 document.getElementById("sort").onchange=render;
 document.getElementById("searchBtn")?.addEventListener("click",()=>location.href="search.html");
 loadProducts();cart();
