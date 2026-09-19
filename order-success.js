@@ -1,1 +1,1 @@
-const o=JSON.parse(localStorage.getItem("apnaLastOrder")||"null");document.getElementById("orderText").textContent=o?("Your "+(o.cloud?"order ":"demo order ")+o.id+" has been saved. Total: ₹"+Number(o.total).toLocaleString("en-IN")+"." ):"No recent order found.";
+const o=JSON.parse(localStorage.getItem("apnaLastOrder")||"null");const el=document.getElementById("orderText");if(o){el.textContent="Your "+(o.cloud?"order ":"demo order ")+o.id+" has been saved. Total: ₹"+Number(o.total).toLocaleString("en-IN")+".";}else{el.textContent="No recent order found.";}
