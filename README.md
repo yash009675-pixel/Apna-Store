@@ -10,3 +10,6 @@ Apna Store is a new online shopping marketplace, starting with fashion and desig
 
 ## Development
 The project is intentionally starting simple so the shopping experience can be validated before adding catalog, accounts, checkout, seller and admin systems.
+
+
+Pages deployment configuration stabilized on 2026-09-19.
