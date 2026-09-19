@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Apna Store — everyday fashion, made simple.">
+  <title>Apna Store — Fashion for Everyone</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="announcement">Free shipping on orders over ₹999 <span>•</span> Easy returns</div>
+  <header class="site-header">
+    <a class="logo" href="#">APNA<span>STORE</span></a>
+    <nav>
+      <a href="#shop">Shop</a><a href="#categories">Categories</a><a href="#deals">Deals</a>
+    </nav>
+    <div class="header-actions">
+      <button aria-label="Search" id="searchBtn">⌕</button>
+      <button aria-label="Wishlist" id="wishBtn">♡</button>
+      <button aria-label="Cart" id="cartBtn">Bag <b id="cartCount">0</b></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">NEW SEASON • 2026</p>
+        <h1>Wear what<br><em>feels Apna.</em></h1>
+        <p class="hero-text">Fresh styles for women, men and kids — simple prices, easy shopping, delivered to your door.</p>
+        <a class="primary-btn" href="#shop">Shop the collection <span>→</span></a>
+      </div>
+      <div class="hero-art"><div class="hero-card">APNA<br><strong>EDIT</strong><small>STYLE / EVERYDAY</small></div></div>
+    </section>
+
+    <section class="trust">
+      <div><strong>✓</strong><span>Quality checked<br><small>Products</small></span></div>
+      <div><strong>↺</strong><span>Easy returns<br><small>On eligible items</small></span></div>
+      <div><strong>▣</strong><span>Secure payments<br><small>100% protected</small></span></div>
+      <div><strong>⌁</strong><span>Fast delivery<br><small>Across India</small></span></div>
+    </section>
+
+    <section id="categories" class="section">
+      <div class="section-head"><div><p class="eyebrow">SHOP BY CATEGORY</p><h2>Find your everyday.</h2></div><a href="#shop">View all →</a></div>
+      <div class="categories">
+        <a href="#shop" class="category cat-women"><span>01</span><h3>Women</h3><p>New looks →</p></a>
+        <a href="#shop" class="category cat-men"><span>02</span><h3>Men</h3><p>Daily essentials →</p></a>
+        <a href="#shop" class="category cat-kids"><span>03</span><h3>Kids</h3><p>Little styles →</p></a>
+        <a href="#shop" class="category cat-foot"><span>04</span><h3>Footwear</h3><p>Step out →</p></a>
+      </div>
+    </section>
+
+    <section id="shop" class="section products-section">
+      <div class="section-head"><div><p class="eyebrow">TRENDING NOW</p><h2>Made for your rotation.</h2></div><button class="text-btn" id="filterBtn">All products ↓</button></div>
+      <div class="products" id="products"></div>
+    </section>
+
+    <section id="deals" class="deal">
+      <div><p class="eyebrow">APNA DEALS</p><h2>Style more.<br>Spend less.</h2><p>Selected everyday fashion, now with special launch pricing.</p><a class="light-btn" href="#shop">Explore deals →</a></div>
+      <div class="deal-mark">APNA<br><span>50%</span><br>EDIT</div>
+    </section>
+  </main>
+
+  <footer>
+    <div><a class="logo" href="#">APNA<span>STORE</span></a><p>Everyday shopping, the Apna way.</p></div>
+    <div class="footer-links"><a href="#">About</a><a href="#">Help</a><a href="#">Shipping</a><a href="#">Returns</a></div>
+    <small>© 2026 Apna Store. All rights reserved.</small>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
