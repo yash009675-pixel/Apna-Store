@@ -42,10 +42,10 @@ function render(){
  const w=readWishlist();
  root.innerHTML=list.length?list.map(p=>{
   const saved=w.some(item=>item.productId===p.id||item.name===p.name);
-  return '<article class="product-card"><div class="product-image"><button aria-label="'+(saved?"Remove from wishlist":"Add to wishlist")+'" onclick="wishlist(\''+p.id+'\')">'+(saved?"♥":"♡")+'</button></div><div class="product-info"><a href="product.html?id='+encodeURIComponent(p.id)+'" style="text-decoration:none;color:inherit"><h3>'+p.name+'</h3><p>'+p.category+'</p><p class="price">₹'+Number(p.price).toLocaleString("en-IN")+'</p></a><button class="primary-btn add" onclick="add(\''+p.id+'\')" style="margin-top:12px;padding:10px 13px;font-size:11px;gap:15px">Add to bag →</button></div></article>';
+  return '<article class="product-card"><div class="product-image"><button aria-label="'+(saved?"Remove from wishlist":"Add to wishlist")+'" onclick="wishlist(\''+p.id+'\')">'+(saved?"♥":"♡")+'</button></div><div class="product-info"><a href="product.html?id='+encodeURIComponent(p.id)+'" style="text-decoration:none;color:inherit"><h3>'+p.name+'</h3><p>'+p.category+'</p><p class="price">₹'+Number(p.price).toLocaleString("en-IN")+'</p></a><button class="primary-btn add" onclick="add(\''+p.id+'\')" style="margin-top:12px;padding:10px 13px;font-size:11px;gap:15px">View options →</button></div></article>';
  }).join(""):'<p>No products found.</p>';
 }
-function add(id){const p=products.find(x=>x.id===id);if(!p)return;const c=readCart(),e=c.find(x=>x.productId===p.id);e?e.qty++:c.push({productId:p.id,name:p.name,category:p.category,price:Number(p.price),qty:1});localStorage.setItem("apnaCart",JSON.stringify(c));cart()}
+function add(id){const p=products.find(x=>x.id===id);if(!p)return;location.href="product.html?id="+encodeURIComponent(p.id)}
 async function wishlist(id){
  const p=products.find(x=>x.id===id);if(!p)return;
  const {data:{session}}=await apnaSupabase.auth.getSession();
