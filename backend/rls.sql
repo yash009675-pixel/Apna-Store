@@ -271,3 +271,9 @@ for each row execute procedure public.handle_new_user();
 revoke execute on function public.handle_new_user() from public, anon, authenticated;
 revoke execute on function public.is_admin() from public, anon, authenticated;
 revoke execute on function public.is_seller() from public, anon, authenticated;
+
+
+-- Orders must be created through public.create_order_secure so prices,
+-- totals and inventory are calculated atomically on the server.
+drop policy if exists "orders_insert_own" on public.orders;
+drop policy if exists "order_items_insert_own" on public.order_items;
