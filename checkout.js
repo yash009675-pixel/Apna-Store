@@ -14,6 +14,17 @@ async function createCloudOrder(session){
 }
 async function placeOrder(e){e.preventDefault();if(!form.reportValidity()||!cart.length)return;const subtotal=cart.reduce((s,x)=>s+Number(x.price||0)*Number(x.qty||1),0),total=subtotal+(subtotal>=999?0:49),fallbackId="APNA-"+Date.now().toString().slice(-8);let order={id:fallbackId,items:cart,customer:{name:nameInput.value.trim(),phone:phoneInput.value.trim(),address:addressInput.value.trim(),city:cityInput.value.trim(),state:stateInput.value.trim(),pincode:pincodeInput.value.trim()},total,createdAt:new Date().toISOString(),cloud:false};
   const {data:{session}}=await apnaSupabase.auth.getSession();
+  if(session){
+    for(const item of cart){
+      if(!item.productId) continue;
+      const {data:p,error:pe}=await apnaSupabase.from("products").select("id,name,price").eq("id",item.productId).eq("status","active").maybeSingle();
+      if(pe||!p){alert("One of the products in your bag is no longer available.");return}
+      if(item.variantId){
+        const {data:v,error:ve}=await apnaSupabase.from("product_variants").select("stock").eq("id",item.variantId).eq("product_id",item.productId).maybeSingle();
+        if(ve||!v||Number(v.stock)<Number(item.qty)){alert(item.name+" has only "+Number(v?.stock||0)+" item(s) available. Please update your bag.");return}
+      }
+    }
+  }
   try{if(session){order=await createCloudOrder(session)}else{const orders=JSON.parse(localStorage.getItem("apnaOrders")||"[]");orders.unshift(order);localStorage.setItem("apnaOrders",JSON.stringify(orders))}}catch(error){console.error("Cloud order creation failed:",error);alert("We could not save your order to your account. Please try again. Your cart is still safe.");return}
   localStorage.setItem("apnaLastOrder",JSON.stringify(order));localStorage.removeItem("apnaCart");location.href="order-success.html";
 }
