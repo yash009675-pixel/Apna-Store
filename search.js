@@ -13,9 +13,9 @@ const q=document.getElementById("q"),r=document.getElementById("results"),summar
 q.value=new URLSearchParams(location.search).get("q")||"";
 async function loadProducts(){
  summary.textContent="Loading products…";
- const {data,error}=await apnaSupabase.from("products").select("id,name,slug,description,price,category_id,categories(name)").eq("status","active").order("created_at",{ascending:true});
+ const {data,error}=await apnaSupabase.from("products").select("id,name,slug,description,price,category_id").eq("status","active").order("created_at",{ascending:true});
  if(error){console.error("Search product query failed:",error);products=fallbackProducts;render();return;}
- products=(data||[]).map(p=>({...p,category:p.categories?.name||"Apna Store"}));
+ const categoryNames={"678e7007-3084-4a96-a465-bf196e923837":"Footwear","94223447-f3b5-46c9-9349-55f9b4aa44d1":"Kids","93428b48-e9ce-464a-bae5-093db1aafa2e":"Men","9e6636b6-fa6f-492c-a25b-9089dff87863":"Women"};\n products=(data||[]).map(p=>({...p,category:categoryNames[p.category_id]||"Apna Store"}));
  if(!products.length)products=fallbackProducts;
  render();
 }
