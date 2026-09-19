@@ -25,6 +25,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Validate JavaScript
+        run: |
+          node --version
+          for file in $(find . -type f -name '*.js' -not -path './.git/*'); do
+            node --check "$file"
+          done
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
