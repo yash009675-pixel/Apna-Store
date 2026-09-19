@@ -7,7 +7,7 @@ create or replace function public.create_order_secure(
   p_shipping jsonb,
   p_payment_method text default 'cod'
 )
-returns table(order_id uuid, order_number text, total numeric)
+returns table(order_id uuid, order_number text, subtotal numeric, delivery_fee numeric, total numeric)
 language plpgsql
 security definer
 set search_path = public
