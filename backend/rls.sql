@@ -3,6 +3,7 @@
 -- These policies are designed for a browser client using the publishable key.
 
 create schema if not exists private;
+revoke all on schema private from public, anon;
 grant usage on schema private to authenticated;
 
 create or replace function private.is_admin()
