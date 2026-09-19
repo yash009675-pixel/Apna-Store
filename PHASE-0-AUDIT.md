@@ -34,6 +34,7 @@ Stabilize the existing application and establish a safe foundation before expand
 - [x] Secure order creation RPC exists.
 - [x] New Auth users receive a customer profile.
 - [x] Seller/admin helper functions use SECURITY DEFINER with a fixed search path.
+- [x] Role-check helpers moved into the non-exposed `private` schema.
 - [ ] Add seller onboarding/application tables.
 - [ ] Add product image metadata table.
 - [ ] Add seller/order relationships for multi-seller orders.
@@ -45,7 +46,8 @@ Stabilize the existing application and establish a safe foundation before expand
 - [x] Seller product access is restricted to the seller's own products.
 - [x] Admin access is separate.
 - [x] RLS helper execute grants corrected for authenticated policy evaluation.
-- [ ] Add automated RLS tests.
+- [x] Add automated RLS tests under `supabase/tests/`.
+- [x] Live RLS smoke suite passes 8/8 checks (anon + authenticated customer context).
 
 ### Deployment
 - [x] Pages deployment is triggered by pushes to `main`.
@@ -60,7 +62,7 @@ Phase 0 will be considered complete only when:
 
 1. The latest GitHub commit deploys successfully.
 2. All JavaScript passes CI syntax validation.
-3. Supabase RLS/security checks pass.
+3. Supabase RLS/security checks pass (automated smoke suite passes; one remaining Security Advisor warning is the intentionally callable checkout RPC).
 4. Customer auth/profile creation is verified.
 5. Seller/admin authorization is verified with test accounts.
 6. No known broken core customer flow remains.
