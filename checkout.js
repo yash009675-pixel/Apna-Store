@@ -2,15 +2,47 @@ const cart=JSON.parse(localStorage.getItem("apnaCart")||"[]"),summary=document.g
 function money(n){return "₹"+Number(n||0).toLocaleString("en-IN")}
 function render(){if(!cart.length){summary.innerHTML='<div class="checkout-card"><h2>Your bag is empty</h2><p>Add products before checkout.</p><a class="primary-btn" href="shop.html">Shop now →</a></div>';form.style.display="none";return}const subtotal=cart.reduce((s,x)=>s+Number(x.price||0)*Number(x.qty||1),0),shipping=subtotal>=999?0:49;summary.innerHTML='<div class="checkout-card summary-card"><p class="eyebrow">ORDER SUMMARY</p><h2>'+cart.length+' item'+(cart.length>1?"s":"")+'</h2>'+cart.map(x=>'<div class="summary-line"><span>'+x.name+' × '+x.qty+'</span><b>'+money(Number(x.price)*Number(x.qty))+'</b></div>').join("")+'<div class="summary-line"><span>Subtotal</span><b>'+money(subtotal)+'</b></div><div class="summary-line"><span>Delivery</span><b>'+(shipping?money(shipping):"FREE")+'</b></div><div class="summary-total"><span>Total</span><b>'+money(subtotal+shipping)+'</b></div></div>')}
 async function createCloudOrder(session){
-  const subtotal=cart.reduce((s,x)=>s+Number(x.price||0)*Number(x.qty||1),0),deliveryFee=subtotal>=999?0:49,total=subtotal+deliveryFee,orderNumber="APNA-"+Date.now().toString().slice(-8),shippingAddress={full_name:nameInput.value.trim(),phone:phoneInput.value.trim(),address_line:addressInput.value.trim(),city:cityInput.value.trim(),state:stateInput.value.trim(),pincode:pincodeInput.value.trim()};
-  const {data:address,error:addressError}=await apnaSupabase.from("addresses").insert({user_id:session.user.id,full_name:shippingAddress.full_name,phone:shippingAddress.phone,address_line:shippingAddress.address_line,city:shippingAddress.city,state:shippingAddress.state,pincode:shippingAddress.pincode,is_default:false}).select("id").single();
-  if(addressError) throw addressError;
-  const {data:order,error:orderError}=await apnaSupabase.from("orders").insert({user_id:session.user.id,order_number:orderNumber,status:"placed",payment_status:"pending",subtotal,delivery_fee:deliveryFee,total,shipping_address:{...shippingAddress,address_id:address.id}}).select("id,order_number,created_at").single();
-  if(orderError) throw orderError;
-  const items=cart.map(x=>({order_id:order.id,product_id:x.productId||null,product_name:x.name,unit_price:Number(x.price||0),quantity:Number(x.qty||1)}));
-  const {error:itemError}=await apnaSupabase.from("order_items").insert(items);
-  if(itemError){await apnaSupabase.from("orders").delete().eq("id",order.id);throw itemError}
-  return {id:order.order_number,dbId:order.id,items:cart,customer:shippingAddress,total,subtotal,deliveryFee,createdAt:order.created_at,cloud:true};
+  const shippingAddress={
+    full_name:nameInput.value.trim(),
+    phone:phoneInput.value.trim(),
+    address_line:addressInput.value.trim(),
+    city:cityInput.value.trim(),
+    state:stateInput.value.trim(),
+    pincode:pincodeInput.value.trim()
+  };
+  const items=cart.map(x=>({
+    product_id:x.productId||null,
+    variant_id:x.variantId||null,
+    quantity:Number(x.qty||1)
+  }));
+  const {data,error}=await apnaSupabase.rpc("create_order_secure",{
+    p_items:items,
+    p_shipping:shippingAddress,
+    p_payment_method:"cod"
+  });
+  if(error) throw error;
+  const result=Array.isArray(data)?data[0]:data;
+  if(!result?.order_id) throw new Error("Order was not created");
+  const subtotal=cart.reduce((s,x)=>s+Number(x.price||0)*Number(x.qty||1),0);
+  const deliveryFee=subtotal>=999?0:49;
+  return {
+    id:result.order_number,
+    dbId:result.order_id,
+    items:cart,
+    customer:{
+      name:shippingAddress.full_name,
+      phone:shippingAddress.phone,
+      address:shippingAddress.address_line,
+      city:shippingAddress.city,
+      state:shippingAddress.state,
+      pincode:shippingAddress.pincode
+    },
+    total:Number(result.total),
+    subtotal,
+    deliveryFee,
+    createdAt:new Date().toISOString(),
+    cloud:true
+  };
 }
 async function placeOrder(e){e.preventDefault();if(!form.reportValidity()||!cart.length)return;const subtotal=cart.reduce((s,x)=>s+Number(x.price||0)*Number(x.qty||1),0),total=subtotal+(subtotal>=999?0:49),fallbackId="APNA-"+Date.now().toString().slice(-8);let order={id:fallbackId,items:cart,customer:{name:nameInput.value.trim(),phone:phoneInput.value.trim(),address:addressInput.value.trim(),city:cityInput.value.trim(),state:stateInput.value.trim(),pincode:pincodeInput.value.trim()},total,createdAt:new Date().toISOString(),cloud:false};
   const {data:{session}}=await apnaSupabase.auth.getSession();
