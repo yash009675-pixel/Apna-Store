@@ -265,3 +265,9 @@ for each row execute procedure public.handle_new_user();
 -- NOTE:
 -- Seller/admin role promotion must be performed by a trusted admin/backend.
 -- Never let a public signup request choose its own seller/admin role.
+
+
+-- Lock down SECURITY DEFINER helpers so they cannot be called as public RPC endpoints.
+revoke execute on function public.handle_new_user() from public, anon, authenticated;
+revoke execute on function public.is_admin() from public, anon, authenticated;
+revoke execute on function public.is_seller() from public, anon, authenticated;
