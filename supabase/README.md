@@ -34,8 +34,8 @@ The connected project currently has the following migration history:
 - 20260919125406 — lock_private_rls_helper_execution
 - 20260919214917 — fix_secure_order_uuid_generation (live migration history)
 - 20260920130546 — phase22_category_brand_management
-- 20260920140000 — phase23_marketing_campaigns
-- 20260920140500 — phase23_marketing_cta_validation
+- 20260920131606 — phase23_marketing_campaigns
+- 20260920131705 — phase23_marketing_cta_validation
 
 When a future database change is made, add the new migration file to the repository and verify that the live migration history contains the matching change.
 
