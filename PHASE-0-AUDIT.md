@@ -1,6 +1,6 @@
 # Apna Store — Phase 0 Foundation Audit
 
-Date: 2026-09-19
+Date: 2026-09-20
 
 ## Goal
 
@@ -23,9 +23,9 @@ Stabilize the existing application and establish a safe foundation before expand
 - [x] Favicon exists.
 - [x] No secrets stored in repository frontend files.
 - [x] JavaScript syntax validation added to deployment workflow.
-- [ ] Full browser end-to-end QA.
-- [ ] Remove remaining fallback/hardcoded catalog data after live catalog API is stable.
-- [ ] Add version-controlled Supabase migration workflow.
+- [x] Customer catalog uses the live Supabase product/category API; no fallback product array remains in the active shop loader.
+- [ ] Full browser end-to-end QA — intentionally scheduled for the next browser-testing session.
+- [x] Version-controlled Supabase migration workflow documentation added; historical migrations were not fabricated.
 
 ### Database
 - [x] Core product/category/variant/order/profile tables exist.
@@ -48,12 +48,14 @@ Stabilize the existing application and establish a safe foundation before expand
 - [x] RLS helper execute grants corrected for authenticated policy evaluation.
 - [x] Add automated RLS tests under `supabase/tests/`.
 - [x] Live RLS smoke suite passes 8/8 checks (anon + authenticated customer context).
+- [x] Authorization-boundary test foundation added and live privilege/policy boundaries verified.
+- [ ] Full seller/admin authorization test-account verification.
 
 ### Deployment
 - [x] Pages deployment is triggered by pushes to `main`.
 - [x] Workflow now blocks deployment when JavaScript syntax is invalid.
-- [ ] Verify the next deployment succeeds.
-- [ ] Add cache-busting/versioning consistently to all frequently changed scripts.
+- [x] Customer-page script cache versions have been standardized in source.
+- [ ] Verify the latest pending deployment(s) succeed in GitHub Actions.
 - [ ] Add a staging/preview workflow before production changes when the marketplace grows.
 
 ## Phase 0 exit criteria
@@ -67,6 +69,16 @@ Phase 0 will be considered complete only when:
 5. Seller/admin authorization is verified with test accounts.
 6. No known broken core customer flow remains.
 7. The database architecture is ready for seller, inventory, image and order expansion.
+
+## Current verification snapshot
+
+- Live Supabase catalog: 8 active products and 68 variants verified.
+- Anonymous catalog read: 8 active products verified.
+- Secure order RPC: authenticated-only execution verified; transaction test completed without persistent changes.
+- Real customer signup/profile: verified for the existing customer test account.
+- Latest wishlist implementation: deployed successfully in GitHub Actions.
+- Latest catalog/cache-hardening commits still require their workflow status to be verified before being called production-deployed.
+- Full browser E2E testing remains intentionally pending for the next browser-testing session.
 
 ## Security reference
 
