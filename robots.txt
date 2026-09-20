@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+Disallow: /account.html
+Disallow: /auth.html
+Disallow: /cart.html
+Disallow: /checkout.html
+Disallow: /notifications.html
+Disallow: /orders.html
+Disallow: /order-detail.html
+Disallow: /order-success.html
+Disallow: /return-request.html
+Disallow: /seller-dashboard.html
+Disallow: /seller-earnings.html
+Disallow: /seller-onboarding.html
+Disallow: /seller-orders.html
+Disallow: /seller-product.html
+Disallow: /seller-products.html
+Disallow: /admin.html
+Disallow: /offline.html
+Disallow: /search.html
+
+Sitemap: https://yash009675-pixel.github.io/Apna-Store/sitemap.xml
