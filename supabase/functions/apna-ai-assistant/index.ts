@@ -2,7 +2,7 @@ const corsHeaders={ "Access-Control-Allow-Origin":"*", "Access-Control-Allow-Hea
 const json=(body,status=200)=>new Response(JSON.stringify(body),{status,headers:corsHeaders});
 const clean=(v,max=1200)=>String(v??"").trim().slice(0,max);
 async function get(path,key,token=""){const res=await fetch(`${Deno.env.get("SUPABASE_URL")}${path}`,{headers:{apikey:key,Authorization:token?`Bearer ${token}`:`Bearer ${key}`}});if(!res.ok)throw new Error("Supabase request failed");return res.json()}
-async function rpc(path,key,token,body){const res=await fetch(`${Deno.env.get("SUPABASE_URL")}${path`,{method:"POST",headers:{apikey:key,Authorization:`Bearer ${token}`,"Content-Type":"application/json"},body:JSON.stringify(body)});if(!res.ok)throw new Error("Supabase RPC failed");return res.json()}
+async function rpc(path,key,token,body){const res=await fetch(`${Deno.env.get("SUPABASE_URL")}${path}`,{method:"POST",headers:{apikey:key,Authorization:`Bearer ${token}`,"Content-Type":"application/json"},body:JSON.stringify(body)});if(!res.ok)throw new Error("Supabase RPC failed");return res.json()}
 function outputText(d){if(typeof d?.output_text==="string")return d.output_text.trim();return (d?.output??[]).flatMap((x:any)=>x?.content??[]).filter((x:any)=>x?.type==="output_text").map((x:any)=>x.text).join("\n").trim()}
 Deno.serve(async(req:Request)=>{
  if(req.method==="OPTIONS")return new Response("ok",{headers:corsHeaders});
