@@ -3,8 +3,8 @@ const productId=params.get("id");
 const el=document.getElementById("product");
 function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function money(v){return Number(v||0).toLocaleString("en-IN")}
-function showError(m){el.innerHTML='<div class="product-details"><p class="eyebrow">PRODUCT</p><h1>Product unavailable</h1><p class="detail-desc">'+esc(m)+'</p><a class="primary-btn" href="shop.html">Back to shop →</a></div>'}
-function renderProduct(product,variants=[]){
+function updateProductSeo(product){const name=String(product?.name||"Product")+" | Apna Store";document.title=name;let d=document.querySelector('meta[name="description"]');if(!d){d=document.createElement("meta");d.name="description";document.head.appendChild(d)}d.content=String(product?.description||("Shop "+(product?.name||"this product")+" on Apna Store.")).replace(/\s+/g," ").slice(0,155);let link=document.querySelector('link[rel="canonical"]');if(!link){link=document.createElement("link");link.rel="canonical";document.head.appendChild(link)}link.href=location.origin+location.pathname+"?id="+encodeURIComponent(product?.id||productId);let og=document.querySelector('meta[property="og:title"]');if(!og){og=document.createElement("meta");og.setAttribute("property","og:title");document.head.appendChild(og)}og.content=name;}function showError(m){el.innerHTML='<div class="product-details"><p class="eyebrow">PRODUCT</p><h1>Product unavailable</h1><p class="detail-desc">'+esc(m)+'</p><a class="primary-btn" href="shop.html">Back to shop →</a></div>'}
+function renderProduct(product,variants=[]){updateProductSeo(product);
  const available=(variants||[]).filter(v=>Number(v.stock||0)>0);
  const finalSizes=[...new Set(available.map(v=>v.size).filter(Boolean))];
  const finalColors=[...new Set(available.map(v=>v.color).filter(Boolean))];
