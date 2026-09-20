@@ -1,0 +1,19 @@
+{
+  "name": "apna-store-mobile",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Native mobile packaging for Apna Store",
+  "scripts": {
+    "cap:sync": "cap sync",
+    "cap:add:android": "cap add android",
+    "cap:add:ios": "cap add ios"
+  },
+  "dependencies": {
+    "@capacitor/core": "8.5.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.2",
+    "@capacitor/android": "8.5.2",
+    "@capacitor/ios": "8.5.2"
+  }
+}
