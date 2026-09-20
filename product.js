@@ -21,7 +21,7 @@ function renderProduct(product,variants=[]){
  document.querySelectorAll("[data-size]").forEach(b=>{b.disabled=!available.some(v=>(v.size||"")===b.dataset.size);});
  document.querySelectorAll("[data-color]").forEach(b=>{b.disabled=!available.some(v=>(v.color||"")===b.dataset.color);});
  refreshOptions();
- document.getElementById("add").onclick=()=>{if(!variantId){alert("Please select an available size and color.");return}const cart=JSON.parse(localStorage.getItem("apnaCart")||"[]"),key=product.id+"-"+size+"-"+color,existing=cart.find(x=>x.key===key);if(existing)existing.qty+=qty;else cart.push({key,productId:product.id,variantId,name:product.name,category:product.category||"Product",price:Number(product.price),size,color,qty});localStorage.setItem("apnaCart",JSON.stringify(cart));location.href="cart.html"};
+ document.getElementById("add").onclick=()=>{if(!variantId){alert("Please select an available size and color.");return}const cart=JSON.parse(localStorage.getItem("apnaCart")||"[]"),key=product.id+"-"+size+"-"+color,existing=cart.find(x=>x.key===key),stock=Number(available.find(x=>x.id===variantId)?.stock||0);if(existing){if(Number(existing.qty)+qty>stock){alert("Only "+stock+" item(s) are available for this variant.");return}existing.qty+=qty}else cart.push({key,productId:product.id,variantId,name:product.name,category:product.category||"Product",price:Number(product.price),size,color,qty});localStorage.setItem("apnaCart",JSON.stringify(cart));location.href="cart.html"};
 }
 async function loadProduct(){
  if(!productId)return showError("Please choose a product from the shop.");
