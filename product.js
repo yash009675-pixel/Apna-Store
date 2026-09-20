@@ -29,14 +29,16 @@ async function loadProduct(){
  try{
   const [{data,error},{data:categories,error:categoryError},{data:brands,error:brandError}]=await Promise.all([
    apnaSupabase.from("products").select("id,name,slug,description,price,category_id,brand_id").eq("id",productId).eq("status","active").maybeSingle(),
-   apnaSupabase.from("categories").select("id,name"),\n   apnaSupabase.from("brands").select("id,name").eq("is_active",true)
+   apnaSupabase.from("categories").select("id,name"),
+   apnaSupabase.from("brands").select("id,name").eq("is_active",true)
   ]);
   if(error||categoryError||brandError)throw error||categoryError||brandError;
   if(!data)return showError("This product does not exist.");
   const categoryMap=new Map((categories||[]).map(c=>[c.id,c.name]));
   const vr=await apnaSupabase.from("product_variants").select("id,size,color,sku,stock").eq("product_id",productId).order("size");const ir=await apnaSupabase.from("product_images").select("storage_path").eq("product_id",productId).order("is_primary",{ascending:false}).order("sort_order");if(ir.error)throw ir.error;const image=ir.data?.[0]?.storage_path?apnaSupabase.storage.from("product-images").getPublicUrl(ir.data[0].storage_path).data.publicUrl:null;
   if(vr.error)throw vr.error;
-  const brandMap=new Map((brands||[]).map(b=>[b.id,b.name]));\n  renderProduct({...data,category:categoryMap.get(data.category_id)||"Apna Store",brand:brandMap.get(data.brand_id)||"",image},vr.data||[]);
+  const brandMap=new Map((brands||[]).map(b=>[b.id,b.name]));
+  renderProduct({...data,category:categoryMap.get(data.category_id)||"Apna Store",brand:brandMap.get(data.brand_id)||"",image},vr.data||[]);
  }catch(e){console.error("Product detail load failed:",e);showError("We could not load this product right now. Please refresh and try again.")}
 }
 loadProduct();
