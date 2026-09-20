@@ -33,7 +33,7 @@ Deno.serve(async(req:Request)=>{
       const os=await get(`/rest/v1/orders?select=id,created_at,status,delivery_status,total,payment_status&user_id=eq.${encodeURIComponent(u.id)}&order=created_at.desc&limit=5`,key,token);
       user.recent_orders=os.map((o:any)=>({id:o.id,created_at:o.created_at,status:o.status,delivery_status:o.delivery_status,total:o.total,payment_status:o.payment_status}));
     }
-    if(user.role==="seller")user.seller_products=await get(`/rest/v1/products?select=id,name,price,status&seller_id=eq.${encodeURIComponent(u.id)}&order=name&limit=30`,key,token);
+    if(user.role==="seller")user.seller_products=await get(`/rest/v1/products?select=id,name,description,price,compare_at_price,status,category_id,brand_id,slug&seller_id=eq.${encodeURIComponent(u.id)}&order=name&limit=30`,key,token);
     if(user.role==="admin"&&/analytics|sales|orders|seller|customer|product|insight|performance/i.test(message)){try{const e=new Date(),s=new Date(e.getTime()-30*86400000);user.analytics_30d=await rpc("/rest/v1/rpc/admin_get_analytics",key,token,{p_start_at:s.toISOString(),p_end_at:e.toISOString()})}catch{user.analytics_30d={unavailable:true}}}
    }
   }catch{}
