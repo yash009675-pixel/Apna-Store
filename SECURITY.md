@@ -17,7 +17,10 @@
 - Notification RPCs are SECURITY INVOKER and authenticated-only.
 
 ## Remaining platform setting
-Supabase Security Advisor reports Leaked Password Protection disabled. This is an Auth project setting and is not changed through SQL/migrations.
+Supabase Security Advisor reports Leaked Password Protection disabled.
+The project is currently on the Supabase Free Plan, and Supabase requires Pro Plan or higher for leaked-password protection through Have I Been Pwned.
+This is an Auth project setting and is not changed through SQL/migrations.
+No CAPTCHA configuration was changed as part of this audit.
 
 ## E2E
 No browser authorization E2E is claimed in this audit. Final authorization E2E remains part of Phase 31 / Phase 0 sign-off.
