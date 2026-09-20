@@ -24,12 +24,16 @@ function renderProduct(product,variants=[]){
 async function loadProduct(){
  if(!productId)return showError("Please choose a product from the shop.");
  try{
-  const {data,error}=await apnaSupabase.from("products").select("id,name,slug,description,price,category_id,categories(name)").eq("id",productId).eq("status","active").maybeSingle();
-  if(error)throw error;
+  const [{data,error},{data:categories,error:categoryError}]=await Promise.all([
+   apnaSupabase.from("products").select("id,name,slug,description,price,category_id").eq("id",productId).eq("status","active").maybeSingle(),
+   apnaSupabase.from("categories").select("id,name")
+  ]);
+  if(error||categoryError)throw error||categoryError;
   if(!data)return showError("This product does not exist.");
+  const categoryMap=new Map((categories||[]).map(c=>[c.id,c.name]));
   const vr=await apnaSupabase.from("product_variants").select("id,size,color,sku,stock").eq("product_id",productId).order("size");
   if(vr.error)throw vr.error;
-  renderProduct({...data,category:data.categories?.name||"Apna Store"},vr.data||[]);
+  renderProduct({...data,category:categoryMap.get(data.category_id)||"Apna Store"},vr.data||[]);
  }catch(e){console.error("Product detail load failed:",e);showError("We could not load this product right now. Please refresh and try again.")}
 }
 loadProduct();
