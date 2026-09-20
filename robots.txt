@@ -17,6 +17,7 @@ Disallow: /seller-product.html
 Disallow: /seller-products.html
 Disallow: /admin.html
 Disallow: /offline.html
+Disallow: /wishlist.html
 Disallow: /search.html
 
 Sitemap: https://yash009675-pixel.github.io/Apna-Store/sitemap.xml
