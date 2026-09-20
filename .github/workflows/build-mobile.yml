@@ -1,0 +1,110 @@
+name: Build Apna Store Mobile Apps
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "mobile/**"
+      - "*.html"
+      - "*.js"
+      - "*.css"
+      - "*.json"
+      - "backend/**"
+      - "pwa-icon-*.svg"
+
+permissions:
+  contents: read
+
+jobs:
+  android:
+    name: Android debug APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: mobile/package.json
+
+      - name: Install Capacitor
+        working-directory: mobile
+        run: npm install --no-audit --no-fund
+
+      - name: Prepare bundled web app
+        run: |
+          rm -rf mobile/www
+          mkdir -p mobile/www
+          find . -maxdepth 1 -type f ! -name ".gitignore" ! -name "package.json" -exec cp {} mobile/www/ \;
+          cp -R backend mobile/www/backend
+          cp -R mobile/www mobile/www-bundle-check
+          rm -rf mobile/www-bundle-check
+
+      - name: Add Android platform
+        working-directory: mobile
+        run: npx cap add android
+
+      - name: Sync Android
+        working-directory: mobile
+        run: npx cap sync android
+
+      - name: Build debug APK
+        working-directory: mobile/android
+        run: ./gradlew assembleDebug --no-daemon
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v6
+        with:
+          name: apna-store-android-debug
+          path: mobile/android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+
+  ios-project:
+    name: iOS project package
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: mobile/package.json
+
+      - name: Install Capacitor
+        working-directory: mobile
+        run: npm install --no-audit --no-fund
+
+      - name: Prepare bundled web app
+        run: |
+          rm -rf mobile/www
+          mkdir -p mobile/www
+          find . -maxdepth 1 -type f ! -name ".gitignore" ! -name "package.json" -exec cp {} mobile/www/ \;
+          cp -R backend mobile/www/backend
+
+      - name: Add iOS platform
+        working-directory: mobile
+        run: npx cap add ios
+
+      - name: Sync iOS
+        working-directory: mobile
+        run: npx cap sync ios
+
+      - name: Archive iOS project
+        run: |
+          cd mobile
+          zip -r ../apna-store-ios-project.zip ios >/dev/null
+
+      - name: Upload iOS project
+        uses: actions/upload-artifact@v6
+        with:
+          name: apna-store-ios-project
+          path: apna-store-ios-project.zip
+          if-no-files-found: error
