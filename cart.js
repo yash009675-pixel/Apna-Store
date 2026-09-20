@@ -77,10 +77,11 @@ async function changeCartQty(index,direction){
       return;
     }
   }
-  item.qty=Math.max(1,item.qty+direction);
+  item.qty+=direction;
+  if(item.qty<=0){cart.splice(index,1);saveCart(normalizeCart(cart));draw();return;}
   saveCart(normalizeCart(cart));
   await syncCartWithCatalog();
-  (async()=>{await syncCartWithCatalog();draw()})();
+  draw();
 }
 
 function removeCartItem(index){
