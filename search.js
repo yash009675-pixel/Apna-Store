@@ -1,6 +1,9 @@
 let products=[];
 const q=document.getElementById("q"),r=document.getElementById("results"),summary=document.getElementById("summary");
+let clearBtn;
 q.value=new URLSearchParams(location.search).get("q")||"";
+function updateClearButton(){if(!clearBtn)return;const hasQuery=Boolean(q.value.trim());clearBtn.hidden=!hasQuery;clearBtn.setAttribute("aria-hidden",String(!hasQuery))}
+function clearSearch(){q.value="";syncUrl();render();q.focus();updateClearButton()}
 function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function normalize(v){return String(v??"").toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9\s-]/g," ").replace(/\s+/g," ").trim()}
 function scoreProduct(p,term){
@@ -38,9 +41,10 @@ function render(){
  summary.textContent=term?list.length+" result(s) for “"+q.value.trim()+"”":"Browse all "+list.length+" products";
  r.innerHTML=list.length?list.map(p=>'<article class="product-card"><a href="product.html?id='+encodeURIComponent(p.id)+'" style="text-decoration:none;color:inherit"><div class="product-image"></div><div class="product-info"><h3>'+escapeHtml(p.name)+'</h3><p>'+escapeHtml(p.category)+'</p><p class="price">₹'+Number(p.price).toLocaleString("en-IN")+'</p><span class="primary-btn" style="display:inline-flex;margin-top:12px;padding:10px 13px;font-size:11px;gap:15px">View product →</span></div></a></article>').join(""):'<p>No products found. Try a product name, category, or keyword.</p>';
 }
-document.getElementById("form").onsubmit=e=>{e.preventDefault();syncUrl();render()};
+document.getElementById("form").onsubmit=e=>{e.preventDefault();syncUrl();render();updateClearButton()};
 function syncUrl(){const value=q.value.trim();history.replaceState({},"",value?"?q="+encodeURIComponent(value):"search.html")}
-q.addEventListener("input",()=>{syncUrl();render()});
-q.addEventListener("keydown",e=>{if(e.key==="Escape"){q.value="";syncUrl();render();q.focus()}});
-window.addEventListener("popstate",()=>{q.value=new URLSearchParams(location.search).get("q")||"";render()});
+q.addEventListener("input",()=>{syncUrl();render();updateClearButton()});
+q.addEventListener("keydown",e=>{if(e.key==="Escape")clearSearch()});
+window.addEventListener("popstate",()=>{q.value=new URLSearchParams(location.search).get("q")||"";render();updateClearButton()});
+clearBtn=document.createElement("button");clearBtn.type="button";clearBtn.className="secondary-btn";clearBtn.textContent="Clear";clearBtn.addEventListener("click",clearSearch);clearBtn.hidden=!q.value.trim();document.getElementById("form").appendChild(clearBtn);updateClearButton();
 loadProducts();
