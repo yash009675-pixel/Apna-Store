@@ -1,12 +1,12 @@
 const corsHeaders={ "Access-Control-Allow-Origin":"*", "Access-Control-Allow-Headers":"authorization, apikey, content-type", "Access-Control-Allow-Methods":"POST, OPTIONS", "Content-Type":"application/json" };
 const json=(body,status=200)=>new Response(JSON.stringify(body),{status,headers:corsHeaders});
-const clean=(v,max=1200)=>String(v??"").trim().slice(0,max);
+const clean=(v,max=1200)=>String(v??"").trim().slice(0,max);\nconst rate=new Map<string,{count:number,start:number}>();\nfunction allowed(req:Request){const ip=req.headers.get("x-forwarded-for")?.split(",")[0]?.trim()||"unknown",now=Date.now(),hit=rate.get(ip);if(!hit||now-hit.start>60000){rate.set(ip,{count:1,start:now});return true}if(hit.count>=20)return false;hit.count++;return true}
 async function get(path,key,token=""){const res=await fetch(`${Deno.env.get("SUPABASE_URL")}${path}`,{headers:{apikey:key,Authorization:token?`Bearer ${token}`:`Bearer ${key}`}});if(!res.ok)throw new Error("Supabase request failed");return res.json()}
 async function rpc(path,key,token,body){const res=await fetch(`${Deno.env.get("SUPABASE_URL")}${path}`,{method:"POST",headers:{apikey:key,Authorization:`Bearer ${token}`,"Content-Type":"application/json"},body:JSON.stringify(body)});if(!res.ok)throw new Error("Supabase RPC failed");return res.json()}
 function outputText(d){if(typeof d?.output_text==="string")return d.output_text.trim();return (d?.output??[]).flatMap((x:any)=>x?.content??[]).filter((x:any)=>x?.type==="output_text").map((x:any)=>x.text).join("\n").trim()}
 Deno.serve(async(req:Request)=>{
  if(req.method==="OPTIONS")return new Response("ok",{headers:corsHeaders});
- if(req.method!=="POST")return json({error:"POST required."},405);
+ if(req.method!=="POST")return json({error:"POST required."},405);\n if(!allowed(req))return json({error:"Too many AI requests. Please try again in a minute."},429);
  const openai=Deno.env.get("OPENAI_API_KEY"), url=Deno.env.get("SUPABASE_URL"), key=Deno.env.get("SUPABASE_PUBLISHABLE_KEY")||Deno.env.get("SUPABASE_ANON_KEY");
  if(!openai||!url||!key)return json({error:"AI service is not configured."},503);
  try{
