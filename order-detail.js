@@ -1,0 +1,15 @@
+const root=document.getElementById("orderDetail");
+function money(n){return "₹"+Number(n||0).toLocaleString("en-IN")}
+function esc(v){return String(v??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function label(v){return String(v||"").replace(/_/g," ").replace(/\b\w/g,c=>c.toUpperCase())}
+function fail(title,msg){root.innerHTML='<div class="empty-cart"><h2>'+esc(title)+'</h2><p>'+esc(msg)+'</p><a class="primary-btn" href="orders.html">Back to orders →</a></div>'}
+(async()=>{
+ const {data:{session}}=await apnaSupabase.auth.getSession();
+ if(!session){fail("Sign in required","Sign in to securely view your order details.");return}
+ const id=new URLSearchParams(location.search).get("id");
+ if(!id||!/^[0-9a-f-]{36}$/i.test(id)){fail("Order not found","This order link is missing or invalid.");return}
+ const {data:o,error}=await apnaSupabase.from("orders").select("id,order_number,status,payment_method,payment_status,payment_provider,payment_reference,paid_at,subtotal,discount_amount,coupon_code,delivery_fee,total,shipping_address,created_at,updated_at,order_items(product_name,unit_price,quantity,variant_id)").eq("id",id).eq("user_id",session.user.id).maybeSingle();
+ if(error||!o){fail("Order not found","This order does not exist in your account or you do not have access to it.");return}
+ const a=o.shipping_address||{},items=o.order_items||[];
+ root.innerHTML='<div class="checkout-card"><p class="eyebrow">ORDER DETAILS</p><h1>'+esc(o.order_number)+'</h1><div class="summary-line"><span>Order status</span><b>'+esc(label(o.status))+'</b></div><div class="summary-line"><span>Payment</span><b>'+esc(o.payment_method==="cod"?"Cash on Delivery":(o.payment_method||"Online"))+'</b></div><div class="summary-line"><span>Payment status</span><b>'+esc(label(o.payment_status))+'</b></div><p class="checkout-note">Placed '+esc(new Date(o.created_at).toLocaleString("en-IN"))+'</p></div><div class="checkout-card"><p class="eyebrow">ITEMS</p>'+items.map(x=>'<div class="summary-line"><span>'+esc(x.product_name)+' × '+Number(x.quantity||1)+'</span><b>'+money(Number(x.unit_price||0)*Number(x.quantity||1))+'</b></div>').join("")+'</div><div class="checkout-card"><p class="eyebrow">PRICE DETAILS</p><div class="summary-line"><span>Subtotal</span><b>'+money(o.subtotal)+'</b></div>'+(Number(o.discount_amount)>0?'<div class="summary-line"><span>Coupon'+(o.coupon_code?" ("+esc(o.coupon_code)+")":"")+'</span><b>−'+money(o.discount_amount)+'</b></div>':"")+'<div class="summary-line"><span>Delivery</span><b>'+(Number(o.delivery_fee)?money(o.delivery_fee):"FREE")+'</b></div><div class="summary-total"><span>Total</span><b>'+money(o.total)+'</b></div></div><div class="checkout-card"><p class="eyebrow">DELIVERY ADDRESS</p><p>'+esc(a.full_name||"")+'<br>'+esc(a.address_line||"")+'<br>'+esc(a.city||"")+(a.state?", "+esc(a.state):"")+(a.pincode?" — "+esc(a.pincode):"")+'<br>'+esc(a.phone||"")+'</p></div><p><a href="orders.html">← Back to all orders</a></p>';
+})();
