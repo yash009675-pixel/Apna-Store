@@ -6,11 +6,14 @@ function updateClearButton(){if(!clearBtn)return;const hasQuery=Boolean(q.value.
 function clearSearch(){q.value="";syncUrl();render();q.focus();updateClearButton()}
 function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function normalize(v){return String(v??"").toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9\s-]/g," ").replace(/\s+/g," ").trim()}
+const SEARCH_SYNONYMS={tee:["t-shirt","tshirt"],tshirt:["tee","t-shirt"],shirt:["top"],sneaker:["shoes","footwear"],shoes:["sneaker","footwear"],footwear:["shoes","sneaker"],dress:["dresses"],dresses:["dress"],kid:["kids"],kids:["kid"],men:["mens"],mens:["men"],women:["womens"],womens:["women"]};
 function scoreProduct(p,term){
  if(!term)return 0;
  const fields=[[normalize(p.name),12],[normalize(p.category),8],[normalize(p.slug),6],[normalize(p.description),3]];
+ const tokens=term.split(" ").filter(Boolean);
+ const expanded=[...tokens,...tokens.flatMap(token=>SEARCH_SYNONYMS[token]||[])];
  let score=0;
- for(const token of term.split(" ").filter(Boolean)){
+ for(const token of expanded){
   let hit=false;
   for(const [value,weight] of fields){
    if(value===token){score+=weight*3;hit=true}
