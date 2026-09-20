@@ -4,17 +4,19 @@ function readCart(){
   try{
     const data=JSON.parse(localStorage.getItem("apnaCart")||"[]");
     if(!Array.isArray(data)) return [];
-    return data.filter(item=>item&&item.name).map(item=>({
+    return normalizeCart(data.filter(item=>item&&item.name).map(item=>({
       ...item,
       price:Number(item.price)||0,
       qty:Math.max(1,Number(item.qty)||1)
-    }));
+    })));
   }catch(error){
     console.error("Cart data could not be read:",error);
     return [];
   }
 }
 function saveCart(cart){localStorage.setItem("apnaCart",JSON.stringify(cart));}
+function cartKey(item){return item.key||[item.productId,item.variantId,item.size||"",item.color||""].join("|");}
+function normalizeCart(cart){const merged=new Map();for(const item of cart){const key=cartKey(item),qty=Math.max(1,Number(item.qty)||1);if(merged.has(key)){merged.get(key).qty+=qty;}else merged.set(key,{...item,key,qty});}return [...merged.values()];}
 async function syncCartWithCatalog(){
   const cart=readCart(); if(!cart.length||typeof apnaSupabase==="undefined") return;
   const ids=[...new Set(cart.map(x=>x.productId).filter(Boolean))];
@@ -34,7 +36,7 @@ async function syncCartWithCatalog(){
     const qty=Math.min(Math.max(1,Number(item.qty)||1),maxStock);
     next.push({...item,name:product.name,category:item.category||"Apna Store",price:Number(product.price),size:variant.size||"",color:variant.color||"",qty});
   }
-  saveCart(next);
+  saveCart(normalizeCart(next));
 }
 
 function money(value){return "₹"+Number(value||0).toLocaleString("en-IN");}
@@ -76,9 +78,9 @@ async function changeCartQty(index,direction){
     }
   }
   item.qty=Math.max(1,item.qty+direction);
-  if(item.qty<=0)cart.splice(index,1);
-  saveCart(cart);
-  (async()=>{await syncCartWithCatalog();draw()})();
+  saveCart(normalizeCart(cart));
+  await syncCartWithCatalog();
+  draw();
 }
 
 function removeCartItem(index){
@@ -91,4 +93,5 @@ function removeCartItem(index){
 
 window.changeCartQty=changeCartQty;
 window.removeCartItem=removeCartItem;
-draw();
+window.addEventListener("storage",event=>{if(event.key==="apnaCart")draw()});
+(async()=>{await syncCartWithCatalog();draw()})();
