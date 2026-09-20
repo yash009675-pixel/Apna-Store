@@ -28,8 +28,12 @@ jobs:
       - name: Validate JavaScript
         run: |
           node --version
-          for file in $(find . -type f -name '*.js' -not -path './.git/*'); do
-            node --check "$file"
+          find . -type f -name '*.js' -not -path './.git/*' -print0 | while IFS= read -r -d '' file; do
+            echo "Checking $file"
+            if ! node --check "$file"; then
+              echo "::error file=$file::JavaScript syntax validation failed"
+              exit 1
+            fi
           done
 
       - name: Setup Pages
