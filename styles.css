@@ -151,3 +151,5 @@
 .apna-ai-chips button:hover{background:rgba(139,92,246,.16)}
 .apna-ai-chips button:focus-visible{outline:2px solid currentColor;outline-offset:2px}
 @media (max-width:520px){.apna-ai-chips{padding-left:10px;padding-right:10px}.apna-ai-chips button{font-size:11px;padding:6px 9px}}
+
+.apna-ai-panel[hidden],.apna-ai-fab[hidden]{display:none!important}
