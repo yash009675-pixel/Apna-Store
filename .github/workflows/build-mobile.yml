@@ -32,6 +32,13 @@ jobs:
           cache: npm
           cache-dependency-path: mobile/package.json
 
+      - name: Setup Java 21
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: gradle
+
       - name: Install Capacitor
         working-directory: mobile
         run: npm install --no-audit --no-fund
@@ -55,7 +62,10 @@ jobs:
 
       - name: Build debug APK
         working-directory: mobile/android
-        run: ./gradlew assembleDebug --no-daemon
+        run: |
+          chmod +x ./gradlew
+          java -version
+          ./gradlew assembleDebug --no-daemon --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v6
