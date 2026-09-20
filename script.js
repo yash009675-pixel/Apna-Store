@@ -6,9 +6,14 @@ function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;",
 async function loadProducts(){
  if(!root)return;
  root.innerHTML='<p class="checkout-note">Loading products…</p>';
- const {data,error}=await apnaSupabase.from("products").select("id,name,price,category_id,categories(name)").eq("status","active").order("created_at",{ascending:true}).limit(4);
- if(error){console.error("Homepage product query failed:",error);root.innerHTML='<p class="checkout-note">Products could not be loaded right now. Please refresh and try again.</p>';return}
- products=(data||[]).map(p=>({...p,type:p.categories?.name||"Apna Store"}));
+ const [productResult,categoryResult]=await Promise.all([
+  apnaSupabase.from("products").select("id,name,price,category_id").eq("status","active").order("created_at",{ascending:true}).limit(4),
+  apnaSupabase.from("categories").select("id,name")
+ ]);
+ if(productResult.error){console.error("Homepage product query failed:",productResult.error);root.innerHTML='<p class="checkout-note">Products could not be loaded right now. Please refresh and try again.</p>';return}
+ if(categoryResult.error)console.warn("Homepage category query failed:",categoryResult.error);
+ const categories=new Map((categoryResult.data||[]).map(c=>[c.id,c.name]));
+ products=(productResult.data||[]).map(p=>({...p,type:categories.get(p.category_id)||"Apna Store"}));
  render();
 }
 function render(){if(!root)return;const w=getWishlist();root.innerHTML=products.length?products.map((p,i)=>{const saved=w.some(x=>x.productId===p.id||x.name===p.name);return '<article class="product-card"><a href="product.html?id='+encodeURIComponent(p.id)+'" style="text-decoration:none;color:inherit"><div class="product-image"><button aria-label="'+(saved?"Remove from wishlist":"Add to wishlist")+'" onclick="event.preventDefault();event.stopPropagation();toggleWish(products['+i+'])">'+(saved?"♥":"♡")+'</button></div><div class="product-info"><h3>'+escapeHtml(p.name)+'</h3><p>'+escapeHtml(p.type)+'</p><p class="price">₹'+Number(p.price).toLocaleString("en-IN")+'</p></div></a><button class="primary-btn add" data-i="'+i+'" style="margin-top:12px;padding:10px 13px;font-size:11px;gap:15px">View options →</button></article>'}).join(""):'<p>No products available yet.</p>';document.querySelectorAll(".add").forEach(b=>b.onclick=()=>location.href="product.html?id="+encodeURIComponent(products[Number(b.dataset.i)].id))}
