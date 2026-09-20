@@ -1,0 +1,1 @@
+(()=>{if(!("serviceWorker" in navigator))return;navigator.serviceWorker.register("sw.js",{scope:"./"}).catch(err=>console.warn("Apna Store PWA registration failed:",err));})();
