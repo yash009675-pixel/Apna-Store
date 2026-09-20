@@ -27,12 +27,15 @@ async function loadProducts(){
  if(productResult.error){console.error("Shop product query failed:",productResult.error);root.innerHTML='<p class="checkout-note">We could not load products right now. Please refresh and try again.</p>';return}
  if(categoryResult.error)console.warn("Shop category query failed:",categoryResult.error);
  if(variantResult.error){console.error("Shop variant query failed:",variantResult.error);root.innerHTML='<p class="checkout-note">We could not load product filters right now. Please refresh and try again.</p>';return}
- categories=categoryResult.data||[];\n const categoryMap=new Map(categories.map(c=>[c.id,c.name]));\n renderCategoryChips();
+ categories=categoryResult.data||[];
+ const categoryMap=new Map(categories.map(c=>[c.id,c.name]));
+ renderCategoryChips();
  variants=variantResult.data||[];
  products=(productResult.data||[]).map(p=>({...p,category:categoryMap.get(p.category_id)||"Apna Store"}));
  buildFilterOptions();syncCategoryChip();render();
 }
-function renderCategoryChips(){const el=document.getElementById("categoryChips");if(!el)return;el.innerHTML='<button class="chip active" data-cat="All">All</button>'+categories.map(c=>'<button class="chip" data-cat="'+escapeHtml(c.name)+'">'+escapeHtml(c.name)+'</button>').join("");el.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{selected=b.dataset.cat;syncCategoryChip();syncUrl();render()});syncCategoryChip()}\nfunction syncCategoryChip(){const valid=["All",...categories.map(c=>c.name)];if(!valid.includes(selected))selected="All";document.querySelectorAll("#categoryChips .chip").forEach(x=>x.classList.toggle("active",x.dataset.cat===selected))}
+function renderCategoryChips(){const el=document.getElementById("categoryChips");if(!el)return;el.innerHTML='<button class="chip active" data-cat="All">All</button>'+categories.map(c=>'<button class="chip" data-cat="'+escapeHtml(c.name)+'">'+escapeHtml(c.name)+'</button>').join("");el.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{selected=b.dataset.cat;syncCategoryChip();syncUrl();render()});syncCategoryChip()}
+function syncCategoryChip(){const valid=["All",...categories.map(c=>c.name)];if(!valid.includes(selected))selected="All";document.querySelectorAll("#categoryChips .chip").forEach(x=>x.classList.toggle("active",x.dataset.cat===selected))}
 function matchingVariantIds(){
  const wantedSize=filters.size,wantedColor=filters.color,wantedStock=filters.stock==="in";
  return new Set(variants.filter(v=>(!wantedSize||v.size===wantedSize)&&(!wantedColor||v.color===wantedColor)&&(!wantedStock||Number(v.stock)>0)).map(v=>v.product_id));
