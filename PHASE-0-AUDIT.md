@@ -77,7 +77,8 @@ Phase 0 will be considered complete only when:
 - Secure order RPC: authenticated-only execution verified; transaction test completed without persistent changes.
 - Real customer signup/profile: verified for the existing customer test account.
 - Latest wishlist implementation: deployed successfully in GitHub Actions.
-- Latest catalog/cache-hardening commits still require their workflow status to be verified before being called production-deployed.
+- Latest catalog/cache-hardening/audit commits still require their workflow status to be verified before being called production-deployed.
+- Supabase Security Advisor currently reports two warnings: the intentionally callable authenticated checkout RPC, and leaked-password protection being disabled; the latter remains a security hardening item to configure before final sign-off.
 - Full browser E2E testing remains intentionally pending for the next browser-testing session.
 
 ## Security reference
