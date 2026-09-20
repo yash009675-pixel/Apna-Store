@@ -51,10 +51,10 @@ async function courierAction(orderId,rows){
   if(!confirm("Create the real Shiprocket shipment with "+(chosen.name||"selected courier")+"?\n\nThis will create a provider order/shipment."))return;
   const created=await callCourier("apna-courier-create",{order_id:orderId,weight_kg:weight,length_cm:length,width_cm:width,height_cm:height,pickup:{name:pickupName,address:pickupAddress,city:pickupCity,state:pickupState,pincode:pickupPincode,phone:pickupPhone}});
   const shipment=created.shipment;if(!shipment?.id)throw new Error("Shipment was not saved locally.");
-  const awb=await callCourier("apna-courier-actions",{action:"assign_awb",shipment_id:shipment.id,courier_id:Number(chosen.id)});
+  const awb=await callCourier("apna-courier-v3",{action:"assign_awb",shipment_id:shipment.id,courier_id:Number(chosen.id)});
   let msg="Shipment created successfully.\n\nCourier: "+(awb.courier_name||chosen.name||"Selected courier")+"\nAWB: "+(awb.shipment?.awb_number||"Assigned");
-  try{const lab=await callCourier("apna-courier-actions",{action:"label",shipment_id:shipment.id});if(lab.shipment?.label_url)msg+="\n\nLabel: "+lab.shipment.label_url;}catch(e){msg+="\n\nLabel generation: "+e.message;}
-  try{const pu=await callCourier("apna-courier-actions",{action:"pickup",shipment_id:shipment.id});if(pu.shipment?.pickup_id)msg+="\nPickup ID: "+pu.shipment.pickup_id;}catch(e){msg+="\nPickup request: "+e.message;}
+  try{const lab=await callCourier("apna-courier-v3",{action:"label",shipment_id:shipment.id});if(lab.shipment?.label_url)msg+="\n\nLabel: "+lab.shipment.label_url;}catch(e){msg+="\n\nLabel generation: "+e.message;}
+  try{const pu=await callCourier("apna-courier-v3",{action:"pickup",shipment_id:shipment.id});if(pu.shipment?.pickup_id)msg+="\nPickup ID: "+pu.shipment.pickup_id;}catch(e){msg+="\nPickup request: "+e.message;}
   alert(msg);load();
  }catch(e){alert(e.message||"Courier operation failed.");}
 }
