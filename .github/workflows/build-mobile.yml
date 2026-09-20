@@ -1,5 +1,7 @@
 name: Build Apna Store Mobile Apps
 
+# Android debug APK + unsigned release AAB candidate. Store signing is kept out of source control.
+
 on:
   workflow_dispatch:
   push:
@@ -20,7 +22,7 @@ permissions:
 
 jobs:
   android:
-    name: Android debug APK
+    name: Android debug APK + release AAB
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -68,6 +70,18 @@ jobs:
           chmod +x ./gradlew
           java -version
           ./gradlew assembleDebug --no-daemon --stacktrace
+
+      - name: Build unsigned release AAB candidate
+        working-directory: mobile/android
+        run: |
+          ./gradlew bundleRelease --no-daemon --stacktrace
+
+      - name: Upload Android release AAB candidate
+        uses: actions/upload-artifact@v6
+        with:
+          name: apna-store-android-release-aab
+          path: mobile/android/app/build/outputs/bundle/release/app-release.aab
+          if-no-files-found: error
 
       - name: Upload APK
         uses: actions/upload-artifact@v6
