@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Become a Seller — Apna Store</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css">
+<style>.seller-onboard{max-width:760px;margin:0 auto;padding:34px 20px 70px}.seller-card{background:#fff;border:1px solid #e5e5e5;border-radius:14px;padding:26px}.seller-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.seller-field{display:flex;flex-direction:column;gap:7px}.seller-field.full{grid-column:1/-1}.seller-field label{font-weight:700;font-size:13px}.seller-field input,.seller-field select,.seller-field textarea{font:inherit;padding:11px 12px;border:1px solid #d8d8d8;border-radius:8px;background:#fff}.seller-field textarea{min-height:120px;resize:vertical}.seller-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.seller-status{margin:18px 0;padding:14px;border-radius:10px;background:#f7f7f7}.seller-error{color:#b42318}.seller-success{color:#087443}@media(max-width:650px){.seller-grid{grid-template-columns:1fr}.seller-field.full{grid-column:auto}.seller-onboard{padding:22px 14px 50px}}</style></head>
+<body><header class="site-header"><a class="logo" href="index.html">APNA<span>STORE</span></a><nav><a href="shop.html">Shop</a><a href="account.html">Account</a></nav></header>
+<main class="seller-onboard"><p class="eyebrow">SELLER ONBOARDING</p><h1>Start selling on Apna Store.</h1><p>Submit your store details for review. Your customer account stays separate until an authorized review is completed.</p>
+<section class="seller-card"><div id="status" class="seller-status">Checking your application…</div>
+<form id="sellerForm" hidden><div class="seller-grid">
+<div class="seller-field"><label>Full name</label><input id="fullName" maxlength="100" required></div>
+<div class="seller-field"><label>Phone</label><input id="phone" inputmode="numeric" maxlength="10" required></div>
+<div class="seller-field"><label>Store name</label><input id="storeName" maxlength="120" required></div>
+<div class="seller-field"><label>Business type</label><select id="businessType" required><option value="">Select</option><option>Individual seller</option><option>Small business</option><option>Brand</option><option>Manufacturer</option><option>Reseller</option></select></div>
+<div class="seller-field full"><label>Store description</label><textarea id="description" maxlength="1000" placeholder="Tell us briefly what you plan to sell."></textarea></div>
+<div class="seller-field"><label>City</label><input id="city" maxlength="80" required></div>
+<div class="seller-field"><label>State</label><input id="state" maxlength="80" required></div>
+</div><div class="seller-actions"><button class="primary-btn" id="submit" type="submit">Submit application →</button><a class="btn" href="account.html">Back to account</a></div></form></section></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="backend/supabase-client.js"></script><script src="seller-onboarding.js?v=20260920-1"></script></body></html>
