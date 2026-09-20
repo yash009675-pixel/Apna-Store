@@ -1,0 +1,8 @@
+{
+  "appId": "com.apnastore.app",
+  "appName": "Apna Store",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  }
+}
