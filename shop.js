@@ -1,10 +1,10 @@
-let products=[];let variants=[];let cloudWishlistIds=new Set();let selected=new URLSearchParams(location.search).get("category")||"All";
+let products=[];let variants=[];let cloudWishlistIds=new Set();let cloudWishlistLoaded=false;let selected=new URLSearchParams(location.search).get("category")||"All";
 const root=document.getElementById("shopProducts"),count=document.getElementById("cartCount");
 const filters={min:"",max:"",size:"",color:"",stock:"all"};
 function readCart(){try{const c=JSON.parse(localStorage.getItem("apnaCart")||"[]");return Array.isArray(c)?c:[]}catch{return[]}}
 function cart(){if(count)count.textContent=readCart().reduce((n,x)=>n+(Number(x.qty)||0),0)}
 function readWishlist(){try{const w=JSON.parse(localStorage.getItem("apnaWishlist")||"[]");return Array.isArray(w)?w:[]}catch{return[]}}
-async function loadCloudWishlist(){cloudWishlistIds=new Set();const {data:sessionData,error:sessionError}=await apnaSupabase.auth.getSession();if(sessionError||!sessionData?.session)return;const {data,error}=await apnaSupabase.from("wishlists").select("product_id").eq("user_id",sessionData.session.user.id);if(error){console.error("Wishlist state load failed:",error);return;}cloudWishlistIds=new Set((data||[]).map(row=>row.product_id));}
+async function loadCloudWishlist(){cloudWishlistIds=new Set();cloudWishlistLoaded=false;const {data:sessionData,error:sessionError}=await apnaSupabase.auth.getSession();if(sessionError||!sessionData?.session)return;cloudWishlistLoaded=true;const {data,error}=await apnaSupabase.from("wishlists").select("product_id").eq("user_id",sessionData.session.user.id);if(error){console.error("Wishlist state load failed:",error);return;}cloudWishlistIds=new Set((data||[]).map(row=>row.product_id));}
 function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function showWishlistMessage(message){let el=document.getElementById("wishlistMessage");if(!el){el=document.createElement("p");el.id="wishlistMessage";el.className="checkout-note";root.parentElement.insertBefore(el,root)}el.textContent=message;clearTimeout(showWishlistMessage.timer);showWishlistMessage.timer=setTimeout(()=>{el.textContent=""},3000)}
 function parseFilters(){const p=new URLSearchParams(location.search);filters.min=p.get("min")||"";filters.max=p.get("max")||"";filters.size=p.get("size")||"";filters.color=p.get("color")||"";filters.stock=p.get("stock")==="in"?"in":"all"}
@@ -49,7 +49,7 @@ function render(){
  const s=document.getElementById("sort").value;
  if(s==="low")list.sort((a,b)=>Number(a.price)-Number(b.price));if(s==="high")list.sort((a,b)=>Number(b.price)-Number(a.price));
  const w=readWishlist();
- root.innerHTML=list.length?list.map(p=>{const saved=cloudWishlistIds.has(p.id)||(!cloudWishlistIds.size&&w.some(item=>item.productId===p.id||item.name===p.name));return '<article class="product-card"><div class="product-image"><button class="wishlist-toggle" aria-label="'+(saved?"Remove from wishlist":"Add to wishlist")+'" title="'+(saved?"Remove from wishlist":"Add to wishlist")+'" data-product-id="'+p.id+'">'+(saved?"♥":"♡")+'</button></div><div class="product-info"><a href="product.html?id='+encodeURIComponent(p.id)+'" style="text-decoration:none;color:inherit"><h3>'+escapeHtml(p.name)+'</h3><p>'+escapeHtml(p.category)+'</p><p class="price">₹'+Number(p.price).toLocaleString("en-IN")+'</p></a><button class="primary-btn add" data-view-product-id="'+p.id+'" style="margin-top:12px;padding:10px 13px;font-size:11px;gap:15px">View options →</button></div></article>'}).join(""):'<p>No products match these filters.</p>';
+ root.innerHTML=list.length?list.map(p=>{const saved=cloudWishlistLoaded?cloudWishlistIds.has(p.id):w.some(item=>item.productId===p.id||item.name===p.name);return '<article class="product-card"><div class="product-image"><button class="wishlist-toggle" aria-label="'+(saved?"Remove from wishlist":"Add to wishlist")+'" title="'+(saved?"Remove from wishlist":"Add to wishlist")+'" data-product-id="'+p.id+'">'+(saved?"♥":"♡")+'</button></div><div class="product-info"><a href="product.html?id='+encodeURIComponent(p.id)+'" style="text-decoration:none;color:inherit"><h3>'+escapeHtml(p.name)+'</h3><p>'+escapeHtml(p.category)+'</p><p class="price">₹'+Number(p.price).toLocaleString("en-IN")+'</p></a><button class="primary-btn add" data-view-product-id="'+p.id+'" style="margin-top:12px;padding:10px 13px;font-size:11px;gap:15px">View options →</button></div></article>'}).join(""):'<p>No products match these filters.</p>';
  root.querySelectorAll(".wishlist-toggle").forEach(b=>b.addEventListener("click",()=>wishlist(b.dataset.productId)));
  root.querySelectorAll("[data-view-product-id]").forEach(b=>b.addEventListener("click",()=>location.href="product.html?id="+encodeURIComponent(b.dataset.viewProductId)));
  const resultCount=document.getElementById("filterResultCount");if(resultCount)resultCount.textContent=list.length+" product"+(list.length===1?"":"s");
@@ -66,7 +66,7 @@ async function wishlist(id){
    if(existing)cloudWishlistIds.delete(p.id);else cloudWishlistIds.add(p.id);
    showWishlistMessage(existing?"Removed from your wishlist.":"Saved to your wishlist.");
   }else{
-   cloudWishlistIds=new Set();
+   cloudWishlistLoaded=false;cloudWishlistIds=new Set();
    const w=readWishlist(),at=w.findIndex(x=>x.productId===p.id||x.name===p.name);if(at>=0){w.splice(at,1);showWishlistMessage("Removed from your wishlist.")}else{w.push({name:p.name,category:p.category,price:Number(p.price),productId:p.id});showWishlistMessage("Saved to your wishlist.")}localStorage.setItem("apnaWishlist",JSON.stringify(w));
   }
   render();
