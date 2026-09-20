@@ -44,4 +44,9 @@ async function wishlist(id){
  finally{const current=root.querySelector('.wishlist-toggle[data-product-id="'+id+'"]');if(current)current.disabled=false}
 }
 document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active"));b.classList.add("active");selected=b.dataset.cat;history.replaceState(null,"",selected==="All"?"shop.html":"shop.html?category="+encodeURIComponent(selected));render()});
-document.getElementById("sort").onchange=render;document.getElementById("searchBtn")?.addEventListener("click",()=>location.href="search.html");loadProducts();cart();
+document.getElementById("sort").onchange=()=>{syncUrl();render()};
+function syncUrl(){const params=new URLSearchParams(location.search);if(selected==="All")params.delete("category");else params.set("category",selected);const sort=document.getElementById("sort").value;if(sort==="default")params.delete("sort");else params.set("sort",sort);const query=params.toString();history.replaceState({},"",query?"shop.html?"+query:"shop.html")}
+window.addEventListener("popstate",()=>{const params=new URLSearchParams(location.search);selected=params.get("category")||"All";const sort=params.get("sort")||"default";document.getElementById("sort").value=["default","low","high"].includes(sort)?sort:"default";syncCategoryChip();render()});
+document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{selected=b.dataset.cat;syncCategoryChip();syncUrl();render()});
+document.getElementById("searchBtn")?.addEventListener("click",()=>location.href="search.html");
+const initialSort=new URLSearchParams(location.search).get("sort")||"default";document.getElementById("sort").value=["default","low","high"].includes(initialSort)?initialSort:"default";syncCategoryChip();loadProducts();cart();
