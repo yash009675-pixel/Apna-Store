@@ -9,7 +9,7 @@ function renderProduct(product,variants=[]){
  const finalSizes=[...new Set(available.map(v=>v.size).filter(Boolean))];
  const finalColors=[...new Set(available.map(v=>v.color).filter(Boolean))];
  if(!finalSizes.length||!finalColors.length)return showError("This product currently has no available variants.");
- let size=finalSizes[0],color=finalColors[0],qty=1,variantId=null;
+ let size=available[0].size||"",color=available[0].color||"",qty=1,variantId=null;
  function findVariant(){const v=available.find(x=>(x.size||"")===size&&(x.color||"")===color);variantId=v?.id||null}
  findVariant();
  el.innerHTML='<div class="product-visual"><div class="product-image product-large"><span>APNA<br>EDIT</span></div></div><div class="product-details"><p class="eyebrow">'+esc(product.category||"PRODUCT").toUpperCase()+'</p><h1>'+esc(product.name)+'</h1><p class="detail-price">₹'+money(product.price)+'</p><p class="detail-desc">'+esc(product.description||"A carefully selected everyday product from Apna Store.")+'</p><div class="option"><b>Size</b><div class="option-list">'+finalSizes.map((x,j)=>'<button class="'+(j===0?"selected":"")+'" data-size="'+esc(x)+'">'+esc(x)+'</button>').join("")+'</div></div><div class="option"><b>Color: <span id="colorName">'+esc(color)+'</span></b><div class="option-list">'+finalColors.map((x,j)=>'<button class="swatch '+(j===0?"selected":"")+'" data-color="'+esc(x)+'">'+esc(x)+'</button>').join("")+'</div></div><div class="buy-row"><div class="qty"><button id="minus">−</button><span id="qty">1</span><button id="plus">+</button></div><button class="primary-btn" id="add">Add to bag <span>→</span></button></div><p id="stockInfo" class="product-note"></p><p class="product-note">✓ Secure payment &nbsp; ✓ Easy returns &nbsp; ✓ Delivery across India</p></div>';
@@ -18,6 +18,8 @@ function renderProduct(product,variants=[]){
  document.querySelectorAll("[data-color]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-color]").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");color=b.dataset.color;document.getElementById("colorName").textContent=color;refreshOptions()});
  document.getElementById("plus").onclick=()=>{const stock=available.find(x=>x.id===variantId)?.stock;if(!stock){alert("Please select an available size and color.");return}if(qty>=Number(stock)){alert("Only "+Number(stock)+" item(s) are available for this variant.");return}qty++;document.getElementById("qty").textContent=qty};
  document.getElementById("minus").onclick=()=>{if(qty>1)qty--;document.getElementById("qty").textContent=qty};
+ document.querySelectorAll("[data-size]").forEach(b=>{b.disabled=!available.some(v=>(v.size||"")===b.dataset.size);});
+ document.querySelectorAll("[data-color]").forEach(b=>{b.disabled=!available.some(v=>(v.color||"")===b.dataset.color);});
  refreshOptions();
  document.getElementById("add").onclick=()=>{if(!variantId){alert("Please select an available size and color.");return}const cart=JSON.parse(localStorage.getItem("apnaCart")||"[]"),key=product.id+"-"+size+"-"+color,existing=cart.find(x=>x.key===key);if(existing)existing.qty+=qty;else cart.push({key,productId:product.id,variantId,name:product.name,category:product.category||"Product",price:Number(product.price),size,color,qty});localStorage.setItem("apnaCart",JSON.stringify(cart));location.href="cart.html"};
 }
