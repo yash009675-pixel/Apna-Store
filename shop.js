@@ -19,19 +19,22 @@ function buildFilterOptions(){
 }
 async function loadProducts(){
  root.innerHTML='<p class="checkout-note">Loading Apna products…</p>';
- const [productResult,categoryResult,variantResult]=await Promise.all([
+ const [productResult,categoryResult,variantResult,imageResult]=await Promise.all([
   apnaSupabase.from("products").select("id,name,slug,description,price,category_id").eq("status","active").order("created_at",{ascending:true}),
   apnaSupabase.from("categories").select("id,name,is_active,sort_order").eq("is_active",true).order("sort_order").order("name"),
-  apnaSupabase.from("product_variants").select("product_id,size,color,stock")
+  apnaSupabase.from("product_variants").select("product_id,size,color,stock"),
+  apnaSupabase.from("product_images").select("product_id,storage_path,is_primary,sort_order").order("is_primary",{ascending:false}).order("sort_order")
  ]);
  if(productResult.error){console.error("Shop product query failed:",productResult.error);root.innerHTML='<p class="checkout-note">We could not load products right now. Please refresh and try again.</p>';return}
  if(categoryResult.error)console.warn("Shop category query failed:",categoryResult.error);
  if(variantResult.error){console.error("Shop variant query failed:",variantResult.error);root.innerHTML='<p class="checkout-note">We could not load product filters right now. Please refresh and try again.</p>';return}
+ if(imageResult.error)console.error("Shop image query failed:",imageResult.error);
  categories=categoryResult.data||[];
  const categoryMap=new Map(categories.map(c=>[c.id,c.name]));
  renderCategoryChips();
  variants=variantResult.data||[];
- products=(productResult.data||[]).map(p=>({...p,category:categoryMap.get(p.category_id)||"Apna Store"}));
+ const imageMap=new Map();(imageResult.data||[]).forEach(i=>{if(!imageMap.has(i.product_id)){const u=apnaSupabase.storage.from("product-images").getPublicUrl(i.storage_path).data.publicUrl;imageMap.set(i.product_id,u);}});
+ products=(productResult.data||[]).map(p=>({...p,category:categoryMap.get(p.category_id)||"Apna Store",image:imageMap.get(p.id)||null}));
  buildFilterOptions();syncCategoryChip();render();
 }
 function renderCategoryChips(){const el=document.getElementById("categoryChips");if(!el)return;el.innerHTML='<button class="chip active" data-cat="All">All</button>'+categories.map(c=>'<button class="chip" data-cat="'+escapeHtml(c.name)+'">'+escapeHtml(c.name)+'</button>').join("");el.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{selected=b.dataset.cat;syncCategoryChip();syncUrl();render()});syncCategoryChip()}
@@ -52,7 +55,7 @@ function render(){
  const s=document.getElementById("sort").value;
  if(s==="low")list.sort((a,b)=>Number(a.price)-Number(b.price));if(s==="high")list.sort((a,b)=>Number(b.price)-Number(a.price));
  const w=readWishlist();
- root.innerHTML=list.length?list.map(p=>{const saved=cloudWishlistLoaded?cloudWishlistIds.has(p.id):w.some(item=>item.productId===p.id||item.name===p.name);return '<article class="product-card"><div class="product-image"><button class="wishlist-toggle" aria-label="'+(saved?"Remove from wishlist":"Add to wishlist")+'" title="'+(saved?"Remove from wishlist":"Add to wishlist")+'" data-product-id="'+p.id+'">'+(saved?"♥":"♡")+'</button></div><div class="product-info"><a href="product.html?id='+encodeURIComponent(p.id)+'" style="text-decoration:none;color:inherit"><h3>'+escapeHtml(p.name)+'</h3><p>'+escapeHtml(p.category)+'</p><p class="price">₹'+Number(p.price).toLocaleString("en-IN")+'</p></a><button class="primary-btn add" data-view-product-id="'+p.id+'" style="margin-top:12px;padding:10px 13px;font-size:11px;gap:15px">View options →</button></div></article>'}).join(""):'<p>No products match these filters.</p>';
+ root.innerHTML=list.length?list.map(p=>{const saved=cloudWishlistLoaded?cloudWishlistIds.has(p.id):w.some(item=>item.productId===p.id||item.name===p.name);return '<article class="product-card"><div class="product-image"'+(p.image?' style="background-image:url(\''+escapeHtml(p.image)+'\');background-size:cover;background-position:center"':'')+'><button class="wishlist-toggle" aria-label="'+(saved?"Remove from wishlist":"Add to wishlist")+'" title="'+(saved?"Remove from wishlist":"Add to wishlist")+'" data-product-id="'+p.id+'">'+(saved?"♥":"♡")+'</button></div><div class="product-info"><a href="product.html?id='+encodeURIComponent(p.id)+'" style="text-decoration:none;color:inherit"><h3>'+escapeHtml(p.name)+'</h3><p>'+escapeHtml(p.category)+'</p><p class="price">₹'+Number(p.price).toLocaleString("en-IN")+'</p></a><button class="primary-btn add" data-view-product-id="'+p.id+'" style="margin-top:12px;padding:10px 13px;font-size:11px;gap:15px">View options →</button></div></article>'}).join(""):'<p>No products match these filters.</p>';
  root.querySelectorAll(".wishlist-toggle").forEach(b=>b.addEventListener("click",()=>wishlist(b.dataset.productId)));
  root.querySelectorAll("[data-view-product-id]").forEach(b=>b.addEventListener("click",()=>location.href="product.html?id="+encodeURIComponent(b.dataset.viewProductId)));
  const resultCount=document.getElementById("filterResultCount");if(resultCount)resultCount.textContent=list.length+" product"+(list.length===1?"":"s");
