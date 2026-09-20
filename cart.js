@@ -15,6 +15,28 @@ function readCart(){
   }
 }
 function saveCart(cart){localStorage.setItem("apnaCart",JSON.stringify(cart));}
+async function syncCartWithCatalog(){
+  const cart=readCart(); if(!cart.length||typeof apnaSupabase==="undefined") return;
+  const ids=[...new Set(cart.map(x=>x.productId).filter(Boolean))];
+  if(!ids.length)return;
+  const [{data:products,error:pe},{data:variants,error:ve}]=await Promise.all([
+    apnaSupabase.from("products").select("id,name,price,category_id,status").in("id",ids),
+    apnaSupabase.from("product_variants").select("id,product_id,size,color,stock").in("product_id",ids)
+  ]);
+  if(pe||ve){console.error("Cart catalog sync failed:",pe||ve);return;}
+  const productMap=new Map((products||[]).map(p=>[p.id,p]));
+  const variantMap=new Map((variants||[]).map(v=>[v.id,v]));
+  const next=[];
+  for(const item of cart){
+    const product=productMap.get(item.productId),variant=variantMap.get(item.variantId);
+    if(!product||product.status!=="active"||!variant||variant.product_id!==item.productId||Number(variant.stock)<=0) continue;
+    const maxStock=Number(variant.stock);
+    const qty=Math.min(Math.max(1,Number(item.qty)||1),maxStock);
+    next.push({...item,name:product.name,category:item.category||"Apna Store",price:Number(product.price),size:variant.size||"",color:variant.color||"",qty});
+  }
+  saveCart(next);
+}
+
 function money(value){return "₹"+Number(value||0).toLocaleString("en-IN");}
 function escapeHtml(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 
@@ -53,10 +75,10 @@ async function changeCartQty(index,direction){
       return;
     }
   }
-  item.qty+=direction;
+  item.qty=Math.max(1,item.qty+direction);
   if(item.qty<=0)cart.splice(index,1);
   saveCart(cart);
-  draw();
+  (async()=>{await syncCartWithCatalog();draw()})();
 }
 
 function removeCartItem(index){
