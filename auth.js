@@ -14,7 +14,8 @@ async function migrateGuestWishlist(userId){
     const {error:insertError}=await apnaSupabase.from("wishlists").upsert(rows,{onConflict:"user_id,product_id",ignoreDuplicates:true});
     if(insertError)throw insertError;
   }
-  localStorage.removeItem("apnaWishlist");
+  const unsynced=saved.filter(item=>{const id=String(item.productId||"");return !valid.has(id);});
+  if(unsynced.length)localStorage.setItem("apnaWishlist",JSON.stringify(unsynced));else localStorage.removeItem("apnaWishlist");
   return true;
 }
 function getPostAuthDestination(){const next=sessionStorage.getItem("apnaReturnAfterAuth");if(next==="checkout.html"||next==="account.html"){sessionStorage.removeItem("apnaReturnAfterAuth");return next}return "account.html"}
