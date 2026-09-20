@@ -11,16 +11,21 @@ function scoreProduct(p,term){
  if(!term)return 0;
  const fields=[[normalize(p.name),12],[normalize(p.category),8],[normalize(p.slug),6],[normalize(p.description),3]];
  const tokens=term.split(" ").filter(Boolean);
- const expanded=[...tokens,...tokens.flatMap(token=>SEARCH_SYNONYMS[token]||[])];
  let score=0;
- for(const token of expanded){
-  let hit=false;
-  for(const [value,weight] of fields){
-   if(value===token){score+=weight*3;hit=true}
-   else if(value.startsWith(token)){score+=weight*2;hit=true}
-   else if(value.includes(token)){score+=weight;hit=true}
+ for(const token of tokens){
+  const alternatives=[token,...(SEARCH_SYNONYMS[token]||[])];
+  let best=0;
+  for(const alternative of alternatives){
+   let candidate=0;
+   for(const [value,weight] of fields){
+    if(value===alternative)candidate=Math.max(candidate,weight*3);
+    else if(value.startsWith(alternative))candidate=Math.max(candidate,weight*2);
+    else if(value.includes(alternative))candidate=Math.max(candidate,weight);
+   }
+   best=Math.max(best,candidate);
   }
-  if(!hit)return 0;
+  if(!best)return 0;
+  score+=best;
  }
  const name=normalize(p.name),category=normalize(p.category);
  if(name===term)score+=30;else if(name.startsWith(term))score+=15;
