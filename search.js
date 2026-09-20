@@ -4,14 +4,18 @@ q.value=new URLSearchParams(location.search).get("q")||"";
 function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 async function loadProducts(){
  summary.textContent="Loading products…";
- const {data,error}=await apnaSupabase.from("products").select("id,name,slug,description,price,category_id,categories(name)").eq("status","active").order("created_at",{ascending:true});
- if(error){
-  console.error("Search product query failed:",error);
+ const [{data,error},{data:categories,error:categoryError}]=await Promise.all([
+  apnaSupabase.from("products").select("id,name,slug,description,price,category_id").eq("status","active").order("created_at",{ascending:true}),
+  apnaSupabase.from("categories").select("id,name")
+ ]);
+ if(error||categoryError){
+  console.error("Search product query failed:",error||categoryError);
   summary.textContent="Products could not be loaded. Please refresh and try again.";
   r.innerHTML="";
   return;
  }
- products=(data||[]).map(p=>({...p,category:p.categories?.name||"Apna Store"}));
+ const categoryMap=new Map((categories||[]).map(c=>[c.id,c.name]));
+ products=(data||[]).map(p=>({...p,category:categoryMap.get(p.category_id)||"Apna Store"}));
  render();
 }
 function render(){
