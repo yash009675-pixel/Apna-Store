@@ -28,7 +28,7 @@ Deno.serve(async(req:Request)=>{
 
   let user:any={signed_in:false};
   if(token)try{
-   const ar=await fetch(`${url}/auth/v1/user`,{headers:{apikey:key,Authorization:`Bearer ${token}`});
+   const ar=await fetch(`${url}/auth/v1/user`,{headers:{apikey:key,Authorization:`Bearer ${token}`}});
    if(ar.ok){const u=await ar.json(), ps=await get(`/rest/v1/profiles?select=id,full_name,role&id=eq.${encodeURIComponent(u.id)}&limit=1`,key,token), p=ps[0]||{};
     user={signed_in:true,user_id:u.id,name:p.full_name||u.user_metadata?.full_name||"",role:p.role||"customer"};
     if(user.role==="customer"&&/order|delivery|return|refund|cancel|payment/i.test(message)){
