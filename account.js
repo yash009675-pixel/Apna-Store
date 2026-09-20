@@ -24,7 +24,7 @@ async function loadAccount(){
  const [o,w]=await Promise.all([apnaSupabase.from("orders").select("id",{count:"exact",head:true}).eq("user_id",session.user.id),apnaSupabase.from("wishlists").select("id",{count:"exact",head:true}).eq("user_id",session.user.id)]);
  if(o.error)throw o.error;if(w.error)throw w.error;$("orderCount").textContent=o.count||0;$("wishCount").textContent=w.count||0;
  $("accountNote").textContent="Your orders, wishlist and saved addresses are connected to your Apna Store account.";
- $("accountActions").innerHTML='<a class="primary-btn" href="seller-onboarding.html">Become a seller →</a><button class="primary-btn" id="signOut" type="button">Sign out →</button><a href="shop.html">Continue shopping</a>';
+ $("accountActions").innerHTML='<a class="primary-btn" href="seller-onboarding.html">Become a seller →</a>'+((p.data?.role==="admin")?'<a class="primary-btn" href="admin.html">Admin Panel →</a>':"")+'<button class="primary-btn" id="signOut" type="button">Sign out →</button><a href="shop.html">Continue shopping</a>';
  $("signOut").onclick=async()=>{const s=await apnaSupabase.auth.signOut();if(s.error)msg("accountNote",s.error.message);else location.href="index.html"};await loadAddresses();
 }
 $("profileForm").addEventListener("submit",async e=>{e.preventDefault();const full_name=$("profileName").value.trim();if(!full_name){msg("profileMessage","Please enter your name.");return}msg("profileMessage","Saving…");const r=await apnaSupabase.from("profiles").update({full_name}).eq("id",session.user.id);msg("profileMessage",r.error?r.error.message:"Profile saved.");if(!r.error)$("accountTitle").textContent="Welcome, "+esc(full_name)+"."});
