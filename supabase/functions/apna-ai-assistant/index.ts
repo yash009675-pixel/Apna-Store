@@ -10,7 +10,7 @@ Deno.serve(async(req:Request)=>{
  if(req.method==="OPTIONS")return new Response("ok",{headers:corsHeaders});
  if(req.method!=="POST")return json({error:"POST required."},405);
  if(!allowed(req))return json({error:"Too many AI requests. Please try again in a minute."},429);
- const openai=Deno.env.get("OPENAI_API_KEY"), url=Deno.env.get("SUPABASE_URL"), key=Deno.env.get("SUPABASE_PUBLISHABLE_KEY")||Deno.env.get("SUPABASE_ANON_KEY");
+ const openai=Deno.env.get("OPENAI_API_KEY")||Deno.env.get("openai_api_key"), url=Deno.env.get("SUPABASE_URL"), key=Deno.env.get("SUPABASE_PUBLISHABLE_KEY")||Deno.env.get("SUPABASE_ANON_KEY");
  if(!openai||!url||!key)return json({error:"AI service is not configured."},503);
  try{
   const b=await req.json(), message=clean(b?.message), page=clean(b?.page,80); if(!message)return json({error:"Message is required."},400);
