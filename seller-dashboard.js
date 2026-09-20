@@ -7,7 +7,7 @@ async function bootSeller(){
  const {data:profile,error:profileError}=await apnaSupabase.from("profiles").select("id,full_name,role").eq("id",user.id).single();
  if(profileError||!profile||!["seller","admin"].includes(profile.role)){location.href="account.html";return;}
  $("sellerTitle").textContent=(profile.full_name||user.email||"Seller")+" — Dashboard";
- $("sellerSubtitle").textContent=profile.role==="admin"?"Admin catalog overview":"Manage your Apna Store catalog and inventory.";
+ $("sellerSubtitle").textContent=profile.role==="admin"?"Admin catalog overview":"Manage your Apna Store catalog and inventory.";if(profile.role==="admin")$("adminLink").hidden=false;
  const m=await apnaSupabase.rpc("get_seller_dashboard_metrics");
  if(m.error){$("recentProducts").innerHTML='<div class="seller-message seller-error">Could not load dashboard metrics.</div>';return;}
  const metrics=m.data||{};
