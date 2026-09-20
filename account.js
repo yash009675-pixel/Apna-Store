@@ -21,8 +21,8 @@ async function loadAccount(){
  const name=p.data?.full_name||session.user.user_metadata?.full_name||session.user.email;
  $("accountTitle").textContent="Welcome, "+esc(name)+".";$("accountStatus").textContent=session.user.email||"";
  $("profilePanel").hidden=false;$("addressPanel").hidden=false;$("profileName").value=p.data?.full_name||"";$("profileEmail").value=session.user.email||"";
- const [o,w]=await Promise.all([apnaSupabase.from("orders").select("id",{count:"exact",head:true}).eq("user_id",session.user.id),apnaSupabase.from("wishlists").select("id",{count:"exact",head:true}).eq("user_id",session.user.id)]);
- if(o.error)throw o.error;if(w.error)throw w.error;$("orderCount").textContent=o.count||0;$("wishCount").textContent=w.count||0;
+ const [o,w,n]=await Promise.all([apnaSupabase.from("orders").select("id",{count:"exact",head:true}).eq("user_id",session.user.id),apnaSupabase.from("wishlists").select("id",{count:"exact",head:true}).eq("user_id",session.user.id),apnaSupabase.from("notifications").select("id",{count:"exact",head:true}).eq("user_id",session.user.id).eq("is_read",false)]);
+ if(o.error)throw o.error;if(w.error)throw w.error;if(n.error)throw n.error;$("orderCount").textContent=o.count||0;$("wishCount").textContent=w.count||0;$("notificationCount").textContent=n.count||0;
  $("accountNote").textContent="Your orders, wishlist and saved addresses are connected to your Apna Store account.";
  $("accountActions").innerHTML='<a class="primary-btn" href="seller-onboarding.html">Become a seller →</a>'+((p.data?.role==="admin")?'<a class="primary-btn" href="admin.html">Admin Panel →</a>':"")+'<button class="primary-btn" id="signOut" type="button">Sign out →</button><a href="shop.html">Continue shopping</a>';
  $("signOut").onclick=async()=>{const s=await apnaSupabase.auth.signOut();if(s.error)msg("accountNote",s.error.message);else location.href="index.html"};await loadAddresses();
