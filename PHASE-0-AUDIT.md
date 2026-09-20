@@ -64,7 +64,7 @@ Phase 0 will be considered complete only when:
 
 1. The latest GitHub commit deploys successfully.
 2. All JavaScript passes CI syntax validation.
-3. Supabase RLS/security checks pass (automated smoke suite passes; one remaining Security Advisor warning is the intentionally callable checkout RPC).
+3. Supabase RLS/security checks pass, with only intentional/accepted findings remaining; the Free-plan leaked-password-protection limitation must be documented and must not be misreported as enabled.
 4. Customer auth/profile creation is verified.
 5. Seller/admin authorization is verified with test accounts.
 6. No known broken core customer flow remains.
@@ -78,7 +78,7 @@ Phase 0 will be considered complete only when:
 - Real customer signup/profile: verified for the existing customer test account.
 - Latest wishlist implementation: deployed successfully in GitHub Actions.
 - Latest catalog/cache-hardening/audit commits still require their workflow status to be verified before being called production-deployed.
-- Supabase Security Advisor currently reports two warnings: the intentionally callable authenticated checkout RPC, and leaked-password protection being disabled; the latter remains a security hardening item to configure before final sign-off.
+- Supabase Security Advisor currently reports two warnings: the intentionally callable authenticated checkout RPC, and leaked-password protection being disabled. Current Supabase pricing/docs confirm leaked password protection is not included on the Free plan, so this is a documented plan limitation rather than an implementation change we can safely fake or bypass. citeturn0search0turn0search1
 - Full browser E2E testing remains intentionally pending for the next browser-testing session.
 
 ## Security reference
