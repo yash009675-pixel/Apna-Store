@@ -8,13 +8,13 @@ async function uploadSelectedImages(){
   if(file.size>5242880){$("msg").textContent="Each image must be 5 MB or smaller.";ok=false;continue;}
   const ext=file.name.split(".").pop().toLowerCase();
   const path=user.id+"/"+editId+"/"+crypto.randomUUID()+"."+ext;
-  const up=await apnaSupabase.storage.from("product-images").upload(path,file,{contentType:file.type});
-  if(up.error){$("msg").textContent=up.error.message;ok=false;continue;}
+  const up=await apnaSupabase.storage.from("product-images").upload(path,file,{cacheControl:"3600",upsert:false,contentType:file.type});
+  if(up.error){console.error("Product image upload failed:",up.error);$("msg").textContent="Image upload failed: "+(up.error.message||"Please try again.");ok=false;continue;}
   const {data:imgs}=await apnaSupabase.from("product_images").select("id").eq("product_id",editId);
   const ins=await apnaSupabase.from("product_images").insert({product_id:editId,storage_path:path,alt_text:$("name").value.trim(),sort_order:(imgs||[]).length,is_primary:(imgs||[]).length===0});
   if(ins.error){await apnaSupabase.storage.from("product-images").remove([path]);$("msg").textContent=ins.error.message;ok=false;}
  }
- pendingImageFiles=[];$("images").value="";await loadImages();return ok;
+ if(ok){pendingImageFiles=[];$("images").value="";}await loadImages();return ok;
 }
 
 async function loadImages(){
