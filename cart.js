@@ -80,7 +80,7 @@ async function changeCartQty(index,direction){
   item.qty=Math.max(1,item.qty+direction);
   saveCart(normalizeCart(cart));
   await syncCartWithCatalog();
-  draw();
+  (async()=>{await syncCartWithCatalog();draw()})();
 }
 
 function removeCartItem(index){
