@@ -25,6 +25,7 @@ Stabilize the existing application and establish a safe foundation before expand
 - [x] JavaScript syntax validation added to deployment workflow.
 - [x] Customer catalog uses the live Supabase product/category API; no fallback product array remains in the active shop loader.
 - [ ] Full browser end-to-end QA — intentionally scheduled for the next browser-testing session.
+- [ ] Seller/admin authorization test-account verification — pending until dedicated test identities are available.
 - [x] Version-controlled Supabase migration workflow documentation added; historical migrations were not fabricated.
 
 ### Database
@@ -55,7 +56,7 @@ Stabilize the existing application and establish a safe foundation before expand
 - [x] Pages deployment is triggered by pushes to `main`.
 - [x] Workflow now blocks deployment when JavaScript syntax is invalid.
 - [x] Customer-page script cache versions have been standardized in source.
-- [ ] Verify the latest pending deployment(s) succeed in GitHub Actions.
+- [x] Verify the latest Phase 0 audit deployment succeeds in GitHub Actions (commit `eb2c1c0d6b323a046bb044ab99b9d9117389ae7d`, Pages run #177).
 - [ ] Add a staging/preview workflow before production changes when the marketplace grows.
 
 ## Phase 0 exit criteria
