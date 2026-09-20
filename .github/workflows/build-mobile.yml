@@ -39,7 +39,10 @@ jobs:
 
       - name: Install Capacitor
         working-directory: mobile
-        run: npm install --no-audit --no-fund
+        run: |
+          npm --version
+          node --version
+          npm install --no-audit --no-fund --loglevel=error
 
       - name: Prepare bundled web app
         run: |
@@ -74,6 +77,7 @@ jobs:
 
   ios-project:
     name: iOS project package
+    if: github.event_name == 'workflow_dispatch'
     runs-on: macos-latest
     steps:
       - name: Checkout
@@ -83,8 +87,6 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 22
-          cache: npm
-          cache-dependency-path: mobile/package.json
 
       - name: Install Capacitor
         working-directory: mobile
