@@ -78,7 +78,6 @@ jobs:
 
   ios-project:
     name: iOS project package
-    if: github.event_name == 'workflow_dispatch'
     runs-on: macos-latest
     steps:
       - name: Checkout
