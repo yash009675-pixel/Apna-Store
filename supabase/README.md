@@ -37,6 +37,7 @@ The connected project currently has the following migration history:
 - 20260920131606 — phase23_marketing_campaigns
 - 20260920131705 — phase23_marketing_cta_validation
 - 20260920132148 — phase24_notifications
+- 20260920185900 — phase24_notification_security
 
 When a future database change is made, add the new migration file to the repository and verify that the live migration history contains the matching change.
 
