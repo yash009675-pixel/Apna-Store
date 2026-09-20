@@ -1,4 +1,4 @@
-let products=[];let variants=[];let cloudWishlistIds=new Set();let cloudWishlistLoaded=false;let selected=new URLSearchParams(location.search).get("category")||"All";
+let products=[];let variants=[];let categories=[];let cloudWishlistIds=new Set();let cloudWishlistLoaded=false;let selected=new URLSearchParams(location.search).get("category")||"All";
 const root=document.getElementById("shopProducts"),count=document.getElementById("cartCount");
 const filters={min:"",max:"",size:"",color:"",stock:"all"};
 function readCart(){try{const c=JSON.parse(localStorage.getItem("apnaCart")||"[]");return Array.isArray(c)?c:[]}catch{return[]}}
@@ -21,18 +21,18 @@ async function loadProducts(){
  root.innerHTML='<p class="checkout-note">Loading Apna products…</p>';
  const [productResult,categoryResult,variantResult]=await Promise.all([
   apnaSupabase.from("products").select("id,name,slug,description,price,category_id").eq("status","active").order("created_at",{ascending:true}),
-  apnaSupabase.from("categories").select("id,name"),
+  apnaSupabase.from("categories").select("id,name,is_active,sort_order").eq("is_active",true).order("sort_order").order("name"),
   apnaSupabase.from("product_variants").select("product_id,size,color,stock")
  ]);
  if(productResult.error){console.error("Shop product query failed:",productResult.error);root.innerHTML='<p class="checkout-note">We could not load products right now. Please refresh and try again.</p>';return}
  if(categoryResult.error)console.warn("Shop category query failed:",categoryResult.error);
  if(variantResult.error){console.error("Shop variant query failed:",variantResult.error);root.innerHTML='<p class="checkout-note">We could not load product filters right now. Please refresh and try again.</p>';return}
- const categories=new Map((categoryResult.data||[]).map(c=>[c.id,c.name]));
+ categories=categoryResult.data||[];\n const categoryMap=new Map(categories.map(c=>[c.id,c.name]));\n renderCategoryChips();
  variants=variantResult.data||[];
- products=(productResult.data||[]).map(p=>({...p,category:categories.get(p.category_id)||"Apna Store"}));
+ products=(productResult.data||[]).map(p=>({...p,category:categoryMap.get(p.category_id)||"Apna Store"}));
  buildFilterOptions();syncCategoryChip();render();
 }
-function syncCategoryChip(){const valid=["All","Women","Men","Kids","Footwear"];if(!valid.includes(selected))selected="All";document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("active",x.dataset.cat===selected))}
+function renderCategoryChips(){const el=document.getElementById("categoryChips");if(!el)return;el.innerHTML='<button class="chip active" data-cat="All">All</button>'+categories.map(c=>'<button class="chip" data-cat="'+escapeHtml(c.name)+'">'+escapeHtml(c.name)+'</button>').join("");el.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{selected=b.dataset.cat;syncCategoryChip();syncUrl();render()});syncCategoryChip()}\nfunction syncCategoryChip(){const valid=["All",...categories.map(c=>c.name)];if(!valid.includes(selected))selected="All";document.querySelectorAll("#categoryChips .chip").forEach(x=>x.classList.toggle("active",x.dataset.cat===selected))}
 function matchingVariantIds(){
  const wantedSize=filters.size,wantedColor=filters.color,wantedStock=filters.stock==="in";
  return new Set(variants.filter(v=>(!wantedSize||v.size===wantedSize)&&(!wantedColor||v.color===wantedColor)&&(!wantedStock||Number(v.stock)>0)).map(v=>v.product_id));
@@ -85,7 +85,7 @@ function applyFilters(){filters.min=document.getElementById("minPrice").value.tr
 function clearFilters(){filters.min=filters.max=filters.size=filters.color="";filters.stock="all";syncFilterControls();syncUrl();render()}
 document.getElementById("sort").onchange=()=>{syncUrl();render()};
 window.addEventListener("popstate",()=>{const params=new URLSearchParams(location.search);selected=params.get("category")||"All";const sort=params.get("sort")||"default";document.getElementById("sort").value=["default","low","high"].includes(sort)?sort:"default";parseFilters();syncFilterControls();syncCategoryChip();render()});
-document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{selected=b.dataset.cat;syncCategoryChip();syncUrl();render()});
+
 document.getElementById("applyFilters")?.addEventListener("click",applyFilters);
 document.getElementById("clearFilters")?.addEventListener("click",clearFilters);
 document.getElementById("searchBtn")?.addEventListener("click",()=>location.href="search.html");
