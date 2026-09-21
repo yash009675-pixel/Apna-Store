@@ -111,3 +111,12 @@ The repository contains the Phase 32 logistics foundation source under a differe
 Phase 0 is PASS only after the remaining evidence-dependent items are actually tested and evidenced.
 
 **Phase 1 remains blocked until Phase 0 exit evidence is complete.**
+
+
+## Security Definer Authorization Review
+
+- Reviewed all 23 authenticated-executable SECURITY DEFINER functions directly in PostgreSQL after the legacy-overload cleanup.
+- All reviewed functions deny anonymous EXECUTE and check the authenticated user context.
+- Admin-only functions enforce admin-role checks; seller functions enforce seller/admin access; customer-scoped functions enforce the current user context.
+- The remaining 23 Security Advisor warnings are retained as intentional application RPC endpoints; blindly revoking them would remove required application capabilities.
+- Legacy non-authenticated overloads were already explicitly revoked in the previous Phase 0 security cleanup.
