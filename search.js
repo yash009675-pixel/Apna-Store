@@ -6,7 +6,7 @@ function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;",
 function normalize(v){return String(v??"").toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9\s-]/g," ").replace(/\s+/g," ").trim()}
 function tokens(v){return normalize(v).split(" ").filter(Boolean)}
 function editDistance(a,b){a=normalize(a);b=normalize(b);if(a===b)return 0;if(!a)return b.length;if(!b)return a.length;let prev=Array.from({length:b.length+1},(_,i)=>i);for(let i=1;i<=a.length;i++){const cur=[i];for(let j=1;j<=b.length;j++)cur[j]=Math.min(cur[j-1]+1,prev[j]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));prev=cur}return prev[b.length]}
-const SYN={tee:["t-shirt","tshirt"],tshirt:["tee","t-shirt"],shirt:["shirts","top"],sneaker:["sneakers","shoes","footwear"],shoe:["shoes","sneaker","footwear"],shoes:["shoe","sneaker","footwear"],dress:["dresses"],dresses:["dress"],kid:["kids"],kids:["kid"],men:["mens"],mens:["men"],women:["womens"],womens:["women"],co-ord:["coord","co ord"]};
+const SYN={tee:["t-shirt","tshirt"],tshirt:["tee","t-shirt"],shirt:["shirts","top"],sneaker:["sneakers","shoes","footwear"],shoe:["shoes","sneaker","footwear"],shoes:["shoe","sneaker","footwear"],dress:["dresses"],dresses:["dress"],kid:["kids"],kids:["kid"],men:["mens"],mens:["men"],women:["womens"],womens:["women"],"co-ord":["coord","co ord"]};
 
 function readHistory(key){try{const v=JSON.parse(localStorage.getItem(key)||"[]");return Array.isArray(v)?v.filter(Boolean).slice(0,8):[]}catch{return[]}}
 function writeHistory(key,arr){try{localStorage.setItem(key,JSON.stringify(arr.slice(0,8)))}catch{}}
