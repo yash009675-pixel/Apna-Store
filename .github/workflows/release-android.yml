@@ -65,6 +65,18 @@ jobs:
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
           echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > apna-store-release.keystore
+
+          echo "Validating Android keystore and signing credentials..."
+          keytool -list             -keystore apna-store-release.keystore             -storepass "$ANDROID_KEYSTORE_PASSWORD"             -alias "$ANDROID_KEY_ALIAS" >/dev/null
+
+          rm -f /tmp/apna-store-signing-check.p12
+          if ! keytool -importkeystore             -srckeystore apna-store-release.keystore             -srcalias "$ANDROID_KEY_ALIAS"             -srcstorepass "$ANDROID_KEYSTORE_PASSWORD"             -srckeypass "$ANDROID_KEY_PASSWORD"             -destkeystore /tmp/apna-store-signing-check.p12             -deststoretype PKCS12             -deststorepass "validation-only"             -destkeypass "validation-only"             -noprompt >/tmp/apna-store-keytool-check.log 2>&1; then
+            cat /tmp/apna-store-keytool-check.log
+            echo "::error::The keystore is readable, but ANDROID_KEY_PASSWORD could not unlock the private key for the configured alias. Check the key password secret against the original keystore; do not paste it into chat."
+            exit 1
+          fi
+          rm -f /tmp/apna-store-signing-check.p12 /tmp/apna-store-keytool-check.log
+
           cat >> app/build.gradle <<'EOF'
 
           android {
