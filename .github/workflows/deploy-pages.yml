@@ -28,13 +28,15 @@ jobs:
       - name: Validate JavaScript
         run: |
           node --version
-          find . -type f -name '*.js' -not -path './.git/*' -print0 | while IFS= read -r -d '' file; do
+          find . -type f -name '*.js' -not -path './.git/*' -not -path './node_modules/*' -print0 | while IFS= read -r -d '' file; do
             echo "Checking $file"
-            if ! node --check "$file"; then
-              echo "::error file=$file::JavaScript syntax validation failed"
-              exit 1
-            fi
+            node --check "$file"
           done
+
+      - name: Validate Pages entry file
+        run: |
+          test -f index.html
+          echo "index.html found at repository root"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -43,10 +45,7 @@ jobs:
         uses: actions/upload-pages-artifact@v4
         with:
           path: .
-          name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          artifact_name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
