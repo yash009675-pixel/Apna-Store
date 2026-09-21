@@ -2,6 +2,17 @@ name: Apna Store Android Release
 
 on:
   workflow_dispatch:
+    inputs:
+      version_code:
+        description: "Google Play version code (must increase for every Play Store update)"
+        required: true
+        default: "1"
+        type: string
+      version_name:
+        description: "App version shown to users"
+        required: true
+        default: "1.0.0"
+        type: string
 
 permissions:
   contents: read
@@ -82,6 +93,10 @@ jobs:
           cat >> app/build.gradle <<'EOF'
 
           android {
+              defaultConfig {
+                  versionCode VERSION_CODE_PLACEHOLDER
+                  versionName "VERSION_NAME_PLACEHOLDER"
+              }
               signingConfigs {
                   release {
                       storeFile file("../apna-store-release.keystore")
@@ -98,6 +113,11 @@ jobs:
               }
           }
           EOF
+
+          sed -i "s/VERSION_CODE_PLACEHOLDER/${{ inputs.version_code }}/g" app/build.gradle
+          sed -i "s/VERSION_NAME_PLACEHOLDER/${{ inputs.version_name }}/g" app/build.gradle
+
+          echo "Configured Android versionCode=${{ inputs.version_code }} versionName=${{ inputs.version_name }}"
 
       - name: Build signed release AAB
         working-directory: mobile/android
