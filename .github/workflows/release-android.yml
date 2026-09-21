@@ -45,7 +45,7 @@ jobs:
         run: |
           rm -rf mobile/www
           mkdir -p mobile/www
-          find . -maxdepth 1 -type f ! -name ".gitignore" ! -name "package.json" -exec cp {} mobile/www/ ;
+          find . -maxdepth 1 -type f ! -name ".gitignore" ! -name "package.json" -exec cp {} mobile/www/ \;
           cp -R backend mobile/www/backend
 
       - name: Add Android platform
