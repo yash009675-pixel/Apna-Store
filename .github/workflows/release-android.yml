@@ -70,9 +70,11 @@ jobs:
           keytool -list             -keystore apna-store-release.keystore             -storepass "$ANDROID_KEYSTORE_PASSWORD"             -alias "$ANDROID_KEY_ALIAS" >/dev/null
 
           rm -f /tmp/apna-store-signing-check.p12
-          if ! keytool -importkeystore             -srckeystore apna-store-release.keystore             -srcalias "$ANDROID_KEY_ALIAS"             -srcstorepass "$ANDROID_KEYSTORE_PASSWORD"             -srckeypass "$ANDROID_KEY_PASSWORD"             -destkeystore /tmp/apna-store-signing-check.p12             -deststoretype PKCS12             -deststorepass "validation-only"             -destkeypass "validation-only"             -noprompt >/tmp/apna-store-keytool-check.log 2>&1; then
+          # The release keystore is PKCS12. PKCS12 uses the store password for
+          # the private-key entry as well; a separate key password is ignored.
+          if ! keytool -importkeystore             -srckeystore apna-store-release.keystore             -srcalias "$ANDROID_KEY_ALIAS"             -srcstorepass "$ANDROID_KEYSTORE_PASSWORD"             -destkeystore /tmp/apna-store-signing-check.p12             -deststoretype PKCS12             -deststorepass "validation-only"             -destkeypass "validation-only"             -noprompt >/tmp/apna-store-keytool-check.log 2>&1; then
             cat /tmp/apna-store-keytool-check.log
-            echo "::error::The keystore is readable, but ANDROID_KEY_PASSWORD could not unlock the private key for the configured alias. Check the key password secret against the original keystore; do not paste it into chat."
+            echo "::error::The PKCS12 keystore could not unlock the private key with ANDROID_KEYSTORE_PASSWORD. Verify that secret against the original keystore; do not paste it into chat."
             exit 1
           fi
           rm -f /tmp/apna-store-signing-check.p12 /tmp/apna-store-keytool-check.log
@@ -85,7 +87,8 @@ jobs:
                       storeFile file("../apna-store-release.keystore")
                       storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
                       keyAlias System.getenv("ANDROID_KEY_ALIAS")
-                      keyPassword System.getenv("ANDROID_KEY_PASSWORD")
+                      // PKCS12 uses the same password for the key entry.
+                      keyPassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
                   }
               }
               buildTypes {
