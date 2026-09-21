@@ -14,15 +14,16 @@ Phase 1 must not start until the remaining verification blockers below are actua
 
 - [x] Repository: `yash009675-pixel/Apna-Store`
 - [x] Default branch: `main`
-- [x] Latest code fix commit verified: `7f6265e32f5a5a7b790a7c2a841a61811249004e` (account role detection for admin navigation). The audit document is being refreshed after that fix.
+- [x] Latest audit commit verified: `d40b75d7ce81f3811d95f0383dc2f5ca7914e05c`.
 - [x] GitHub Pages workflow exists at `.github/workflows/deploy-pages.yml`.
 - [x] Pages workflow deploys the repository root to GitHub Pages.
 - [x] Pages workflow runs JavaScript syntax validation before deployment.
 - [x] Pages workflow has `contents: read`, `pages: write`, and `id-token: write` permissions.
 - [x] No frontend secret values were found in the inspected repository files.
-- [x] Fresh GitHub Pages deployment verification completed for the latest code fix. Run `35632593056` completed successfully; its deploy job passed Checkout, JavaScript validation, Pages setup, upload, and deployment. Pages build/deployment run `35632592625` also completed successfully.
-- [ ] Live-site browser verification is still pending; no browser automation is available in the current connector set.
-- [ ] Full browser end-to-end QA is still pending.
+- [x] Latest known Pages deployment for the previous audit update completed successfully.
+- [ ] Pages deployment for the latest audit-only commit must still be rechecked after GitHub Actions finishes.
+- [ ] Live-site browser verification is pending; no browser automation is available in the current connector set.
+- [ ] Full browser end-to-end QA is pending.
 
 ## 2. Supabase migration state
 
@@ -30,19 +31,20 @@ Project: `xxedwtmdylfufrfzyrdb`
 
 Latest database migration recorded by Supabase:
 
-`20260920175922 — phase32_rto_ndr_tracking_fields`
+`20260921173528 — phase0_remove_duplicate_product_category_index`
 
-Other latest applied migrations include:
+Latest Phase 32 migrations include:
 
 - `20260920164729 — phase32_logistics_shipping_foundation`
 - `20260920172851 — phase32_return_logistics_fields`
 - `20260920173200 — phase32_return_request_events`
+- `20260920175922 — phase32_rto_ndr_tracking_fields`
 
 ### Migration-source-control reconciliation
 
-The repository history was checked directly, including the migration-path commit history.
+The repository history was checked directly.
 
-A Phase 32 logistics foundation source file **does exist in GitHub**, but its filename is:
+A Phase 32 logistics foundation source file exists in GitHub as:
 
 `20260920170000_phase32_logistics_shipping_foundation.sql`
 
@@ -50,45 +52,19 @@ while Supabase records the applied migration version as:
 
 `20260920164729_phase32_logistics_shipping_foundation`
 
-The GitHub file content was compared structurally with the live logistics foundation schema and matches the shipment/shipment-events/shipping-pickups foundation model.
+The source was structurally compared with the live logistics foundation schema and matches the shipment/shipment-events/shipping-pickups foundation model.
 
-The later applied Phase 32 migrations:
+The later applied Phase 32 migrations are not currently present in the GitHub migration tree, and their exact SQL was not recoverable from the repository history exposed by GitHub:
 
 - `20260920172851_phase32_return_logistics_fields`
 - `20260920173200_phase32_return_request_events`
 - `20260920175922_phase32_rto_ndr_tracking_fields`
 
-are **not currently present in the GitHub migration tree**, and their exact SQL was not recoverable from the repository path history exposed by GitHub.
+No guessed or fabricated migration files will be added.
 
-**This remains a Phase 0 migration-workflow blocker.**
-
-No guessed, comment-only, or fabricated migration files have been added. The live database was not modified just to make migration history appear clean.
+- [ ] Exact source recovery / reconciliation remains pending.
 
 ## 3. Database / RLS
-
-Current public tables inspected include:
-
-- profiles
-- categories
-- products
-- product_variants
-- addresses
-- orders
-- order_items
-- wishlists
-- reviews
-- coupons
-- payment_transactions
-- return_requests
-- seller_applications
-- product_images
-- brands
-- marketing_campaigns
-- notifications
-- shipments
-- shipment_events
-- shipping_pickups
-- return_request_events
 
 - [x] RLS is enabled on all inspected public tables.
 - [x] Existing public-table policies have guards.
@@ -96,31 +72,31 @@ Current public tables inspected include:
 - [x] Seller/admin role architecture exists.
 - [x] Private RLS helper schema exists.
 - [x] Authorization-boundary test SQL exists in `supabase/tests/`.
-- [x] Live logistics tables/columns were checked against the Phase 32 foundation source; later RTO/NDR fields are present in the live database.
+- [x] Live logistics tables/columns were checked against the Phase 32 foundation source.
+- [x] Duplicate `products(category_id)` index was removed from the live database and recorded as a migration.
 
 ## 4. Authorization verification
 
-- [x] Customer profile exists and is assigned customer role.
-- [x] Admin profile exists.
-- [x] Direct SQL authorization smoke test confirmed a customer-context call to `admin_list_categories()` is rejected with `Admin access required`.
-- [x] Admin-context call to `admin_list_categories()` succeeds and returns JSON array data.
-- [x] SECURITY DEFINER functions were inspected; relevant admin/seller/customer functions contain explicit authentication and role/ownership checks where required.
+- [x] Customer-context SQL authorization test rejects `admin_list_categories()`.
+- [x] Admin-context SQL authorization test succeeds.
+- [x] SECURITY DEFINER functions were inspected for explicit authentication and role/ownership checks where required.
 - [ ] Dedicated real seller test-account browser verification.
 - [ ] Dedicated real admin browser verification.
-- [ ] Complete customer signup/login browser verification.
+- [ ] Complete customer signup/login/profile browser verification.
 
 ## 5. Security Advisor
 
-Current Supabase Security Advisor findings:
+Current Security Advisor findings:
 
-- 23 authenticated-executable SECURITY DEFINER function warnings.
+- 23 authenticated-executable SECURITY DEFINER warnings.
 - 1 leaked-password-protection warning.
 
-The SECURITY DEFINER warnings are currently understood as intentional RPC architecture in which the functions perform their own authentication/role/ownership checks. They remain visible Advisor findings and therefore are **not signed off as zero-risk**.
+The SECURITY DEFINER findings are intentional RPC architecture in which the functions perform their own authentication/role/ownership checks, but they remain Advisor findings and require final review/sign-off.
 
-Leaked-password protection is currently unavailable on the project's Free-plan configuration and must not be falsely marked as enabled.
+Leaked-password protection remains disabled/unavailable on the current project configuration. It must not be marked enabled without actual verification.
 
-**Security sign-off remains pending.**
+- [ ] Final SECURITY DEFINER review/sign-off.
+- [ ] Leaked-password protection remains a pending security item until the project configuration/plan permits and the feature is actually enabled and verified.
 
 ## 6. Edge Functions
 
@@ -137,7 +113,9 @@ Active functions inspected include:
 - apna-return-actions
 - apna-courier-return-create
 
-Courier/return functions are JWT-protected. The AI assistant intentionally allows guest access and must continue to enforce safe server-side behavior.
+- [x] Courier/return functions are JWT-protected.
+- [x] AI assistant intentionally allows guest access and has server-side behavior.
+- [ ] Authenticated browser E2E verification remains pending.
 
 ## 7. Logistics verification
 
@@ -145,43 +123,59 @@ Courier/return functions are JWT-protected. The AI assistant intentionally allow
 - [x] Courier Edge Functions exist.
 - [x] Customer tracking foundation exists.
 - [x] Seller/admin logistics UI exists.
-- [ ] Real provider shipment creation has not been completed in production.
-- [ ] Real AWB/pickup/tracking flow has not been fully verified end-to-end.
-- [ ] Current `shipments` table contains 0 rows.
+- [ ] Real provider shipment creation.
+- [ ] Real AWB generation verification.
+- [ ] Real pickup confirmation verification.
+- [ ] Real tracking update verification.
+- [ ] Full real Shiprocket shipment → AWB → pickup → tracking E2E.
+- [ ] Current `shipments` table has 0 rows; no fake shipment data will be inserted.
 
-No fake shipment, AWB, courier status, or tracking result is acceptable.
+## 8. Mobile / PWA
 
-## 8. Current mobile workflow
-
-- [x] iOS project package job in latest mobile workflow `35632593142` completed successfully.
-- [x] Android debug APK/release AAB job completed successfully; APK, AAB, and iOS artifacts were uploaded successfully in workflow `35632593142`.
-- [ ] Interactive mobile-device QA remains pending.
+- [x] iOS project package job in mobile workflow `35632593142` succeeded.
+- [x] Android debug APK/release AAB job succeeded; artifacts uploaded.
+- [ ] Interactive physical-device QA.
+- [ ] Mobile regression verification across real device flows.
 
 ## 9. Latest Phase 0 cleanup
 
-- [x] Duplicate `products(category_id)` index identified by Supabase Advisor and removed from the live database.
-- [x] Matching migration committed to GitHub as `20260921173528_phase0_remove_duplicate_product_category_index`.
-- [x] Phase 0 authorization boundary SQL was rechecked; private `is_admin`/`is_seller` helpers remain SECURITY DEFINER, anonymous execution is denied, and authenticated execution is required for the helper architecture.
+- [x] Duplicate `products(category_id)` index removed.
+- [x] Matching migration applied and source-controlled.
+- [x] Private `is_admin`/`is_seller` helper authorization boundary rechecked.
+- [x] Anonymous execution denied; authenticated execution required for the helper architecture.
 
-## 10. Phase 0 remaining blockers
+## 10. Pending list — carried forward
 
+### Blocked by current tool/device access
 1. Live browser QA of the current website.
-2. Customer signup/login/profile end-to-end verification.
-3. Seller authorization test-account verification.
-4. Admin authorization test-account verification.
-5. Customer end-to-end shopping/order flow verification.
-6. Mobile regression/browser QA.
-7. Migration-source-control reconciliation for the later Phase 32 migrations and the logistics migration version mismatch.
-8. Final security review of accepted SECURITY DEFINER findings.
-9. Real provider logistics E2E verification if included in the Phase 0 exit gate.
-10. Final Phase 0 exit checklist.
+2. Full browser customer/seller/admin E2E.
+3. Physical-device mobile QA.
+4. Real Shiprocket production shipment → AWB → pickup → tracking E2E.
 
-## 11. Exit rule
+### Repository / migration reconciliation
+5. Recover exact SQL/source for the three later Phase 32 migrations.
+6. Reconcile the Phase 32 logistics migration filename/version mismatch without fabricating history.
+
+### Security
+7. Final review/sign-off of the 23 intentional SECURITY DEFINER Advisor findings.
+8. Enable and verify leaked-password protection when the project configuration supports it.
+
+### Final gate
+9. Re-run/verify the latest GitHub Pages deployment after the current audit update.
+10. Complete the Phase 0 exit checklist and sign-off only after the evidence-backed blockers are cleared.
+
+## 11. Work completed remotely vs pending
+
+The remotely actionable database/security/repository cleanup currently available has been completed without creating fake data or weakening authorization.
+
+The remaining list is preserved explicitly so later phases are not started by mistake.
+
+**Phase 1 remains blocked until Phase 0 exit evidence is complete.**
+
+## 12. Exit rule
 
 Phase 0 is **PASS** only when all required verification items above are actually tested and evidenced.
 
 Until then:
 
 **DO NOT START PHASE 1.**
-
-No feature expansion should be used to hide or bypass a Phase 0 blocker.
