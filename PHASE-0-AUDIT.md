@@ -137,3 +137,11 @@ Phase 0 is PASS only after the remaining evidence-dependent items are actually t
 - Performance Advisor recheck: auth RLS initplan warnings reduced from 6 to 0; multiple-permissive-policy warnings reduced from 2 to 0.
 - Remaining Performance Advisor findings are 6 INFO-level unindexed foreign keys and 26 unused-index INFO findings; these were not removed blindly because usage depends on future workload.
 - Security Advisor remains at 23 intentional authenticated SECURITY DEFINER warnings plus 1 leaked-password-protection warning.
+
+
+## Phase 32 Migration Reconciliation Review
+
+- Live Supabase migration history confirms the three missing source migrations are actually applied: 20260920172851 phase32_return_logistics_fields, 20260920173200 phase32_return_request_events, and 20260920175922 phase32_rto_ndr_tracking_fields.
+- Repository search still finds no exact source files/commits for those three migration names, so their original SQL was not reconstructed or guessed.
+- Live schema was inspected directly and confirms the expected logistics/returns fields are present, including shipment AWB/provider/pickup/tracking fields, NDR/RTO fields, return shipment/reverse pickup links, and the return_request_events table.
+- This reconciles the live schema state but does not recover the historical SQL source; the historical-source checkbox therefore remains pending.
