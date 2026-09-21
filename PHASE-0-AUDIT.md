@@ -14,13 +14,13 @@ Phase 1 must not start until the remaining verification blockers below are actua
 
 - [x] Repository: `yash009675-pixel/Apna-Store`
 - [x] Default branch: `main`
-- [x] Latest main commit is the Phase 0 audit update; the latest code/workflow commit before the audit documentation updates is `5a1ad6ef8da25f1dba1cd5de4700db5cb122c53b`.
+- [x] Latest code fix commit verified: `7f6265e32f5a5a7b790a7c2a841a61811249004e` (account role detection for admin navigation). The audit document is being refreshed after that fix.
 - [x] GitHub Pages workflow exists at `.github/workflows/deploy-pages.yml`.
 - [x] Pages workflow deploys the repository root to GitHub Pages.
 - [x] Pages workflow runs JavaScript syntax validation before deployment.
 - [x] Pages workflow has `contents: read`, `pages: write`, and `id-token: write` permissions.
 - [x] No frontend secret values were found in the inspected repository files.
-- [x] Fresh GitHub Pages deployment verification completed. Successful latest verified run: `35630492659`; build, build-status reporting, and Pages deployment jobs all succeeded.
+- [x] Fresh GitHub Pages deployment verification completed for the latest code fix. Run `35632593056` completed successfully; its deploy job passed Checkout, JavaScript validation, Pages setup, upload, and deployment. Pages build/deployment run `35632592625` also completed successfully.
 - [ ] Live-site browser verification is still pending; no browser automation is available in the current connector set.
 - [ ] Full browser end-to-end QA is still pending.
 
@@ -151,7 +151,12 @@ Courier/return functions are JWT-protected. The AI assistant intentionally allow
 
 No fake shipment, AWB, courier status, or tracking result is acceptable.
 
-## 8. Phase 0 remaining blockers
+## 8. Current mobile workflow
+
+- [x] iOS project package job in latest mobile workflow `35632593142` completed successfully.
+- [ ] Android debug APK/release AAB job is still in progress; interactive mobile-device QA remains pending.
+
+## 9. Phase 0 remaining blockers
 
 1. Live browser QA of the current website.
 2. Customer signup/login/profile end-to-end verification.
@@ -164,7 +169,7 @@ No fake shipment, AWB, courier status, or tracking result is acceptable.
 9. Real provider logistics E2E verification if included in the Phase 0 exit gate.
 10. Final Phase 0 exit checklist.
 
-## 9. Exit rule
+## 10. Exit rule
 
 Phase 0 is **PASS** only when all required verification items above are actually tested and evidenced.
 
