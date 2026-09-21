@@ -1,87 +1,161 @@
-# Apna Store — Phase 0 Foundation Audit
+# Apna Store — Phase 0 Foundation & Security Audit
 
-Date: 2026-09-20
+Date: 2026-09-21
 
-## Goal
+## Phase 0 objective
 
-Stabilize the existing application and establish a safe foundation before expanding the marketplace.
+Finish Foundation, Security, Authorization, Deployment, Migration, and production-readiness verification before starting Phase 1.
 
-## Current architecture
+**Current status: NOT COMPLETE / NOT SIGNED OFF.**
 
-- Static HTML/CSS/JavaScript frontend.
-- GitHub Pages deployment from `main`.
-- Supabase Auth + Postgres + Storage-ready architecture.
-- Customer storefront and shopping flow already present.
-- Product variants, wishlist, orders and secure order RPC already present.
-- Seller/admin role model is being introduced as foundation work.
+Phase 1 must not start until the remaining verification blockers below are actually completed.
 
-## Phase 0 checklist
+## 1. GitHub / repository
 
-### Repository
-- [x] GitHub Pages workflow exists.
-- [x] Static deployment uses the repository root.
-- [x] Favicon exists.
-- [x] No secrets stored in repository frontend files.
-- [x] JavaScript syntax validation added to deployment workflow.
-- [x] Customer catalog uses the live Supabase product/category API; no fallback product array remains in the active shop loader.
-- [ ] Full browser end-to-end QA — intentionally scheduled for the next browser-testing session.
-- [ ] Seller/admin authorization test-account verification — pending until dedicated test identities are available.
-- [x] Version-controlled Supabase migration workflow documentation added; historical migrations were not fabricated.
+- [x] Repository: `yash009675-pixel/Apna-Store`
+- [x] Default branch: `main`
+- [x] Latest main commit verified: `5a1ad6ef8da25f1dba1cd5de4700db5cb122c53b`
+- [x] Latest commit only changes the Android release workflow versionCode/versionName inputs.
+- [x] GitHub Pages workflow exists at `.github/workflows/deploy-pages.yml`.
+- [x] Pages workflow deploys the repository root to GitHub Pages.
+- [x] Pages workflow runs JavaScript syntax validation before deployment.
+- [x] Pages workflow has `contents: read`, `pages: write`, and `id-token: write` permissions.
+- [x] No frontend secret values were found in the inspected repository files.
+- [ ] Fresh latest Pages workflow run/result could not be independently retrieved with the currently available GitHub connector.
+- [ ] Live-site browser verification is still pending; the live URL could not be fetched in this session.
+- [ ] Full browser end-to-end QA is still pending.
 
-### Database
-- [x] Core product/category/variant/order/profile tables exist.
-- [x] RLS enabled on all current public tables.
-- [x] Product/variant/order indexes exist.
+## 2. Supabase migration state
+
+Project: `xxedwtmdylfufrfzyrdb`
+
+Latest database migration recorded by Supabase:
+
+`20260920175922 — phase32_rto_ndr_tracking_fields`
+
+Other latest applied migrations include:
+
+- `20260920164729 — phase32_logistics_shipping_foundation`
+- `20260920172851 — phase32_return_logistics_fields`
+- `20260920173200 — phase32_return_request_events`
+
+### Migration-source-control finding
+
+The current GitHub main tree contains migration files only through the checked-in migration set ending at:
+
+`20260920172000_phase20_seller_earnings.sql`
+
+The later Phase 32 migrations recorded as applied in Supabase are not present in the current GitHub migration tree.
+
+**This is a Phase 0 migration-workflow blocker.**
+
+The missing migration SQL must be recovered from authoritative project history/source before any migration is fabricated or recreated. No fake/comment-only migration files should be added.
+
+## 3. Database / RLS
+
+Current public tables inspected:
+
+- profiles
+- categories
+- products
+- product_variants
+- addresses
+- orders
+- order_items
+- wishlists
+- reviews
+- coupons
+- payment_transactions
+- return_requests
+- seller_applications
+- product_images
+- brands
+- marketing_campaigns
+- notifications
+- shipments
+- shipment_events
+- shipping_pickups
+- return_request_events
+
+- [x] RLS is enabled on all inspected public tables.
+- [x] Existing public-table policies have guards.
 - [x] Secure order creation RPC exists.
-- [x] New Auth users receive a customer profile.
-- [x] Seller/admin helper functions use SECURITY DEFINER with a fixed search path.
-- [x] Role-check helpers moved into the non-exposed `private` schema.
-- [ ] Add seller onboarding/application tables.
-- [ ] Add product image metadata table.
-- [ ] Add seller/order relationships for multi-seller orders.
-- [ ] Add returns/refunds/coupons/notifications tables in later phases.
+- [x] Seller/admin role architecture exists.
+- [x] Private RLS helper schema exists.
+- [x] Authorization-boundary test SQL exists in `supabase/tests/`.
 
-### Authorization
-- [x] Customer is the default signup role.
-- [x] Client signup cannot choose seller/admin role through the profile insert policy.
-- [x] Seller product access is restricted to the seller's own products.
-- [x] Admin access is separate.
-- [x] RLS helper execute grants corrected for authenticated policy evaluation.
-- [x] Add automated RLS tests under `supabase/tests/`.
-- [x] Live RLS smoke suite passes 8/8 checks (anon + authenticated customer context).
-- [x] Authorization-boundary test foundation added and live privilege/policy boundaries verified.
-- [ ] Full seller/admin authorization test-account verification.
+## 4. Authorization verification
 
-### Deployment
-- [x] Pages deployment is triggered by pushes to `main`.
-- [x] Workflow now blocks deployment when JavaScript syntax is invalid.
-- [x] Customer-page script cache versions have been standardized in source.
-- [x] Verify the latest Phase 0 audit deployment succeeds in GitHub Actions (commit `eb2c1c0d6b323a046bb044ab99b9d9117389ae7d`, Pages run #177).
-- [ ] Add a staging/preview workflow before production changes when the marketplace grows.
+- [x] Customer profile exists and is assigned customer role.
+- [x] Admin profile exists.
+- [x] Direct SQL authorization smoke test confirmed a customer-context call to `admin_list_categories()` is rejected with `Admin access required`.
+- [x] Admin-context call to `admin_list_categories()` succeeds and returns JSON array data.
+- [x] Admin/Seller SECURITY DEFINER functions inspected and role checks are present in the relevant functions.
+- [ ] Dedicated real seller test-account browser verification.
+- [ ] Dedicated real admin browser verification.
+- [ ] Complete customer signup/login browser verification.
 
-## Phase 0 exit criteria
+## 5. Security Advisor
 
-Phase 0 will be considered complete only when:
+Current Supabase Security Advisor findings:
 
-1. The latest GitHub commit deploys successfully.
-2. All JavaScript passes CI syntax validation.
-3. Supabase RLS/security checks pass, with only intentional/accepted findings remaining; the Free-plan leaked-password-protection limitation must be documented and must not be misreported as enabled.
-4. Customer auth/profile creation is verified.
-5. Seller/admin authorization is verified with test accounts.
-6. No known broken core customer flow remains.
-7. The database architecture is ready for seller, inventory, image and order expansion.
+- 23 authenticated-executable SECURITY DEFINER function warnings.
+- 1 leaked-password-protection warning.
 
-## Current verification snapshot
+The SECURITY DEFINER functions inspected contain explicit authentication/role checks where applicable. These findings are therefore not automatically treated as exploitable vulnerabilities, but they remain accepted/intentional findings that require final security review.
 
-- Live Supabase catalog: 8 active products and 68 variants verified.
-- Anonymous catalog read: 8 active products verified.
-- Secure order RPC: authenticated-only execution verified; transaction test completed without persistent changes.
-- Real customer signup/profile: verified for the existing customer test account.
-- Latest wishlist implementation: deployed successfully in GitHub Actions.
-- Latest catalog/cache-hardening/audit commits still require their workflow status to be verified before being called production-deployed.
-- Supabase Security Advisor currently reports two warnings: the intentionally callable authenticated checkout RPC, and leaked-password protection being disabled. Current Supabase pricing/docs confirm leaked password protection is not included on the Free plan, so this is a documented plan limitation rather than an implementation change we can safely fake or bypass. citeturn0search0turn0search1
-- Full browser E2E testing remains intentionally pending for the next browser-testing session.
+Leaked-password protection is currently unavailable on the project's Free-plan configuration and must not be falsely marked as enabled.
 
-## Security reference
+**Security sign-off remains pending.**
 
-Supabase recommends RLS on exposed tables, appropriate grants, security review, indexes for common query patterns, and production testing before launch.
+## 6. Edge Functions
+
+Active functions inspected include:
+
+- apna-ai-assistant
+- apna-courier
+- apna-courier-v2
+- apna-courier-v3
+- apna-courier-v4
+- apna-courier-create
+- apna-courier-actions
+- apna-courier-track
+- apna-return-actions
+- apna-courier-return-create
+
+Courier/return functions are JWT-protected. The AI assistant intentionally allows guest access and must continue to enforce safe server-side behavior.
+
+## 7. Logistics verification
+
+- [x] Shipment/return database foundation exists.
+- [x] Courier Edge Functions exist.
+- [x] Customer tracking foundation exists.
+- [x] Seller/admin logistics UI exists.
+- [ ] Real provider shipment creation has not been completed in production.
+- [ ] Real AWB/pickup/tracking flow has not been fully verified end-to-end.
+- [ ] Current `shipments` table contains 0 rows.
+
+No fake shipment, AWB, courier status, or tracking result is acceptable.
+
+## 8. Phase 0 remaining blockers
+
+1. Fresh latest GitHub Pages deployment verification.
+2. Live browser QA of the current website.
+3. Customer signup/login/profile end-to-end verification.
+4. Seller authorization test-account verification.
+5. Admin authorization test-account verification.
+6. Customer end-to-end shopping/order flow verification.
+7. Mobile regression/browser QA.
+8. Migration-source-control reconciliation for the Phase 32 migrations.
+9. Final security review of accepted SECURITY DEFINER findings.
+10. Final Phase 0 exit checklist.
+
+## 9. Exit rule
+
+Phase 0 is **PASS** only when all required verification items above are actually tested and evidenced.
+
+Until then:
+
+**DO NOT START PHASE 1.**
+
+No feature expansion should be used to hide or bypass a Phase 0 blocker.
