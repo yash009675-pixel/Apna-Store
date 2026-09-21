@@ -14,7 +14,7 @@ Phase 1 must not start until the remaining verification blockers below are actua
 
 - [x] Repository: `yash009675-pixel/Apna-Store`
 - [x] Default branch: `main`
-- [x] Latest main commit verified: `5a1ad6ef8da25f1dba1cd5de4700db5cb122c53b`
+- [x] Latest main commit verified: `b7c5076be395625c60e70d825fe7da8aba8ca926` (Phase 0 audit update). Previous code/workflow commit: `5a1ad6ef8da25f1dba1cd5de4700db5cb122c53b`.
 - [x] Latest commit only changes the Android release workflow versionCode/versionName inputs.
 - [x] GitHub Pages workflow exists at `.github/workflows/deploy-pages.yml`.
 - [x] Pages workflow deploys the repository root to GitHub Pages.
