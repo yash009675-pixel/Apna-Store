@@ -154,9 +154,16 @@ No fake shipment, AWB, courier status, or tracking result is acceptable.
 ## 8. Current mobile workflow
 
 - [x] iOS project package job in latest mobile workflow `35632593142` completed successfully.
-- [ ] Android debug APK/release AAB job is still in progress; interactive mobile-device QA remains pending.
+- [x] Android debug APK/release AAB job completed successfully; APK, AAB, and iOS artifacts were uploaded successfully in workflow `35632593142`.
+- [ ] Interactive mobile-device QA remains pending.
 
-## 9. Phase 0 remaining blockers
+## 9. Latest Phase 0 cleanup
+
+- [x] Duplicate `products(category_id)` index identified by Supabase Advisor and removed from the live database.
+- [x] Matching migration committed to GitHub as `20260921173528_phase0_remove_duplicate_product_category_index`.
+- [x] Phase 0 authorization boundary SQL was rechecked; private `is_admin`/`is_seller` helpers remain SECURITY DEFINER, anonymous execution is denied, and authenticated execution is required for the helper architecture.
+
+## 10. Phase 0 remaining blockers
 
 1. Live browser QA of the current website.
 2. Customer signup/login/profile end-to-end verification.
@@ -169,7 +176,7 @@ No fake shipment, AWB, courier status, or tracking result is acceptable.
 9. Real provider logistics E2E verification if included in the Phase 0 exit gate.
 10. Final Phase 0 exit checklist.
 
-## 10. Exit rule
+## 11. Exit rule
 
 Phase 0 is **PASS** only when all required verification items above are actually tested and evidenced.
 
