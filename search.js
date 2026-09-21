@@ -82,18 +82,17 @@ async function loadProducts(){
   apnaSupabase.from("products").select("id,name,slug,description,price,category_id,brand_id,seller_id").eq("status","active").order("created_at",{ascending:true}),
   apnaSupabase.from("categories").select("id,name").eq("is_active",true),
   apnaSupabase.from("brands").select("id,name,slug").eq("is_active",true).order("sort_order").order("name"),
-  apnaSupabase.from("product_variants").select("product_id,sku"),
-  apnaSupabase.from("profiles").select("id,full_name,role").eq("role","seller")
+  apnaSupabase.from("product_variants").select("product_id,sku")
  ]);
- if(productResult.error||categoryResult.error||brandResult.error||variantResult.error||profileResult.error){
-  console.error("Search data query failed",productResult.error||categoryResult.error||brandResult.error||variantResult.error||profileResult.error);
+ if(productResult.error||categoryResult.error||brandResult.error||variantResult.error){
+  console.error("Search data query failed",productResult.error||categoryResult.error||brandResult.error||variantResult.error);
   summary.textContent="Search could not load right now. Please refresh and try again.";r.innerHTML="";return;
  }
- const cm=new Map((categoryResult.data||[]).map(x=>[x.id,x.name])),bm=new Map((brandResult.data||[]).map(x=>[x.id,x.name])),sm=new Map((profileResult.data||[]).map(x=>[x.id,x.full_name]));
+ const cm=new Map((categoryResult.data||[]).map(x=>[x.id,x.name])),bm=new Map((brandResult.data||[]).map(x=>[x.id,x.name]));
  const skuMap=new Map();(variantResult.data||[]).forEach(v=>{if(!skuMap.has(v.product_id))skuMap.set(v.product_id,[]);if(v.sku)skuMap.get(v.product_id).push(v.sku)});
- brands=brandResult.data||[];sellers=(profileResult.data||[]).map(x=>({id:x.id,name:x.full_name}));
+ brands=brandResult.data||[];sellers=[];
  variants=variantResult.data||[];
- products=(productResult.data||[]).map(p=>({...p,category:cm.get(p.category_id)||"Apna Store",brand:bm.get(p.brand_id)||"",seller:sm.get(p.seller_id)||"",skus:skuMap.get(p.id)||[]}));
+ products=(productResult.data||[]).map(p=>({...p,category:cm.get(p.category_id)||"Apna Store",brand:bm.get(p.brand_id)||"",seller:"",skus:skuMap.get(p.id)||[]}));
  render();
 }
 
