@@ -120,3 +120,11 @@ Phase 0 is PASS only after the remaining evidence-dependent items are actually t
 - Admin-only functions enforce admin-role checks; seller functions enforce seller/admin access; customer-scoped functions enforce the current user context.
 - The remaining 23 Security Advisor warnings are retained as intentional application RPC endpoints; blindly revoking them would remove required application capabilities.
 - Legacy non-authenticated overloads were already explicitly revoked in the previous Phase 0 security cleanup.
+
+
+## Logistics / Courier Security Review
+
+- Live Supabase currently has 0 shipments, 0 shipment events, and 0 shipping pickup records; no synthetic shipment/tracking data was created.
+- Shipment, shipment-event, and pickup SELECT policies restrict authenticated access to the owning customer, owning seller, or admin.
+- All active courier/return Edge Functions require JWT verification; the guest AI function is the only intentionally public Edge Function.
+- Real Shiprocket shipment creation/AWB/pickup/tracking remains unverified because no real authenticated checkout/order and provider invocation can be safely fabricated in this environment.
