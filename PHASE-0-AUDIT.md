@@ -128,3 +128,12 @@ Phase 0 is PASS only after the remaining evidence-dependent items are actually t
 - Shipment, shipment-event, and pickup SELECT policies restrict authenticated access to the owning customer, owning seller, or admin.
 - All active courier/return Edge Functions require JWT verification; the guest AI function is the only intentionally public Edge Function.
 - Real Shiprocket shipment creation/AWB/pickup/tracking remains unverified because no real authenticated checkout/order and provider invocation can be safely fabricated in this environment.
+
+
+## Phase 0 RLS Performance Cleanup
+
+- Applied live migrations `phase0_rls_performance_cleanup` and `phase0_seller_application_rls_cleanup` to cache authenticated user context in affected RLS policies and remove duplicate permissive seller-application SELECT policies.
+- Preserved authenticated customer-own and admin access for seller applications, and preserved anonymous/public access rules for active marketing campaigns.
+- Performance Advisor recheck: auth RLS initplan warnings reduced from 6 to 0; multiple-permissive-policy warnings reduced from 2 to 0.
+- Remaining Performance Advisor findings are 6 INFO-level unindexed foreign keys and 26 unused-index INFO findings; these were not removed blindly because usage depends on future workload.
+- Security Advisor remains at 23 intentional authenticated SECURITY DEFINER warnings plus 1 leaked-password-protection warning.
