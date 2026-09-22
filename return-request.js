@@ -13,7 +13,8 @@ function fail(t){info.textContent=t;form.style.display="none"}
  if(existing?.length){
    const requests=existing.map(r=>`<div class="summary-line"><span>${esc(r.request_type)} · ${esc(r.status)}${r.return_shipment_id?" · Reverse shipment created":""} · Refund: ${esc(r.refund_status||"not_requested")}${r.refund_amount!=null?" · ₹"+Number(r.refund_amount).toLocaleString("en-IN"):""}</span><small>${esc(new Date(r.requested_at).toLocaleDateString("en-IN"))}</small></div>`).join("");
    info.innerHTML=`Order <b>${esc(o.order_number)}</b> has been delivered.<div style="margin-top:12px"><b>After-sales requests</b>${requests}</div>`;
-   if(existing.some(r=>["requested","approved","pickup_scheduled","picked_up","in_transit"].includes(r.status))){form.style.display="none";msg.textContent="An active after-sales request already exists for this order.";return}
+   const eventRows=[];for(const r of existing){const ev=await apnaSupabase.from("return_request_events").select("from_status,to_status,note,created_at").eq("return_request_id",r.id).order("created_at",{ascending:false}).limit(20);if(!ev.error&&ev.data?.length)eventRows.push(`<div style="margin:10px 0 0 0"><b>${esc(r.request_type)} timeline</b>${ev.data.map(e=>`<div class="summary-line"><span>${esc(e.to_status)}${e.note?" · "+esc(e.note):""}</span><small>${esc(new Date(e.created_at).toLocaleString("en-IN"))}</small></div>`).join("")}</div>`)}info.innerHTML+=eventRows.join("");
+ if(existing.some(r=>["requested","approved","pickup_scheduled","picked_up","in_transit"].includes(r.status))){form.style.display="none";msg.textContent="An active after-sales request already exists for this order.";return}
  }else info.innerHTML=`Order <b>${esc(o.order_number)}</b> has been delivered.`;
  form.addEventListener("submit",async e=>{
    e.preventDefault();msg.textContent="Submitting request…";
