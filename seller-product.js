@@ -1,6 +1,6 @@
 const $=id=>document.getElementById(id);
 const params=new URLSearchParams(location.search);
-let editId=params.get("id"),user,role,pendingImages=[],imageRows=[],variants=[];
+let editId=params.get("id"),user,role,productOwnerId=null,pendingImages=[],imageRows=[],variants=[];
 const MAX_BYTES=5242880,MIN_DIM=400,MAX_DIM=6000,MAX_EDGE=2000;
 
 function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
@@ -62,7 +62,7 @@ async function updateImageMeta(id,patch){const {error}=await apnaSupabase.from("
 async function setPrimary(id){const {error}=await apnaSupabase.from("product_images").update({is_primary:false}).eq("product_id",editId);if(error){setMsg(error.message,true);return;}const r=await apnaSupabase.from("product_images").update({is_primary:true}).eq("id",id);if(r.error){setMsg(r.error.message,true);return;}await loadImages();}
 async function moveImage(id,delta){const i=imageRows.findIndex(x=>x.id===id),j=i+delta;if(i<0||j<0||j>=imageRows.length)return;const next=[...imageRows];[next[i],next[j]]=[next[j],next[i]];for(let k=0;k<next.length;k++){const r=await apnaSupabase.from("product_images").update({sort_order:k}).eq("id",next[k].id);if(r.error){setMsg(r.error.message,true);return;}}await loadImages();}
 async function reorderImage(fromId,toId){const from=imageRows.findIndex(x=>x.id===fromId),to=imageRows.findIndex(x=>x.id===toId);if(from<0||to<0||from===to)return;const next=[...imageRows],item=next.splice(from,1)[0];next.splice(to,0,item);for(let k=0;k<next.length;k++){const r=await apnaSupabase.from("product_images").update({sort_order:k}).eq("id",next[k].id);if(r.error){setMsg(r.error.message,true);return;}}await loadImages();}
-async function deleteImage(id){const row=imageRows.find(x=>x.id===id);if(!row)return;setMsg("Deleting image…");const s=await apnaSupabase.storage.from("product-images").remove([row.storage_path]);if(s.error){setMsg(s.error.message,true);return;}const d=await apnaSupabase.from("product_images").delete().eq("id",id);if(d.error){setMsg(d.error.message,true);return;}const remaining=await apnaSupabase.from("product_images").select("id").eq("product_id",editId);if((remaining.data||[]).length&&!imageRows.find(x=>x.id===id)?.is_primary&&!imageRows.some(x=>x.id!==id&&x.is_primary))await setPrimary(remaining.data[0].id);await loadImages();setMsg("Image deleted.");}
+async function deleteImage(id){const row=imageRows.find(x=>x.id===id);if(!row)return;setMsg("Deleting image…");const s=await apnaSupabase.storage.from("product-images").remove([row.storage_path]);if(s.error){setMsg(s.error.message,true);return;}const d=await apnaSupabase.from("product_images").delete().eq("id",id);if(d.error){setMsg(d.error.message,true);return;}const remaining=await apnaSupabase.from("product_images").select("id,is_primary").eq("product_id",editId).order("sort_order");if(row.is_primary&&remaining.data?.length){await setPrimary(remaining.data[0].id);}await loadImages();setMsg("Image deleted.");}
 async function loadImages(){
  if(!editId){renderPending();return;}
  const {data,error}=await apnaSupabase.from("product_images").select("id,storage_path,alt_text,sort_order,is_primary,variant_id").eq("product_id",editId).order("sort_order");
@@ -80,7 +80,7 @@ function addVariant(v={}){
  $("variantRows").appendChild(row);
 }
 async function uploadPreparedImage(prepared,variantId=null){
- const path=user.id+"/"+editId+"/"+crypto.randomUUID()+".webp";
+ const path=(productOwnerId||user.id)+"/"+editId+"/"+crypto.randomUUID()+".webp";
  const up=await apnaSupabase.storage.from("product-images").upload(path,prepared.file,{cacheControl:"31536000",upsert:false,contentType:"image/webp"});
  if(up.error)throw up.error;
  const {data:imgs}=await apnaSupabase.from("product_images").select("id,sort_order").eq("product_id",editId).order("sort_order",{ascending:false}).limit(1);
@@ -123,7 +123,7 @@ async function boot(){
  if(editId){
   $("heading").textContent="Edit product";
   const {data:prod,error}=await apnaSupabase.from("products").select("id,name,description,price,compare_at_price,status,category_id,brand_id,seller_id").eq("id",editId).single();
-  if(error||!prod||(role==="seller"&&prod.seller_id!==user.id)){location.href="seller-products.html";return;}
+  if(error||!prod||(role==="seller"&&prod.seller_id!==user.id)){location.href="seller-products.html";return;} productOwnerId=prod.seller_id;
   $("name").value=prod.name||"";$("description").value=prod.description||"";$("price").value=prod.price??"";$("compare").value=prod.compare_at_price??"";$("status").value=prod.status||"draft";$("category").value=prod.category_id||"";$("brand").value=prod.brand_id||"";
   await loadVariants();await loadImages();
  }else addVariant();
@@ -143,7 +143,7 @@ $("form").addEventListener("submit",async e=>{
   const rows=[...document.querySelectorAll(".variant")].map(r=>({size:r.querySelector(".vsize").value.trim()||null,color:r.querySelector(".vcolor").value.trim()||null,sku:r.querySelector(".vsku").value.trim()||null,stock:Math.max(0,Number(r.querySelector(".vstock").value)||0)}));
   const {data:savedId,error}=await apnaSupabase.rpc("seller_save_product",{p_product_id:editId||null,p_name:name,p_description:$("description").value.trim(),p_price:Number($("price").value),p_compare_at_price:$("compare").value?Number($("compare").value):null,p_status:$("status").value,p_category_id:$("category").value||null,p_brand_id:$("brand").value||null,p_variants:rows});
   if(error)throw error;
-  editId=savedId||editId;if(!editId)throw new Error("Product was saved but its ID could not be confirmed.");
+  editId=savedId||editId;if(!editId)throw new Error("Product was saved but its ID could not be confirmed."); const ownerRes=await apnaSupabase.from("products").select("seller_id").eq("id",editId).single(); if(ownerRes.error||!ownerRes.data?.seller_id)throw ownerRes.error||new Error("Product owner could not be confirmed."); productOwnerId=ownerRes.data.seller_id;
   $("heading").textContent="Edit product";
   await loadVariants();
   const uploaded=await uploadPendingImages();
