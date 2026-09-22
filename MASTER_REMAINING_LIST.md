@@ -102,6 +102,16 @@ Implementation, Supabase foundation, analytics tracking, and GitHub Pages deploy
 - Product performance table verification
 - Business-insight messaging verification
 
+## 🟡 PENDING — Phase 17 Search Trends
+Implementation, real search-event tracking, secure aggregation RPC, and GitHub Pages deployment are complete. Real activity QA remains because current search-event data is empty until customers perform genuine searches.
+- Real customer search submission E2E
+- Popular-search verification
+- Rising-search comparison verification
+- Zero-result search verification
+- Category-demand verification from actual matched products
+- Seller-product demand verification
+- Keyword-trend verification
+
 ## 🔴 PENDING IMPLEMENTATION
 - No additional implementation item is currently confirmed from the recovered roadmap after Phase 15.
 - Before starting each next phase, recover that phase's exact master-roadmap requirements and inspect GitHub + Supabase first. Do not assume a feature is missing.
