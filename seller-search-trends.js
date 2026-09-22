@@ -22,7 +22,7 @@ async function load(){
  $("categories").innerHTML=table(d.category_demand,[["Category",x=>esc(x.category_name)],["Demand",x=>num(x.searches)]],"No matched category demand recorded.");
  $("products").innerHTML=table(d.product_demand,[["Product",x=>'<strong>'+esc(x.product_name)+'</strong>'],["Search demand",x=>num(x.searches)]],"No seller-product search demand recorded.");
  $("keywords").innerHTML=table(d.keyword_trends,[["Keyword",x=>esc(x.term)],["Current",x=>num(x.current_searches)],["Previous",x=>num(x.previous_searches)],["Δ",x=>x.delta>0?'<span class="trend-rise">+'+num(x.delta)+'</span>':num(x.delta)]],"No keyword trend data recorded.");
- $("status"]="Showing real submitted search activity from "+new Date(d.range.start_at).toLocaleDateString("en-IN")+" to "+new Date(d.range.end_at).toLocaleDateString("en-IN")+".";
+ $("status").textContent="Showing real submitted search activity from "+new Date(d.range.start_at).toLocaleDateString("en-IN")+" to "+new Date(d.range.end_at).toLocaleDateString("en-IN")+".";
 }
 document.querySelectorAll(".preset").forEach(b=>b.onclick=()=>{document.querySelectorAll(".preset").forEach(x=>x.classList.remove("active"));b.classList.add("active");setDates(Number(b.dataset.days));load()});
 $("apply").onclick=load;setDates(30);load();
