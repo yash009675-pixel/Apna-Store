@@ -4,7 +4,7 @@ const num=v=>Number(v||0).toLocaleString("en-IN");
 const pct=v=>Number(v||0).toFixed(2)+"%";
 let state={days:30};
 function isoDate(d){return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10)}
-function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",""":"&quot;","'":"&#39;"}[c]))}
+function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function change(cur,prev){const a=Number(cur||0),b=Number(prev||0);if(b===0)return a===0?0:null;return ((a-b)/Math.abs(b))*100}
 function changeHtml(v){if(v===null)return '<span class="growth-change">No prior-period baseline</span>';const cls=v>0?"up":v<0?"down":"";return '<span class="growth-change '+cls+'">'+(v>0?"↑ ":v<0?"↓ ":"")+Math.abs(v).toFixed(1)+'% vs previous period</span>'}
 function dateRange(){
