@@ -62,6 +62,7 @@ function renderRows(rows){
   if(item.status==="requested")actions='<button type="button" data-action="approve" data-id="'+esc(item.id)+'">Approve</button><button type="button" data-action="reject" data-id="'+esc(item.id)+'">Reject</button>';
   else if(item.status==="approved"&&!item.return_shipment_id)actions='<button type="button" data-reverse="'+esc(item.id)+'">Create Reverse Shipment</button>';
   else if(item.status==="approved"&&item.return_shipment_id&&!item.reverse_pickup_id)actions='<span class="muted">Shipment created — pickup pending</span>';
+  if(item.request_type==="refund"&&["requested","processing"].includes(item.refund_status))actions+=(actions==="—"?"":" ")+'<button type="button" data-refund="' + esc(item.id) + '">Update refund</button>';
   return `<tr><td><strong>${esc(order.order_number)}</strong><br>${esc(order.delivery_status)}</td><td>${esc(item.request_type)}</td><td>${esc(item.reason)}<br><span class="muted">${esc(item.details)}</span></td><td><span class="badge">${esc(item.status)}</span><br>${esc(item.resolution_notes)}</td><td>${esc(new Date(item.requested_at).toLocaleString("en-IN"))}</td><td>${logistics}</td><td class="actions">${actions}</td></tr>`;
  }).join("");
  $("list").innerHTML='<div class="card"><table class="table"><thead><tr><th>Order</th><th>Request</th><th>Reason</th><th>Status</th><th>Requested</th><th>Logistics</th><th>Action</th></tr></thead><tbody>'+body+"</tbody></table></div>";
@@ -71,6 +72,7 @@ function renderRows(rows){
   button.disabled=true;
   try{await call(ACTION_API,{action:button.dataset.action,return_request_id:button.dataset.id,note});await load()}catch(e){window.alert(e.message||"Return action failed.");button.disabled=false}
  }));
+ $("list").querySelectorAll("button[data-refund]").forEach(button=>button.addEventListener("click",async()=>{const status=window.prompt("Refund status: requested / processing / processed / failed / cancelled","processing");if(status===null)return;const allowed=["requested","processing","processed","failed","cancelled"];if(!allowed.includes(status))return window.alert("Invalid refund status.");const amount=window.prompt("Refund amount (optional):","");if(amount===null)return;const reference=window.prompt("Refund reference / transaction ID (optional):","");if(reference===null)return;const note=window.prompt("Refund note (optional):","");if(note===null)return;button.disabled=true;try{await apnaSupabase.rpc("admin_set_refund_status",{p_return_request_id:button.dataset.refund,p_status:status,p_amount:amount===""?null:Number(amount),p_reference:reference||null,p_note:note||null});await load()}catch(e){window.alert(e.message||"Refund update failed.");button.disabled=false}}));
  $("list").querySelectorAll("button[data-reverse]").forEach(button=>button.addEventListener("click",async()=>{
   button.disabled=true;
   try{await createReverse(button.dataset.reverse)}catch(e){window.alert(e.message||"Reverse shipment failed.");button.disabled=false;await load()}
