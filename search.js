@@ -96,7 +96,7 @@ async function loadProducts(){
  render();
 }
 
-form.onsubmit=e=>{e.preventDefault();if(q.value.trim())rememberSearch(q.value);syncUrl();render();updateClearButton()};
+form.onsubmit=e=>{e.preventDefault();const term=q.value.trim();if(term){const list=matchingList(normalize(term));if(window.apnaTrackSearch)apnaTrackSearch(term,list.length,list.slice(0,20).map(x=>x.id));rememberSearch(term)}syncUrl();render();updateClearButton()};
 q.addEventListener("input",()=>{syncUrl();render();updateClearButton()});
 q.addEventListener("keydown",e=>{if(e.key==="Escape"){q.value="";syncUrl();render();updateClearButton()}});
 window.addEventListener("popstate",()=>{q.value=new URLSearchParams(location.search).get("q")||"";render();updateClearButton()});
