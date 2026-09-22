@@ -10,12 +10,7 @@ on:
     paths:
       - ".github/workflows/build-mobile.yml"
       - "mobile/**"
-      - "*.html"
-      - "*.js"
-      - "*.css"
-      - "*.json"
       - "backend/**"
-      - "pwa-icon-*.svg"
 
 permissions:
   contents: read
