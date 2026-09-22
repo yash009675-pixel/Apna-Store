@@ -75,7 +75,7 @@ async function loadProduct(){
   ]);
   if(vr.error||ir.error)throw vr.error||ir.error;
   const images=(ir.data||[]).map(x=>{const u=apnaSupabase.storage.from("product-images").getPublicUrl(x.storage_path).data.publicUrl;return {url:u,alt:x.alt_text||data.name,variant_id:x.variant_id||null}}).filter(x=>x.url);
-  renderProduct({...data,category:categoryMap.get(data.category_id)||"Apna Store",brand:brandMap.get(data.brand_id)||""},vr.data||[],images);
+  renderProduct({...data,category:categoryMap.get(data.category_id)||"Apna Store",brand:brandMap.get(data.brand_id)||""},vr.data||[],images);if(window.apnaTrackProductView)apnaTrackProductView(data.id);
  }catch(e){console.error("Product detail load failed:",e);showError("We could not load this product right now. Please refresh and try again.")}
 }
 loadProduct();
