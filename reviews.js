@@ -3,6 +3,7 @@ function reviewEsc(v){return String(v??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<
 function stars(n){n=Math.max(0,Math.min(5,Number(n)||0));return "★★★★★".slice(0,n)+"☆☆☆☆☆".slice(0,5-n)}
 async function renderReviews(){
  const product=document.getElementById("product");if(!product||!reviewProductId)return;
+ const existing=document.getElementById("reviews");if(existing)existing.remove();
  const box=document.createElement("section");box.className="product-reviews";box.id="reviews";product.appendChild(box);
  const {data:rows,error}=await apnaSupabase.from("reviews").select("id,rating,title,body,created_at,verified_purchase,user_id,order_id").eq("product_id",reviewProductId).order("created_at",{ascending:false});
  if(error){box.innerHTML='<div class="reviews-empty">Reviews are temporarily unavailable.</div>';return}
