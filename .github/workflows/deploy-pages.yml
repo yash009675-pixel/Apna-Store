@@ -1,4 +1,4 @@
-name: Deploy Apna Store to GitHub Pages
+name: Validate Apna Store GitHub Pages
 
 on:
   push:
@@ -8,19 +8,14 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: apna-store-pages-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
+  group: apna-store-pages-validation-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  deploy:
+  validate:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -37,15 +32,3 @@ jobs:
         run: |
           test -f index.html
           echo "index.html found at repository root"
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload static site
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: .
-
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
