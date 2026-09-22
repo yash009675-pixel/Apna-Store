@@ -80,8 +80,20 @@ This file is the single working source for unfinished work. It separates active 
 - Checkout real coupon application + final order E2E
 - Coupon analytics/history real redemption verification
 
+## 🟡 PENDING — Phase 15 Seller Payments
+- Verify latest GitHub Pages deployment after the deployment-race rerun
+- Real seller Payments/Earnings browser QA
+- Seller commission calculation QA with real delivered order data
+- Seller settlement generation QA
+- Seller payout request QA
+- Admin commission-management QA
+- Admin settlement/approval QA
+- Admin payout status workflow QA
+- Invoice generation QA
+- Real payment-provider/bank payout E2E remains a final-stage/hold item; never mark payout paid without provider evidence
+
 ## 🔴 PENDING IMPLEMENTATION
-- No additional implementation item is currently confirmed from the recovered roadmap after Phase 14.
+- No additional implementation item is currently confirmed from the recovered roadmap after Phase 15.
 - Before starting each next phase, recover that phase's exact master-roadmap requirements and inspect GitHub + Supabase first. Do not assume a feature is missing.
 
 ## ⏸️ HOLD — Complete Later / Final Stage
