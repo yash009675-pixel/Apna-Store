@@ -1,6 +1,6 @@
 # Apna Store — Master Remaining List
 
-Last updated after Phase 14.
+Last updated after Phase 16.
 
 This file is the single working source for unfinished work. It separates active pending QA/implementation from intentional HOLD items. Completed work must not be re-added.
 
@@ -81,7 +81,6 @@ This file is the single working source for unfinished work. It separates active 
 - Coupon analytics/history real redemption verification
 
 ## 🟡 PENDING — Phase 15 Seller Payments
-- Verify latest GitHub Pages deployment after the deployment-race rerun
 - Real seller Payments/Earnings browser QA
 - Seller commission calculation QA with real delivered order data
 - Seller settlement generation QA
@@ -91,6 +90,17 @@ This file is the single working source for unfinished work. It separates active 
 - Admin payout status workflow QA
 - Invoice generation QA
 - Real payment-provider/bank payout E2E remains a final-stage/hold item; never mark payout paid without provider evidence
+
+## 🟡 PENDING — Phase 16 Seller Growth / Insights
+Implementation, Supabase foundation, analytics tracking, and GitHub Pages deployment are complete. Real seller/browser QA remains because the project currently has no genuine seller profile available for an authenticated seller session.
+- Real seller Growth & Insights browser QA
+- Real product-view tracking E2E
+- Sales / units / orders / revenue metric verification with genuine seller data
+- Visitor / product-view / conversion metric verification with recorded traffic
+- Hourly / daily / weekly / monthly / yearly chart verification
+- Previous-period comparison verification
+- Product performance table verification
+- Business-insight messaging verification
 
 ## 🔴 PENDING IMPLEMENTATION
 - No additional implementation item is currently confirmed from the recovered roadmap after Phase 15.
