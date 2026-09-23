@@ -1303,3 +1303,18 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .shop-pagination .filter-clear{transition:transform var(--apna-motion-fast) var(--apna-ease),opacity var(--apna-motion-fast) ease,box-shadow var(--apna-motion-fast) ease}
 .shop-pagination .filter-clear:not(:disabled):hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(17,17,17,.08)}
 @media(prefers-reduced-motion:reduce){.shop-tools>.chips .chip:hover,.shop-tools>.chips .chip:active,.shop-pagination .filter-clear:not(:disabled):hover{transform:none!important}.advanced-filters:focus-within{box-shadow:none!important}#shopProducts>.product-card{animation:none!important}}
+
+
+/* AN-05 — Search interaction motion */
+.search-form{transition:box-shadow var(--apna-motion-base) var(--apna-ease),border-color var(--apna-motion-base) ease,transform var(--apna-motion-base) var(--apna-ease)}
+.search-form:focus-within{border-color:#c9c4ba;box-shadow:0 12px 28px rgba(17,17,17,.08);transform:translateY(-1px)}
+.search-form input{transition:background-color var(--apna-motion-fast) ease,color var(--apna-motion-fast) ease}
+#searchSuggestions{transition:opacity var(--apna-motion-base) ease,transform var(--apna-motion-base) var(--apna-ease)}
+.search-suggestion-box{animation:apnaFadeUp 220ms var(--apna-ease) both}
+.search-suggestion-box a{transition:background-color var(--apna-motion-fast) ease,transform var(--apna-motion-fast) var(--apna-ease),padding-left var(--apna-motion-fast) var(--apna-ease)}
+.search-suggestion-box a:hover{background:#f3f1ec;transform:translateX(3px)}
+.search-suggestion-box a:active{transform:scale(.99)}
+#searchResults .product-card{animation:apnaFadeUp 360ms var(--apna-ease) both}
+#searchResults .product-card:nth-child(2){animation-delay:45ms}#searchResults .product-card:nth-child(3){animation-delay:90ms}#searchResults .product-card:nth-child(4){animation-delay:135ms}#searchResults .product-card:nth-child(5){animation-delay:180ms}#searchResults .product-card:nth-child(6){animation-delay:225ms}
+.search-empty{animation:apnaFadeUp 300ms var(--apna-ease) both}
+@media(prefers-reduced-motion:reduce){.search-form:focus-within{transform:none!important;box-shadow:none!important}.search-suggestion-box,.search-empty,#searchResults .product-card{animation:none!important}.search-suggestion-box a:hover{transform:none!important}}
