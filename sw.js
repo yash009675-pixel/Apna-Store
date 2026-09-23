@@ -13,3 +13,5 @@ self.addEventListener("fetch",event=>{
  }
  event.respondWith(caches.match(req).then(cached=>cached||fetch(req).then(response=>{const copy=response.clone();caches.open(CACHE_NAME).then(cache=>cache.put(req,copy));return response}).catch(()=>caches.match("./offline.html"))));
 });
+self.addEventListener("push",event=>{let data={title:"Apna Store",body:"You have a new update.",url:"./notifications.html"};try{data={...data,...(event.data?event.data.json():{})}}catch{}event.waitUntil(self.registration.showNotification(data.title,{body:data.body,icon:"./pwa-icon-192.svg",badge:"./pwa-icon-192.svg",data:{url:data.url}}))});
+self.addEventListener("notificationclick",event=>{event.notification.close();const url=event.notification.data?.url||"./notifications.html";event.waitUntil(clients.matchAll({type:"window",includeUncontrolled:true}).then(list=>{for(const c of list){if("focus" in c){c.navigate(url);return c.focus()}}return clients.openWindow(url)}))});
