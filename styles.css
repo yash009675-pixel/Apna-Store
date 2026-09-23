@@ -1073,3 +1073,34 @@ footer{max-width:1280px!important;margin:auto!important;padding:60px 5vw!importa
 #ordersList .primary-btn{border-radius:10px!important;margin-top:8px!important}
 #ordersList .checkout-note{margin-top:12px!important}
 @media(max-width:600px){#ordersList>.checkout-card{padding:18px!important;border-radius:15px!important}#ordersList>.checkout-card h2{font-size:18px!important}.orders-title{font-size:46px!important}}
+
+/* UI-14 — Order detail / live tracking polish */
+#orderDetail{max-width:1040px;margin:0 auto}
+#orderDetail>.checkout-card{border-radius:18px!important;box-shadow:0 8px 24px rgba(17,17,17,.045)!important;padding:26px!important}
+#orderDetail>.checkout-card:first-child{background:#111!important;color:#fff!important;border-color:#111!important}
+#orderDetail>.checkout-card:first-child .eyebrow{color:#aaa!important}
+#orderDetail>.checkout-card:first-child .summary-line{border-color:#333!important}
+#orderDetail>.checkout-card:first-child .checkout-note{color:#aaa!important}
+#orderDetail>.checkout-card h1{font-size:clamp(42px,6vw,72px);line-height:.92;letter-spacing:-.07em;margin:0 0 24px}
+#orderDetail .summary-line{align-items:center;min-height:44px}
+#orderDetail .summary-line>b{font-weight:800;text-align:right}
+#orderDetail .summary-total{font-size:18px;font-weight:800}
+#orderDetail .primary-btn{border-radius:10px}
+#orderDetail .checkout-card:nth-child(2){position:relative;overflow:hidden}
+#orderDetail .checkout-card:nth-child(2):before{content:"LIVE";position:absolute;right:22px;top:22px;font-size:9px;font-weight:900;letter-spacing:.12em;border:1px solid #d8d4cc;border-radius:999px;padding:6px 9px}
+#orderDetail .checkout-card:nth-child(2) .summary-line{position:relative;padding-left:22px}
+#orderDetail .checkout-card:nth-child(2) .summary-line:before{content:"";position:absolute;left:2px;width:7px;height:7px;border-radius:50%;background:#111}
+#orderDetail .checkout-card:nth-child(2) .summary-line:after{content:"";position:absolute;left:5px;top:50%;bottom:-50%;width:1px;background:#ddd9d1}
+#orderDetail .checkout-card:nth-child(2) .summary-line:last-of-type:after{display:none}
+#orderDetail .checkout-card:nth-child(2) > p:last-child{margin-top:16px}
+#orderDetail .checkout-card:nth-child(3) .summary-line,
+#orderDetail .checkout-card:nth-child(4) .summary-line{border-color:#ebe7df}
+#orderDetail .checkout-card:last-of-type p{line-height:1.7;color:#666;font-size:13px}
+@media(max-width:600px){
+ #orderDetail{margin:0 -1px}
+ #orderDetail>.checkout-card{padding:18px!important;border-radius:15px!important}
+ #orderDetail>.checkout-card h1{font-size:40px}
+ #orderDetail .checkout-card:nth-child(2):before{right:16px;top:16px}
+ #orderDetail .summary-line{gap:12px;font-size:11px}
+ #orderDetail .summary-line>b{font-size:11px}
+}
