@@ -17,6 +17,7 @@ function buildFilterOptions(){
  colorEl.innerHTML='<option value="">All colors</option>'+colors.map(v=>'<option value="'+escapeHtml(v)+'">'+escapeHtml(v)+'</option>').join("");
  syncFilterControls();
 }
+async function loadSponsored(){const section=document.getElementById("sponsoredSection"),root=document.getElementById("sponsoredProducts");if(!section||!root)return;const categoryId=categories.find(c=>c.name===selected)?.id||null;const {data,error}=await apnaSupabase.rpc("public_get_sponsored_products",{p_query:"",p_category_id:categoryId,p_limit:4});if(error||!Array.isArray(data)||!data.length){section.hidden=true;return}section.hidden=false;root.innerHTML=data.map(p=>'<article class="product-card"><div class="product-image"></div><div class="product-info"><a href="product.html?id='+encodeURIComponent(p.id)+'" data-sponsored-click="'+p.campaign_id+'" data-sponsored-product="'+p.id+'" style="text-decoration:none;color:inherit"><h3>'+escapeHtml(p.name)+'</h3><p>'+escapeHtml(p.category||"Apna Store")+'</p><p class="price">₹'+Number(p.price).toLocaleString("en-IN")+'</p></a></div></article>').join("");const sid=(()=>{try{return localStorage.getItem("apnaAnalyticsSessionId")}catch{return null}})();for(const p of data){apnaSupabase.rpc("public_track_ad_event",{p_campaign_id:p.campaign_id,p_event_type:"impression",p_product_id:p.id,p_session_id:sid||null}).catch(()=>{})}root.querySelectorAll("[data-sponsored-click]").forEach(a=>a.addEventListener("click",()=>{apnaSupabase.rpc("public_track_ad_event",{p_campaign_id:a.dataset.sponsoredClick,p_event_type:"click",p_product_id:a.dataset.sponsoredProduct,p_session_id:sid||null}).catch(()=>{})}))}
 async function loadProducts(){
  root.innerHTML='<p class="checkout-note">Loading Apna products…</p>';
  const [productResult,categoryResult,variantResult,imageResult]=await Promise.all([
@@ -35,7 +36,7 @@ async function loadProducts(){
  variants=variantResult.data||[];
  const imageMap=new Map();(imageResult.data||[]).forEach(i=>{if(!imageMap.has(i.product_id)){const u=apnaSupabase.storage.from("product-images").getPublicUrl(i.storage_path).data.publicUrl;imageMap.set(i.product_id,u);}});
  products=(productResult.data||[]).map(p=>({...p,category:categoryMap.get(p.category_id)||"Apna Store",image:imageMap.get(p.id)||null}));
- buildFilterOptions();syncCategoryChip();render();
+ buildFilterOptions();syncCategoryChip();render();loadSponsored();
 }
 function renderCategoryChips(){const el=document.getElementById("categoryChips");if(!el)return;el.innerHTML='<button class="chip active" data-cat="All">All</button>'+categories.map(c=>'<button class="chip" data-cat="'+escapeHtml(c.name)+'">'+escapeHtml(c.name)+'</button>').join("");el.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{selected=b.dataset.cat;syncCategoryChip();syncUrl();render()});syncCategoryChip()}
 function syncCategoryChip(){const valid=["All",...categories.map(c=>c.name)];if(!valid.includes(selected))selected="All";document.querySelectorAll("#categoryChips .chip").forEach(x=>x.classList.toggle("active",x.dataset.cat===selected))}
