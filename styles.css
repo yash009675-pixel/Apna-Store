@@ -1348,3 +1348,16 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @keyframes apnaCartBump{0%{transform:scale(1)}35%{transform:scale(1.35)}65%{transform:scale(.92)}100%{transform:scale(1)}}
 .apna-cart-added{animation:apnaPop 320ms var(--apna-ease-soft) both}
 @media(prefers-reduced-motion:reduce){.cart-count.apna-cart-bump,.nav-count.apna-cart-bump,.apna-cart-added{animation:none!important}.add-to-cart:hover,.add-cart-btn:hover,.cart-btn:hover,[data-action="add-to-cart"]:hover{transform:none!important;box-shadow:none!important}}
+
+
+/* AN-07 — Add-to-cart interaction motion */
+.cart-add-btn,.add-to-cart,.buy-now,.product-card .primary-btn{position:relative;overflow:hidden}
+.cart-add-btn::after,.add-to-cart::after,.buy-now::after,.product-card .primary-btn::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 0%,rgba(255,255,255,.18) 45%,transparent 65%);transform:translateX(-120%);pointer-events:none}
+.cart-add-btn:hover::after,.add-to-cart:hover::after,.buy-now:hover::after,.product-card .primary-btn:hover::after{animation:apnaButtonShine 520ms var(--apna-ease) both}
+@keyframes apnaButtonShine{to{transform:translateX(120%)}}
+.cart-add-btn:active,.add-to-cart:active,.buy-now:active,.product-card .primary-btn:active{transform:scale(.975)}
+.cart-count,.nav-count{transition:transform var(--apna-motion-fast) var(--apna-ease),opacity var(--apna-motion-fast) ease}
+.cart-count.apna-count-pop,.nav-count.apna-count-pop{animation:apnaCountPop 300ms var(--apna-ease-soft) both}
+@keyframes apnaCountPop{0%{transform:scale(.7);opacity:.5}65%{transform:scale(1.18);opacity:1}100%{transform:scale(1)}}
+.apna-cart-feedback{animation:apnaFadeUp 280ms var(--apna-ease) both}
+@media(prefers-reduced-motion:reduce){.cart-add-btn:hover::after,.add-to-cart:hover::after,.buy-now:hover::after,.product-card .primary-btn:hover::after{animation:none!important}.cart-count.apna-count-pop,.nav-count.apna-count-pop,.apna-cart-feedback{animation:none!important}}
