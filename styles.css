@@ -1318,3 +1318,22 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 #searchResults .product-card:nth-child(2){animation-delay:45ms}#searchResults .product-card:nth-child(3){animation-delay:90ms}#searchResults .product-card:nth-child(4){animation-delay:135ms}#searchResults .product-card:nth-child(5){animation-delay:180ms}#searchResults .product-card:nth-child(6){animation-delay:225ms}
 .search-empty{animation:apnaFadeUp 300ms var(--apna-ease) both}
 @media(prefers-reduced-motion:reduce){.search-form:focus-within{transform:none!important;box-shadow:none!important}.search-suggestion-box,.search-empty,#searchResults .product-card{animation:none!important}.search-suggestion-box a:hover{transform:none!important}}
+
+
+/* AN-06 — Product detail gallery motion */
+.product-page .product-large{transition:box-shadow var(--apna-motion-base) var(--apna-ease),transform var(--apna-motion-base) var(--apna-ease),border-color var(--apna-motion-base) ease;overflow:hidden}
+.product-page .product-large:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(17,17,17,.09)}
+.product-page .product-large img{transition:transform 420ms var(--apna-ease-soft),opacity 220ms ease}
+.product-page .product-large:hover img{transform:scale(1.025)}
+.product-thumbs{scroll-behavior:smooth}
+.product-thumb{transition:transform var(--apna-motion-fast) var(--apna-ease),box-shadow var(--apna-motion-fast) ease,border-color var(--apna-motion-fast) ease,opacity var(--apna-motion-fast) ease}
+.product-thumb:hover{transform:translateY(-2px);box-shadow:0 7px 16px rgba(17,17,17,.08)}
+.product-thumb:active{transform:scale(.96)}
+.product-thumb.selected{animation:apnaPop 220ms var(--apna-ease-soft) both}
+.wishlist-detail{transition:transform var(--apna-motion-fast) var(--apna-ease),background-color var(--apna-motion-fast) ease,box-shadow var(--apna-motion-fast) ease}
+.wishlist-detail:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(17,17,17,.08)}
+.wishlist-detail:active{transform:scale(.94)}
+.buy-row .primary-btn{transition:transform var(--apna-motion-fast) var(--apna-ease),box-shadow var(--apna-motion-fast) var(--apna-ease),opacity var(--apna-motion-fast) ease}
+.buy-row .primary-btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(17,17,17,.14)}
+.buy-row .primary-btn:active{transform:scale(.98)}
+@media(prefers-reduced-motion:reduce){.product-page .product-large:hover,.product-page .product-large:hover img,.product-thumb:hover,.wishlist-detail:hover,.buy-row .primary-btn:hover{transform:none!important;box-shadow:none!important}.product-thumb.selected{animation:none!important}.product-page .product-large img{transition:none!important}}
