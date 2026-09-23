@@ -170,3 +170,70 @@
 button,a,input,select,textarea{touch-action:manipulation}button,input,select,textarea{font:inherit}button:disabled,[aria-disabled="true"]{cursor:not-allowed}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 @media (max-width:700px){.site-header{min-height:78px;height:auto;flex-wrap:wrap;padding:10px 5%}.site-header nav{order:3;width:100%;overflow-x:auto;padding:6px 0;gap:18px}.header-actions{margin-left:auto}.section-head{align-items:flex-start;gap:18px}.section-head h2{font-size:30px}.trust{grid-template-columns:repeat(2,1fr)}.trust div:nth-child(2){border-right:0}.categories{grid-template-columns:repeat(2,1fr)}.products{grid-template-columns:repeat(2,1fr);gap:14px}}
+
+
+/* ===== Responsive premium layout fix ===== */
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.language-switcher{flex:0 0 auto!important}
+.language-switcher select{border:1px solid #ddd9d1;border-radius:999px;background:#fff;padding:8px 30px 8px 12px;color:#111;font:inherit;font-size:13px;outline:none;min-height:38px}
+.language-switcher select:focus{border-color:#111;box-shadow:0 0 0 3px #1111}
+.header-actions a{color:#111!important}
+.hero-copy{position:relative;z-index:2}
+@media (min-width:769px){
+  .site-header{padding-left:4%;padding-right:4%;gap:24px}
+  .site-header .logo{flex:0 0 auto}
+  .site-header nav{flex:1;justify-content:center}
+  .header-actions{flex:0 0 auto}
+}
+@media (max-width:768px){
+  .site-header{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px;min-height:68px;height:auto;padding:9px 16px;flex-wrap:nowrap}
+  .site-header>.language-switcher{order:1;margin:0!important}
+  .site-header>.logo{order:2;justify-self:center;font-size:20px;letter-spacing:-.075em;white-space:nowrap}
+  .site-header>.header-actions{order:3;margin:0;justify-self:end;gap:2px}
+  .site-header nav{display:none!important}
+  .language-switcher select{font-size:12px;min-height:36px;padding:7px 25px 7px 10px}
+  .header-actions a{display:inline-flex!important;padding:8px 7px!important;font-size:12px!important}
+  .header-actions button{padding:8px 7px!important;font-size:12px}
+  .header-actions button:first-child{font-size:0}
+  .header-actions button:first-child::before{content:"⌕";font-size:15px}
+  .announcement{font-size:11px;line-height:1.35;padding:9px 12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hero{padding:48px 20px 54px;gap:18px}
+  .hero-copy{max-width:680px}
+  .hero h1{font-size:clamp(50px,13vw,72px);line-height:.9;margin-bottom:24px}
+  .hero-text{font-size:15px;line-height:1.65;margin-bottom:26px}
+  .hero-art{height:300px;margin-top:12px;overflow:visible}
+  .hero-card{width:min(205px,68vw);transform:rotate(3deg);margin:auto}
+  .trust{grid-template-columns:1fr 1fr}
+  .trust div{min-width:0;padding:18px 14px}
+  .trust span{font-size:13px}
+  .section{padding:52px 20px}
+  .section-head{gap:12px}
+  .section-head h2{font-size:28px}
+  .deal{margin-left:0;margin-right:0;border-radius:0}
+}
+@media (max-width:430px){
+  .site-header{grid-template-columns:auto minmax(0,1fr) auto;gap:7px;padding-left:12px;padding-right:12px}
+  .language-switcher select{max-width:82px;overflow:hidden;font-size:11px}
+  .site-header>.logo{font-size:18px}
+  .header-actions a{padding-left:5px!important;padding-right:5px!important}
+  .header-actions button{padding-left:5px!important;padding-right:5px!important}
+  .hero{padding-left:16px;padding-right:16px}
+  .hero h1{font-size:clamp(46px,14vw,62px)}
+  .hero-art{height:280px;margin-top:10px}
+  .hero-card{width:190px}
+  .trust div{padding:16px 10px}
+  .trust strong{font-size:18px}
+  .trust span{font-size:12px}
+  .trust small{font-size:10px}
+  .section{padding-left:16px;padding-right:16px}
+  .section-head{flex-direction:column;align-items:flex-start}
+  .categories,.products{gap:10px}
+}
+@media (min-width:769px) and (max-width:1100px){
+  .site-header{padding-left:3%;padding-right:3%;gap:14px}
+  .site-header nav{gap:16px}
+  .language-switcher select{font-size:12px}
+}
+@media (min-width:1101px){
+  .hero{padding-left:8%;padding-right:8%}
+}
