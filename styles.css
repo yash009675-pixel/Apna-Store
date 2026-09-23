@@ -1061,3 +1061,15 @@ footer{max-width:1280px!important;margin:auto!important;padding:60px 5vw!importa
 #addressList{margin-top:20px}
 @media(max-width:1000px){.account-stats{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
 @media(max-width:600px){.account-page{padding:34px 5% 70px!important}.account-card>h1{font-size:47px!important}.account-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important;margin-top:28px!important}.account-stats a{min-height:96px!important;padding:17px!important}.account-stats b{font-size:23px!important}.account-panel{padding:19px!important;border-radius:15px!important}.account-panel>h2{font-size:23px!important}.account-form{grid-template-columns:1fr!important}.account-form>.primary-btn{grid-column:1!important}.form-actions{grid-column:1!important}.account-actions{margin-top:20px!important}.account-actions>*{width:100%;justify-content:center;text-align:center}}
+
+/* UI-14 — Orders / tracking experience */
+.orders-page{max-width:1180px;margin:auto}
+.orders-title{font-size:clamp(48px,7vw,82px)!important;line-height:.9!important;letter-spacing:-.075em!important;margin:0 0 32px!important}
+#ordersList{display:grid;gap:14px}
+#ordersList>.checkout-card{margin:0!important;padding:25px!important;border-radius:18px!important;box-shadow:0 8px 24px rgba(17,17,17,.045)!important}
+#ordersList>.checkout-card h2{font-size:22px!important;letter-spacing:-.04em!important;margin:0 0 18px!important}
+#ordersList .summary-line{padding:11px 0!important;border-color:#e8e4dd!important}
+#ordersList .summary-total{font-size:18px!important}
+#ordersList .primary-btn{border-radius:10px!important;margin-top:8px!important}
+#ordersList .checkout-note{margin-top:12px!important}
+@media(max-width:600px){#ordersList>.checkout-card{padding:18px!important;border-radius:15px!important}#ordersList>.checkout-card h2{font-size:18px!important}.orders-title{font-size:46px!important}}
