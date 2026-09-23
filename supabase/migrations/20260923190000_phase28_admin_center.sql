@@ -24,5 +24,6 @@ as $$
   where private.is_admin();
 $$;
 
-revoke all on function public.admin_get_center_dashboard() from public;
+revoke execute on function public.admin_get_center_dashboard() from public;
+revoke execute on function public.admin_get_center_dashboard() from anon;
 grant execute on function public.admin_get_center_dashboard() to authenticated;
