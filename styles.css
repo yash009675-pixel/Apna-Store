@@ -885,3 +885,24 @@ footer{max-width:1280px!important;margin:auto!important;padding:60px 5vw!importa
 .apna-empty-products p{max-width:440px;color:#68655f;font-size:12px;line-height:1.6;margin:14px 0 20px;position:relative}
 .apna-empty-products a{background:#111;color:#fff;border-radius:9px;padding:12px 18px;text-decoration:none;font-size:11px;font-weight:800;position:relative}
 @media(max-width:520px){.apna-empty-products{min-height:210px;border-radius:18px;padding:34px 18px}.apna-empty-products strong{font-size:25px}.apna-empty-products p{font-size:10px}.apna-empty-products a{font-size:10px}.apna-empty-products:before{font-size:100px}}
+
+
+/* UI-06 — Category discovery */
+#categories{padding-top:clamp(52px,7vw,88px);padding-bottom:clamp(44px,6vw,76px)}
+#categories .section-head{align-items:flex-end;margin-bottom:28px}
+#categories .section-head h2{font-size:clamp(30px,4vw,48px);letter-spacing:-.055em;line-height:1}
+#categories .section-head>a{border:1px solid #d8d4cc;background:#fff;border-radius:999px;padding:11px 16px;color:#151515;text-decoration:none;font-size:10px;font-weight:800;white-space:nowrap}
+#homepageCategories{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+#homepageCategories .category{min-height:250px!important;border-radius:18px!important;padding:20px!important;display:flex!important;flex-direction:column!important;justify-content:flex-end!important;text-decoration:none!important;overflow:hidden!important;position:relative!important;isolation:isolate;box-shadow:0 10px 28px rgba(17,17,17,.08);transition:transform .2s ease,box-shadow .2s ease!important}
+#homepageCategories .category:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,17,17,.02),rgba(17,17,17,.66));z-index:-1}
+#homepageCategories .category:hover{transform:translateY(-4px);box-shadow:0 18px 36px rgba(17,17,17,.13)}
+#homepageCategories .category>span{font-size:9px!important;letter-spacing:.18em!important;color:rgba(255,255,255,.72)!important;margin-bottom:auto!important}
+#homepageCategories .category h3{font-size:27px!important;letter-spacing:-.04em!important;color:#fff!important;margin:0 0 5px!important}
+#homepageCategories .category p{font-size:10px!important;color:rgba(255,255,255,.8)!important;margin:0!important}
+#homepageCategories .category:nth-child(1){background:linear-gradient(145deg,#b9a994,#51483e)!important}
+#homepageCategories .category:nth-child(2){background:linear-gradient(145deg,#9c9b96,#3f403e)!important}
+#homepageCategories .category:nth-child(3){background:linear-gradient(145deg,#c5b49f,#64584b)!important}
+#homepageCategories .category:nth-child(4){background:linear-gradient(145deg,#b7b1a7,#45433f)!important}
+#homepageCategories .category:after{right:16px!important;bottom:16px!important;color:#fff!important;border-color:rgba(255,255,255,.4)!important}
+@media(max-width:900px){#homepageCategories{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}#homepageCategories .category{min-height:190px!important}}
+@media(max-width:520px){#categories{padding-top:44px}#categories .section-head{margin-bottom:18px}#categories .section-head h2{font-size:29px}#categories .section-head>a{padding:9px 12px;font-size:9px}#homepageCategories{gap:8px}#homepageCategories .category{min-height:160px!important;border-radius:15px!important;padding:15px!important}#homepageCategories .category h3{font-size:21px!important}#homepageCategories .category p{font-size:9px!important}}
