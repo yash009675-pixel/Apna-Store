@@ -62,6 +62,33 @@ Important: these features are already implemented where applicable. This hold is
 - Do not blindly revoke SECURITY DEFINER, EXECUTE privileges, or secure RPC architecture just to remove Advisor warnings.
 - Any final change must preserve server-side authorization and RLS behavior.
 
+
+### 9. Phase 0 Final Verification / Production QA Backlog
+- Live GitHub Pages/public serving verification
+- Live browser QA
+- Customer signup/login/profile QA
+- Customer complete E2E QA
+- Seller authorization E2E
+- Admin authorization E2E
+- Authenticated Edge Function E2E
+- Real Shiprocket shipment E2E
+- AWB, pickup and tracking verification
+- Migration-source/version reconciliation
+- Final Security Advisor review and exit checklist
+- Physical Android QA
+- Physical iOS QA
+- Mobile regression QA
+- No fake courier/shipment/tracking data
+
+### 10. Phase 66 — Membership Billing
+- Real online membership payment gateway integration
+- Verified payment-success/webhook flow
+- Paid membership activation after verified payment
+- Paid requests remain pending until real payment verification exists
+- Never fake payment success or membership activation
+
+These Phase 0–66 items remain tracked for the final consolidated pass and are not blockers for current sequential implementation unless a later phase directly depends on them.
+
 ## Rules for this Hold List
 
 1. Do not re-add these items as ordinary implementation-pending work.
