@@ -70,7 +70,7 @@ begin
   if not found or not v_flag.enabled then return false; end if;
   if v_flag.rollout_percent >= 100 then return true; end if;
   if v_flag.rollout_percent <= 0 or coalesce(trim(p_subject_key),'') = '' then return false; end if;
-  v_bucket := mod(abs(hashtextextended(v_flag.flag_key || ':' || trim(p_subject_key), 0)), 10000);
+  v_bucket := hashtextextended(v_flag.flag_key || ':' || trim(p_subject_key), 0) & 9223372036854775807;
   return v_bucket < round(v_flag.rollout_percent * 100);
 end;
 $$;
