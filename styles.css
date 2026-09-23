@@ -446,3 +446,35 @@ footer{max-width:1280px!important;margin:auto!important;padding:60px 5vw!importa
  .deal{margin:0 0 55px!important;border-radius:0!important;padding:50px 24px!important}
  footer{padding:45px 20px!important}
 }
+/* UI-02 HEADER + NAVIGATION — desktop/tablet/mobile */
+.site-header{grid-template-columns:auto 1fr auto!important;align-items:center!important;padding:0 clamp(16px,5vw,72px)!important;gap:24px!important}
+.site-header>.language-switcher{grid-column:1!important;grid-row:1!important;order:initial!important;margin:0!important}
+.site-header>.logo{grid-column:2!important;grid-row:1!important;justify-self:center!important}
+.site-header>nav{grid-column:2!important;grid-row:2!important;display:none!important}
+.site-header>.header-actions{grid-column:3!important;grid-row:1!important;justify-self:end!important}
+/* Move primary navigation into a dedicated second desktop row without changing JS hooks. */
+.site-header{height:auto!important;min-height:82px!important;padding-top:14px!important;padding-bottom:14px!important;position:sticky!important}
+.site-header nav{display:flex!important;position:absolute!important;left:50%;transform:translateX(-50%);bottom:13px!important;gap:30px!important}
+.site-header>.logo{margin-bottom:22px!important}
+.site-header>.language-switcher{margin-bottom:22px!important}
+.site-header>.header-actions{margin-bottom:22px!important}
+.site-header nav a{padding:4px 0!important}
+.site-header nav a.active{font-weight:800!important}
+.header-actions{gap:6px!important}
+.header-actions button,.header-actions a{height:40px!important;min-width:40px!important;justify-content:center!important;padding:8px 12px!important;border:1px solid #ddd8cf!important;background:#fffdfa!important;color:#141414!important}
+.header-actions button:hover,.header-actions a:hover{background:#f0ede7!important}
+.header-actions .bag-action,.header-actions #cartBtn{background:#141414!important;color:#fff!important;border-color:#141414!important}
+@media(max-width:900px){
+ .site-header{display:grid!important;grid-template-columns:auto 1fr auto!important;min-height:68px!important;height:68px!important;padding:0 16px!important;gap:10px!important}
+ .site-header>.language-switcher{grid-column:1!important;grid-row:1!important;margin:0!important}
+ .site-header>.logo{grid-column:2!important;grid-row:1!important;margin:0!important;justify-self:center!important}
+ .site-header>.header-actions{grid-column:3!important;grid-row:1!important;margin:0!important}
+ .site-header nav{display:none!important}
+ .header-actions button,.header-actions a{min-width:38px!important;height:38px!important;padding:7px!important}
+}
+@media(max-width:520px){
+ .site-header{padding:0 10px!important;gap:5px!important}
+ .language-switcher select{max-width:76px!important;padding:7px 8px!important;font-size:10px!important}
+ .site-header .logo{font-size:16px!important}
+ .header-actions{gap:3px!important}.header-actions button,.header-actions a{min-width:36px!important;padding:6px!important}
+}
