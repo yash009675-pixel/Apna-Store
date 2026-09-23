@@ -1040,3 +1040,24 @@ footer{max-width:1280px!important;margin:auto!important;padding:60px 5vw!importa
 #checkoutSummary .primary-btn{background:#fff;color:#111;width:100%;justify-content:center;border-radius:10px;margin-top:14px}
 @media(max-width:850px){.checkout-page{display:block!important;padding:34px 5% 80px!important}.checkout-page>section>h1{font-size:52px!important}.checkout-card{padding:20px;border-radius:15px}#checkoutSummary{position:static;margin-top:20px}.form-grid{grid-template-columns:1fr}}
 @media(max-width:520px){.checkout-page>section>h1{font-size:43px!important;margin-bottom:25px!important}.checkout-card{padding:17px}.checkout-card h2{font-size:16px}.checkout-card input,.checkout-card select,.checkout-card textarea{font-size:12px;min-height:43px}.checkout-card .choice{font-size:11px}#checkoutSummary{padding:20px;border-radius:16px}}
+
+/* UI-13 — Account experience */
+.account-page{min-height:calc(100vh - 78px)!important;display:block!important;padding:54px 6%!important}
+.account-card{max-width:1180px!important;margin:auto!important;text-align:left!important}
+.account-card>h1{font-size:clamp(48px,7vw,86px)!important;line-height:.9!important;letter-spacing:-.075em!important;max-width:800px!important;margin:0 0 18px!important}
+.account-card>p:not(.eyebrow){max-width:680px}
+.account-stats{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:10px!important;margin:38px 0 0!important}
+.account-stats a{min-height:112px!important;border-radius:15px!important;border:1px solid #e2ded6!important;box-shadow:0 7px 20px rgba(17,17,17,.04)!important;transition:transform .18s ease,box-shadow .18s ease!important}
+.account-stats a:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(17,17,17,.08)!important}
+.account-stats b{font-size:28px!important;letter-spacing:-.04em}
+.account-panel{background:#fff!important;border:1px solid #e2ded6!important;border-radius:18px!important;padding:28px!important;margin-top:14px!important;box-shadow:0 8px 24px rgba(17,17,17,.04)!important}
+.account-panel>h2{font-size:28px!important;letter-spacing:-.045em!important;margin-bottom:22px!important}
+.account-panel .account-panel{box-shadow:none!important;margin-top:24px!important;padding:20px!important;background:#faf9f6!important}
+.account-actions{justify-content:flex-start!important;margin-top:28px!important}
+.account-actions .primary-btn,.account-panel .primary-btn{border-radius:10px!important}
+.account-note{max-width:700px}
+#accountActions{display:flex;gap:9px;flex-wrap:wrap}
+#accountActions>*{border-radius:10px}
+#addressList{margin-top:20px}
+@media(max-width:1000px){.account-stats{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(max-width:600px){.account-page{padding:34px 5% 70px!important}.account-card>h1{font-size:47px!important}.account-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important;margin-top:28px!important}.account-stats a{min-height:96px!important;padding:17px!important}.account-stats b{font-size:23px!important}.account-panel{padding:19px!important;border-radius:15px!important}.account-panel>h2{font-size:23px!important}.account-form{grid-template-columns:1fr!important}.account-form>.primary-btn{grid-column:1!important}.form-actions{grid-column:1!important}.account-actions{margin-top:20px!important}.account-actions>*{width:100%;justify-content:center;text-align:center}}
