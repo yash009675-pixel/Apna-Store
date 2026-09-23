@@ -875,3 +875,13 @@ footer{max-width:1280px!important;margin:auto!important;padding:60px 5vw!importa
  .products-section .products:empty::before{min-height:190px;padding:44px 18px;font-size:26px;border-radius:18px}
  .products-section .products:empty::after{margin-top:-92px;padding:0 22px 44px;font-size:10px}
 }
+
+
+/* UI-05 — empty product showcase card */
+.apna-empty-products{grid-column:1/-1;min-height:250px;border:1px solid #dedbd4;border-radius:22px;background:linear-gradient(135deg,#f4f1eb,#e8e3da);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:42px 24px;box-shadow:0 14px 35px rgba(17,17,17,.07);position:relative;overflow:hidden}
+.apna-empty-products:before{content:"APNA";position:absolute;right:-25px;top:-55px;font-size:150px;font-weight:900;letter-spacing:-.1em;color:rgba(17,17,17,.035);transform:rotate(-8deg)}
+.apna-empty-kicker{font-size:9px;font-weight:800;letter-spacing:.2em;color:#777;margin-bottom:12px}
+.apna-empty-products strong{font-size:clamp(25px,4vw,42px);letter-spacing:-.05em;color:#111;line-height:1.05;position:relative}
+.apna-empty-products p{max-width:440px;color:#68655f;font-size:12px;line-height:1.6;margin:14px 0 20px;position:relative}
+.apna-empty-products a{background:#111;color:#fff;border-radius:9px;padding:12px 18px;text-decoration:none;font-size:11px;font-weight:800;position:relative}
+@media(max-width:520px){.apna-empty-products{min-height:210px;border-radius:18px;padding:34px 18px}.apna-empty-products strong{font-size:25px}.apna-empty-products p{font-size:10px}.apna-empty-products a{font-size:10px}.apna-empty-products:before{font-size:100px}}
