@@ -13,6 +13,8 @@ create table if not exists public.feature_flags (
 );
 alter table public.feature_flags enable row level security;
 revoke all on table public.feature_flags from anon, authenticated;
+create policy feature_flags_client_read on public.feature_flags for select to anon, authenticated using (client_visible = true);
+grant select on public.feature_flags to anon, authenticated;
 
 create or replace function public.is_admin_user()
 returns boolean language sql stable security invoker set search_path = public as $$
@@ -61,7 +63,7 @@ $$;
 create or replace function public.get_feature_flag(
   p_flag_key text, p_environment text default 'production', p_subject_key text default null
 )
-returns boolean language plpgsql stable security definer set search_path = public, pg_temp as $$
+returns boolean language plpgsql stable security invoker set search_path = public, pg_temp as $
 declare v_flag public.feature_flags; v_bucket bigint;
 begin
   if p_environment not in ('production','staging','development') then return false; end if;
