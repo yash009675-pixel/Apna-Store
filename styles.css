@@ -968,3 +968,22 @@ footer{max-width:1280px!important;margin:auto!important;padding:60px 5vw!importa
 #sponsoredSection{box-shadow:0 8px 24px rgba(17,17,17,.04)!important}
 @media(max-width:900px){.advanced-filters{grid-template-columns:repeat(2,minmax(0,1fr));}.filter-actions{grid-column:1/-1}.shop-tools .filter-summary{margin-top:8px}}
 @media(max-width:520px){.shop-tools{margin-bottom:25px}.shop-tools>.chips{margin-right:-5%;padding-right:5%}.advanced-filters{grid-template-columns:1fr 1fr;border-radius:14px;padding:13px}.filter-field input,.filter-field select{min-height:42px}.filter-actions{grid-template-columns:1fr 1fr;display:grid}.filter-actions .primary-btn,.filter-actions .filter-clear{width:100%;justify-content:center}.filter-summary{font-size:9px}.shop-sort{margin-bottom:14px}.shop-sort:before{font-size:9px}.shop-sort select{min-width:0;width:auto}.shop-pagination{gap:8px}.shop-pagination .filter-clear{padding:9px 10px}}
+
+/* UI-09 — Search / discovery */
+.search-title{max-width:900px;margin-bottom:0}
+.search-form{max-width:900px;align-items:stretch;background:#fff;border:1px solid #dedad2;border-radius:16px;padding:7px;box-shadow:0 10px 30px rgba(17,17,17,.05)}
+.search-form input{border:0;background:transparent;padding:16px 14px;min-width:0}
+.search-form input:focus{border:0;box-shadow:none}
+.search-form .primary-btn,.search-form .filter-clear,.search-form .secondary-btn{border-radius:10px;white-space:nowrap}
+.search-form .primary-btn{padding:13px 20px}
+.search-summary{margin:0 0 24px;color:#666}
+#searchSuggestions{max-width:900px;margin:-22px 0 30px}
+.search-suggestion-box{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:14px 0;border-bottom:1px solid #e4e0d8}
+.search-suggestion-box strong{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#777;margin-right:4px}
+.search-suggestion-box button,.empty-suggestions button{border:1px solid #d8d4cc;background:#fff;border-radius:999px;padding:8px 12px;font:inherit;font-size:11px;cursor:pointer}
+.search-suggestion-box button:hover,.empty-suggestions button:hover{background:#111;color:#fff;border-color:#111}
+.search-empty{padding:55px 25px;background:#fff;border:1px solid #e3e0da;border-radius:18px;text-align:center}
+.search-empty h2{font-size:32px;letter-spacing:-.05em;margin:0 0 10px}
+.search-empty p{color:#777;font-size:12px;margin:0 0 20px}
+.empty-suggestions{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;font-size:11px}
+@media(max-width:600px){.search-title{font-size:48px}.search-form{display:grid;grid-template-columns:1fr auto;padding:6px;border-radius:14px}.search-form input{grid-column:1/-1;width:100%;padding:14px 10px}.search-form .primary-btn,.search-form .filter-clear,.search-form .secondary-btn{width:100%;justify-content:center}.search-form .filter-clear{font-size:10px}.search-suggestion-box{gap:6px}.search-empty{padding:40px 18px}.search-empty h2{font-size:27px}}
