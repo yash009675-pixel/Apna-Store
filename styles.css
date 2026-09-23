@@ -1139,3 +1139,20 @@ footer{max-width:1280px!important;margin:auto!important;padding:60px 5vw!importa
 #notificationList{margin-top:12px}
 #notificationStatus{min-height:18px}
 @media(max-width:480px){.notification-role{margin-left:4px}}
+
+/* UI-16 — Deals / offers experience */
+.deals-page{max-width:1240px;margin:auto}
+.deals-hero{background:#111;color:#fff;border-radius:22px;padding:48px 5%;margin-bottom:18px;position:relative;overflow:hidden}
+.deals-hero h1{font-size:clamp(48px,7vw,86px);line-height:.88;letter-spacing:-.075em;margin:0 0 16px}
+.deals-hero p:not(.eyebrow){color:#aaa;max-width:560px;line-height:1.6}
+.deals-links{display:flex;gap:9px;flex-wrap:wrap;margin-top:24px}
+.deals-links a{border-radius:10px}
+#dailyDealList>section,#flashSaleList>section{border-radius:18px!important;box-shadow:0 8px 24px rgba(17,17,17,.045)!important;padding:26px!important}
+#dailyDealList .products,#flashSaleList .product-grid{gap:14px}
+#dailyDealList .product-card,#flashSaleList .product-card{background:#faf9f6;border:1px solid #e2ded6;border-radius:14px;padding:18px;min-width:0}
+#dailyDealList .product-card h3,#flashSaleList .product-card h3{font-size:16px;letter-spacing:-.025em;margin:0 0 12px}
+#dailyDealList .product-card strong,#flashSaleList .product-card strong{font-size:18px}
+#dailyDealList .product-card .primary-btn,#flashSaleList .product-card .primary-btn{border-radius:9px;margin-top:12px}
+.deal-countdown,.sale-countdown{display:inline-flex;min-width:82px;justify-content:center;background:#111;color:#fff;border-radius:999px;padding:7px 10px;font-weight:800;font-size:11px;letter-spacing:.04em}
+#dailyDealEmpty{border-radius:18px!important;text-align:center;padding:50px!important}
+@media(max-width:600px){.deals-hero{padding:34px 22px;border-radius:17px}.deals-hero h1{font-size:48px}#dailyDealList>section,#flashSaleList>section{padding:18px!important;border-radius:15px!important}#dailyDealList .products,#flashSaleList .product-grid{grid-template-columns:1fr 1fr!important;gap:10px}#dailyDealList .product-card,#flashSaleList .product-card{padding:13px}#dailyDealList .product-card h3,#flashSaleList .product-card h3{font-size:13px}}
