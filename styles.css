@@ -770,3 +770,32 @@ footer{max-width:1280px!important;margin:auto!important;padding:60px 5vw!importa
 .hero-photo-label{background:rgba(17,17,17,.48)!important}
 @media(max-width:768px){.hero-photo{width:230px!important;height:300px!important;background-position:center top!important}}
 @media(max-width:520px){.hero-photo{width:205px!important;height:270px!important}}
+
+
+/* UI-04 HERO PHOTO FIX v4 — real male fashion photo + APNA shirt mark */
+.hero-photo{
+  background-color:#d8d2c8!important;
+  background-image:url("https://images.unsplash.com/photo-1652794120952-2562e3e97a85?fm=jpg&ixlib=rb-4.1.0&q=82&w=900&fit=crop")!important;
+  background-size:cover!important;
+  background-position:center 22%!important;
+}
+.hero-photo::before{display:none!important}
+.hero-photo::after{
+  content:"APNA";
+  position:absolute;
+  z-index:4;
+  left:50%;
+  top:56%;
+  transform:translate(-50%,-50%);
+  color:#fff;
+  font-size:18px;
+  font-weight:800;
+  letter-spacing:.18em;
+  text-shadow:0 2px 8px rgba(0,0,0,.55);
+  pointer-events:none;
+}
+.hero-photo-person{display:none!important}
+.hero-photo-label{z-index:6!important;background:rgba(17,17,17,.58)!important}
+.hero-photo-copy{z-index:6!important;background:rgba(17,17,17,.55)!important}
+@media(max-width:768px){.hero-photo{background-position:center 18%!important}.hero-photo::after{font-size:14px}}
+@media(max-width:520px){.hero-photo::after{font-size:12px}}
