@@ -35,3 +35,34 @@ revoke execute on function public.admin_observability_summary() from public,anon
 grant execute on function public.record_audit_event(text,text,text,jsonb) to authenticated;
 grant execute on function public.admin_list_audit_logs(integer) to authenticated;
 grant execute on function public.admin_observability_summary() to authenticated;
+-- Audit feature-flag administration without exposing audit rows to clients.
+create or replace function public.admin_save_feature_flag(
+ p_flag_id uuid,p_flag_key text,p_description text,p_enabled boolean,p_environment text,p_rollout_percent numeric,p_client_visible boolean
+) returns public.feature_flags language plpgsql security definer set search_path=public,pg_temp as $$
+declare v_row public.feature_flags;
+begin
+ if not public.is_admin_user() then raise exception 'Admin access required'; end if;
+ if p_flag_key is null or p_flag_key !~ '^[a-z][a-z0-9_.-]{1,79}$' then raise exception 'Invalid flag key'; end if;
+ if p_environment not in ('production','staging','development') then raise exception 'Invalid environment'; end if;
+ if p_rollout_percent < 0 or p_rollout_percent > 100 then raise exception 'Invalid rollout percentage'; end if;
+ if p_flag_id is null then
+  insert into public.feature_flags(flag_key,description,enabled,environment,rollout_percent,client_visible,created_by)
+  values(lower(trim(p_flag_key)),nullif(trim(p_description),''),coalesce(p_enabled,false),p_environment,p_rollout_percent,coalesce(p_client_visible,false),auth.uid()) returning * into v_row;
+  perform public.record_audit_event('feature_flag.created','feature_flag',v_row.id::text,jsonb_build_object('flag_key',v_row.flag_key,'enabled',v_row.enabled,'environment',v_row.environment,'rollout_percent',v_row.rollout_percent));
+ else
+  update public.feature_flags set flag_key=lower(trim(p_flag_key)),description=nullif(trim(p_description),''),enabled=coalesce(p_enabled,false),environment=p_environment,rollout_percent=p_rollout_percent,client_visible=coalesce(p_client_visible,false),updated_at=now() where id=p_flag_id returning * into v_row;
+  if v_row.id is null then raise exception 'Feature flag not found'; end if;
+  perform public.record_audit_event('feature_flag.updated','feature_flag',v_row.id::text,jsonb_build_object('flag_key',v_row.flag_key,'enabled',v_row.enabled,'environment',v_row.environment,'rollout_percent',v_row.rollout_percent));
+ end if;
+ return v_row;
+end $$;
+create or replace function public.admin_delete_feature_flag(p_flag_id uuid)
+returns boolean language plpgsql security definer set search_path=public,pg_temp as $$
+declare v_key text;
+begin
+ if not public.is_admin_user() then raise exception 'Admin access required'; end if;
+ select flag_key into v_key from public.feature_flags where id=p_flag_id;
+ delete from public.feature_flags where id=p_flag_id;
+ if found then perform public.record_audit_event('feature_flag.deleted','feature_flag',p_flag_id::text,jsonb_build_object('flag_key',v_key)); end if;
+ return found;
+end $$;
