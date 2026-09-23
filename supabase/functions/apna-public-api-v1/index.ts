@@ -1,0 +1,20 @@
+import "jsr:@supabase/functions-js/edge-runtime.d.ts";
+import { createClient } from "npm:@supabase/supabase-js@2";
+const supabase=createClient(Deno.env.get("SUPABASE_URL")!,Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
+const json=(body:unknown,status=200)=>new Response(JSON.stringify(body),{status,headers:{"Content-Type":"application/json","Cache-Control":"no-store"}});
+Deno.serve(async(req)=>{
+ if(req.method!=="GET") return json({error:"method_not_allowed"},405);
+ const auth=req.headers.get("x-api-key")||"";
+ if(!auth.startsWith("aps_")) return json({error:"missing_api_key"},401);
+ const hash=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(auth));
+ const keyHash=Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join("");
+ const {data:client,error}=await supabase.from("api_clients").select("id,name,scopes,rate_limit_per_minute,active").eq("key_hash",keyHash).maybeSingle();
+ if(error||!client||!client.active) return json({error:"invalid_api_key"},401);
+ if(!client.scopes.includes("catalog:read")) return json({error:"insufficient_scope"},403);
+ const url=new URL(req.url),slug=url.searchParams.get("slug"),id=url.searchParams.get("id");
+ let query=supabase.from("products").select("id,name,slug,description,price,compare_at_price,status,subcategory,attributes,discount_percent,return_policy,created_at,updated_at").eq("status","approved").limit(50);
+ if(slug) query=query.eq("slug",slug); if(id) query=query.eq("id",id);
+ const {data,error:e}=await query; if(e) return json({error:"upstream_error"},500);
+ await supabase.from("api_clients").update({last_used_at:new Date().toISOString()}).eq("id",client.id);
+ return json({version:"v1",data:data||[],meta:{count:(data||[]).length}});
+});
