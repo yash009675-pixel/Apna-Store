@@ -1104,3 +1104,31 @@ footer{max-width:1280px!important;margin:auto!important;padding:60px 5vw!importa
  #orderDetail .summary-line{gap:12px;font-size:11px}
  #orderDetail .summary-line>b{font-size:11px}
 }
+
+/* UI-15 — Notifications experience */
+.notification-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:28px}
+.notification-head h1{font-size:clamp(48px,7vw,82px)!important;line-height:.9!important;letter-spacing:-.075em!important;margin:0 0 14px!important}
+.notification-head p{margin:0;color:#777;font-size:12px}
+.notification-head .primary-btn{border:0;border-radius:10px;cursor:pointer;white-space:nowrap}
+.notification-tools{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px!important;margin:0 0 16px!important}
+.notification-tools label{background:#fff;border:1px solid #e2ded6;border-radius:14px;padding:13px!important;color:#333!important}
+.notification-tools select{width:100%;min-width:0!important;margin-top:2px;border:1px solid #d8d4cc;border-radius:9px;padding:11px;background:#faf9f6}
+.notification-channels,.notification-preferences{border:1px solid #e2ded6!important;background:#fff!important;border-radius:18px!important;padding:22px!important;margin:0 0 14px!important;box-shadow:0 8px 24px rgba(17,17,17,.04)}
+.notification-channels h2,.notification-preferences h2{font-size:18px!important;letter-spacing:-.03em;margin:0 0 14px!important}
+.channel-grid,.preference-grid{gap:10px!important}
+.channel-card,.preference-row{border:1px solid #e2ded6!important;border-radius:12px!important;background:#faf9f6!important;padding:14px!important}
+.channel-card.ready{border-color:#111!important;background:#111!important;color:#fff}
+.channel-card.ready small{color:#aaa}
+.notification-role{background:#111!important;color:#fff!important}
+.notification-muted{line-height:1.6;margin:0 0 16px}
+.notification-card{display:flex;justify-content:space-between;gap:20px;align-items:center;background:#fff;border:1px solid #e2ded6;border-radius:16px;padding:18px 20px;margin:0 0 10px;box-shadow:0 6px 18px rgba(17,17,17,.035);transition:transform .18s ease,box-shadow .18s ease}
+.notification-card:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(17,17,17,.07)}
+.notification-card.unread{border-left:4px solid #111;background:#fff}
+.notification-card strong{font-size:14px;letter-spacing:-.015em}
+.notification-card p{margin:7px 0;color:#666;font-size:12px;line-height:1.55}
+.notification-card small{font-size:10px;color:#999}
+.notification-actions{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+.notification-actions a,.notification-actions button{border:1px solid #d8d4cc;background:#fff;color:#111;border-radius:9px;padding:9px 11px;font:inherit;font-size:10px;text-decoration:none;cursor:pointer}
+.notification-actions a:hover,.notification-actions button:hover{background:#111;color:#fff;border-color:#111}
+@media(max-width:700px){.notification-head{align-items:flex-start;flex-direction:column}.notification-head .primary-btn{width:100%;justify-content:center}.notification-card{align-items:flex-start;flex-direction:column}.notification-actions{width:100%}.notification-actions a,.notification-actions button{flex:1;text-align:center}.notification-tools{grid-template-columns:1fr!important}}
+@media(max-width:480px){.notification-head h1{font-size:45px!important}.notification-channels,.notification-preferences{padding:17px!important;border-radius:15px!important}.notification-card{padding:16px;border-radius:14px}.notification-card strong{font-size:13px}}
