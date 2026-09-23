@@ -1288,3 +1288,18 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .deal{animation:apnaFadeUp 500ms var(--apna-ease-soft) both}
 @media(max-width:520px){.hero-copy{animation-duration:420ms}.hero-art{animation-duration:500ms}.hero-actions{animation-delay:120ms}.hero-meta{animation-delay:180ms}.trust>div,.categories .category{animation-delay:0!important}}
 @media(prefers-reduced-motion:reduce){.hero-copy,.hero-art,.hero-badge,.hero-actions,.hero-meta,.trust>div,.categories .category,.products-section .section-head,.deal{animation:none!important}}
+
+
+/* AN-04 — Shop / listing motion */
+.shop-tools>.chips .chip{transition:transform var(--apna-motion-fast) var(--apna-ease),background-color var(--apna-motion-fast) ease,color var(--apna-motion-fast) ease,box-shadow var(--apna-motion-fast) ease}
+.shop-tools>.chips .chip:hover{transform:translateY(-2px)}
+.shop-tools>.chips .chip:active{transform:scale(.97)}
+.advanced-filters{transition:box-shadow var(--apna-motion-base) var(--apna-ease),border-color var(--apna-motion-base) ease}
+.advanced-filters:focus-within{border-color:#cfcac1;box-shadow:0 12px 30px rgba(17,17,17,.07)}
+.filter-field input,.filter-field select,.shop-sort select{transition:border-color var(--apna-motion-fast) ease,box-shadow var(--apna-motion-fast) ease,background-color var(--apna-motion-fast) ease}
+.filter-field input:hover,.filter-field select:hover,.shop-sort select:hover{border-color:#bdb8ae}
+#shopProducts>.product-card{animation:apnaFadeUp 360ms var(--apna-ease) both}
+#shopProducts>.product-card:nth-child(2){animation-delay:40ms}#shopProducts>.product-card:nth-child(3){animation-delay:80ms}#shopProducts>.product-card:nth-child(4){animation-delay:120ms}#shopProducts>.product-card:nth-child(5){animation-delay:160ms}#shopProducts>.product-card:nth-child(6){animation-delay:200ms}#shopProducts>.product-card:nth-child(7){animation-delay:240ms}#shopProducts>.product-card:nth-child(8){animation-delay:280ms}
+.shop-pagination .filter-clear{transition:transform var(--apna-motion-fast) var(--apna-ease),opacity var(--apna-motion-fast) ease,box-shadow var(--apna-motion-fast) ease}
+.shop-pagination .filter-clear:not(:disabled):hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(17,17,17,.08)}
+@media(prefers-reduced-motion:reduce){.shop-tools>.chips .chip:hover,.shop-tools>.chips .chip:active,.shop-pagination .filter-clear:not(:disabled):hover{transform:none!important}.advanced-filters:focus-within{box-shadow:none!important}#shopProducts>.product-card{animation:none!important}}
