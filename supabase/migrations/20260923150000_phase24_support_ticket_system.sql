@@ -30,6 +30,7 @@ declare h int; begin
  if new.status='closed' and old.status is distinct from 'closed' then new.closed_at:=coalesce(new.closed_at,now()); end if; return new; end $$;
 drop trigger if exists trg_support_ticket_before_write on public.support_tickets;
 create trigger trg_support_ticket_before_write before insert or update on public.support_tickets for each row execute function public.support_ticket_before_write();
+revoke all on function public.support_ticket_before_write() from public, anon, authenticated;
 create index if not exists idx_support_tickets_requester_created on public.support_tickets(requester_id,created_at desc);
 create index if not exists idx_support_tickets_status_sla on public.support_tickets(status,sla_due_at);
 create index if not exists idx_support_tickets_assigned on public.support_tickets(assigned_agent_id,status);
