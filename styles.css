@@ -1337,3 +1337,14 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .buy-row .primary-btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(17,17,17,.14)}
 .buy-row .primary-btn:active{transform:scale(.98)}
 @media(prefers-reduced-motion:reduce){.product-page .product-large:hover,.product-page .product-large:hover img,.product-thumb:hover,.wishlist-detail:hover,.buy-row .primary-btn:hover{transform:none!important;box-shadow:none!important}.product-thumb.selected{animation:none!important}.product-page .product-large img{transition:none!important}}
+
+
+/* AN-07 — Add-to-cart interaction motion */
+.add-to-cart,.add-cart-btn,.cart-btn,[data-action="add-to-cart"]{transition:transform var(--apna-motion-fast) var(--apna-ease),box-shadow var(--apna-motion-fast) var(--apna-ease),background-color var(--apna-motion-fast) ease,opacity var(--apna-motion-fast) ease}
+.add-to-cart:hover,.add-cart-btn:hover,.cart-btn:hover,[data-action="add-to-cart"]:hover{transform:translateY(-2px);box-shadow:0 9px 20px rgba(17,17,17,.11)}
+.add-to-cart:active,.add-cart-btn:active,.cart-btn:active,[data-action="add-to-cart"]:active{transform:scale(.96);box-shadow:none}
+.cart-count,.nav-count{transition:transform var(--apna-motion-fast) var(--apna-ease),background-color var(--apna-motion-fast) ease,color var(--apna-motion-fast) ease}
+.cart-count.apna-cart-bump,.nav-count.apna-cart-bump{animation:apnaCartBump 360ms var(--apna-ease-soft) both}
+@keyframes apnaCartBump{0%{transform:scale(1)}35%{transform:scale(1.35)}65%{transform:scale(.92)}100%{transform:scale(1)}}
+.apna-cart-added{animation:apnaPop 320ms var(--apna-ease-soft) both}
+@media(prefers-reduced-motion:reduce){.cart-count.apna-cart-bump,.nav-count.apna-cart-bump,.apna-cart-added{animation:none!important}.add-to-cart:hover,.add-cart-btn:hover,.cart-btn:hover,[data-action="add-to-cart"]:hover{transform:none!important;box-shadow:none!important}}
