@@ -39,7 +39,8 @@ async function syncCartWithCatalog(){
   saveCart(normalizeCart(next));
 }
 
-async function trackAbandonedCart(){try{if(typeof apnaSupabase==="undefined")return;const {data:{session}}=await apnaSupabase.auth.getSession();if(!session)return;const cart=readCart();const subtotal=cart.reduce((sum,item)=>sum+Number(item.price||0)*Number(item.qty||1),0);if(cart.length){const payload=cart.map(item=>({product_id:item.productId||null,variant_id:item.variantId||null,quantity:Number(item.qty||1),price:Number(item.price||0),name:item.name||"Product"}));await apnaSupabase.rpc("track_abandoned_cart",{p_cart:payload,p_subtotal:subtotal,p_checkout_started:false});await apnaSupabase.rpc("record_abandoned_cart_event",{p_type:"cart_tracked",p_channel:"in_app"});}}catch(error){console.warn("Abandoned cart tracking unavailable:",error)}}\nfunction money(value){return "₹"+Number(value||0).toLocaleString("en-IN");}
+async function trackAbandonedCart(){try{if(typeof apnaSupabase==="undefined")return;const {data:{session}}=await apnaSupabase.auth.getSession();if(!session)return;const cart=readCart();const subtotal=cart.reduce((sum,item)=>sum+Number(item.price||0)*Number(item.qty||1),0);if(cart.length){const payload=cart.map(item=>({product_id:item.productId||null,variant_id:item.variantId||null,quantity:Number(item.qty||1),price:Number(item.price||0),name:item.name||"Product"}));await apnaSupabase.rpc("track_abandoned_cart",{p_cart:payload,p_subtotal:subtotal,p_checkout_started:false});await apnaSupabase.rpc("record_abandoned_cart_event",{p_type:"cart_tracked",p_channel:"in_app"});}}catch(error){console.warn("Abandoned cart tracking unavailable:",error)}}
+function money(value){return "₹"+Number(value||0).toLocaleString("en-IN");}
 function escapeHtml(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 
 function draw(){
