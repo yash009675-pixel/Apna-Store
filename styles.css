@@ -1132,3 +1132,10 @@ footer{max-width:1280px!important;margin:auto!important;padding:60px 5vw!importa
 .notification-actions a:hover,.notification-actions button:hover{background:#111;color:#fff;border-color:#111}
 @media(max-width:700px){.notification-head{align-items:flex-start;flex-direction:column}.notification-head .primary-btn{width:100%;justify-content:center}.notification-card{align-items:flex-start;flex-direction:column}.notification-actions{width:100%}.notification-actions a,.notification-actions button{flex:1;text-align:center}.notification-tools{grid-template-columns:1fr!important}}
 @media(max-width:480px){.notification-head h1{font-size:45px!important}.notification-channels,.notification-preferences{padding:17px!important;border-radius:15px!important}.notification-card{padding:16px;border-radius:14px}.notification-card strong{font-size:13px}}
+
+/* UI-15 — Notifications polish */
+.notifications-page{max-width:1180px;margin:auto}
+.notification-list{margin-top:12px}
+#notificationList{margin-top:12px}
+#notificationStatus{min-height:18px}
+@media(max-width:480px){.notification-role{margin-left:4px}}
