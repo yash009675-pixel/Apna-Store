@@ -397,3 +397,52 @@ input,select,textarea{border-radius:var(--apna-radius-sm)}
 @media(prefers-reduced-motion:reduce){
  .category,.product-card,.primary-btn,.light-btn{transition:none}
 }
+
+/* UI-01 VISIBLE HOMEPAGE REDESIGN */
+.site-header{height:82px!important;background:#fffdfa!important;box-shadow:0 1px 0 #ddd8cf!important}
+.site-header .logo{font-size:20px!important;letter-spacing:-.04em!important}
+.site-header nav a{text-transform:uppercase!important;letter-spacing:.07em!important;font-size:11px!important;font-weight:700!important}
+.header-actions button,.header-actions a{border-radius:999px!important}
+.hero{background:#fffdfa!important;min-height:650px!important;padding:78px 8vw!important}
+.hero h1{font-size:clamp(62px,7.4vw,108px)!important;line-height:.86!important;letter-spacing:-.08em!important}
+.hero-text{max-width:520px!important;font-size:15px!important;line-height:1.8!important}
+.hero-art{height:500px!important}
+.hero-card{width:330px!important;height:420px!important;padding:30px!important;display:flex!important;flex-direction:column!important;justify-content:space-between!important;transform:none!important;background:linear-gradient(150deg,#b8a48e,#50463d)!important;box-shadow:0 30px 70px #0003!important}
+.hero-card strong{font-size:70px!important;line-height:.82!important}
+.hero-card small{margin:0!important}
+.trust{background:#171717!important;color:#fff!important;border:0!important}
+.trust div{border-color:#3a3a3a!important;padding:27px 4vw!important}
+.section{max-width:1280px!important;padding:88px 5vw!important}
+.section-head h2{font-size:clamp(36px,4.4vw,56px)!important;letter-spacing:-.065em!important}
+.categories{gap:12px!important}
+.category{min-height:390px!important;border-radius:18px!important;box-shadow:none!important}
+.category:hover{transform:translateY(-5px)!important;box-shadow:0 18px 45px #0002!important}
+.products{gap:16px!important}
+.product-card{border:0!important;border-radius:18px!important;background:transparent!important;box-shadow:none!important}
+.product-image{border-radius:18px!important;background:#e8e3da!important}
+.product-info{padding:14px 2px!important}
+.deal{max-width:1280px!important;margin:20px auto 88px!important;border-radius:18px!important;padding:72px 7vw!important;box-shadow:0 20px 50px #0002!important}
+.deal h2{font-size:clamp(54px,6vw,84px)!important}
+footer{max-width:1280px!important;margin:auto!important;padding:60px 5vw!important}
+@media(max-width:900px){
+ .hero{grid-template-columns:1fr!important;min-height:auto!important;padding:58px 6vw!important}
+ .hero-art{height:390px!important}
+ .hero-card{width:280px!important;height:350px!important}
+ .trust{grid-template-columns:1fr 1fr!important}
+ .categories,.products{grid-template-columns:1fr 1fr!important}
+}
+@media(max-width:520px){
+ .site-header{height:68px!important;padding:0 12px!important}
+ .hero{padding:46px 16px!important}
+ .hero h1{font-size:clamp(48px,14vw,66px)!important}
+ .hero-art{height:310px!important}
+ .hero-card{width:220px!important;height:285px!important}
+ .hero-card strong{font-size:48px!important}
+ .trust div{padding:17px 12px!important}
+ .section{padding:52px 16px!important}
+ .section-head{align-items:flex-start!important;flex-direction:column!important}
+ .section-head h2{font-size:32px!important}
+ .category{min-height:230px!important}
+ .deal{margin:0 0 55px!important;border-radius:0!important;padding:50px 24px!important}
+ footer{padding:45px 20px!important}
+}
