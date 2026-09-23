@@ -333,3 +333,67 @@ button,a,input,select,textarea{ -webkit-tap-highlight-color:transparent }
 @media(prefers-reduced-motion:reduce){
   .apna-btn,.apna-field{transition:none}
 }
+
+
+/* UI-01 VISIBLE FOUNDATION — applied to existing homepage primitives */
+body{background:var(--apna-bg);color:var(--apna-ink)}
+.announcement{background:var(--apna-ink);padding:9px var(--apna-gutter);letter-spacing:.08em}
+.site-header{height:76px;padding:0 var(--apna-gutter);background:rgba(247,246,242,.96);border-bottom:1px solid var(--apna-border)}
+.logo{color:var(--apna-ink);font-size:22px}
+.site-header nav a{color:var(--apna-ink);font-weight:500;transition:opacity var(--apna-transition)}
+.site-header nav a:hover{opacity:.55}
+.header-actions{align-items:center;gap:4px}
+.header-actions button,.header-actions a{min-height:40px;border-radius:var(--apna-radius-sm);transition:background var(--apna-transition),transform var(--apna-transition)}
+.header-actions button:hover,.header-actions a:hover{background:#eceae5}
+.hero{background:var(--apna-surface);padding:clamp(48px,7vw,88px) var(--apna-gutter);min-height:600px}
+.hero-copy{max-width:var(--apna-content)}
+.eyebrow{color:var(--apna-muted);letter-spacing:.16em}
+.hero-text{color:var(--apna-ink-soft)}
+.primary-btn,.light-btn{border-radius:var(--apna-radius-sm);min-height:var(--apna-control-h);transition:transform var(--apna-transition),background var(--apna-transition),opacity var(--apna-transition)}
+.primary-btn:hover{background:#292929;transform:translateY(-1px)}
+.trust{background:var(--apna-surface);border-bottom:1px solid var(--apna-border)}
+.trust div{border-right-color:var(--apna-border)}
+.section{width:min(var(--apna-container),100%);margin-inline:auto;padding:clamp(56px,7vw,88px) var(--apna-gutter)}
+.section-head{margin-bottom:32px}
+.section-head h2{color:var(--apna-ink);font-size:clamp(30px,4vw,42px)}
+.section-head>a{color:var(--apna-ink);font-weight:600}
+.categories,.products{gap:16px}
+.category{border-radius:var(--apna-radius-md);overflow:hidden;box-shadow:var(--apna-shadow-sm);transition:transform var(--apna-transition),box-shadow var(--apna-transition)}
+.category:hover{transform:translateY(-3px);box-shadow:var(--apna-shadow-md)}
+.product-card{background:var(--apna-surface);border:1px solid var(--apna-border);border-radius:var(--apna-radius-md);overflow:hidden;box-shadow:var(--apna-shadow-sm);transition:transform var(--apna-transition),box-shadow var(--apna-transition)}
+.product-card:hover{transform:translateY(-3px);box-shadow:var(--apna-shadow-md)}
+.product-image{border-radius:var(--apna-radius-md) var(--apna-radius-md) 0 0}
+.product-info{padding:16px}
+.product-info h3{color:var(--apna-ink)}
+.product-info p{color:var(--apna-muted)}
+.deal{width:min(var(--apna-container),calc(100% - (var(--apna-gutter)*2)));margin:0 auto clamp(56px,7vw,88px);border-radius:var(--apna-radius-lg);box-shadow:var(--apna-shadow-lg);padding:clamp(44px,6vw,72px) var(--apna-gutter)}
+footer{width:min(var(--apna-container),100%);margin:auto;padding:48px var(--apna-gutter);border-top:1px solid var(--apna-border)}
+footer a{transition:opacity var(--apna-transition)}
+footer a:hover{opacity:.55}
+input,select,textarea{border-radius:var(--apna-radius-sm)}
+:focus-visible{outline:3px solid rgba(17,17,17,.28);outline-offset:3px}
+@media(max-width:767px){
+ .site-header{height:auto;min-height:68px;padding:9px 16px}
+ .hero{grid-template-columns:1fr;min-height:auto;padding-top:52px;padding-bottom:52px}
+ .hero h1{font-size:clamp(48px,14vw,72px)}
+ .hero-art{height:300px}
+ .trust{grid-template-columns:1fr 1fr}
+ .trust div{padding:18px 14px}
+ .section{padding-top:52px;padding-bottom:52px}
+ .categories{grid-template-columns:1fr 1fr}
+ .category{min-height:250px}
+ .products{grid-template-columns:1fr 1fr}
+ .deal{margin-left:16px;margin-right:16px}
+ footer{grid-template-columns:1fr}
+ footer small{grid-column:auto}
+}
+@media(max-width:380px){
+ .site-header{padding-inline:10px}
+ .logo{font-size:18px}
+ .header-actions a,.header-actions button{padding-inline:6px!important}
+ .hero{padding-inline:16px}
+ .products,.categories{gap:10px}
+}
+@media(prefers-reduced-motion:reduce){
+ .category,.product-card,.primary-btn,.light-btn{transition:none}
+}
