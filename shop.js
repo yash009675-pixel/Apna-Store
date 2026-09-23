@@ -1,4 +1,4 @@
-let products=[];let variants=[];let categories=[];let cloudWishlistIds=new Set();let cloudWishlistLoaded=false;let selected=new URLSearchParams(location.search).get("category")||"All";
+let products=[];let variants=[];let categories=[];let cloudWishlistIds=new Set();let cloudWishlistLoaded=false;let selected=new URLSearchParams(location.search).get("category")||"All";let currentPage=1;const PAGE_SIZE=12;let totalProducts=0;
 const root=document.getElementById("shopProducts"),count=document.getElementById("cartCount");
 const filters={min:"",max:"",size:"",color:"",stock:"all"};
 function readCart(){try{const c=JSON.parse(localStorage.getItem("apnaCart")||"[]");return Array.isArray(c)?c:[]}catch{return[]}}
@@ -20,23 +20,50 @@ function buildFilterOptions(){
 async function loadSponsored(){const section=document.getElementById("sponsoredSection"),root=document.getElementById("sponsoredProducts");if(!section||!root)return;const categoryId=categories.find(c=>c.name===selected)?.id||null;const {data,error}=await apnaSupabase.rpc("public_get_sponsored_products",{p_query:"",p_category_id:categoryId,p_limit:4});if(error||!Array.isArray(data)||!data.length){section.hidden=true;return}section.hidden=false;root.innerHTML=data.map(p=>'<article class="product-card"><div class="product-image"></div><div class="product-info"><a href="product.html?id='+encodeURIComponent(p.id)+'" data-sponsored-click="'+p.campaign_id+'" data-sponsored-product="'+p.id+'" style="text-decoration:none;color:inherit"><h3>'+escapeHtml(p.name)+'</h3><p>'+escapeHtml(p.category||"Apna Store")+'</p><p class="price">₹'+Number(p.price).toLocaleString("en-IN")+'</p></a></div></article>').join("");const sid=(()=>{try{return localStorage.getItem("apnaAnalyticsSessionId")}catch{return null}})();for(const p of data){apnaSupabase.rpc("public_track_ad_event",{p_campaign_id:p.campaign_id,p_event_type:"impression",p_product_id:p.id,p_session_id:sid||null}).catch(()=>{})}root.querySelectorAll("[data-sponsored-click]").forEach(a=>a.addEventListener("click",()=>{apnaSupabase.rpc("public_track_ad_event",{p_campaign_id:a.dataset.sponsoredClick,p_event_type:"click",p_product_id:a.dataset.sponsoredProduct,p_session_id:sid||null}).catch(()=>{})}))}
 async function loadProducts(){
  root.innerHTML='<p class="checkout-note">Loading Apna products…</p>';
- const [productResult,categoryResult,variantResult,imageResult]=await Promise.all([
-  apnaSupabase.from("products").select("id,name,slug,description,price,category_id").eq("status","active").order("created_at",{ascending:true}),
+ const [categoryResult,variantResult]=await Promise.all([
   apnaSupabase.from("categories").select("id,name,is_active,sort_order").eq("is_active",true).order("sort_order").order("name"),
-  apnaSupabase.from("product_variants").select("product_id,size,color,stock"),
-  apnaSupabase.from("product_images").select("product_id,storage_path,is_primary,sort_order").order("is_primary",{ascending:false}).order("sort_order")
+  apnaSupabase.from("product_variants").select("product_id,size,color,stock")
  ]);
- if(productResult.error){console.error("Shop product query failed:",productResult.error);root.innerHTML='<p class="checkout-note">We could not load products right now. Please refresh and try again.</p>';return}
- if(categoryResult.error)console.warn("Shop category query failed:",categoryResult.error);
+ if(categoryResult.error){console.error("Shop category query failed:",categoryResult.error);root.innerHTML='<p class="checkout-note">Categories could not be loaded right now. Please refresh and try again.</p>';return}
  if(variantResult.error){console.error("Shop variant query failed:",variantResult.error);root.innerHTML='<p class="checkout-note">We could not load product filters right now. Please refresh and try again.</p>';return}
- if(imageResult.error)console.error("Shop image query failed:",imageResult.error);
  categories=categoryResult.data||[];
+ variants=variantResult.data||[];
  const categoryMap=new Map(categories.map(c=>[c.id,c.name]));
  renderCategoryChips();
- variants=variantResult.data||[];
- const imageMap=new Map();(imageResult.data||[]).forEach(i=>{if(!imageMap.has(i.product_id)){const u=apnaSupabase.storage.from("product-images").getPublicUrl(i.storage_path).data.publicUrl;imageMap.set(i.product_id,u);}});
- products=(productResult.data||[]).map(p=>({...p,category:categoryMap.get(p.category_id)||"Apna Store",image:imageMap.get(p.id)||null}));
- buildFilterOptions();syncCategoryChip();render();loadSponsored();
+ buildFilterOptions();
+ syncCategoryChip();
+ const categoryId=categories.find(c=>c.name===selected)?.id||null;
+ const matchingIds=matchingVariantIds();
+ const variantFilterActive=Boolean(filters.size||filters.color||filters.stock==="in");
+ let query=apnaSupabase.from("products").select("id,name,slug,description,price,category_id",{count:"planned"}).eq("status","active");
+ if(categoryId)query=query.eq("category_id",categoryId);
+ if(filters.min!==""&&Number.isFinite(Number(filters.min)))query=query.gte("price",Number(filters.min));
+ if(filters.max!==""&&Number.isFinite(Number(filters.max)))query=query.lte("price",Number(filters.max));
+ if(variantFilterActive){
+  const ids=[...matchingIds];
+  if(!ids.length){products=[];totalProducts=0;render();updatePagination();loadSponsored();return}
+  query=query.in("id",ids);
+ }
+ const sort=document.getElementById("sort")?.value||"default";
+ if(sort==="low")query=query.order("price",{ascending:true}).order("id",{ascending:true});
+ else if(sort==="high")query=query.order("price",{ascending:false}).order("id",{ascending:true});
+ else query=query.order("created_at",{ascending:true}).order("id",{ascending:true});
+ const from=(currentPage-1)*PAGE_SIZE;
+ const {data:productRows,error:productError,count}=await query.range(from,from+PAGE_SIZE-1);
+ if(productError){console.error("Shop product query failed:",productError);root.innerHTML='<p class="checkout-note">We could not load products right now. Please refresh and try again.</p>';return}
+ totalProducts=Number(count||0);
+ const productIds=(productRows||[]).map(p=>p.id);
+ let imageRows=[];
+ if(productIds.length){
+  const imageResult=await apnaSupabase.from("product_images").select("product_id,storage_path,is_primary,sort_order").in("product_id",productIds).order("is_primary",{ascending:false}).order("sort_order");
+  if(imageResult.error)console.warn("Shop image query failed:",imageResult.error);else imageRows=imageResult.data||[];
+ }
+ const imageMap=new Map();
+ imageRows.forEach(i=>{if(!imageMap.has(i.product_id)){const u=apnaSupabase.storage.from("product-images").getPublicUrl(i.storage_path).data.publicUrl;imageMap.set(i.product_id,u);}});
+ products=(productRows||[]).map(p=>({...p,category:categoryMap.get(p.category_id)||"Apna Store",image:imageMap.get(p.id)||null}));
+ render();
+ updatePagination();
+ loadSponsored();
 }
 function renderCategoryChips(){const el=document.getElementById("categoryChips");if(!el)return;el.innerHTML='<button class="chip active" data-cat="All">All</button>'+categories.map(c=>'<button class="chip" data-cat="'+escapeHtml(c.name)+'">'+escapeHtml(c.name)+'</button>').join("");el.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{selected=b.dataset.cat;syncCategoryChip();syncUrl();render()});syncCategoryChip()}
 function syncCategoryChip(){const valid=["All",...categories.map(c=>c.name)];if(!valid.includes(selected))selected="All";document.querySelectorAll("#categoryChips .chip").forEach(x=>x.classList.toggle("active",x.dataset.cat===selected))}
@@ -49,17 +76,12 @@ function render(){
  const hasPriceMin=Number.isFinite(min),hasPriceMax=Number.isFinite(max);
  const variantFilterActive=Boolean(filters.size||filters.color||filters.stock==="in");
  const matchingIds=variantFilterActive?matchingVariantIds():null;
- let list=products.filter(p=>{
-  const price=Number(p.price);
-  return (selected==="All"||p.category===selected)&&(!hasPriceMin||price>=min)&&(!hasPriceMax||price<=max)&&(!matchingIds||matchingIds.has(p.id));
- });
- const s=document.getElementById("sort").value;
- if(s==="low")list.sort((a,b)=>Number(a.price)-Number(b.price));if(s==="high")list.sort((a,b)=>Number(b.price)-Number(a.price));
+ let list=products.filter(p=>(!matchingIds||matchingIds.has(p.id))&&(!hasPriceMin||Number(p.price)>=min)&&(!hasPriceMax||Number(p.price)<=max));
  const w=readWishlist();
- root.innerHTML=list.length?list.map(p=>{const saved=cloudWishlistLoaded?cloudWishlistIds.has(p.id):w.some(item=>item.productId===p.id||item.name===p.name);return '<article class="product-card"><div class="product-image"'+(p.image?' style="background-image:url(\''+escapeHtml(p.image)+'\');background-size:cover;background-position:center"':'')+'><button class="wishlist-toggle" aria-label="'+(saved?"Remove from wishlist":"Add to wishlist")+'" title="'+(saved?"Remove from wishlist":"Add to wishlist")+'" data-product-id="'+p.id+'">'+(saved?"♥":"♡")+'</button></div><div class="product-info"><a href="product.html?id='+encodeURIComponent(p.id)+'" style="text-decoration:none;color:inherit"><h3>'+escapeHtml(p.name)+'</h3><p>'+escapeHtml(p.category)+'</p><p class="price">₹'+Number(p.price).toLocaleString("en-IN")+'</p></a><button class="primary-btn add" data-view-product-id="'+p.id+'" style="margin-top:12px;padding:10px 13px;font-size:11px;gap:15px">View options →</button></div></article>'}).join(""):'<p>No products match these filters.</p>';
+ root.innerHTML=list.length?list.map(p=>{const saved=cloudWishlistLoaded?cloudWishlistIds.has(p.id):w.some(item=>item.productId===p.id||item.name===p.name);return '<article class="product-card"><div class="product-image">'+(p.image?'<img loading="lazy" decoding="async" src="'+escapeHtml(p.image)+'" alt="'+escapeHtml(p.name)+'">':'')+'<button class="wishlist-toggle" aria-label="'+(saved?"Remove from wishlist":"Add to wishlist")+'" title="'+(saved?"Remove from wishlist":"Add to wishlist")+'" data-product-id="'+p.id+'">'+(saved?"♥":"♡")+'</button></div><div class="product-info"><a href="product.html?id='+encodeURIComponent(p.id)+'" style="text-decoration:none;color:inherit"><h3>'+escapeHtml(p.name)+'</h3><p>'+escapeHtml(p.category)+'</p><p class="price">₹'+Number(p.price).toLocaleString("en-IN")+'</p></a><button class="primary-btn add" data-view-product-id="'+p.id+'" style="margin-top:12px;padding:10px 13px;font-size:11px;gap:15px">View options →</button></div></article>'}).join(""):'<p>No products match these filters.</p>';
  root.querySelectorAll(".wishlist-toggle").forEach(b=>b.addEventListener("click",()=>wishlist(b.dataset.productId)));
  root.querySelectorAll("[data-view-product-id]").forEach(b=>b.addEventListener("click",()=>location.href="product.html?id="+encodeURIComponent(b.dataset.viewProductId)));
- const resultCount=document.getElementById("filterResultCount");if(resultCount)resultCount.textContent=list.length+" product"+(list.length===1?"":"s");
+ const resultCount=document.getElementById("filterResultCount");if(resultCount)resultCount.textContent=(totalProducts||list.length)+" product"+((totalProducts||list.length)===1?"":"s");
 }
 async function wishlist(id){
  const p=products.find(x=>x.id===id);if(!p)return;
@@ -86,12 +108,20 @@ function syncUrl(){
  const sort=document.getElementById("sort").value;if(sort==="default")params.delete("sort");else params.set("sort",sort);
  for(const key of ["min","max","size","color"]){if(filters[key])params.set(key,filters[key]);else params.delete(key)}
  if(filters.stock==="in")params.set("stock","in");else params.delete("stock");
- const query=params.toString();history.replaceState({},"",query?"shop.html?"+query:"shop.html")
+ const query=params.toString();history.replaceState({}, "",query?"shop.html?"+query:"shop.html")
 }
-function applyFilters(){filters.min=document.getElementById("minPrice").value.trim();filters.max=document.getElementById("maxPrice").value.trim();filters.size=document.getElementById("sizeFilter").value;filters.color=document.getElementById("colorFilter").value;filters.stock=document.getElementById("stockFilter").value;syncUrl();render()}
+function updatePagination(){
+ const box=document.getElementById("shopPagination");if(!box)return;
+ const totalPages=Math.max(1,Math.ceil(totalProducts/PAGE_SIZE));
+ box.hidden=totalPages<=1;
+ box.innerHTML='<button type="button" class="filter-clear" id="prevPage" '+(currentPage<=1?"disabled":"")+'>← Previous</button><span>Page '+currentPage+' of '+totalPages+'</span><button type="button" class="filter-clear" id="nextPage" '+(currentPage>=totalPages?"disabled":"")+'>Next →</button>';
+ box.querySelector("#prevPage").onclick=()=>{if(currentPage>1){currentPage--;loadProducts()}};
+ box.querySelector("#nextPage").onclick=()=>{if(currentPage<totalPages){currentPage++;loadProducts()}};
+}
+function applyFilters(){currentPage=1;filters.min=document.getElementById("minPrice").value.trim();filters.max=document.getElementById("maxPrice").value.trim();filters.size=document.getElementById("sizeFilter").value;filters.color=document.getElementById("colorFilter").value;filters.stock=document.getElementById("stockFilter").value;syncUrl();render()}
 function clearFilters(){filters.min=filters.max=filters.size=filters.color="";filters.stock="all";syncFilterControls();syncUrl();render()}
-document.getElementById("sort").onchange=()=>{syncUrl();render()};
-window.addEventListener("popstate",()=>{const params=new URLSearchParams(location.search);selected=params.get("category")||"All";const sort=params.get("sort")||"default";document.getElementById("sort").value=["default","low","high"].includes(sort)?sort:"default";parseFilters();syncFilterControls();syncCategoryChip();render()});
+document.getElementById("sort").onchange=()=>{currentPage=1;syncUrl();loadProducts()};
+window.addEventListener("popstate",()=>{currentPage=1;const params=new URLSearchParams(location.search);selected=params.get("category")||"All";const sort=params.get("sort")||"default";document.getElementById("sort").value=["default","low","high"].includes(sort)?sort:"default";parseFilters();syncFilterControls();syncCategoryChip();render()});
 
 document.getElementById("applyFilters")?.addEventListener("click",applyFilters);
 document.getElementById("clearFilters")?.addEventListener("click",clearFilters);
