@@ -478,3 +478,21 @@ footer{max-width:1280px!important;margin:auto!important;padding:60px 5vw!importa
  .site-header .logo{font-size:16px!important}
  .header-actions{gap:3px!important}.header-actions button,.header-actions a{min-width:36px!important;padding:6px!important}
 }
+
+
+/* UI-03 — Mobile bottom navigation */
+.apna-mobile-nav{display:none}
+@media(max-width:900px){
+  body{padding-bottom:76px}
+  .apna-mobile-nav{position:fixed;left:10px;right:10px;bottom:10px;z-index:1000;display:grid;grid-template-columns:repeat(5,1fr);gap:4px;padding:7px;background:rgba(255,253,250,.97);border:1px solid #ddd8cf;border-radius:18px;box-shadow:0 14px 38px rgba(17,17,17,.18);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+  .apna-mobile-nav a{position:relative;display:flex;min-height:54px;align-items:center;justify-content:center;flex-direction:column;gap:4px;border-radius:12px;color:#666;text-decoration:none;font-size:9px;font-weight:700;letter-spacing:.02em}
+  .apna-mobile-nav a span{font-size:19px;line-height:1;font-weight:500}
+  .apna-mobile-nav a.active{background:#111;color:#fff}
+  .apna-mobile-nav a:active{transform:scale(.97)}
+  .apna-mobile-nav .nav-count{position:absolute;top:5px;right:20%;min-width:16px;height:16px;padding:0 4px;border-radius:999px;background:#fff;color:#111;font-size:9px;line-height:16px;text-align:center;font-weight:800}
+}
+@media(max-width:380px){
+  .apna-mobile-nav{left:7px;right:7px;bottom:7px}
+  .apna-mobile-nav a{min-height:51px;font-size:8px}
+  .apna-mobile-nav a span{font-size:18px}
+}
