@@ -1260,3 +1260,17 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .apna-fade-in{animation:apnaFadeIn var(--apna-motion-base) ease both}
 .apna-pop{animation:apnaPop var(--apna-motion-base) var(--apna-ease-soft) both}
 @media(prefers-reduced-motion:reduce){.apna-animate-in,.apna-fade-in,.apna-pop{animation:none!important}}
+
+
+/* AN-02 — Buttons / links / cards micro-interactions */
+.primary-btn,.light-btn,.filter-clear,.chip,.admin-btn,.seller-btn,.security-actions a,.checkout-submit{transition:transform var(--apna-motion-fast) var(--apna-ease),box-shadow var(--apna-motion-fast) var(--apna-ease),background-color var(--apna-motion-fast) ease,color var(--apna-motion-fast) ease,border-color var(--apna-motion-fast) ease,opacity var(--apna-motion-fast) ease}
+.primary-btn:hover,.light-btn:hover,.admin-btn:hover,.seller-btn:hover,.security-actions a:hover,.checkout-submit:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(17,17,17,.10)}
+.primary-btn:active,.light-btn:active,.filter-clear:active,.chip:active,.admin-btn:active,.seller-btn:active,.security-actions a:active,.checkout-submit:active{transform:translateY(0) scale(.975);box-shadow:none}
+.site-header nav a,.header-actions button,footer a,.section-head>a,.text-btn{transition:color var(--apna-motion-fast) ease,opacity var(--apna-motion-fast) ease,transform var(--apna-motion-fast) var(--apna-ease)}
+.site-header nav a:hover,.header-actions button:hover,footer a:hover,.section-head>a:hover,.text-btn:hover{opacity:.7}
+.site-header nav a:active,.header-actions button:active,footer a:active{transform:scale(.97)}
+.product-card,.admin-center-card,.admin-management-card,.seller-stat,.seller-panel,.risk-card,.rm-card,.security-stat,.security-panel{transition:transform var(--apna-motion-base) var(--apna-ease),box-shadow var(--apna-motion-base) var(--apna-ease),border-color var(--apna-motion-base) ease}
+.product-card:hover,.admin-center-card:hover,.admin-management-card:hover,.seller-stat:hover,.seller-panel:hover,.risk-card:hover,.rm-card:hover,.security-stat:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(17,17,17,.08)}
+.product-image{overflow:hidden}.product-image img{transition:transform var(--apna-motion-slow) var(--apna-ease-soft)}.product-card:hover .product-image img{transform:scale(1.035)}
+.apna-mobile-nav a{transition:transform var(--apna-motion-fast) var(--apna-ease),background-color var(--apna-motion-fast) ease,color var(--apna-motion-fast) ease}.apna-mobile-nav a:active{transform:scale(.94)}
+@media(prefers-reduced-motion:reduce){.primary-btn:hover,.light-btn:hover,.admin-btn:hover,.seller-btn:hover,.security-actions a:hover,.checkout-submit:hover,.product-card:hover,.admin-center-card:hover,.admin-management-card:hover,.seller-stat:hover,.seller-panel:hover,.risk-card:hover,.rm-card:hover,.security-stat:hover{transform:none!important;box-shadow:none!important}.product-card:hover .product-image img{transform:none!important}}
