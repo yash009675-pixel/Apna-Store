@@ -41,3 +41,29 @@ function renderProductList(target,list){
 function render(){if(!root)return;const w=getWishlist();root.innerHTML=products.length?products.map((p,i)=>productCardMarkup(p,i,"featured")).join(""):'<p>No products available yet.</p>';root.querySelectorAll(".add").forEach(b=>b.onclick=()=>location.href="product.html?id="+encodeURIComponent(products[Number(b.dataset.i)].id))}
 function toggleWish(p){let w=getWishlist();const i=w.findIndex(x=>x.productId===p.id||x.name===p.name);if(i>=0)w.splice(i,1);else w.push({productId:p.id,name:p.name,category:p.type,price:Number(p.price)});localStorage.setItem("apnaWishlist",JSON.stringify(w));render()}
 loadCategories();loadProducts();loadMarketing();updateHeader();const search=document.getElementById("searchBtn");if(search)search.onclick=()=>location.href="search.html";const cartBtn=document.getElementById("cartBtn");if(cartBtn)cartBtn.onclick=()=>location.href="cart.html";
+
+/* UI-03 — mobile navigation injection */
+(function(){
+  if(document.querySelector('.apna-mobile-nav')) return;
+  const path=(location.pathname.split('/').pop()||'index.html').toLowerCase();
+  const items=[
+    ['index.html','Home','⌂'],
+    ['shop.html','Shop','⌕'],
+    ['wishlist.html','Wishlist','♡'],
+    ['cart.html','Bag','▢'],
+    ['account.html','Account','◎']
+  ];
+  const nav=document.createElement('nav');
+  nav.className='apna-mobile-nav';
+  nav.setAttribute('aria-label','Mobile navigation');
+  nav.innerHTML=items.map(([href,label,icon])=>{
+    const active=path===href?' active':'';
+    const count=href==='cart.html'?'<b class="nav-count" id="mobileCartCount">0</b>':'';
+    return '<a class="'+active.trim()+'" href="'+href+'"><span aria-hidden="true">'+icon+'</span><small>'+label+'</small>'+count+'</a>';
+  }).join('');
+  document.body.appendChild(nav);
+  const update=()=>{const el=document.getElementById('mobileCartCount');if(!el)return;try{const cart=JSON.parse(localStorage.getItem('apnaCart')||'[]');const n=Array.isArray(cart)?cart.reduce((sum,item)=>sum+(Number(item.qty)||0),0):0;el.textContent=n>99?'99+':String(n);el.hidden=n===0}catch{el.hidden=true}};
+  update();
+  window.addEventListener('storage',update);
+  setTimeout(update,300);
+})();
