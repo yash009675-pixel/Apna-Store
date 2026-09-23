@@ -1249,3 +1249,14 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @media(max-width:800px){.section{padding:62px 5%}.section-head{margin-bottom:25px;gap:14px}.section-head h2{font-size:31px}.hero-actions{flex-wrap:wrap}.trust{grid-template-columns:repeat(2,1fr)}.trust div:nth-child(2){border-right:0}.trust div:nth-child(3),.trust div:nth-child(4){border-top:1px solid #e3e0da}.site-header{position:sticky;top:0}}
 @media(max-width:520px){.announcement{font-size:10px}.announcement span{margin:0 7px}.site-header{height:66px;padding:0 4%}.logo{font-size:19px}.site-header nav{display:none}.header-actions{gap:0}.header-actions button,.header-actions>a{padding:8px 7px!important;font-size:11px!important}.hero{min-height:auto;padding:32px 5% 44px;grid-template-columns:1fr;gap:22px}.hero h1{font-size:52px;margin-bottom:20px}.hero-text{font-size:13px;line-height:1.6;margin-bottom:23px}.hero-art{height:auto;min-height:330px}.hero-actions{display:grid;grid-template-columns:1fr;gap:8px}.hero-actions .primary-btn,.hero-secondary{text-align:center;justify-content:center}.trust div{padding:18px 5%;font-size:10px}.section-head>a{font-size:10px}.products{gap:10px}.product-info{padding:10px 0}.product-info h3{font-size:12px}.product-info p{font-size:10px}.deal{margin:0 4% 55px;padding:45px 7%;min-height:330px}.deal h2{font-size:45px}.footer-links{gap:10px 16px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.product-card:hover,.category:hover,.primary-btn:hover,.light-btn:hover{transform:none}}
+
+
+/* AN-01 — Global animation foundation */
+:root{--apna-motion-fast:150ms;--apna-motion-base:220ms;--apna-motion-slow:340ms;--apna-ease:cubic-bezier(.2,.7,.2,1);--apna-ease-soft:cubic-bezier(.22,1,.36,1)}
+@keyframes apnaFadeUp{from{opacity:0;transform:translate3d(0,10px,0)}to{opacity:1;transform:none}}
+@keyframes apnaFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes apnaPop{0%{transform:scale(.96)}70%{transform:scale(1.02)}100%{transform:scale(1)}}
+.apna-animate-in{animation:apnaFadeUp var(--apna-motion-slow) var(--apna-ease) both}
+.apna-fade-in{animation:apnaFadeIn var(--apna-motion-base) ease both}
+.apna-pop{animation:apnaPop var(--apna-motion-base) var(--apna-ease-soft) both}
+@media(prefers-reduced-motion:reduce){.apna-animate-in,.apna-fade-in,.apna-pop{animation:none!important}}
