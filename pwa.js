@@ -2,4 +2,16 @@
 const key="apna-language";const get=()=>localStorage.getItem(key)||"en";
 const apply=()=>{const l=get(),d=D[l]||D.en;document.documentElement.lang=l;const map={"Store":d.store,"Notifications":d.notifications,"Account":d.account,"Sign out":d.sign,"+ Add product":d.add,"Manage products":d.manage,"Inventory":d.inventory,"Manage orders":d.orders,"Logistics":d.logistics,"Courier":d.courier,"Returns":d.returns,"Earnings":d.earnings,"Payments":d.payments,"Growth & Insights":d.growth,"Search Trends":d.trends,"Advertising":d.ads,"Coupons":d.coupons,"Support":d.support,"Partner Services":d.partners,"My Store":d.myStore,"Shop":d.shop,"Help Center":d.help,"Seller Dashboard":d.dashboard,"Seller Academy":d.academy};document.querySelectorAll("a,button,h1,h2,p,.eyebrow").forEach(el=>{const t=el.textContent.trim();if(map[t])el.textContent=map[t]});let s=document.getElementById("apnaSellerLanguage");if(!s){s=document.createElement("select");s.id="apnaSellerLanguage";s.setAttribute("aria-label","Language");s.style.cssText="margin-left:10px;padding:7px;border:1px solid #ddd;border-radius:7px";s.innerHTML='<option value="en">English</option><option value="hi">हिन्दी</option><option value="gu">ગુજરાતી</option>';const nav=document.querySelector("header nav");if(nav)nav.appendChild(s);else document.body.prepend(s)}s.value=l;s.onchange=()=>{localStorage.setItem(key,s.value);location.reload()};};
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",apply,{once:true});else apply();window.apnaLanguage=()=>get();
+const initBackToTop=()=>{
+  if(document.getElementById("apnaBackToTop"))return;
+  const b=document.createElement("button");
+  b.id="apnaBackToTop";b.className="apna-back-to-top";b.type="button";
+  b.setAttribute("aria-label","Back to top");b.title="Back to top";b.textContent="↑";
+  document.body.appendChild(b);
+  const sync=()=>b.classList.toggle("is-visible",window.scrollY>420);
+  window.addEventListener("scroll",sync,{passive:true});
+  b.addEventListener("click",()=>window.scrollTo({top:0,behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}));
+  sync();
+};
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initBackToTop,{once:true});else initBackToTop();
 if(!("serviceWorker" in navigator))return;let reg=null;navigator.serviceWorker.register("sw.js",{scope:"./"}).then(r=>{reg=r}).catch(err=>console.warn("Apna Store PWA registration failed:",err));window.apnaEnablePush=async()=>{if(!reg)reg=await navigator.serviceWorker.ready;if(!("PushManager" in window))throw new Error("Push notifications are not supported on this device.");const permission=await Notification.requestPermission();if(permission!=="granted")throw new Error("Notification permission was not granted.");return reg.pushManager.getSubscription()}})();
