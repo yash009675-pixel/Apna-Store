@@ -6,6 +6,9 @@ function cart(){if(count)count.textContent=readCart().reduce((n,x)=>n+(Number(x.
 function readWishlist(){try{const w=JSON.parse(localStorage.getItem("apnaWishlist")||"[]");return Array.isArray(w)?w:[]}catch{return[]}}
 async function loadCloudWishlist(){cloudWishlistIds=new Set();cloudWishlistLoaded=false;const {data:sessionData,error:sessionError}=await apnaSupabase.auth.getSession();if(sessionError||!sessionData?.session)return;cloudWishlistLoaded=true;const {data,error}=await apnaSupabase.from("wishlists").select("product_id").eq("user_id",sessionData.session.user.id);if(error){console.error("Wishlist state load failed:",error);return;}cloudWishlistIds=new Set((data||[]).map(row=>row.product_id));}
 function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+const SHOP_CACHE_TTL=60000;
+function readShopCache(key){try{const x=JSON.parse(sessionStorage.getItem(key)||"null");return x&&Date.now()-Number(x.at||0)<SHOP_CACHE_TTL?x.data:null}catch{return null}}
+function writeShopCache(key,data){try{sessionStorage.setItem(key,JSON.stringify({at:Date.now(),data}))}catch{}}
 function showWishlistMessage(message){let el=document.getElementById("wishlistMessage");if(!el){el=document.createElement("p");el.id="wishlistMessage";el.className="checkout-note";root.parentElement.insertBefore(el,root)}el.textContent=message;clearTimeout(showWishlistMessage.timer);showWishlistMessage.timer=setTimeout(()=>{el.textContent=""},3000)}
 function parseFilters(){const p=new URLSearchParams(location.search);filters.min=p.get("min")||"";filters.max=p.get("max")||"";filters.size=p.get("size")||"";filters.color=p.get("color")||"";filters.stock=p.get("stock")==="in"?"in":"all"}
 function syncFilterControls(){document.getElementById("minPrice").value=filters.min;document.getElementById("maxPrice").value=filters.max;document.getElementById("sizeFilter").value=filters.size;document.getElementById("colorFilter").value=filters.color;document.getElementById("stockFilter").value=filters.stock}
@@ -20,10 +23,17 @@ function buildFilterOptions(){
 async function loadSponsored(){const section=document.getElementById("sponsoredSection"),root=document.getElementById("sponsoredProducts");if(!section||!root)return;const categoryId=categories.find(c=>c.name===selected)?.id||null;const {data,error}=await apnaSupabase.rpc("public_get_sponsored_products",{p_query:"",p_category_id:categoryId,p_limit:4});if(error||!Array.isArray(data)||!data.length){section.hidden=true;return}section.hidden=false;root.innerHTML=data.map(p=>'<article class="product-card"><div class="product-image"></div><div class="product-info"><a href="product.html?id='+encodeURIComponent(p.id)+'" data-sponsored-click="'+p.campaign_id+'" data-sponsored-product="'+p.id+'" style="text-decoration:none;color:inherit"><h3>'+escapeHtml(p.name)+'</h3><p>'+escapeHtml(p.category||"Apna Store")+'</p><p class="price">₹'+Number(p.price).toLocaleString("en-IN")+'</p></a></div></article>').join("");const sid=(()=>{try{return localStorage.getItem("apnaAnalyticsSessionId")}catch{return null}})();for(const p of data){apnaSupabase.rpc("public_track_ad_event",{p_campaign_id:p.campaign_id,p_event_type:"impression",p_product_id:p.id,p_session_id:sid||null}).catch(()=>{})}root.querySelectorAll("[data-sponsored-click]").forEach(a=>a.addEventListener("click",()=>{apnaSupabase.rpc("public_track_ad_event",{p_campaign_id:a.dataset.sponsoredClick,p_event_type:"click",p_product_id:a.dataset.sponsoredProduct,p_session_id:sid||null}).catch(()=>{})}))}
 async function loadProducts(){
  root.innerHTML='<p class="checkout-note">Loading Apna products…</p>';
- const [categoryResult,variantResult]=await Promise.all([
-  apnaSupabase.from("categories").select("id,name,is_active,sort_order").eq("is_active",true).order("sort_order").order("name"),
-  apnaSupabase.from("product_variants").select("product_id,size,color,stock")
- ]);
+ const cachedCategories=readShopCache("apnaShopCategories"),cachedVariants=readShopCache("apnaShopVariants");
+ let categoryResult={data:cachedCategories,error:null},variantResult={data:cachedVariants,error:null};
+ if(!cachedCategories||!cachedVariants){
+  const [cr,vr]=await Promise.all([
+   apnaSupabase.from("categories").select("id,name,is_active,sort_order").eq("is_active",true).order("sort_order").order("name"),
+   apnaSupabase.from("product_variants").select("product_id,size,color,stock")
+  ]);
+  categoryResult=cr;variantResult=vr;
+  if(!cr.error)writeShopCache("apnaShopCategories",cr.data||[]);
+  if(!vr.error)writeShopCache("apnaShopVariants",vr.data||[]);
+ }
  if(categoryResult.error){console.error("Shop category query failed:",categoryResult.error);root.innerHTML='<p class="checkout-note">Categories could not be loaded right now. Please refresh and try again.</p>';return}
  if(variantResult.error){console.error("Shop variant query failed:",variantResult.error);root.innerHTML='<p class="checkout-note">We could not load product filters right now. Please refresh and try again.</p>';return}
  categories=categoryResult.data||[];
