@@ -1485,3 +1485,29 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .deals-page,.deals-hero,.deals-hero h1,.deals-hero p:not(.eyebrow),.deals-links,.deals-page .section-head,#dailyDealList,#flashSaleList,#dailyDealList>*,#flashSaleList>*,#dailyDealEmpty,#flashSaleEmpty{animation:none!important}
   .deals-links a:hover,#dailyDealList>*:hover,#flashSaleList>*:hover{transform:none!important;box-shadow:none!important}
 }
+
+/* AN-16 — Seller Center motion */
+.seller-page,.seller-dashboard,.seller-center{animation:apnaFadeUp 380ms var(--apna-ease-soft) both}
+.seller-hero,.seller-header{animation:apnaFadeUp 400ms var(--apna-ease-soft) 40ms both}
+.seller-card,.seller-panel,.seller-stat,.seller-metric{animation:apnaFadeUp 340ms var(--apna-ease) both;transition:transform var(--apna-motion-base) var(--apna-ease),box-shadow var(--apna-motion-base) var(--apna-ease),border-color var(--apna-motion-base) ease}
+.seller-card:nth-child(2),.seller-panel:nth-child(2),.seller-stat:nth-child(2),.seller-metric:nth-child(2){animation-delay:55ms}
+.seller-card:nth-child(3),.seller-panel:nth-child(3),.seller-stat:nth-child(3),.seller-metric:nth-child(3){animation-delay:110ms}
+.seller-card:nth-child(4),.seller-panel:nth-child(4),.seller-stat:nth-child(4),.seller-metric:nth-child(4){animation-delay:165ms}
+.seller-card:hover,.seller-panel:hover,.seller-stat:hover,.seller-metric:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(17,17,17,.08);border-color:#d1ccc3}
+.seller-actions a,.seller-actions button,.seller-nav a,.seller-tabs a,.seller-tab{transition:transform var(--apna-motion-fast) var(--apna-ease),box-shadow var(--apna-motion-fast) var(--apna-ease),background-color var(--apna-motion-fast) ease,color var(--apna-motion-fast) ease}
+.seller-actions a:hover,.seller-actions button:hover,.seller-nav a:hover,.seller-tabs a:hover,.seller-tab:hover{transform:translateY(-2px)}
+.seller-actions a:active,.seller-actions button:active,.seller-nav a:active,.seller-tabs a:active,.seller-tab:active{transform:scale(.97)}
+.seller-form input,.seller-form select,.seller-form textarea,.seller-search input{transition:border-color var(--apna-motion-fast) ease,box-shadow var(--apna-motion-fast) ease,transform var(--apna-motion-fast) var(--apna-ease)}
+.seller-form input:focus,.seller-form select:focus,.seller-form textarea:focus,.seller-search input:focus{transform:translateY(-1px);box-shadow:0 0 0 3px rgba(17,17,17,.07)}
+.seller-table tbody tr{transition:background-color var(--apna-motion-fast) ease,transform var(--apna-motion-fast) var(--apna-ease)}
+.seller-table tbody tr:hover{transform:translateX(2px)}
+.seller-status{transition:transform var(--apna-motion-fast) var(--apna-ease),opacity var(--apna-motion-fast) ease}
+.seller-status:hover{transform:translateY(-1px)}
+@media(max-width:700px){
+  .seller-card,.seller-panel,.seller-stat,.seller-metric{animation-duration:280ms}
+  .seller-card:hover,.seller-panel:hover,.seller-stat:hover,.seller-metric:hover{transform:translateY(-2px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .seller-page,.seller-dashboard,.seller-center,.seller-hero,.seller-header,.seller-card,.seller-panel,.seller-stat,.seller-metric{animation:none!important}
+  .seller-card:hover,.seller-panel:hover,.seller-stat:hover,.seller-metric:hover,.seller-actions a:hover,.seller-actions button:hover,.seller-nav a:hover,.seller-tabs a:hover,.seller-tab:hover,.seller-form input:focus,.seller-form select:focus,.seller-form textarea:focus,.seller-search input:focus,.seller-table tbody tr:hover,.seller-status:hover{transform:none!important;box-shadow:none!important}
+}
