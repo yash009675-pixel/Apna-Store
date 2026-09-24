@@ -1853,21 +1853,52 @@ body.apna-seller-language-page #apnaSellerLanguage{display:block!important}
 
 /* FINAL HERO REFERENCE RESTORE — recovered approved male fashion visual */
 
-/* AI assistant — fixed viewport control on every page */
-.apna-ai{position:fixed!important;right:16px!important;bottom:16px!important;z-index:2147483000!important}
-.apna-ai-fab{position:fixed!important;right:16px!important;bottom:16px!important;z-index:2147483001!important}
-.apna-ai-panel{position:fixed!important;right:16px!important;bottom:16px!important;z-index:2147483001!important}
-@media(max-width:600px){
-  .apna-ai{right:10px!important;bottom:10px!important}
-  .apna-ai-fab{right:10px!important;bottom:10px!important}
-  .apna-ai-panel{right:10px!important;bottom:10px!important;width:calc(100vw - 20px)!important;height:min(520px,calc(100vh - 90px))!important}
+/* FINAL AI VIEWPORT FIX — fixed to viewport, above Back-to-Top */
+.apna-ai{
+  position:fixed!important;
+  right:16px!important;
+  bottom:76px!important;
+  left:auto!important;
+  top:auto!important;
+  width:auto!important;
+  height:auto!important;
+  z-index:2147483000!important;
+  overflow:visible!important;
+  pointer-events:none!important;
 }
-
-/* FINAL AI viewport anchor: never move with document scroll */
-.apna-ai{position:static!important;width:0!important;height:0!important;overflow:visible!important;z-index:2147483000!important}
-.apna-ai-fab{position:fixed!important;right:16px!important;bottom:20px!important;left:auto!important;top:auto!important;width:52px!important;height:52px!important;z-index:2147483001!important}
-.apna-ai-panel{position:fixed!important;right:16px!important;bottom:20px!important;left:auto!important;top:auto!important;z-index:2147483001!important}
+.apna-ai-fab{
+  position:fixed!important;
+  right:16px!important;
+  bottom:76px!important;
+  left:auto!important;
+  top:auto!important;
+  width:52px!important;
+  height:52px!important;
+  z-index:2147483001!important;
+  pointer-events:auto!important;
+}
+.apna-ai-panel{
+  position:fixed!important;
+  right:16px!important;
+  bottom:76px!important;
+  left:auto!important;
+  top:auto!important;
+  z-index:2147483001!important;
+  pointer-events:auto!important;
+}
+.apna-back-to-top{
+  right:16px!important;
+  bottom:16px!important;
+  z-index:2147482990!important;
+}
 @media(max-width:600px){
- .apna-ai-fab{right:10px!important;bottom:20px!important}
- .apna-ai-panel{right:10px!important;bottom:10px!important}
+  .apna-ai{right:10px!important;bottom:76px!important}
+  .apna-ai-fab{right:10px!important;bottom:76px!important}
+  .apna-ai-panel{
+    right:10px!important;
+    bottom:76px!important;
+    width:calc(100vw - 20px)!important;
+    max-height:min(520px,calc(100vh - 96px))!important;
+  }
+  .apna-back-to-top{right:10px!important;bottom:16px!important}
 }
