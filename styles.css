@@ -1656,3 +1656,32 @@ a:not(.no-page-motion){transition:color var(--apna-motion-fast) ease,opacity var
 .apna-back-to-top:focus-visible{outline:2px solid #111;outline-offset:3px}
 @media(max-width:700px){.apna-back-to-top{right:10px;bottom:70px;width:40px;height:40px}.apna-back-to-top:hover{transform:translateY(-2px) scale(1.02)}}
 @media(prefers-reduced-motion:reduce){.apna-back-to-top,.apna-back-to-top.is-visible{animation:none!important;transition:none!important}.apna-back-to-top:hover,.apna-back-to-top:active{transform:none!important}}
+
+
+/* AN-25 — Desktop micro-interactions */
+@media(min-width:701px){
+  .site-header a,.site-header button,.header-actions a,.header-actions button,
+  footer a,.footer-links a,.primary-btn,.light-btn,.filter-clear,.chip,
+  .shop-sort select,.pagination button{
+    transition:transform var(--apna-motion-fast) var(--apna-ease),color var(--apna-motion-fast) ease,background-color var(--apna-motion-fast) ease,box-shadow var(--apna-motion-fast) var(--apna-ease),border-color var(--apna-motion-fast) ease,opacity var(--apna-motion-fast) ease
+  }
+  .site-header nav a:hover,.footer-links a:hover{transform:translateY(-1px)}
+  .header-actions a:hover,.header-actions button:hover{transform:translateY(-2px)}
+  .primary-btn:hover,.light-btn:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(17,17,17,.10)}
+  .primary-btn:active,.light-btn:active,.header-actions a:active,.header-actions button:active{transform:scale(.97)}
+  .chip:hover,.filter-clear:hover{transform:translateY(-1px)}
+  .chip:active,.filter-clear:active{transform:scale(.97)}
+  .shop-sort select:hover{border-color:#aaa}
+  .product-card .product-image img{transition:transform var(--apna-motion-base) var(--apna-ease)}
+  .product-card:hover .product-image img{transform:scale(1.025)}
+  .product-card .add:hover{transform:translateY(-1px)}
+  footer .logo:hover{transform:translateY(-1px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .site-header a,.site-header button,.header-actions a,.header-actions button,footer a,.footer-links a,
+  .primary-btn,.light-btn,.filter-clear,.chip,.shop-sort select,.pagination button,.product-card .product-image img{transition:none!important}
+  .site-header nav a:hover,.footer-links a:hover,.header-actions a:hover,.header-actions button:hover,
+  .primary-btn:hover,.light-btn:hover,.chip:hover,.filter-clear:hover,.product-card .add:hover,
+  footer .logo:hover{transform:none!important;box-shadow:none!important}
+  .product-card:hover .product-image img{transform:none!important}
+}
