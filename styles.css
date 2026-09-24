@@ -1376,3 +1376,18 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 #wishlistGrid .product-card{animation:apnaFadeUp 340ms var(--apna-ease) both}
 #wishlistGrid .product-card:nth-child(2){animation-delay:45ms}#wishlistGrid .product-card:nth-child(3){animation-delay:90ms}#wishlistGrid .product-card:nth-child(4){animation-delay:135ms}#wishlistGrid .product-card:nth-child(5){animation-delay:180ms}#wishlistGrid .product-card:nth-child(6){animation-delay:225ms}
 @media(prefers-reduced-motion:reduce){.wishlist-btn:hover,.wishlist-detail:hover,.wishlist-remove:hover,.remove-wishlist:hover,.wishlist-empty .primary-btn:hover{transform:none!important;box-shadow:none!important}.wishlist-btn.apna-wishlist-pop,.wishlist-detail.apna-wishlist-pop,#wishlistGrid .product-card{animation:none!important}}
+
+
+/* AN-09 — Cart page motion */
+#cart{animation:apnaFadeUp 360ms var(--apna-ease) both}
+#cart .cart-item{animation:apnaFadeUp 320ms var(--apna-ease) both;transition:transform var(--apna-motion-base) var(--apna-ease),box-shadow var(--apna-motion-base) var(--apna-ease)}
+#cart .cart-item:nth-child(2){animation-delay:45ms}#cart .cart-item:nth-child(3){animation-delay:90ms}#cart .cart-item:nth-child(4){animation-delay:135ms}#cart .cart-item:nth-child(5){animation-delay:180ms}
+#cart .cart-item:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(17,17,17,.06)}
+#cart button{transition:transform var(--apna-motion-fast) var(--apna-ease),background-color var(--apna-motion-fast) ease,box-shadow var(--apna-motion-fast) ease}
+#cart button:hover{transform:translateY(-1px)}#cart button:active{transform:scale(.94)}
+#cart input[type="number"]{transition:border-color var(--apna-motion-fast) ease,box-shadow var(--apna-motion-fast) ease}
+#cart input[type="number"]:focus{box-shadow:0 0 0 3px rgba(17,17,17,.07)}
+#cart .primary-btn{transition:transform var(--apna-motion-fast) var(--apna-ease),box-shadow var(--apna-motion-fast) var(--apna-ease)}
+#cart .primary-btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(17,17,17,.12)}
+#cart .primary-btn:active{transform:scale(.985)}
+@media(prefers-reduced-motion:reduce){#cart,#cart .cart-item{animation:none!important}#cart .cart-item:hover,#cart button:hover,#cart .primary-btn:hover{transform:none!important;box-shadow:none!important}}
