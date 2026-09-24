@@ -11,7 +11,7 @@ Deno.serve(async(req:Request)=>{
  if(req.method!=="POST")return json({error:"POST required."},405);
  if(!allowed(req))return json({error:"Too many AI requests. Please try again in a minute."},429);
  const openai=Deno.env.get("OPENAI_API_KEY")||Deno.env.get("openai_api_key"), url=Deno.env.get("SUPABASE_URL"), key=Deno.env.get("SUPABASE_PUBLISHABLE_KEY")||Deno.env.get("SUPABASE_ANON_KEY");
- if(!openai||!url||!key)return json({error:"AI service is not configured."},503);
+ if(!openai)return json({error:"OpenAI API key is not configured in Supabase Edge Function secrets."},503); if(!url||!key)return json({error:"Supabase AI configuration is incomplete."},503);
  try{
   const b=await req.json(), message=clean(b?.message), page=clean(b?.page,80), mode=clean(b?.mode,60), language=clean(b?.language,20)||"en", imageData=typeof b?.image_data==="string"&&b.image_data.startsWith("data:image/")?b.image_data:""; if(!message)return json({error:"Message is required."},400);
   const h=req.headers.get("Authorization")||"", token=h.startsWith("Bearer ")?h.slice(7):"";
@@ -91,7 +91,8 @@ Deno.serve(async(req:Request)=>{
     const detail=(await ai.text()).slice(0,500);
     console.error("OpenAI final error",ai.status,detail);
     const status=ai.status===401||ai.status===403?503:ai.status===429?503:502;
-    return json({error:status===503?"AI configuration or quota is currently unavailable.":"AI service is temporarily unavailable. Please try again."},status);
+    const error=ai.status===401||ai.status===403?"OpenAI API key was rejected. Please update the OPENAI_API_KEY secret.":ai.status===429?"OpenAI quota or rate limit is currently unavailable.":"AI service is temporarily unavailable. Please try again.";
+    return json({error},status);
   }
   const answer=outputText(await ai.json()); if(!answer)return json({error:"AI returned an empty response."},502);
   return json({answer,role:user.role||"customer"});
