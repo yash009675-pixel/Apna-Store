@@ -1,0 +1,5 @@
+Contact: https://github.com/yash009675-pixel/Apna-Store/security/advisories/new
+Policy: https://github.com/yash009675-pixel/Apna-Store/blob/main/SECURITY.md
+Expires: 2027-09-24T00:00:00Z
+Preferred-Languages: en, hi
+Canonical: https://yash009675-pixel.github.io/Apna-Store/.well-known/security.txt
