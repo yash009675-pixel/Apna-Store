@@ -1902,3 +1902,15 @@ body.apna-seller-language-page #apnaSellerLanguage{display:block!important}
   }
   .apna-back-to-top{right:10px!important;bottom:16px!important}
 }
+
+
+/* APNA homepage model hero */
+.hero-art{position:relative;min-height:560px;display:flex;align-items:center;justify-content:center;overflow:visible!important}
+.hero-visual{position:relative;width:100%;height:560px;min-height:560px}
+.hero-photo{position:absolute!important;right:8%;top:36px;width:390px;height:500px;overflow:hidden;border-radius:28px;transform:rotate(-6deg);box-shadow:0 22px 55px rgba(0,0,0,.16);background:#eee;z-index:2}
+.hero-photo img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center top!important}
+.hero-photo-label{position:absolute!important;left:50%;top:45%;transform:translate(-50%,-50%);padding:9px 18px;border-radius:999px;background:rgba(255,255,255,.94);color:#111;font-weight:800;letter-spacing:.14em;font-size:13px;z-index:3}
+.hero-spark{position:absolute;right:4%;top:14%;font-size:28px;line-height:.8;transform:rotate(12deg);z-index:4}
+.hero-sticker{position:absolute!important;right:1%;bottom:28px;z-index:5;background:#fff;padding:20px 24px;border-radius:18px;box-shadow:0 14px 30px rgba(0,0,0,.12);font-size:13px;font-weight:800;letter-spacing:.03em;transform:rotate(-6deg)}
+@media(max-width:1000px){.hero-photo{right:3%;width:330px;height:440px}.hero-visual{height:500px;min-height:500px}.hero-art{min-height:500px}.hero-sticker{right:0}}
+@media(max-width:768px){.hero-art{min-height:430px}.hero-visual{height:430px;min-height:430px}.hero-photo{right:8%;top:10px;width:280px;height:370px}.hero-spark{right:2%;top:8%}.hero-sticker{right:2%;bottom:18px;padding:14px 17px;font-size:11px}}
