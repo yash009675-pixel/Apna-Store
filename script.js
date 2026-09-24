@@ -4,6 +4,18 @@ let products=[];const root=document.getElementById("products");const newArrivals
 function getCart(){try{const c=JSON.parse(localStorage.getItem("apnaCart")||"[]");return Array.isArray(c)?c:[]}catch{return[]}}
 function updateHeader(){const c=getCart();const n=c.reduce((s,x)=>s+(Number(x.qty)||0),0);const el=document.getElementById("cartCount");if(el)el.textContent=n}
 function getWishlist(){try{const w=JSON.parse(localStorage.getItem("apnaWishlist")||"[]");return Array.isArray(w)?w:[]}catch{return[]}}
+function getRecentlyViewed(){try{const v=JSON.parse(localStorage.getItem("apnaRecentlyViewed")||"[]");return Array.isArray(v)?v:[]}catch{return[]}}
+async function loadRecentlyViewed(){
+ const box=document.getElementById("recentlyViewed"),section=document.getElementById("recently-viewed");if(!box||!section)return;
+ const ids=getRecentlyViewed().slice(0,4);if(!ids.length)return;
+ const {data,error}=await apnaSupabase.from("products").select("id,name,price,category_id").eq("status","active").in("id",ids);
+ if(error||!data?.length)return;
+ const byId=new Map(data.map(p=>[p.id,p]));const rows=ids.map(id=>byId.get(id)).filter(Boolean);
+ if(!rows.length)return;
+ box.innerHTML=rows.map(p=>'<a class="product-card" href="product.html?id='+encodeURIComponent(p.id)+'"><div class="product-image"><span class="product-placeholder">APNA</span></div><div class="product-info"><h3>'+escapeHtml(p.name)+'</h3><p class="price">₹'+Number(p.price).toLocaleString("en-IN")+'</p></div></a>').join("");
+ section.hidden=false;
+ const clear=document.getElementById("clearRecentlyViewed");if(clear)clear.onclick=()=>{localStorage.removeItem("apnaRecentlyViewed");section.hidden=true;box.innerHTML=""};
+}
 function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 async function loadCategories(){
  const {data,error}=await apnaSupabase.from("categories").select("id,name,slug").eq("is_active",true).order("sort_order",{ascending:true}).order("name",{ascending:true});
@@ -15,7 +27,7 @@ async function loadCategories(){
  if(navCategoriesRoot){navCategoriesRoot.innerHTML='<a href="#shop">Shop</a>'+rows.map(c=>'<a href="shop.html?category='+encodeURIComponent(c.name)+'">'+escapeHtml(c.name)+'</a>').join("")+'<a href="#deals">Deals</a>';}
 }
 async function loadProducts(){
- if(root)root.innerHTML='<p class="checkout-note">Loading products…</p>';
+if(root)root.innerHTML='<p class="checkout-note">Loading products…</p>';
  if(newArrivalsRoot)newArrivalsRoot.innerHTML='<p class="checkout-note">Loading products…</p>';
  const [featuredResult,newResult,categoryResult,imagesResult]=await Promise.all([
   apnaSupabase.from("products").select("id,name,price,category_id,created_at").eq("status","active").order("updated_at",{ascending:false}).limit(4),
