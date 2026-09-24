@@ -1511,3 +1511,35 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .seller-page,.seller-dashboard,.seller-center,.seller-hero,.seller-header,.seller-card,.seller-panel,.seller-stat,.seller-metric{animation:none!important}
   .seller-card:hover,.seller-panel:hover,.seller-stat:hover,.seller-metric:hover,.seller-actions a:hover,.seller-actions button:hover,.seller-nav a:hover,.seller-tabs a:hover,.seller-tab:hover,.seller-form input:focus,.seller-form select:focus,.seller-form textarea:focus,.seller-search input:focus,.seller-table tbody tr:hover,.seller-status:hover{transform:none!important;box-shadow:none!important}
 }
+
+/* AN-17 — Seller AI Listing motion */
+.seller-ai-page,.seller-product-page,.ai-listing-page{animation:apnaFadeUp 380ms var(--apna-ease-soft) both}
+.ai-listing-hero,.seller-ai-hero{animation:apnaFadeUp 400ms var(--apna-ease-soft) 40ms both}
+.ai-listing-card,.ai-generation-card,.ai-output-card,.seller-ai-card{animation:apnaFadeUp 340ms var(--apna-ease) both;transition:transform var(--apna-motion-base) var(--apna-ease),box-shadow var(--apna-motion-base) var(--apna-ease),border-color var(--apna-motion-base) ease}
+.ai-listing-card:nth-child(2),.ai-generation-card:nth-child(2),.ai-output-card:nth-child(2),.seller-ai-card:nth-child(2){animation-delay:60ms}
+.ai-listing-card:nth-child(3),.ai-generation-card:nth-child(3),.ai-output-card:nth-child(3),.seller-ai-card:nth-child(3){animation-delay:120ms}
+.ai-listing-card:nth-child(4),.ai-generation-card:nth-child(4),.ai-output-card:nth-child(4),.seller-ai-card:nth-child(4){animation-delay:180ms}
+.ai-listing-card:hover,.ai-generation-card:hover,.ai-output-card:hover,.seller-ai-card:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(17,17,17,.08);border-color:#d1ccc3}
+.ai-listing-form input,.ai-listing-form select,.ai-listing-form textarea,.seller-ai-form input,.seller-ai-form select,.seller-ai-form textarea{transition:border-color var(--apna-motion-fast) ease,box-shadow var(--apna-motion-fast) ease,transform var(--apna-motion-fast) var(--apna-ease)}
+.ai-listing-form input:focus,.ai-listing-form select:focus,.ai-listing-form textarea:focus,.seller-ai-form input:focus,.seller-ai-form select:focus,.seller-ai-form textarea:focus{transform:translateY(-1px);box-shadow:0 0 0 3px rgba(17,17,17,.07)}
+.ai-generate-btn,.generate-listing-btn,.seller-ai-generate{position:relative;overflow:hidden;transition:transform var(--apna-motion-fast) var(--apna-ease),box-shadow var(--apna-motion-fast) var(--apna-ease)}
+.ai-generate-btn::after,.generate-listing-btn::after,.seller-ai-generate::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent,rgba(255,255,255,.18),transparent);transform:translateX(-120%);pointer-events:none}
+.ai-generate-btn:hover,.generate-listing-btn:hover,.seller-ai-generate:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(17,17,17,.10)}
+.ai-generate-btn:hover::after,.generate-listing-btn:hover::after,.seller-ai-generate:hover::after{animation:apnaButtonShine 520ms var(--apna-ease) both}
+.ai-generate-btn:active,.generate-listing-btn:active,.seller-ai-generate:active{transform:scale(.98)}
+.ai-loading,.ai-generation-loading,.seller-ai-loading{animation:apnaFadeIn 220ms ease both}
+.ai-loading::before,.ai-generation-loading::before,.seller-ai-loading::before{animation:apnaTrackingPulse 900ms ease-in-out infinite}
+.ai-result,.ai-output,.ai-generated-result{animation:apnaFadeUp 360ms var(--apna-ease-soft) both}
+.ai-result > *,.ai-output > *,.ai-generated-result > *{animation:apnaFadeUp 300ms var(--apna-ease) both}
+.ai-result > *:nth-child(2),.ai-output > *:nth-child(2),.ai-generated-result > *:nth-child(2){animation-delay:55ms}
+.ai-result > *:nth-child(3),.ai-output > *:nth-child(3),.ai-generated-result > *:nth-child(3){animation-delay:110ms}
+.ai-result > *:nth-child(4),.ai-output > *:nth-child(4),.ai-generated-result > *:nth-child(4){animation-delay:165ms}
+@media(max-width:700px){
+  .ai-listing-card,.ai-generation-card,.ai-output-card,.seller-ai-card{animation-duration:280ms}
+  .ai-listing-card:hover,.ai-generation-card:hover,.ai-output-card:hover,.seller-ai-card:hover{transform:translateY(-2px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .seller-ai-page,.seller-product-page,.ai-listing-page,.ai-listing-hero,.seller-ai-hero,.ai-listing-card,.ai-generation-card,.ai-output-card,.seller-ai-card,.ai-result,.ai-output,.ai-generated-result,.ai-result>*,.ai-output>*,.ai-generated-result>*{animation:none!important}
+  .ai-listing-card:hover,.ai-generation-card:hover,.ai-output-card:hover,.seller-ai-card:hover,.ai-listing-form input:focus,.ai-listing-form select:focus,.ai-listing-form textarea:focus,.seller-ai-form input:focus,.seller-ai-form select:focus,.seller-ai-form textarea:focus,.ai-generate-btn:hover,.generate-listing-btn:hover,.seller-ai-generate:hover{transform:none!important;box-shadow:none!important}
+  .ai-generate-btn:hover::after,.generate-listing-btn:hover::after,.seller-ai-generate:hover::after{animation:none!important}
+}
