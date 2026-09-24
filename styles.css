@@ -1645,3 +1645,14 @@ a:not(.no-page-motion){transition:color var(--apna-motion-fast) ease,opacity var
   .apna-ai,.apna-ai-panel,.apna-ai-msg{animation:none!important}
   .apna-ai-fab:hover,.apna-ai-fab:active,.apna-ai-close:hover,.apna-ai-close:active,.apna-ai-chips button:hover,.apna-ai-chips button:active,.apna-ai-form input:focus,.apna-ai-form button:hover,.apna-ai-form button:active{transform:none!important;box-shadow:none!important}
 }
+
+
+/* AN-24 — Back to top motion */
+.apna-back-to-top{position:fixed;right:16px;bottom:82px;z-index:1190;width:42px;height:42px;border:1px solid #d8d4cc;border-radius:50%;background:#fff;color:#111;display:grid;place-items:center;cursor:pointer;box-shadow:0 8px 22px rgba(17,17,17,.10);opacity:0;visibility:hidden;transform:translateY(10px) scale(.92);transition:opacity var(--apna-motion-base) ease,visibility var(--apna-motion-base) ease,transform var(--apna-motion-base) var(--apna-ease),box-shadow var(--apna-motion-fast) var(--apna-ease)}
+.apna-back-to-top.is-visible{opacity:1;visibility:visible;transform:translateY(0) scale(1);animation:apnaBackTopIn 240ms var(--apna-ease-soft) both}
+@keyframes apnaBackTopIn{from{opacity:0;transform:translateY(10px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+.apna-back-to-top:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 12px 26px rgba(17,17,17,.14)}
+.apna-back-to-top:active{transform:scale(.9)}
+.apna-back-to-top:focus-visible{outline:2px solid #111;outline-offset:3px}
+@media(max-width:700px){.apna-back-to-top{right:10px;bottom:70px;width:40px;height:40px}.apna-back-to-top:hover{transform:translateY(-2px) scale(1.02)}}
+@media(prefers-reduced-motion:reduce){.apna-back-to-top,.apna-back-to-top.is-visible{animation:none!important;transition:none!important}.apna-back-to-top:hover,.apna-back-to-top:active{transform:none!important}}
