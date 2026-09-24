@@ -1569,3 +1569,16 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .admin-page,.admin-center,.admin-dashboard,.admin-hero,.admin-header,.admin-card,.admin-panel,.admin-stat,.admin-metric,.admin-module{animation:none!important}
   .admin-card:hover,.admin-panel:hover,.admin-stat:hover,.admin-metric:hover,.admin-module:hover,.admin-actions a:hover,.admin-actions button:hover,.admin-nav a:hover,.admin-tabs a:hover,.admin-tab:hover,.admin-form input:focus,.admin-form select:focus,.admin-form textarea:focus,.admin-search input:focus,.admin-table tbody tr:hover,.admin-status:hover{transform:none!important;box-shadow:none!important}
 }
+
+/* AN-19 — Mobile navigation & touch motion */
+.mobile-bottom-nav{animation:apnaMobileNavIn 420ms var(--apna-ease-soft) both;transition:transform var(--apna-motion-base) var(--apna-ease),box-shadow var(--apna-motion-base) var(--apna-ease)}
+@keyframes apnaMobileNavIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.mobile-bottom-nav a,.mobile-bottom-nav button{transition:transform var(--apna-motion-fast) var(--apna-ease),background-color var(--apna-motion-fast) ease,color var(--apna-motion-fast) ease,opacity var(--apna-motion-fast) ease}
+.mobile-bottom-nav a:hover,.mobile-bottom-nav button:hover{transform:translateY(-2px)}
+.mobile-bottom-nav a:active,.mobile-bottom-nav button:active{transform:scale(.92)}
+.mobile-bottom-nav .active{animation:apnaNavActivePop 280ms var(--apna-ease) both}
+@keyframes apnaNavActivePop{0%{transform:scale(.94)}55%{transform:scale(1.06)}100%{transform:scale(1)}}
+.mobile-bottom-nav b{transition:transform var(--apna-motion-fast) var(--apna-ease)}
+.mobile-bottom-nav a:hover b,.mobile-bottom-nav button:hover b{transform:scale(1.08)}
+@media(max-width:700px){.mobile-bottom-nav{will-change:transform}.mobile-bottom-nav a,.mobile-bottom-nav button{min-height:44px}.mobile-bottom-nav a:active,.mobile-bottom-nav button:active{transform:scale(.94)}}
+@media(prefers-reduced-motion:reduce){.mobile-bottom-nav{animation:none!important}.mobile-bottom-nav a:hover,.mobile-bottom-nav button:hover,.mobile-bottom-nav a:active,.mobile-bottom-nav button:active,.mobile-bottom-nav a:hover b,.mobile-bottom-nav button:hover b{transform:none!important}.mobile-bottom-nav .active{animation:none!important}}
