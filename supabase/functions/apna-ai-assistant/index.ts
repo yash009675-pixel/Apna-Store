@@ -87,12 +87,32 @@ Deno.serve(async(req:Request)=>{
     await new Promise(r=>setTimeout(r,500));
     ai=await callOpenAI("gpt-5.6");
   }
+  const fallbackAnswer=()=>{
+    const q=message.toLowerCase();
+    if(/order|delivery|track|tracking|eta|refund|return|cancel|payment|courier/.test(q)&&user.recent_orders?.length){
+      const o=user.recent_orders[0], sh=(user.shipments||[]).find((x:any)=>x.order_id===o.id);
+      const parts=[`Your latest order is ${o.order_number||o.id}.`,`Status: ${o.status||"not available"}.`];
+      if(o.delivery_status)parts.push(`Delivery: ${o.delivery_status}.`);
+      if(o.estimated_delivery_date)parts.push(`Estimated delivery: ${o.estimated_delivery_date}.`);
+      if(sh?.provider)parts.push(`Courier: ${sh.provider}.`);
+      if(sh?.awb_number)parts.push(`Tracking/AWB: ${sh.awb_number}.`);
+      return parts.join(" ");
+    }
+    const words=q.split(/\\s+/).filter((w:string)=>w.length>2&&!/find|show|product|products|please|give|me|with|under|price|shop|for/.test(w));
+    const matches=(catalog||[]).filter((p:any)=>!words.length||words.some((w:string)=>String(p.name+" "+p.category+" "+p.brand+" "+p.description).toLowerCase().includes(w))).slice(0,5);
+    if(matches.length){
+      return "Here are live products from Apna Store:\n"+matches.map((p:any)=>`• ${p.name} — ₹${p.price} — ${p.product_url}`).join("\\n");
+    }
+    if(q.includes("compare")&&(catalog||[]).length>=2){
+      return "You can compare these live products:\\n"+catalog.slice(0,2).map((p:any)=>`• ${p.name} — ₹${p.price}`).join("\\n");
+    }
+    return "I can still help with live Apna Store information. Try asking about products, prices, your latest order, tracking, returns, or refunds.";
+  };
   if(!ai.ok){
     const detail=(await ai.text()).slice(0,500);
     console.error("OpenAI final error",ai.status,detail);
-    const status=ai.status===401||ai.status===403?503:ai.status===429?503:502;
-    const error=ai.status===401||ai.status===403?"OpenAI API key was rejected. Please update the OPENAI_API_KEY secret.":ai.status===429?"OpenAI quota or rate limit is currently unavailable.":"AI service is temporarily unavailable. Please try again.";
-    return json({error},status);
+    console.error("OpenAI unavailable; using no-cost live-data fallback",ai.status);
+    return json({answer:fallbackAnswer(),role:user.role||"customer",fallback:true});
   }
   const answer=outputText(await ai.json()); if(!answer)return json({error:"AI returned an empty response."},502);
   return json({answer,role:user.role||"customer"});
