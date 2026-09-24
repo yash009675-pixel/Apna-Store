@@ -1543,3 +1543,29 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .ai-listing-card:hover,.ai-generation-card:hover,.ai-output-card:hover,.seller-ai-card:hover,.ai-listing-form input:focus,.ai-listing-form select:focus,.ai-listing-form textarea:focus,.seller-ai-form input:focus,.seller-ai-form select:focus,.seller-ai-form textarea:focus,.ai-generate-btn:hover,.generate-listing-btn:hover,.seller-ai-generate:hover{transform:none!important;box-shadow:none!important}
   .ai-generate-btn:hover::after,.generate-listing-btn:hover::after,.seller-ai-generate:hover::after{animation:none!important}
 }
+
+/* AN-18 — Admin Center motion */
+.admin-page,.admin-center,.admin-dashboard{animation:apnaFadeUp 380ms var(--apna-ease-soft) both}
+.admin-hero,.admin-header{animation:apnaFadeUp 400ms var(--apna-ease-soft) 40ms both}
+.admin-card,.admin-panel,.admin-stat,.admin-metric,.admin-module{animation:apnaFadeUp 340ms var(--apna-ease) both;transition:transform var(--apna-motion-base) var(--apna-ease),box-shadow var(--apna-motion-base) var(--apna-ease),border-color var(--apna-motion-base) ease}
+.admin-card:nth-child(2),.admin-panel:nth-child(2),.admin-stat:nth-child(2),.admin-metric:nth-child(2),.admin-module:nth-child(2){animation-delay:55ms}
+.admin-card:nth-child(3),.admin-panel:nth-child(3),.admin-stat:nth-child(3),.admin-metric:nth-child(3),.admin-module:nth-child(3){animation-delay:110ms}
+.admin-card:nth-child(4),.admin-panel:nth-child(4),.admin-stat:nth-child(4),.admin-metric:nth-child(4),.admin-module:nth-child(4){animation-delay:165ms}
+.admin-card:hover,.admin-panel:hover,.admin-stat:hover,.admin-metric:hover,.admin-module:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(17,17,17,.08);border-color:#d1ccc3}
+.admin-actions a,.admin-actions button,.admin-nav a,.admin-tabs a,.admin-tab{transition:transform var(--apna-motion-fast) var(--apna-ease),box-shadow var(--apna-motion-fast) var(--apna-ease),background-color var(--apna-motion-fast) ease,color var(--apna-motion-fast) ease}
+.admin-actions a:hover,.admin-actions button:hover,.admin-nav a:hover,.admin-tabs a:hover,.admin-tab:hover{transform:translateY(-2px)}
+.admin-actions a:active,.admin-actions button:active,.admin-nav a:active,.admin-tabs a:active,.admin-tab:active{transform:scale(.97)}
+.admin-form input,.admin-form select,.admin-form textarea,.admin-search input{transition:border-color var(--apna-motion-fast) ease,box-shadow var(--apna-motion-fast) ease,transform var(--apna-motion-fast) var(--apna-ease)}
+.admin-form input:focus,.admin-form select:focus,.admin-form textarea:focus,.admin-search input:focus{transform:translateY(-1px);box-shadow:0 0 0 3px rgba(17,17,17,.07)}
+.admin-table tbody tr{transition:background-color var(--apna-motion-fast) ease,transform var(--apna-motion-fast) var(--apna-ease)}
+.admin-table tbody tr:hover{transform:translateX(2px)}
+.admin-status{transition:transform var(--apna-motion-fast) var(--apna-ease),opacity var(--apna-motion-fast) ease}
+.admin-status:hover{transform:translateY(-1px)}
+@media(max-width:700px){
+  .admin-card,.admin-panel,.admin-stat,.admin-metric,.admin-module{animation-duration:280ms}
+  .admin-card:hover,.admin-panel:hover,.admin-stat:hover,.admin-metric:hover,.admin-module:hover{transform:translateY(-2px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .admin-page,.admin-center,.admin-dashboard,.admin-hero,.admin-header,.admin-card,.admin-panel,.admin-stat,.admin-metric,.admin-module{animation:none!important}
+  .admin-card:hover,.admin-panel:hover,.admin-stat:hover,.admin-metric:hover,.admin-module:hover,.admin-actions a:hover,.admin-actions button:hover,.admin-nav a:hover,.admin-tabs a:hover,.admin-tab:hover,.admin-form input:focus,.admin-form select:focus,.admin-form textarea:focus,.admin-search input:focus,.admin-table tbody tr:hover,.admin-status:hover{transform:none!important;box-shadow:none!important}
+}
