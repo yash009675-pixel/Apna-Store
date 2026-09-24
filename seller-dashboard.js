@@ -19,7 +19,11 @@ async function bootSeller(){
  const list=products||[];const ids=list.map(p=>p.id);let variants=[];
  if(ids.length){const {data:v}=await apnaSupabase.from("product_variants").select("id,product_id,stock").in("product_id",ids);variants=v||[];}
  if(!list.length){$("recentProducts").innerHTML='<div class="seller-message">No products yet. Start by adding your first product.</div>';return;}
- $("recentProducts").innerHTML='<table class="seller-table"><thead><tr><th>Product</th><th>Status</th><th>Variants</th><th>Created</th></tr></thead><tbody>'+list.slice(0,8).map(p=>'<tr><td><strong>'+esc(p.name)+'</strong></td><td><span class="seller-status">'+esc(p.status)+'</span></td><td>'+variants.filter(v=>v.product_id===p.id).length+'</td><td>'+new Date(p.created_at).toLocaleDateString("en-IN")+'</td></tr>').join("")+'</tbody></table>';
+ const lowStock=variants.filter(v=>Number(v.stock||0)<=5).length;
+ const inactive=list.filter(p=>String(p.status||"").toLowerCase()!=="active").length;
+ const attention=$("sellerAttention");if(attention&&(lowStock||inactive)){attention.hidden=false;$("attentionStock").textContent=lowStock+" low-stock variant"+(lowStock===1?"":"s")+" need attention";$("attentionProducts").textContent=inactive+" product"+(inactive===1?"":"s")+" need status review";}
+ const render=()=>{const q=String($("sellerProductSearch")?.value||"").trim().toLowerCase(),f=String($("sellerStatusFilter")?.value||"").toLowerCase();const filtered=list.filter(p=>(!q||String(p.name||"").toLowerCase().includes(q))&&(!f||String(p.status||"").toLowerCase()===f));$("recentProducts").innerHTML=filtered.length?'<table class="seller-table"><thead><tr><th>Product</th><th>Status</th><th>Variants</th><th>Created</th></tr></thead><tbody>'+filtered.slice(0,12).map(p=>'<tr><td><strong>'+esc(p.name)+'</strong></td><td><span class="seller-status">'+esc(p.status)+'</span></td><td>'+variants.filter(v=>v.product_id===p.id).length+'</td><td>'+new Date(p.created_at).toLocaleDateString("en-IN")+'</td></tr>').join("")+'</tbody></table>':'<div class="seller-message">No products match this filter.</div>';};
+ $("sellerProductSearch")?.addEventListener("input",render);$("sellerStatusFilter")?.addEventListener("change",render);render();
 }
 $("signOut").onclick=async()=>{await apnaSupabase.auth.signOut();location.href="index.html";};
 bootSeller();
