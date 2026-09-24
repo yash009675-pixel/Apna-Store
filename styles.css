@@ -1600,3 +1600,14 @@ a:not(.no-page-motion){transition:color var(--apna-motion-fast) ease,opacity var
 .toast-close:hover,.toast button:hover,.toast-message button:hover,.notification-toast button:hover,.flash-message button:hover{transform:scale(1.08)}
 .toast-close:active,.toast button:active,.toast-message button:active,.notification-toast button:active,.flash-message button:active{transform:scale(.92)}
 @media(prefers-reduced-motion:reduce){.toast,.toast-message,.notification-toast,.flash-message{animation:none!important}.toast:hover,.toast-message:hover,.notification-toast:hover,.flash-message:hover{transform:none!important;box-shadow:none!important}.toast-close:hover,.toast button:hover,.toast-message button:hover,.notification-toast button:hover,.flash-message button:hover,.toast-close:active,.toast button:active,.toast-message button:active,.notification-toast button:active,.flash-message button:active{transform:none!important}}
+
+
+/* AN-22 — Loading & skeleton motion */
+.apna-loading,.loading-state,.skeleton,.skeleton-card,.loading-card{animation:apnaSkeletonPulse 1.15s ease-in-out infinite}
+@keyframes apnaSkeletonPulse{0%,100%{opacity:.55}50%{opacity:1}}
+.apna-spinner,.loading-spinner,.spinner{animation:apnaSpinner .8s linear infinite}
+@keyframes apnaSpinner{to{transform:rotate(360deg)}}
+.loading-state,.empty-loading,.products-loading{animation:apnaFadeIn 220ms var(--apna-ease) both}
+.skeleton{background:linear-gradient(90deg,rgba(17,17,17,.06) 25%,rgba(17,17,17,.11) 50%,rgba(17,17,17,.06) 75%);background-size:200% 100%;animation:apnaSkeletonShimmer 1.25s ease-in-out infinite}
+@keyframes apnaSkeletonShimmer{from{background-position:200% 0}to{background-position:-200% 0}}
+@media(prefers-reduced-motion:reduce){.apna-loading,.loading-state,.skeleton,.skeleton-card,.loading-card,.apna-spinner,.loading-spinner,.spinner,.empty-loading,.products-loading{animation:none!important}.skeleton{background-position:0 0}}
