@@ -1590,3 +1590,13 @@ body{animation:apnaPageEnter 260ms var(--apna-ease-soft) both}
 a:not(.no-page-motion){transition:color var(--apna-motion-fast) ease,opacity var(--apna-motion-fast) ease}
 @media(max-width:700px){body{animation-duration:220ms}}
 @media(prefers-reduced-motion:reduce){body{animation:none!important}}
+
+
+/* AN-21 — Toasts & feedback motion */
+.toast,.toast-message,.notification-toast,.flash-message{animation:apnaToastIn 320ms var(--apna-ease-soft) both;transition:opacity var(--apna-motion-fast) ease,transform var(--apna-motion-fast) var(--apna-ease),box-shadow var(--apna-motion-fast) var(--apna-ease)}
+@keyframes apnaToastIn{0%{opacity:0;transform:translateY(12px) scale(.97)}70%{opacity:1;transform:translateY(-2px) scale(1.01)}100%{opacity:1;transform:translateY(0) scale(1)}}
+.toast:hover,.toast-message:hover,.notification-toast:hover,.flash-message:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(17,17,17,.12)}
+.toast-close,.toast button,.toast-message button,.notification-toast button,.flash-message button{transition:transform var(--apna-motion-fast) var(--apna-ease),opacity var(--apna-motion-fast) ease}
+.toast-close:hover,.toast button:hover,.toast-message button:hover,.notification-toast button:hover,.flash-message button:hover{transform:scale(1.08)}
+.toast-close:active,.toast button:active,.toast-message button:active,.notification-toast button:active,.flash-message button:active{transform:scale(.92)}
+@media(prefers-reduced-motion:reduce){.toast,.toast-message,.notification-toast,.flash-message{animation:none!important}.toast:hover,.toast-message:hover,.notification-toast:hover,.flash-message:hover{transform:none!important;box-shadow:none!important}.toast-close:hover,.toast button:hover,.toast-message button:hover,.notification-toast button:hover,.flash-message button:hover,.toast-close:active,.toast button:active,.toast-message button:active,.notification-toast button:active,.flash-message button:active{transform:none!important}}
