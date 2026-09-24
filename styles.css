@@ -1417,3 +1417,16 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @keyframes apnaSuccessPop{0%{opacity:0;transform:scale(.55)}55%{opacity:1;transform:scale(1.12)}78%{transform:scale(.96)}100%{transform:scale(1)}}
 .order-success .primary-btn,.order-confirmation .primary-btn,.success-card .primary-btn{animation:apnaFadeUp 320ms var(--apna-ease) 260ms both}
 @media(prefers-reduced-motion:reduce){.order-success,.order-confirmation,.success-card,.order-success .success-icon,.order-confirmation .success-icon,.success-card .success-icon,.order-success .primary-btn,.order-confirmation .primary-btn,.success-card .primary-btn{animation:none!important}}
+
+
+/* AN-12 — Order tracking timeline motion */
+#orderDetail{animation:apnaFadeUp 380ms var(--apna-ease-soft) both}
+#orderDetail .tracking-card,.tracking-card,.order-tracking{transition:box-shadow var(--apna-motion-base) var(--apna-ease),transform var(--apna-motion-base) var(--apna-ease)}
+#orderDetail .tracking-card:hover,.tracking-card:hover,.order-tracking:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(17,17,17,.08)}
+.tracking-timeline,.timeline{position:relative}
+.tracking-timeline .timeline-item,.timeline .timeline-item,.tracking-step{animation:apnaFadeUp 320ms var(--apna-ease) both}
+.tracking-timeline .timeline-item:nth-child(2),.timeline .timeline-item:nth-child(2),.tracking-step:nth-child(2){animation-delay:70ms}.tracking-timeline .timeline-item:nth-child(3),.timeline .timeline-item:nth-child(3),.tracking-step:nth-child(3){animation-delay:140ms}.tracking-timeline .timeline-item:nth-child(4),.timeline .timeline-item:nth-child(4),.tracking-step:nth-child(4){animation-delay:210ms}.tracking-timeline .timeline-item:nth-child(5),.timeline .timeline-item:nth-child(5),.tracking-step:nth-child(5){animation-delay:280ms}
+.tracking-dot,.timeline-dot{transition:transform var(--apna-motion-fast) var(--apna-ease),box-shadow var(--apna-motion-fast) ease}
+.tracking-step.active .tracking-dot,.tracking-step.current .tracking-dot,.timeline-item.active .timeline-dot,.timeline-item.current .timeline-dot{animation:apnaTrackingPulse 900ms ease-in-out infinite}
+@keyframes apnaTrackingPulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(17,17,17,.18)}50%{transform:scale(1.08);box-shadow:0 0 0 7px rgba(17,17,17,0)}}
+@media(prefers-reduced-motion:reduce){#orderDetail,.tracking-timeline .timeline-item,.timeline .timeline-item,.tracking-step{animation:none!important}.tracking-step.active .tracking-dot,.tracking-step.current .tracking-dot,.timeline-item.active .timeline-dot,.timeline-item.current .timeline-dot{animation:none!important}.tracking-card:hover,.order-tracking:hover{transform:none!important;box-shadow:none!important}}
