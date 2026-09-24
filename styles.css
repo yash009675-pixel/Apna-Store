@@ -1746,3 +1746,17 @@ a:not(.no-page-motion){transition:color var(--apna-motion-fast) ease,opacity var
 @media print{
   .apna-ai,.apna-back-to-top,.mobile-bottom-nav{display:none!important}
 }
+
+
+/* AN-29 — Final animation regression-safe QA */
+.apna-animation-safe{
+  animation-duration:var(--apna-motion-base);
+  animation-timing-function:var(--apna-ease);
+  animation-fill-mode:both;
+}
+@media(prefers-reduced-motion:reduce){
+  .apna-animation-safe{animation:none!important;transition:none!important}
+}
+@media(max-width:700px){
+  .apna-animation-safe{animation-duration:220ms}
+}
