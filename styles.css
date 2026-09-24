@@ -1718,3 +1718,31 @@ a:not(.no-page-motion){transition:color var(--apna-motion-fast) ease,opacity var
   .apna-back-to-top,.apna-ai,.mobile-bottom-nav{will-change:auto!important;backface-visibility:visible;-webkit-backface-visibility:visible}
   .product-card .product-image img{will-change:auto}
 }
+
+
+/* AN-28 — Accessibility, reduced-motion & fallback QA */
+.apna-animate-in,.apna-fade-in,.apna-pop,.apna-state-enter,.apna-page-ready{
+  animation-fill-mode:both;
+}
+:where(button,a,input,select,textarea):focus-visible{
+  outline:2px solid currentColor;
+  outline-offset:3px;
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    scroll-behavior:auto!important;
+  }
+  .apna-animate-in,.apna-fade-in,.apna-pop,.apna-page-ready,
+  .apna-state-enter,.apna-state-exit,.apna-success-pop,.apna-tracking-pulse,
+  .apna-toast-in,.apna-ai,.apna-ai-panel,.apna-ai-msg,.apna-ai-fab{
+    animation:none!important;
+    transition:none!important;
+  }
+  .product-card:hover,.admin-card:hover,.seller-card:hover,.security-card:hover,
+  .account-stat:hover,.notification-item:hover{
+    transform:none!important;
+  }
+}
+@media print{
+  .apna-ai,.apna-back-to-top,.mobile-bottom-nav{display:none!important}
+}
