@@ -1430,3 +1430,17 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .tracking-step.active .tracking-dot,.tracking-step.current .tracking-dot,.timeline-item.active .timeline-dot,.timeline-item.current .timeline-dot{animation:apnaTrackingPulse 900ms ease-in-out infinite}
 @keyframes apnaTrackingPulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(17,17,17,.18)}50%{transform:scale(1.08);box-shadow:0 0 0 7px rgba(17,17,17,0)}}
 @media(prefers-reduced-motion:reduce){#orderDetail,.tracking-timeline .timeline-item,.timeline .timeline-item,.tracking-step{animation:none!important}.tracking-step.active .tracking-dot,.tracking-step.current .tracking-dot,.timeline-item.active .timeline-dot,.timeline-item.current .timeline-dot{animation:none!important}.tracking-card:hover,.order-tracking:hover{transform:none!important;box-shadow:none!important}}
+
+
+/* AN-13 — Account dashboard motion */
+.account-page{animation:apnaFadeUp 380ms var(--apna-ease-soft) both}
+.account-stats a{transition:transform var(--apna-motion-base) var(--apna-ease),box-shadow var(--apna-motion-base) var(--apna-ease),border-color var(--apna-motion-base) ease}
+.account-stats a:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(17,17,17,.08);border-color:#d1ccc3}
+.account-stats b{display:inline-block;animation:apnaFadeUp 360ms var(--apna-ease) 100ms both}
+.account-panel{animation:apnaFadeUp 340ms var(--apna-ease) both}
+.account-panel:nth-of-type(2){animation-delay:60ms}.account-panel:nth-of-type(3){animation-delay:120ms}.account-panel:nth-of-type(4){animation-delay:180ms}
+.account-actions .primary-btn,.account-actions a{transition:transform var(--apna-motion-fast) var(--apna-ease),box-shadow var(--apna-motion-fast) var(--apna-ease),opacity var(--apna-motion-fast) ease}
+.account-actions .primary-btn:hover,.account-actions a:hover{transform:translateY(-2px)}
+.address-card{transition:transform var(--apna-motion-base) var(--apna-ease),box-shadow var(--apna-motion-base) var(--apna-ease),border-color var(--apna-motion-base) ease}
+.address-card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(17,17,17,.06);border-color:#d1ccc3}
+@media(prefers-reduced-motion:reduce){.account-page,.account-panel,.account-stats b{animation:none!important}.account-stats a:hover,.account-actions .primary-btn:hover,.account-actions a:hover,.address-card:hover{transform:none!important;box-shadow:none!important}}
