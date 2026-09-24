@@ -1456,3 +1456,32 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .notification-role:hover{transform:translateY(-1px)}
 #notificationStatus{animation:apnaFadeIn 220ms ease both}
 @media(prefers-reduced-motion:reduce){.notifications-page,#notificationList>*,#notificationStatus{animation:none!important}#notificationList>*:hover,.notification-role:hover{transform:none!important;box-shadow:none!important}}
+
+
+/* AN-15 — Deals & flash-sales motion */
+.deals-page{animation:apnaFadeUp 380ms var(--apna-ease-soft) both}
+.deals-hero{animation:apnaFadeUp 420ms var(--apna-ease-soft) 40ms both}
+.deals-hero h1{animation:apnaFadeUp 360ms var(--apna-ease) 100ms both}
+.deals-hero p:not(.eyebrow){animation:apnaFadeUp 320ms var(--apna-ease) 150ms both}
+.deals-links{animation:apnaFadeUp 320ms var(--apna-ease) 200ms both}
+.deals-links a{transition:transform var(--apna-motion-fast) var(--apna-ease),box-shadow var(--apna-motion-fast) var(--apna-ease),background-color var(--apna-motion-fast) ease}
+.deals-links a:hover{transform:translateY(-2px);box-shadow:0 9px 20px rgba(17,17,17,.10)}
+.deals-links a:active{transform:scale(.97)}
+.deals-page .section-head{animation:apnaFadeUp 340ms var(--apna-ease) 80ms both}
+#dailyDealList,#flashSaleList{animation:apnaFadeUp 360ms var(--apna-ease-soft) 120ms both}
+#dailyDealList>* ,#flashSaleList>*{animation:apnaFadeUp 340ms var(--apna-ease) both;transition:transform var(--apna-motion-base) var(--apna-ease),box-shadow var(--apna-motion-base) var(--apna-ease),border-color var(--apna-motion-base) ease}
+#dailyDealList>*:nth-child(2),#flashSaleList>*:nth-child(2){animation-delay:55ms}
+#dailyDealList>*:nth-child(3),#flashSaleList>*:nth-child(3){animation-delay:110ms}
+#dailyDealList>*:nth-child(4),#flashSaleList>*:nth-child(4){animation-delay:165ms}
+#dailyDealList>*:nth-child(5),#flashSaleList>*:nth-child(5){animation-delay:220ms}
+#dailyDealList>*:hover,#flashSaleList>*:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(17,17,17,.08)}
+#dailyDealEmpty,#flashSaleEmpty{animation:apnaFadeIn 280ms var(--apna-ease) both}
+@media(max-width:700px){
+  .deals-hero,.deals-page .section-head{animation-duration:300ms}
+  #dailyDealList>* ,#flashSaleList>*{animation-duration:280ms}
+  #dailyDealList>*:hover,#flashSaleList>*:hover{transform:translateY(-2px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .deals-page,.deals-hero,.deals-hero h1,.deals-hero p:not(.eyebrow),.deals-links,.deals-page .section-head,#dailyDealList,#flashSaleList,#dailyDealList>*,#flashSaleList>*,#dailyDealEmpty,#flashSaleEmpty{animation:none!important}
+  .deals-links a:hover,#dailyDealList>*:hover,#flashSaleList>*:hover{transform:none!important;box-shadow:none!important}
+}
