@@ -1582,3 +1582,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .mobile-bottom-nav a:hover b,.mobile-bottom-nav button:hover b{transform:scale(1.08)}
 @media(max-width:700px){.mobile-bottom-nav{will-change:transform}.mobile-bottom-nav a,.mobile-bottom-nav button{min-height:44px}.mobile-bottom-nav a:active,.mobile-bottom-nav button:active{transform:scale(.94)}}
 @media(prefers-reduced-motion:reduce){.mobile-bottom-nav{animation:none!important}.mobile-bottom-nav a:hover,.mobile-bottom-nav button:hover,.mobile-bottom-nav a:active,.mobile-bottom-nav button:active,.mobile-bottom-nav a:hover b,.mobile-bottom-nav button:hover b{transform:none!important}.mobile-bottom-nav .active{animation:none!important}}
+
+
+/* AN-20 — Page transitions & navigation motion */
+body{animation:apnaPageEnter 260ms var(--apna-ease-soft) both}
+@keyframes apnaPageEnter{from{opacity:.82;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+a:not(.no-page-motion){transition:color var(--apna-motion-fast) ease,opacity var(--apna-motion-fast) ease}
+@media(max-width:700px){body{animation-duration:220ms}}
+@media(prefers-reduced-motion:reduce){body{animation:none!important}}
