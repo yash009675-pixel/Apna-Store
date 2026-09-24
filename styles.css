@@ -1827,3 +1827,9 @@ main.section>.section-head{margin-bottom:34px}
   #shopProducts .product-info p{font-size:10px}
   #shopProducts .product-info .price{font-size:12px}
 }
+
+/* FINAL HEADER LANGUAGE DEDUPE — only the selector inside header-actions is visible */
+.site-header>.language-switcher{display:none!important}
+.site-header>.header-actions>.language-switcher{display:flex!important;align-items:center!important;flex:0 0 auto!important}
+.site-header>.header-actions>.language-switcher select{display:block!important}
+@media(max-width:900px){.site-header>.language-switcher{display:none!important}.site-header>.header-actions>.language-switcher{display:flex!important}}
