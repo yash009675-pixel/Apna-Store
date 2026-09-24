@@ -1409,3 +1409,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .checkout-submit:active{transform:scale(.985)}
 @media(max-width:850px){.checkout-card:nth-child(n){animation-delay:0ms}#checkoutSummary{animation-delay:80ms}}
 @media(prefers-reduced-motion:reduce){.checkout-page,.checkout-card,#checkoutSummary{animation:none!important}.checkout-card:focus-within{box-shadow:none!important}.checkout-card .choice:hover,#checkoutSummary:hover{transform:none!important;box-shadow:none!important}.checkout-submit:hover::after{animation:none!important}}
+
+
+/* AN-11 — Order success / confirmation motion */
+.order-success,.order-confirmation,.success-card{animation:apnaFadeUp 420ms var(--apna-ease-soft) both}
+.order-success .success-icon,.order-confirmation .success-icon,.success-card .success-icon{animation:apnaSuccessPop 520ms var(--apna-ease-soft) 120ms both}
+@keyframes apnaSuccessPop{0%{opacity:0;transform:scale(.55)}55%{opacity:1;transform:scale(1.12)}78%{transform:scale(.96)}100%{transform:scale(1)}}
+.order-success .primary-btn,.order-confirmation .primary-btn,.success-card .primary-btn{animation:apnaFadeUp 320ms var(--apna-ease) 260ms both}
+@media(prefers-reduced-motion:reduce){.order-success,.order-confirmation,.success-card,.order-success .success-icon,.order-confirmation .success-icon,.success-card .success-icon,.order-success .primary-btn,.order-confirmation .primary-btn,.success-card .primary-btn{animation:none!important}}
