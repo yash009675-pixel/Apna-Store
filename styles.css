@@ -1837,3 +1837,13 @@ main.section>.section-head{margin-bottom:34px}
 /* FINAL: hide legacy dynamically-injected seller language control on storefront pages */
 #apnaSellerLanguage{display:none!important}
 body.apna-seller-language-page #apnaSellerLanguage{display:block!important}
+
+/* Trust strip visibility + layout repair */
+.trust{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));background:#fff!important;border-top:1px solid #e7e4de;border-bottom:1px solid #e7e4de;color:#111!important;min-height:112px}
+.trust>div{display:flex!important;align-items:center!important;gap:14px!important;padding:28px 32px!important;border-right:1px solid #d9d6d0;color:#111!important}
+.trust>div:last-child{border-right:0}
+.trust>div>strong{color:#111!important;font-size:22px;line-height:1}
+.trust>div>span{color:#222!important;font-size:14px;font-weight:600;line-height:1.35}
+.trust>div small{display:block;color:#777!important;font-size:12px;font-weight:400;margin-top:5px}
+@media(max-width:800px){.trust{grid-template-columns:1fr 1fr;min-height:0}.trust>div{padding:20px 16px!important;border-bottom:1px solid #e1ded8}.trust>div:nth-child(2){border-right:0}.trust>div:nth-child(3),.trust>div:nth-child(4){border-bottom:0}}
+@media(max-width:480px){.trust>div{gap:9px;padding:16px 10px!important}.trust>div>strong{font-size:18px}.trust>div>span{font-size:11px}.trust>div small{font-size:10px}}
