@@ -1902,3 +1902,174 @@ body.apna-seller-language-page #apnaSellerLanguage{display:block!important}
   }
   .apna-back-to-top{right:10px!important;bottom:16px!important}
 }
+
+
+/* FINAL HERO — reference-matched APNA men's fashion layout */
+.hero{
+  background:#fffdfa!important;
+  min-height:620px!important;
+  padding:64px 5.5vw 52px!important;
+  grid-template-columns:minmax(0,1fr) minmax(500px,.9fr)!important;
+  gap:26px!important;
+  position:relative!important;
+  isolation:isolate!important;
+}
+.hero::before{display:none!important}
+.hero-copy{max-width:650px!important;position:relative!important;z-index:2!important}
+.hero-badge{
+  margin-bottom:18px!important;
+  background:#f1f0eb!important;
+  border:0!important;
+  color:#111!important;
+  padding:8px 13px!important;
+  font-size:10px!important;
+}
+.hero .eyebrow{margin-bottom:26px!important;color:#777!important;font-size:12px!important}
+.hero h1{
+  font-size:clamp(64px,6.5vw,104px)!important;
+  line-height:.86!important;
+  letter-spacing:-.085em!important;
+  margin-bottom:30px!important;
+}
+.hero-text{font-size:17px!important;line-height:1.6!important;max-width:530px!important;color:#626262!important;margin-bottom:28px!important}
+.hero-actions{gap:24px!important}
+.hero .primary-btn{min-width:292px!important;justify-content:space-between!important;border-radius:9px!important;padding:18px 22px!important;box-shadow:0 12px 28px rgba(0,0,0,.10)!important}
+.hero-secondary{font-size:13px!important;padding-bottom:5px!important}
+.hero-meta{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:0!important;
+  margin-top:48px!important;
+  width:100%!important;
+}
+.hero-meta span{
+  position:relative!important;
+  min-height:48px!important;
+  padding:0 18px 0 54px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  border-left:1px solid #dedbd4!important;
+  font-size:10px!important;
+}
+.hero-meta span:first-child{border-left:0!important;padding-left:54px!important}
+.hero-meta span::before{
+  position:absolute!important;
+  left:0!important;
+  top:50%!important;
+  transform:translateY(-50%)!important;
+  width:40px!important;
+  height:40px!important;
+  border-radius:50%!important;
+  background:#f0efea!important;
+  display:grid!important;
+  place-items:center!important;
+  font-size:19px!important;
+  color:#222!important;
+}
+.hero-meta span:nth-child(1)::before{content:"⌁"}
+.hero-meta span:nth-child(2)::before{content:"◇"}
+.hero-meta span:nth-child(3)::before{content:"◒"}
+.hero-meta span:nth-child(4)::before{content:"♡"}
+.hero-meta strong{font-size:15px!important;line-height:1.15!important;margin:0 0 4px!important;color:#111!important}
+.hero-meta small{font-size:10px!important;color:#777!important}
+.hero-art{
+  height:520px!important;
+  overflow:visible!important;
+  display:grid!important;
+  place-items:center!important;
+  position:relative!important;
+  z-index:1!important;
+}
+.hero-visual{
+  position:relative!important;
+  width:min(100%,540px)!important;
+  height:500px!important;
+  overflow:visible!important;
+}
+.hero-photo{
+  position:absolute!important;
+  right:5%!important;
+  top:2%!important;
+  width:390px!important;
+  height:475px!important;
+  border-radius:20px!important;
+  overflow:hidden!important;
+  transform:rotate(-7deg)!important;
+  background:#ddd!important;
+  box-shadow:0 28px 60px rgba(0,0,0,.16)!important;
+}
+.hero-photo img{
+  width:100%!important;
+  height:100%!important;
+  display:block!important;
+  object-fit:cover!important;
+  object-position:center 35%!important;
+}
+.hero-photo-label{
+  position:absolute!important;
+  left:50%!important;
+  top:52%!important;
+  transform:translate(-50%,-50%) rotate(7deg)!important;
+  background:rgba(255,255,255,.92)!important;
+  color:#111!important;
+  padding:4px 8px!important;
+  border-radius:3px!important;
+  font-size:10px!important;
+  font-weight:800!important;
+  letter-spacing:.1em!important;
+}
+.hero-spark{
+  position:absolute!important;
+  left:2%!important;
+  top:0!important;
+  font-size:31px!important;
+  line-height:.5!important;
+  font-weight:700!important;
+  transform:rotate(-24deg)!important;
+  color:#111!important;
+}
+.hero-sticker{
+  position:absolute!important;
+  right:-1%!important;
+  bottom:5%!important;
+  width:150px!important;
+  height:104px!important;
+  padding:20px 16px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:left!important;
+  background:#fff!important;
+  border:1px solid #ddd9d1!important;
+  border-radius:18px!important;
+  color:#222!important;
+  font-size:11px!important;
+  font-weight:800!important;
+  letter-spacing:.03em!important;
+  line-height:1.2!important;
+  transform:rotate(-7deg)!important;
+  box-shadow:0 18px 30px rgba(0,0,0,.13)!important;
+}
+.hero-sticker b{margin-left:4px!important}
+@media(max-width:1000px){
+  .hero{grid-template-columns:minmax(0,1fr) minmax(360px,.8fr)!important;padding-inline:4vw!important}
+  .hero h1{font-size:clamp(56px,7vw,82px)!important}
+  .hero-photo{width:320px!important;height:420px!important}
+  .hero-visual{height:450px!important}
+  .hero-art{height:470px!important}
+}
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr!important;min-height:auto!important;padding:50px 20px 38px!important;gap:18px!important}
+  .hero h1{font-size:clamp(50px,14vw,72px)!important}
+  .hero-art{height:360px!important}
+  .hero-visual{width:min(100%,430px)!important;height:350px!important}
+  .hero-photo{width:255px!important;height:330px!important;right:9%!important;top:0!important}
+  .hero-sticker{width:118px!important;height:82px!important;right:0!important;bottom:2%!important;font-size:9px!important}
+  .hero-spark{font-size:24px!important;left:2%!important}
+  .hero-meta{grid-template-columns:repeat(2,1fr)!important;gap:16px 0!important;margin-top:34px!important}
+  .hero-meta span:nth-child(3){border-left:0!important}
+  .hero-meta span{padding-left:48px!important}
+  .hero-meta span:first-child{padding-left:48px!important}
+  .hero-meta span::before{width:36px!important;height:36px!important;font-size:17px!important}
+}
