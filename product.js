@@ -1,5 +1,12 @@
 const params=new URLSearchParams(location.search);
 const productId=params.get("id");
+function rememberRecentlyViewed(product){
+ try{
+  const current=JSON.parse(localStorage.getItem("apnaRecentlyViewed")||"[]");
+  const next=[String(product.id),...current.map(String).filter(id=>id!==String(product.id))].slice(0,8);
+  localStorage.setItem("apnaRecentlyViewed",JSON.stringify(next));
+ }catch(e){console.warn("Recently viewed save failed:",e)}
+}
 const el=document.getElementById("product");
 function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function money(v){return Number(v||0).toLocaleString("en-IN")}
@@ -89,7 +96,7 @@ async function loadProduct(){
   ]);
   if(vr.error||ir.error)throw vr.error||ir.error;
   const images=(ir.data||[]).map(x=>{const u=apnaSupabase.storage.from("product-images").getPublicUrl(x.storage_path).data.publicUrl;return {url:u,alt:x.alt_text||data.name,variant_id:x.variant_id||null}}).filter(x=>x.url);
-  const renderedProduct={...data,category:categoryMap.get(data.category_id)||"Apna Store",brand:brandMap.get(data.brand_id)||""};const [{data:flashRows},{data:dealRows}]=await Promise.all([apnaSupabase.rpc("get_active_flash_sales"),apnaSupabase.rpc("get_active_daily_deals")]);const flashSale=(flashRows||[]).find(x=>x.product_id===data.id)||null;const dailyDeal=(dealRows||[]).find(x=>x.product_id===data.id)||null;renderProduct(renderedProduct,vr.data||[],images,flashSale,dailyDeal);if(window.apnaTrackProductView)apnaTrackProductView(data.id);if(window.apnaRecommendationFeed)window.apnaRecommendationFeed(data.id);
+  const renderedProduct={...data,category:categoryMap.get(data.category_id)||"Apna Store",brand:brandMap.get(data.brand_id)||""};const [{data:flashRows},{data:dealRows}]=await Promise.all([apnaSupabase.rpc("get_active_flash_sales"),apnaSupabase.rpc("get_active_daily_deals")]);const flashSale=(flashRows||[]).find(x=>x.product_id===data.id)||null;const dailyDeal=(dealRows||[]).find(x=>x.product_id===data.id)||null;renderProduct(renderedProduct,vr.data||[],images,flashSale,dailyDeal);rememberRecentlyViewed(renderedProduct);if(window.apnaTrackProductView)apnaTrackProductView(data.id);if(window.apnaRecommendationFeed)window.apnaRecommendationFeed(data.id);
  }catch(e){console.error("Product detail load failed:",e);showError("We could not load this product right now. Please refresh and try again.")}
 }
 loadProduct();
