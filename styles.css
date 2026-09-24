@@ -1361,3 +1361,18 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @keyframes apnaCountPop{0%{transform:scale(.7);opacity:.5}65%{transform:scale(1.18);opacity:1}100%{transform:scale(1)}}
 .apna-cart-feedback{animation:apnaFadeUp 280ms var(--apna-ease) both}
 @media(prefers-reduced-motion:reduce){.cart-add-btn:hover::after,.add-to-cart:hover::after,.buy-now:hover::after,.product-card .primary-btn:hover::after{animation:none!important}.cart-count.apna-count-pop,.nav-count.apna-count-pop,.apna-cart-feedback{animation:none!important}}
+
+
+/* AN-08 — Wishlist interaction motion */
+.wishlist-btn,.wishlist-detail,.wishlist-remove,.remove-wishlist{position:relative;transition:transform var(--apna-motion-fast) var(--apna-ease),box-shadow var(--apna-motion-fast) var(--apna-ease),background-color var(--apna-motion-fast) ease,color var(--apna-motion-fast) ease}
+.wishlist-btn:hover,.wishlist-detail:hover,.wishlist-remove:hover,.remove-wishlist:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(17,17,17,.09)}
+.wishlist-btn:active,.wishlist-detail:active,.wishlist-remove:active,.remove-wishlist:active{transform:scale(.9)}
+.wishlist-btn.apna-wishlist-pop,.wishlist-detail.apna-wishlist-pop{animation:apnaWishlistPop 360ms var(--apna-ease-soft) both}
+@keyframes apnaWishlistPop{0%{transform:scale(.82);opacity:.72}55%{transform:scale(1.16)}78%{transform:scale(.96)}100%{transform:scale(1);opacity:1}}
+.wishlist-image:after{transition:transform var(--apna-motion-fast) var(--apna-ease),box-shadow var(--apna-motion-fast) ease}
+.wishlist-image:hover:after{transform:scale(1.08);box-shadow:0 8px 18px rgba(17,17,17,.12)}
+.wishlist-empty .primary-btn{transition:transform var(--apna-motion-fast) var(--apna-ease),box-shadow var(--apna-motion-fast) var(--apna-ease)}
+.wishlist-empty .primary-btn:hover{transform:translateY(-2px);box-shadow:0 9px 20px rgba(17,17,17,.10)}
+#wishlistGrid .product-card{animation:apnaFadeUp 340ms var(--apna-ease) both}
+#wishlistGrid .product-card:nth-child(2){animation-delay:45ms}#wishlistGrid .product-card:nth-child(3){animation-delay:90ms}#wishlistGrid .product-card:nth-child(4){animation-delay:135ms}#wishlistGrid .product-card:nth-child(5){animation-delay:180ms}#wishlistGrid .product-card:nth-child(6){animation-delay:225ms}
+@media(prefers-reduced-motion:reduce){.wishlist-btn:hover,.wishlist-detail:hover,.wishlist-remove:hover,.remove-wishlist:hover,.wishlist-empty .primary-btn:hover{transform:none!important;box-shadow:none!important}.wishlist-btn.apna-wishlist-pop,.wishlist-detail.apna-wishlist-pop,#wishlistGrid .product-card{animation:none!important}}
