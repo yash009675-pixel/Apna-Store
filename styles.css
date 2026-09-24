@@ -1611,3 +1611,37 @@ a:not(.no-page-motion){transition:color var(--apna-motion-fast) ease,opacity var
 .skeleton{background:linear-gradient(90deg,rgba(17,17,17,.06) 25%,rgba(17,17,17,.11) 50%,rgba(17,17,17,.06) 75%);background-size:200% 100%;animation:apnaSkeletonShimmer 1.25s ease-in-out infinite}
 @keyframes apnaSkeletonShimmer{from{background-position:200% 0}to{background-position:-200% 0}}
 @media(prefers-reduced-motion:reduce){.apna-loading,.loading-state,.skeleton,.skeleton-card,.loading-card,.apna-spinner,.loading-spinner,.spinner,.empty-loading,.products-loading{animation:none!important}.skeleton{background-position:0 0}}
+
+
+/* AN-23 — Apna Store AI assistant motion */
+.apna-ai{animation:apnaAiRootIn 320ms var(--apna-ease-soft) both}
+.apna-ai-fab{transition:transform var(--apna-motion-fast) var(--apna-ease),box-shadow var(--apna-motion-base) var(--apna-ease),opacity var(--apna-motion-fast) ease}
+.apna-ai-fab:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 12px 28px rgba(17,17,17,.16)}
+.apna-ai-fab:active{transform:scale(.92)}
+@keyframes apnaAiRootIn{from{opacity:0}to{opacity:1}}
+.apna-ai-panel{animation:apnaAiPanelIn 280ms var(--apna-ease-soft) both;transform-origin:bottom right}
+@keyframes apnaAiPanelIn{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+.apna-ai-head{transition:background-color var(--apna-motion-fast) ease}
+.apna-ai-close{transition:transform var(--apna-motion-fast) var(--apna-ease),opacity var(--apna-motion-fast) ease}
+.apna-ai-close:hover{transform:rotate(90deg) scale(1.08)}
+.apna-ai-close:active{transform:rotate(90deg) scale(.9)}
+.apna-ai-msg{animation:apnaAiMessageIn 240ms var(--apna-ease) both}
+@keyframes apnaAiMessageIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.apna-ai-msg.assistant{animation-delay:30ms}
+.apna-ai-chips button{transition:transform var(--apna-motion-fast) var(--apna-ease),background-color var(--apna-motion-fast) ease,box-shadow var(--apna-motion-fast) ease}
+.apna-ai-chips button:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(17,17,17,.08)}
+.apna-ai-chips button:active{transform:scale(.96)}
+.apna-ai-form input{transition:border-color var(--apna-motion-fast) ease,box-shadow var(--apna-motion-fast) ease,transform var(--apna-motion-fast) var(--apna-ease)}
+.apna-ai-form input:focus{transform:translateY(-1px);box-shadow:0 0 0 3px rgba(17,17,17,.07)}
+.apna-ai-form button{transition:transform var(--apna-motion-fast) var(--apna-ease),box-shadow var(--apna-motion-fast) var(--apna-ease),opacity var(--apna-motion-fast) ease}
+.apna-ai-form button:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(17,17,17,.10)}
+.apna-ai-form button:active{transform:scale(.96)}
+@media(max-width:700px){
+  .apna-ai-panel{animation-duration:240ms;transform-origin:bottom center}
+  .apna-ai-fab:hover{transform:translateY(-2px) scale(1.02)}
+  .apna-ai-chips button:hover{transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .apna-ai,.apna-ai-panel,.apna-ai-msg{animation:none!important}
+  .apna-ai-fab:hover,.apna-ai-fab:active,.apna-ai-close:hover,.apna-ai-close:active,.apna-ai-chips button:hover,.apna-ai-chips button:active,.apna-ai-form input:focus,.apna-ai-form button:hover,.apna-ai-form button:active{transform:none!important;box-shadow:none!important}
+}
