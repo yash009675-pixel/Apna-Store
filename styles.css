@@ -1833,3 +1833,7 @@ main.section>.section-head{margin-bottom:34px}
 .site-header>.header-actions>.language-switcher{display:flex!important;align-items:center!important;flex:0 0 auto!important}
 .site-header>.header-actions>.language-switcher select{display:block!important}
 @media(max-width:900px){.site-header>.language-switcher{display:none!important}.site-header>.header-actions>.language-switcher{display:flex!important}}
+
+/* FINAL: hide legacy dynamically-injected seller language control on storefront pages */
+#apnaSellerLanguage{display:none!important}
+body.apna-seller-language-page #apnaSellerLanguage{display:block!important}
