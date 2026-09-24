@@ -1685,3 +1685,21 @@ a:not(.no-page-motion){transition:color var(--apna-motion-fast) ease,opacity var
   footer .logo:hover{transform:none!important;box-shadow:none!important}
   .product-card:hover .product-image img{transform:none!important}
 }
+
+
+/* AN-26 — Cross-page transition & state orchestration */
+.apna-page-ready{animation:apnaPageReady 260ms var(--apna-ease-soft) both}
+.apna-route-pending{opacity:.82;transform:translateY(3px)}
+@keyframes apnaPageReady{from{opacity:.82;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.apna-state-enter{animation:apnaStateEnter 240ms var(--apna-ease-soft) both}
+.apna-state-exit{animation:apnaStateExit 180ms var(--apna-ease) both}
+@keyframes apnaStateEnter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes apnaStateExit{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-4px)}}
+@media(max-width:700px){
+  .apna-page-ready{animation-duration:220ms}
+  .apna-state-enter{animation-duration:210ms}
+}
+@media(prefers-reduced-motion:reduce){
+  .apna-page-ready,.apna-state-enter,.apna-state-exit{animation:none!important}
+  .apna-route-pending{opacity:1;transform:none}
+}
