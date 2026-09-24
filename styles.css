@@ -1391,3 +1391,21 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 #cart .primary-btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(17,17,17,.12)}
 #cart .primary-btn:active{transform:scale(.985)}
 @media(prefers-reduced-motion:reduce){#cart,#cart .cart-item{animation:none!important}#cart .cart-item:hover,#cart button:hover,#cart .primary-btn:hover{transform:none!important;box-shadow:none!important}}
+
+
+/* AN-10 — Checkout motion */
+.checkout-page{animation:apnaFadeUp 380ms var(--apna-ease-soft) both}
+.checkout-card{animation:apnaFadeUp 320ms var(--apna-ease) both;transition:transform var(--apna-motion-base) var(--apna-ease),box-shadow var(--apna-motion-base) var(--apna-ease),border-color var(--apna-motion-base) ease}
+.checkout-card:nth-child(2){animation-delay:50ms}.checkout-card:nth-child(3){animation-delay:100ms}.checkout-card:nth-child(4){animation-delay:150ms}.checkout-card:nth-child(5){animation-delay:200ms}
+.checkout-card:focus-within{border-color:#cfcac1;box-shadow:0 12px 28px rgba(17,17,17,.07)}
+.checkout-card .choice{transition:transform var(--apna-motion-fast) var(--apna-ease),background-color var(--apna-motion-fast) ease,border-color var(--apna-motion-fast) ease,box-shadow var(--apna-motion-fast) ease}
+.checkout-card .choice:hover{transform:translateX(2px);border-color:#c9c4ba;background:#fff;box-shadow:0 5px 14px rgba(17,17,17,.05)}
+.checkout-card .choice:active{transform:scale(.99)}
+#checkoutSummary{animation:apnaFadeUp 420ms var(--apna-ease-soft) 120ms both;transition:box-shadow var(--apna-motion-base) var(--apna-ease)}
+#checkoutSummary:hover{box-shadow:0 22px 50px rgba(17,17,17,.16)}
+.checkout-submit{position:relative;overflow:hidden}
+.checkout-submit::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent,rgba(255,255,255,.18),transparent);transform:translateX(-120%);pointer-events:none}
+.checkout-submit:hover::after{animation:apnaButtonShine 520ms var(--apna-ease) both}
+.checkout-submit:active{transform:scale(.985)}
+@media(max-width:850px){.checkout-card:nth-child(n){animation-delay:0ms}#checkoutSummary{animation-delay:80ms}}
+@media(prefers-reduced-motion:reduce){.checkout-page,.checkout-card,#checkoutSummary{animation:none!important}.checkout-card:focus-within{box-shadow:none!important}.checkout-card .choice:hover,#checkoutSummary:hover{transform:none!important;box-shadow:none!important}.checkout-submit:hover::after{animation:none!important}}
