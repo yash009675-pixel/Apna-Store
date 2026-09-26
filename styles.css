@@ -2768,3 +2768,9 @@ body:not(:has(.admin-sidebar)) input,body:not(:has(.admin-sidebar)) select,body:
 .deal .light-btn{gap:10px!important}
 .deal .button-icon{width:18px;height:18px;display:inline-grid;place-items:center}
 @media(max-width:600px){.trust .trust-icon{width:34px!important;height:34px!important;min-width:34px!important}.trust div{gap:10px!important}}
+
+/* Product action/meta icon polish */
+.product-detail-top .text-btn,.product-detail-top .wishlist-detail{display:inline-flex;align-items:center;gap:6px}
+.ui-icon{width:20px;height:20px;display:inline-grid;place-items:center;border-radius:7px;background:#f0eeff;color:#6d5dfc;font-size:11px;font-weight:800;line-height:1}
+.meta-icon{width:20px;height:20px;display:inline-grid;place-items:center;margin-right:6px;border-radius:7px;background:#f0eeff;color:#6d5dfc;font-style:normal;font-size:11px;font-weight:800}
+.discount-badge .ui-icon{width:16px;height:16px;background:transparent;color:inherit}
