@@ -35,6 +35,41 @@ const getMessagingInstance = async () => {
   return messagingPromise;
 };
 
+async function getActiveMessagingServiceWorker() {
+  const registration = await navigator.serviceWorker.register("./firebase-messaging-sw.js", {
+    scope: "./"
+  });
+
+  // A newly registered worker may still be installing. PushManager requires
+  // an active worker, so wait until the registration is active before calling
+  // Firebase getToken().
+  await navigator.serviceWorker.ready;
+
+  if (!registration.active) {
+    await new Promise((resolve, reject) => {
+      const worker = registration.installing || registration.waiting;
+      if (!worker) {
+        reject(new Error("Firebase service worker did not become active."));
+        return;
+      }
+      const timeout = setTimeout(() => {
+        reject(new Error("Firebase service worker activation timed out. Please refresh once and try again."));
+      }, 15000);
+      worker.addEventListener("statechange", () => {
+        if (worker.state === "activated") {
+          clearTimeout(timeout);
+          resolve();
+        } else if (worker.state === "redundant") {
+          clearTimeout(timeout);
+          reject(new Error("Firebase service worker became redundant. Please refresh and try again."));
+        }
+      });
+    });
+  }
+
+  return registration;
+}
+
 window.apnaEnableFcm = async () => {
   const { data: sessionData } = await window.apnaSupabase.auth.getSession();
   if (!sessionData?.session) throw new Error("Please sign in before enabling notifications.");
@@ -47,11 +82,9 @@ window.apnaEnableFcm = async () => {
     throw new Error("Notification permission was not granted.");
   }
 
-  const registration = await navigator.serviceWorker.register("./firebase-messaging-sw.js", {
-    scope: "./firebase-cloud-messaging-push-scope/"
-  });
-
+  const registration = await getActiveMessagingServiceWorker();
   const messaging = await getMessagingInstance();
+
   const token = await getToken(messaging, {
     vapidKey: VAPID_KEY,
     serviceWorkerRegistration: registration
