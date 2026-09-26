@@ -72,3 +72,10 @@ body:not(:has(.admin-sidebar)) .help-card p{color:#778197;line-height:1.6}
 body:not(:has(.admin-sidebar)) .help-empty{border:1px dashed #dfe3eb;border-radius:13px;background:#fff;color:#778197}
 @media(max-width:900px){body:not(:has(.admin-sidebar)) .help-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){body:not(:has(.admin-sidebar)) .help-shell{padding-left:18px;padding-right:18px}.help-grid{grid-template-columns:1fr!important}.help-tools input,.help-tools select{width:100%;min-width:0}.help-tab{flex:1;text-align:center}}
+
+/* Shipping page finishing */
+body:not(:has(.admin-sidebar)) .shipping-page{max-width:900px!important;margin:0 auto!important;padding:clamp(38px,6vw,72px) clamp(18px,5.5vw,72px) 90px!important}
+body:not(:has(.admin-sidebar)) .shipping-page h1{font-size:clamp(40px,5vw,64px);letter-spacing:-.04em;color:#172033;margin:6px 0 18px}
+body:not(:has(.admin-sidebar)) .shipping-page .shipping-copy{max-width:760px!important;margin-top:0!important;color:#5f6b80;line-height:1.8}
+body:not(:has(.admin-sidebar)) .shipping-page .shipping-action{margin-top:32px}
+@media(max-width:600px){body:not(:has(.admin-sidebar)) .shipping-page{padding-left:18px!important;padding-right:18px!important}.shipping-page .shipping-action .primary-btn{width:100%;text-align:center}}
