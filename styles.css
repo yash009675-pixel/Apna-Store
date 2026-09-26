@@ -1960,3 +1960,21 @@ body.apna-seller-language-page #apnaSellerLanguage{display:block!important}
 .product-page .related-section .products{position:relative!important;z-index:3!important;width:100%!important}
 @media(max-width:900px){.product-page{padding:40px 5%!important}.product-page .product-main-layout{grid-template-columns:1fr!important;gap:35px!important}.product-page .product-visual,.product-page .product-details{grid-column:1!important;grid-row:auto!important}.product-page .related-section{margin-top:55px!important;padding:45px 0!important}}
 @media(max-width:600px){.product-page{padding:28px 5%!important}.product-page .related-section{margin-top:40px!important;padding:35px 0!important}}
+
+/* CHECKOUT ORDER SUMMARY — FINAL VISIBILITY FIX */
+#checkoutSummary{min-width:0!important;width:100%!important;align-self:start!important}
+#checkoutSummary>div.summary-card{display:block!important;width:100%!important;box-sizing:border-box!important;background:#111!important;color:#fff!important;border:0!important;border-radius:18px!important;padding:26px!important;margin:0!important;overflow:visible!important;box-shadow:0 18px 45px rgba(17,17,17,.12)!important}
+#checkoutSummary>div.summary-card .eyebrow{color:#aaa!important;margin:0 0 8px!important}
+#checkoutSummary>div.summary-card h2{color:#fff!important;margin:0 0 14px!important;font-size:22px!important}
+#checkoutSummary>div.summary-card .summary-line{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:18px!important;width:100%!important;box-sizing:border-box!important;padding:13px 0!important;border-bottom:1px solid #333!important;color:#fff!important}
+#checkoutSummary>div.summary-card .summary-line span{color:#ddd!important;min-width:0!important}
+#checkoutSummary>div.summary-card .summary-line b{color:#fff!important;white-space:nowrap!important}
+#checkoutSummary>div.summary-card .summary-total{display:flex!important;align-items:center!important;justify-content:space-between!important;border-bottom:0!important;padding:20px 0 6px!important;font-size:18px!important;color:#fff!important}
+#checkoutSummary>div.summary-card .summary-total span,#checkoutSummary>div.summary-card .summary-total b{color:#fff!important}
+#checkoutSummary>div.summary-card .coupon-box{display:block!important;margin-top:18px!important;padding-top:18px!important;border-top:1px solid #333!important}
+#checkoutSummary>div.summary-card .coupon-box label{color:#ddd!important;display:block!important}
+#checkoutSummary>div.summary-card .coupon-row{display:flex!important;gap:8px!important;align-items:stretch!important}
+#checkoutSummary>div.summary-card .coupon-row input{background:#fff!important;color:#111!important;border:1px solid #ddd!important;min-width:0!important}
+#checkoutSummary>div.summary-card .coupon-row .light-btn{background:#fff!important;color:#111!important;border:0!important;border-radius:8px!important;font-weight:700!important}
+#checkoutSummary>div.summary-card .coupon-box small{color:#aaa!important}
+@media(max-width:850px){#checkoutSummary{width:100%!important}.checkout-page{grid-template-columns:1fr!important}}
