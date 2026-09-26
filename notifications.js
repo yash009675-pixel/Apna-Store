@@ -29,6 +29,23 @@ async function loadPreferences(){
  $("preferenceGrid").innerHTML=cats.map(([value,label])=>{const found=preferences.find(x=>x.category===value);const enabled=found?found.enabled:true;return '<label class="preference-row"><span>'+esc(label)+'</span><input type="checkbox" data-pref="'+esc(value)+'" '+(enabled?"checked":"")+'></label>'}).join("");
  $("preferenceGrid").querySelectorAll("[data-pref]").forEach(input=>input.onchange=async()=>{input.disabled=true;$("preferenceMessage").textContent="";const r=await apnaSupabase.rpc("set_notification_preference",{p_channel:"in_app",p_category:input.dataset.pref,p_enabled:input.checked});if(r.error){input.checked=!input.checked;$("preferenceMessage").textContent="Could not save this preference.";console.error(r.error)}input.disabled=false});
 }
+async function loadEmailChannel(){
+ const card=$("emailChannel");
+ if(!card)return;
+ const {data,error}=await apnaSupabase.functions.invoke("apna-notification-email",{body:{source:"notification-center"}});
+ if(error||!data){
+  card.className="channel-card";
+  card.querySelector("small").textContent="Free email service is ready after Resend setup.";
+  return;
+ }
+ if(data.configured){
+  card.className="channel-card ready";
+  card.querySelector("small").textContent="Active. Free Resend delivery is configured.";
+ }else{
+  card.className="channel-card";
+  card.querySelector("small").textContent="Free Resend delivery is ready — add RESEND_API_KEY in Supabase Secrets.";
+ }
+}
 async function load(){
  const {data:s,error:sessionError}=await apnaSupabase.auth.getSession();
  if(sessionError||!s.session){$("notificationStatus").textContent="Sign in to view your notifications.";$("markAll").hidden=true;$("notificationList").innerHTML='<div class="empty-cart"><a class="primary-btn" href="auth.html">Sign in / Create account →</a></div>';return}
@@ -39,7 +56,7 @@ async function load(){
  $("categoryFilter").innerHTML='<option value="all">All categories</option>'+categories.map(x=>'<option value="'+esc(x[0])+'">'+esc(x[1])+"</option>").join("");
  const {data,error}=await apnaSupabase.from("notifications").select("id,type,title,body,link,category,audience_role,is_read,created_at").eq("user_id",uid).order("created_at",{ascending:false}).limit(100);
  if(error){$("notificationStatus").textContent="Could not load notifications.";$("notificationList").innerHTML='<div class="empty-cart"><p>Please refresh and try again.</p></div>';return}
- rows=data||[];renderList();await loadPreferences();$("markAll").hidden=false;
+ rows=data||[];renderList();await loadPreferences();$("markAll").hidden=false;await loadEmailChannel();
 }
 $("categoryFilter").onchange=renderList;$("readFilter").onchange=renderList;
 $("markAll").onclick=async()=>{$("markAll").disabled=true;const r=await apnaSupabase.rpc("mark_all_notifications_read");$("markAll").disabled=false;if(r.error){alert("Could not mark notifications as read.");return}await load()};
