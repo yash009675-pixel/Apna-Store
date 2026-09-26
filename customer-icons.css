@@ -86,3 +86,15 @@ body:not(:has(.admin-sidebar)) .returns-page h1{font-size:clamp(40px,5vw,64px);l
 body:not(:has(.admin-sidebar)) .returns-page .returns-copy{max-width:760px!important;margin-top:0!important;color:#5f6b80;line-height:1.8}
 body:not(:has(.admin-sidebar)) .returns-page .returns-action{margin-top:32px}
 @media(max-width:600px){body:not(:has(.admin-sidebar)) .returns-page{padding-left:18px!important;padding-right:18px!important}.returns-page .returns-action .primary-btn{width:100%;text-align:center}}
+
+/* Account page finishing */
+body:not(:has(.admin-sidebar)) .account-page{background:var(--apna-bg)!important}
+body:not(:has(.admin-sidebar)) .account-card{color:var(--apna-ink)}
+body:not(:has(.admin-sidebar)) .account-card>p:not(.eyebrow){color:var(--apna-muted)!important}
+body:not(:has(.admin-sidebar)) .account-stats a{border-color:var(--apna-border)!important;background:#fff!important}
+body:not(:has(.admin-sidebar)) .account-stats a span[data-icon]{color:#6d5dfc!important}
+body:not(:has(.admin-sidebar)) .account-panel input,body:not(:has(.admin-sidebar)) .account-panel select,body:not(:has(.admin-sidebar)) .account-panel textarea{border:1px solid var(--apna-border)!important;border-radius:10px!important;background:#fff!important;color:var(--apna-ink)!important}
+body:not(:has(.admin-sidebar)) .account-panel input:focus,body:not(:has(.admin-sidebar)) .account-panel select:focus,body:not(:has(.admin-sidebar)) .account-panel textarea:focus{border-color:#6d5dfc!important;box-shadow:0 0 0 3px rgba(109,93,252,.10)!important}
+body:not(:has(.admin-sidebar)) #referralLink{width:100%;padding:12px 13px!important;margin:8px 0 10px;border:1px solid var(--apna-border)!important;border-radius:10px!important;background:#f7f8fb!important}
+body:not(:has(.admin-sidebar)) .account-panel .checkout-card{border-color:var(--apna-border)!important;border-radius:12px!important;background:#f7f8fb!important;box-shadow:none!important}
+@media(max-width:600px){body:not(:has(.admin-sidebar)) .account-card{max-width:100%!important}.account-stats a{border-radius:12px!important}}
