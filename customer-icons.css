@@ -1,0 +1,15 @@
+body:not(:has(.admin-sidebar)) .site-ui-icon{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+body:not(:has(.admin-sidebar)) .account-stats{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:12px!important}
+body:not(:has(.admin-sidebar)) .account-stats>a{display:grid!important;grid-template-columns:38px 1fr!important;align-items:center!important;gap:10px!important;min-height:72px!important;padding:13px!important;border:1px solid #e4e8ef!important;border-radius:13px!important;background:#fff!important;box-shadow:0 6px 18px rgba(19,29,45,.04)!important;text-decoration:none!important;color:#172033!important}
+body:not(:has(.admin-sidebar)) .account-stats>a:before{content:"";grid-column:1;grid-row:1/3;width:38px;height:38px;border-radius:11px;background:#f0eeff;display:block}
+body:not(:has(.admin-sidebar)) .account-stats>a .site-ui-icon{grid-column:1;grid-row:1/3;margin:auto;color:#6d5dfc;z-index:1}
+body:not(:has(.admin-sidebar)) .account-stats>a b{grid-column:2;font-size:20px!important;line-height:1!important}
+body:not(:has(.admin-sidebar)) .account-stats>a span{grid-column:2;font-size:11px!important;color:#778197!important}
+body:not(:has(.admin-sidebar)) .notification-channels,body:not(:has(.admin-sidebar)) .notification-preferences{border:1px solid #e4e8ef!important;background:#fff!important;border-radius:13px!important;box-shadow:0 6px 18px rgba(19,29,45,.04)!important}
+body:not(:has(.admin-sidebar)) .channel-card{border:1px solid #e4e8ef!important;border-radius:11px!important;background:#fff!important}
+body:not(:has(.admin-sidebar)) .channel-card.ready{border-color:#d9d4ff!important}
+body:not(:has(.admin-sidebar)) .summary-line{border-bottom:1px solid #edf0f4!important;padding:12px 0!important}
+body:not(:has(.admin-sidebar)) .container{max-width:1400px!important;padding-left:clamp(18px,5.5vw,72px)!important;padding-right:clamp(18px,5.5vw,72px)!important}
+@media(max-width:900px){body:not(:has(.admin-sidebar)) .account-stats{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(max-width:600px){body:not(:has(.admin-sidebar)) .account-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:380px){body:not(:has(.admin-sidebar)) .account-stats{grid-template-columns:1fr!important}}
