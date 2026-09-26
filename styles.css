@@ -1978,3 +1978,6 @@ body.apna-seller-language-page #apnaSellerLanguage{display:block!important}
 #checkoutSummary>div.summary-card .coupon-row .light-btn{background:#fff!important;color:#111!important;border:0!important;border-radius:8px!important;font-weight:700!important}
 #checkoutSummary>div.summary-card .coupon-box small{color:#aaa!important}
 @media(max-width:850px){#checkoutSummary{width:100%!important}.checkout-page{grid-template-columns:1fr!important}}
+
+/* PAID AI FLOATING BUTTON REMOVED — keep Back to Top */
+.apna-ai,.apna-ai-fab,.apna-ai-panel{display:none!important;visibility:hidden!important;pointer-events:none!important}
