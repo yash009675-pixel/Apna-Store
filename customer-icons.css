@@ -79,3 +79,10 @@ body:not(:has(.admin-sidebar)) .shipping-page h1{font-size:clamp(40px,5vw,64px);
 body:not(:has(.admin-sidebar)) .shipping-page .shipping-copy{max-width:760px!important;margin-top:0!important;color:#5f6b80;line-height:1.8}
 body:not(:has(.admin-sidebar)) .shipping-page .shipping-action{margin-top:32px}
 @media(max-width:600px){body:not(:has(.admin-sidebar)) .shipping-page{padding-left:18px!important;padding-right:18px!important}.shipping-page .shipping-action .primary-btn{width:100%;text-align:center}}
+
+/* Returns page finishing */
+body:not(:has(.admin-sidebar)) .returns-page{max-width:900px!important;margin:0 auto!important;padding:clamp(38px,6vw,72px) clamp(18px,5.5vw,72px) 90px!important}
+body:not(:has(.admin-sidebar)) .returns-page h1{font-size:clamp(40px,5vw,64px);letter-spacing:-.04em;color:#172033;margin:6px 0 18px}
+body:not(:has(.admin-sidebar)) .returns-page .returns-copy{max-width:760px!important;margin-top:0!important;color:#5f6b80;line-height:1.8}
+body:not(:has(.admin-sidebar)) .returns-page .returns-action{margin-top:32px}
+@media(max-width:600px){body:not(:has(.admin-sidebar)) .returns-page{padding-left:18px!important;padding-right:18px!important}.returns-page .returns-action .primary-btn{width:100%;text-align:center}}
