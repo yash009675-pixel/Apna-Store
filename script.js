@@ -23,7 +23,27 @@ async function loadCategories(){
  const rows=data||[];
  const toneClasses=["cat-women","cat-men","cat-kids","cat-foot"];
  const subtitles=["New looks →","Daily essentials →","Little styles →","Step out →"];
- if(categoriesRoot)categoriesRoot.innerHTML=rows.map((c,i)=>'<a href="shop.html?category='+encodeURIComponent(c.name)+'" class="category '+toneClasses[i%toneClasses.length]+'"><span>'+String(i+1).padStart(2,"0")+'</span><h3>'+escapeHtml(c.name)+'</h3><p>'+subtitles[i%subtitles.length]+'</p></a>').join("")||'<p>No categories available yet.</p>';
+ let imageByCategory=new Map();
+ try{
+   const [productsResult,imagesResult]=await Promise.all([
+     apnaSupabase.from("products").select("id,category_id").eq("status","active").order("created_at",{ascending:false}),
+     apnaSupabase.from("product_images").select("product_id,storage_path,alt_text,is_primary,sort_order").order("is_primary",{ascending:false}).order("sort_order",{ascending:true})
+   ]);
+   const productsById=new Map((productsResult.data||[]).map(p=>[p.id,p]));
+   for(const img of (imagesResult.data||[])){
+     if(!imageByCategory.has(productsById.get(img.product_id)?.category_id)){
+       const p=productsById.get(img.product_id);
+       if(p)imageByCategory.set(p.category_id,img);
+     }
+   }
+ }catch(err){console.warn("Homepage category image query failed:",err)}
+ const imageUrl=img=>img?.storage_path ? window.APNA_SUPABASE_CONFIG.url+"/storage/v1/object/public/product-images/"+img.storage_path : "";
+ if(categoriesRoot)categoriesRoot.innerHTML=rows.map((c,i)=>{
+   const img=imageByCategory.get(c.id);
+   const url=imageUrl(img);
+   const media=url?'<span class="category-media"><img src="'+escapeHtml(url)+'" alt="'+escapeHtml(c.name)+' clothing" loading="lazy"></span>':'';
+   return '<a href="shop.html?category='+encodeURIComponent(c.name)+'" class="category '+toneClasses[i%toneClasses.length]+'">'+media+'<span>'+String(i+1).padStart(2,"0")+'</span><div class="category-copy"><h3>'+escapeHtml(c.name)+'</h3><p>'+subtitles[i%subtitles.length]+'</p></div></a>';
+ }).join("")||'<p>No categories available yet.</p>';
  if(navCategoriesRoot){navCategoriesRoot.innerHTML='<a href="#shop">Shop</a>'+rows.map(c=>'<a href="shop.html?category='+encodeURIComponent(c.name)+'">'+escapeHtml(c.name)+'</a>').join("")+'<a href="#deals">Deals</a>';}
 }
 async function loadProducts(){
