@@ -1949,3 +1949,14 @@ body.apna-seller-language-page #apnaSellerLanguage{display:block!important}
 .product-page .gallery-note{grid-column:2!important;grid-row:2!important;margin:0!important;text-align:center!important}
 @media(max-width:900px){.product-page .product-visual{position:relative!important;top:auto!important}.product-page .product-gallery{grid-template-columns:72px minmax(0,1fr)!important;grid-template-rows:minmax(440px,auto) auto!important}.product-page .product-thumbs{width:72px!important;max-height:440px!important}.product-page .product-large{height:440px!important;min-height:440px!important}}
 @media(max-width:600px){.product-page .product-gallery{display:flex!important;flex-direction:column!important;gap:10px!important}.product-page .product-large{order:1!important;width:100%!important;height:360px!important;min-height:360px!important}.product-page .product-thumbs{order:2!important;width:100%!important;max-height:none!important;flex-direction:row!important;overflow-x:auto!important;overflow-y:hidden!important;justify-content:flex-start!important}.product-page .gallery-note{order:3!important;width:100%!important}.product-page .product-main-img{padding:12px!important}}
+
+/* PRODUCT PAGE STRUCTURE — PREVENT SECTION OVERLAP */
+.product-page{display:block!important;max-width:1400px!important;margin:0 auto!important;padding:70px 8%!important;box-sizing:border-box!important}
+.product-page .product-main-layout{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:7%!important;align-items:start!important;width:100%!important;position:relative!important}
+.product-page .product-visual{grid-column:1!important;grid-row:1!important}
+.product-page .product-details{grid-column:2!important;grid-row:1!important}
+.product-page .related-section{display:block!important;clear:both!important;width:100%!important;margin-top:100px!important;padding:70px 0!important;position:relative!important;z-index:2!important;box-sizing:border-box!important}
+.product-page .related-section .section-head{position:relative!important;z-index:3!important;margin-bottom:38px!important}
+.product-page .related-section .products{position:relative!important;z-index:3!important;width:100%!important}
+@media(max-width:900px){.product-page{padding:40px 5%!important}.product-page .product-main-layout{grid-template-columns:1fr!important;gap:35px!important}.product-page .product-visual,.product-page .product-details{grid-column:1!important;grid-row:auto!important}.product-page .related-section{margin-top:55px!important;padding:45px 0!important}}
+@media(max-width:600px){.product-page{padding:28px 5%!important}.product-page .related-section{margin-top:40px!important;padding:35px 0!important}}
