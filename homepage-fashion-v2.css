@@ -1,0 +1,567 @@
+/* APNA STORE — HOME V2 / FASHION STOREFRONT
+   Scoped to the homepage only. Existing functionality is preserved. */
+
+body.apna-home-v2:not(:has(.admin-sidebar)){
+  --home-bg:#f7f4ee;
+  --home-surface:#fffdf9;
+  --home-ink:#151515;
+  --home-muted:#706e68;
+  --home-border:#e3ded5;
+  --home-soft:#eee8df;
+  --home-accent:#9b7b55;
+  background:var(--home-bg)!important;
+  color:var(--home-ink)!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .announcement-bar{
+  background:#151515!important;
+  color:#fff!important;
+  min-height:32px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:7px 16px!important;
+  font-size:11px!important;
+  letter-spacing:.04em;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .site-header{
+  min-height:76px!important;
+  height:auto!important;
+  padding:0 clamp(18px,5vw,72px)!important;
+  background:rgba(255,253,249,.97)!important;
+  border-bottom:1px solid var(--home-border)!important;
+  box-shadow:0 2px 16px rgba(20,20,20,.035)!important;
+  display:grid!important;
+  grid-template-columns:auto 1fr auto!important;
+  gap:24px!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .site-header .logo{
+  color:var(--home-ink)!important;
+  font-size:22px!important;
+  font-weight:800!important;
+  letter-spacing:-.055em!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .site-header nav{
+  position:static!important;
+  transform:none!important;
+  display:flex!important;
+  align-items:center;
+  justify-content:center;
+  gap:6px!important;
+  flex-wrap:nowrap;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .site-header nav a,
+body.apna-home-v2:not(:has(.admin-sidebar)) .header-actions a{
+  color:#373633!important;
+  background:transparent!important;
+  border:0!important;
+  padding:9px 10px!important;
+  border-radius:8px!important;
+  font-size:12px!important;
+  font-weight:600!important;
+  text-decoration:none!important;
+  white-space:nowrap;
+  transition:background .18s ease,color .18s ease,transform .18s ease;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .site-header nav a:hover,
+body.apna-home-v2:not(:has(.admin-sidebar)) .header-actions a:hover{
+  background:#eee9e0!important;
+  color:#151515!important;
+  transform:translateY(-1px);
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .header-actions{
+  display:flex!important;
+  align-items:center;
+  gap:4px!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .hero{
+  min-height:620px!important;
+  max-width:none!important;
+  width:100%!important;
+  margin:0!important;
+  padding:clamp(48px,6vw,82px) clamp(18px,7vw,100px)!important;
+  background:var(--home-bg)!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr)!important;
+  gap:clamp(28px,5vw,72px)!important;
+  align-items:center!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .hero-copy{
+  max-width:620px!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:16px;
+  padding:7px 11px;
+  border:1px solid var(--home-border);
+  border-radius:999px;
+  background:var(--home-surface);
+  color:#514f4a;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.08em;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .hero-badge span{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--home-accent);
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .hero .eyebrow{
+  color:#77736b!important;
+  font-size:10px!important;
+  letter-spacing:.17em!important;
+  margin-bottom:18px!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .hero h1{
+  margin:0 0 24px!important;
+  color:var(--home-ink)!important;
+  font-size:clamp(54px,6.3vw,92px)!important;
+  line-height:.91!important;
+  letter-spacing:-.065em!important;
+  font-weight:800!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .hero h1 em{
+  color:#4c4a46!important;
+  font-weight:400!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .hero-text{
+  max-width:500px!important;
+  margin:0 0 30px!important;
+  color:var(--home-muted)!important;
+  font-size:15px!important;
+  line-height:1.7!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .hero-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .hero-actions .primary-btn{
+  min-height:46px;
+  padding:13px 18px!important;
+  border-radius:8px!important;
+  background:#151515!important;
+  color:#fff!important;
+  border:1px solid #151515!important;
+  gap:18px!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .hero-secondary{
+  min-height:46px;
+  display:inline-flex;
+  align-items:center;
+  padding:13px 18px;
+  border:1px solid #cfc8bd;
+  border-radius:8px;
+  color:#242321!important;
+  background:transparent;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:700;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .hero-art{
+  height:auto!important;
+  min-height:430px;
+  display:flex!important;
+  align-items:center;
+  justify-content:center;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .hero-visual{
+  width:100%;
+  max-width:720px;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .hero-photo{
+  position:relative;
+  overflow:hidden;
+  aspect-ratio:1.55;
+  border-radius:18px;
+  background:#ddd4c8;
+  box-shadow:0 22px 55px rgba(36,30,23,.13);
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .hero-photo:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,rgba(18,18,18,.14),transparent 45%);
+  pointer-events:none;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .hero-photo img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  display:block!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .trust{
+  width:100%!important;
+  background:#181818!important;
+  color:#fff!important;
+  border:0!important;
+  grid-template-columns:repeat(4,1fr)!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .trust div{
+  min-width:0;
+  border-right:1px solid #373737!important;
+  border-bottom:0!important;
+  padding:22px clamp(12px,3vw,42px)!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .trust div:last-child{
+  border-right:0!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .trust .trust-icon{
+  background:#2b2926!important;
+  color:#fff!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .trust span{
+  color:#fff!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .trust small{
+  color:#aaa7a0!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .section{
+  width:min(1320px,100%)!important;
+  max-width:1320px!important;
+  margin:0 auto!important;
+  padding:78px clamp(18px,5vw,72px)!important;
+  background:var(--home-bg)!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .section-head{
+  margin-bottom:28px!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .section-head .eyebrow{
+  color:#8a857d!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .section-head h2{
+  color:var(--home-ink)!important;
+  font-size:clamp(32px,4vw,50px)!important;
+  line-height:1!important;
+  letter-spacing:-.055em!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .section-head>a,
+body.apna-home-v2:not(:has(.admin-sidebar)) .section-head .text-btn{
+  color:#363430!important;
+  font-weight:700!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .categories{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:14px!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .category{
+  min-height:330px!important;
+  border-radius:14px!important;
+  border:0!important;
+  padding:20px!important;
+  overflow:hidden;
+  position:relative;
+  box-shadow:none!important;
+  isolation:isolate;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .category:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(180deg,rgba(0,0,0,.02) 25%,rgba(0,0,0,.62) 100%);
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .category span{
+  color:rgba(255,255,255,.75)!important;
+  z-index:2;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .category h3{
+  color:#fff!important;
+  font-size:28px!important;
+  line-height:1!important;
+  z-index:2;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .category p{
+  color:rgba(255,255,255,.9)!important;
+  z-index:2;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .category:hover{
+  transform:translateY(-4px)!important;
+  box-shadow:0 18px 38px rgba(25,23,20,.13)!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .products{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:14px!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .product-card{
+  border:1px solid var(--home-border)!important;
+  border-radius:13px!important;
+  background:var(--home-surface)!important;
+  overflow:hidden!important;
+  box-shadow:0 5px 18px rgba(30,26,20,.045)!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .product-card:hover{
+  transform:translateY(-3px)!important;
+  box-shadow:0 14px 28px rgba(30,26,20,.10)!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .product-image{
+  aspect-ratio:.82!important;
+  padding:0!important;
+  background:#ebe5dc!important;
+  border-radius:0!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .product-image:before{
+  display:none!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .product-image img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  display:block!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .product-placeholder{
+  width:100%;
+  height:100%;
+  display:grid;
+  place-items:center;
+  color:#817c74;
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:-.05em;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .product-image button{
+  top:10px!important;
+  right:10px!important;
+  width:34px!important;
+  height:34px!important;
+  background:rgba(255,255,255,.94)!important;
+  color:#222!important;
+  box-shadow:0 5px 14px rgba(0,0,0,.10);
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .product-info{
+  padding:14px!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .product-info h3{
+  color:#191817!important;
+  margin-bottom:6px!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .product-info p{
+  color:#858078!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .product-info .price{
+  color:#191817!important;
+  font-size:14px!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .product-card .primary-btn.add{
+  margin:0 14px 14px!important;
+  width:calc(100% - 28px)!important;
+  min-height:38px;
+  justify-content:center;
+  border-radius:7px!important;
+  background:#171717!important;
+  color:#fff!important;
+  border:0!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .deal{
+  width:min(1320px,calc(100% - 36px))!important;
+  min-height:310px!important;
+  margin:10px auto 78px!important;
+  border-radius:18px!important;
+  padding:58px clamp(24px,6vw,80px)!important;
+  background:#181818!important;
+  color:#fff!important;
+  box-shadow:0 18px 42px rgba(20,20,20,.13)!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .deal h2{
+  color:#fff!important;
+  font-size:clamp(46px,6vw,76px)!important;
+  line-height:.9!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .deal p:not(.eyebrow){
+  color:#b8b4ac!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .deal .eyebrow{
+  color:#c8c0b3!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .deal .light-btn{
+  background:#fff!important;
+  color:#171717!important;
+  border-radius:7px!important;
+  padding:12px 16px!important;
+  gap:9px!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) .deal-mark{
+  color:#e7ded1!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) footer{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:48px clamp(18px,5vw,72px)!important;
+  background:#141414!important;
+  color:#fff!important;
+  border:0!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) footer .logo,
+body.apna-home-v2:not(:has(.admin-sidebar)) footer a{
+  color:#fff!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) footer p{
+  color:#aaa!important;
+}
+
+body.apna-home-v2:not(:has(.admin-sidebar)) footer small{
+  color:#777!important;
+}
+
+@media(max-width:980px){
+  body.apna-home-v2:not(:has(.admin-sidebar)) .site-header{
+    grid-template-columns:auto 1fr auto!important;
+  }
+  body.apna-home-v2:not(:has(.admin-sidebar)) .site-header nav{
+    display:none!important;
+  }
+  body.apna-home-v2:not(:has(.admin-sidebar)) .hero{
+    grid-template-columns:1fr!important;
+  }
+  body.apna-home-v2:not(:has(.admin-sidebar)) .hero-copy{
+    max-width:720px!important;
+  }
+  body.apna-home-v2:not(:has(.admin-sidebar)) .hero-art{
+    min-height:320px;
+  }
+  body.apna-home-v2:not(:has(.admin-sidebar)) .categories,
+  body.apna-home-v2:not(:has(.admin-sidebar)) .products{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+
+@media(max-width:600px){
+  body.apna-home-v2:not(:has(.admin-sidebar)) .site-header{
+    min-height:68px!important;
+    padding:0 12px!important;
+    grid-template-columns:1fr auto!important;
+  }
+  body.apna-home-v2:not(:has(.admin-sidebar)) .site-header .logo{
+    justify-self:start!important;
+  }
+  body.apna-home-v2:not(:has(.admin-sidebar)) .header-actions{
+    justify-self:end!important;
+  }
+  body.apna-home-v2:not(:has(.admin-sidebar)) .header-actions a{
+    padding:8px 6px!important;
+    font-size:11px!important;
+  }
+  body.apna-home-v2:not(:has(.admin-sidebar)) .hero{
+    padding:46px 16px 54px!important;
+    gap:28px!important;
+  }
+  body.apna-home-v2:not(:has(.admin-sidebar)) .hero h1{
+    font-size:clamp(48px,14vw,68px)!important;
+  }
+  body.apna-home-v2:not(:has(.admin-sidebar)) .hero-photo{
+    border-radius:14px;
+    aspect-ratio:1.08;
+  }
+  body.apna-home-v2:not(:has(.admin-sidebar)) .trust{
+    grid-template-columns:1fr 1fr!important;
+  }
+  body.apna-home-v2:not(:has(.admin-sidebar)) .trust div{
+    padding:18px 12px!important;
+    border-bottom:1px solid #373737!important;
+  }
+  body.apna-home-v2:not(:has(.admin-sidebar)) .trust div:nth-child(2n){
+    border-right:0!important;
+  }
+  body.apna-home-v2:not(:has(.admin-sidebar)) .categories,
+  body.apna-home-v2:not(:has(.admin-sidebar)) .products{
+    grid-template-columns:1fr 1fr!important;
+    gap:10px!important;
+  }
+  body.apna-home-v2:not(:has(.admin-sidebar)) .category{
+    min-height:240px!important;
+  }
+  body.apna-home-v2:not(:has(.admin-sidebar)) .category h3{
+    font-size:22px!important;
+  }
+  body.apna-home-v2:not(:has(.admin-sidebar)) .section{
+    padding:56px 16px!important;
+  }
+  body.apna-home-v2:not(:has(.admin-sidebar)) .section-head h2{
+    font-size:32px!important;
+  }
+  body.apna-home-v2:not(:has(.admin-sidebar)) .deal{
+    width:100%!important;
+    margin:0 0 56px!important;
+    border-radius:0!important;
+    padding:50px 22px!important;
+  }
+  body.apna-home-v2:not(:has(.admin-sidebar)) .deal .light-btn{
+    margin-right:5px;
+  }
+}
+
+@media(max-width:390px){
+  body.apna-home-v2:not(:has(.admin-sidebar)) .header-actions a{
+    font-size:10px!important;
+  }
+  body.apna-home-v2:not(:has(.admin-sidebar)) .products{
+    grid-template-columns:1fr!important;
+  }
+}
