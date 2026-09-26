@@ -2221,3 +2221,145 @@ body:has(.admin-sidebar) .admin-center-cards{grid-template-columns:repeat(4,minm
   body:has(.admin-sidebar) .admin-head h1{font-size:44px!important}
   body:has(.admin-sidebar) .admin-panel{padding:17px!important}
 }
+
+
+/* ADMIN CENTER — TYPOGRAPHY & FINISHING PASS */
+body:has(.admin-sidebar){
+  font-size:14px!important;
+  color:#1a1a1a!important;
+}
+.admin-sidebar{
+  width:264px!important;
+  padding:26px 18px!important;
+  background:#0f0f10!important;
+  border-right:1px solid #242426!important;
+}
+.admin-brand{
+  font-size:23px!important;
+  padding:7px 11px 28px!important;
+  letter-spacing:-.055em!important;
+}
+.admin-brand small{
+  font-size:9px!important;
+  letter-spacing:.16em!important;
+  color:#8f8f94!important;
+}
+.admin-nav{
+  gap:22px!important;
+}
+.admin-nav-group{
+  gap:4px!important;
+}
+.admin-nav-group>span{
+  font-size:10px!important;
+  letter-spacing:.12em!important;
+  color:#8d8d92!important;
+  padding:0 11px 8px!important;
+}
+.admin-nav-group a{
+  min-height:40px!important;
+  padding:9px 11px!important;
+  border-radius:9px!important;
+  font-size:13px!important;
+  font-weight:600!important;
+  color:#c4c4c8!important;
+}
+.admin-nav-group a:hover{
+  background:#232326!important;
+  color:#fff!important;
+}
+.admin-nav-group a[href="admin.html"]{
+  background:#fff!important;
+  color:#111!important;
+  font-weight:700!important;
+}
+body:has(.admin-sidebar) .admin-shell{
+  margin-left:264px!important;
+  padding:42px clamp(28px,4vw,68px) 96px!important;
+}
+body:has(.admin-sidebar) .admin-head{
+  padding:36px 40px!important;
+  border-radius:20px!important;
+  box-shadow:0 16px 42px rgba(17,17,17,.09)!important;
+}
+body:has(.admin-sidebar) .admin-head .eyebrow{
+  font-size:11px!important;
+  letter-spacing:.13em!important;
+}
+body:has(.admin-sidebar) .admin-head h1{
+  font-size:clamp(48px,5.5vw,76px)!important;
+  margin-bottom:16px!important;
+}
+body:has(.admin-sidebar) .admin-head p:not(.eyebrow){
+  max-width:720px!important;
+  font-size:15px!important;
+  line-height:1.7!important;
+  color:#bdbdc2!important;
+}
+body:has(.admin-sidebar) .admin-shell>.admin-logistics-link{
+  font-size:13px!important;
+  padding:13px 17px!important;
+}
+body:has(.admin-sidebar) .admin-panel{
+  padding:28px!important;
+  border-radius:16px!important;
+  box-shadow:0 7px 28px rgba(17,17,17,.045)!important;
+}
+body:has(.admin-sidebar) .admin-panel-head h2{
+  font-size:25px!important;
+}
+body:has(.admin-sidebar) .admin-management-grid{
+  gap:14px!important;
+}
+body:has(.admin-sidebar) .admin-management-card{
+  min-height:128px!important;
+  padding:20px!important;
+  border-radius:13px!important;
+}
+body:has(.admin-sidebar) .admin-management-card strong{
+  font-size:15px!important;
+  line-height:1.35!important;
+}
+body:has(.admin-sidebar) .admin-management-card span{
+  display:block!important;
+  margin-top:7px!important;
+  font-size:12.5px!important;
+  line-height:1.55!important;
+  color:#727276!important;
+}
+body:has(.admin-sidebar) .admin-center-cards{
+  gap:14px!important;
+}
+body:has(.admin-sidebar) .admin-center-card{
+  min-height:126px!important;
+  border-radius:13px!important;
+}
+body:has(.admin-sidebar) .admin-grid{
+  gap:14px!important;
+}
+body:has(.admin-sidebar) .admin-grid .admin-card{
+  padding:23px!important;
+  border-radius:14px!important;
+}
+body:has(.admin-sidebar) .admin-grid .admin-card span{
+  font-size:12px!important;
+  color:#747478!important;
+}
+body:has(.admin-sidebar) .admin-grid .admin-card strong{
+  font-size:34px!important;
+}
+@media(max-width:1180px){
+  .admin-sidebar{width:236px!important}
+  body:has(.admin-sidebar) .admin-shell{margin-left:236px!important}
+}
+@media(max-width:800px){
+  .admin-sidebar{width:100%!important;padding:16px 13px!important}
+  .admin-brand{font-size:21px!important;padding:5px 8px 15px!important}
+  .admin-nav{gap:13px!important}
+  .admin-nav-group>span{font-size:10px!important}
+  .admin-nav-group a{font-size:12px!important;min-height:36px!important}
+  body:has(.admin-sidebar) .admin-shell{margin-left:0!important;padding:28px 5% 76px!important}
+  body:has(.admin-sidebar) .admin-head{padding:29px 24px!important}
+  body:has(.admin-sidebar) .admin-head h1{font-size:50px!important}
+  body:has(.admin-sidebar) .admin-head p:not(.eyebrow){font-size:14px!important}
+}
