@@ -565,3 +565,26 @@ body.apna-home-v2:not(:has(.admin-sidebar)) footer small{
     grid-template-columns:1fr!important;
   }
 }
+
+/* Category photography layer */
+body.apna-home-v2:not(:has(.admin-sidebar)) .category{
+  background:#8b8277!important;
+}
+body.apna-home-v2:not(:has(.admin-sidebar)) .category-media{
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  display:block;
+  background:#8b8277;
+}
+body.apna-home-v2:not(:has(.admin-sidebar)) .category-media img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  display:block!important;
+  filter:saturate(.88) contrast(.96);
+}
+body.apna-home-v2:not(:has(.admin-sidebar)) .category-copy{
+  position:relative;
+  z-index:2;
+}
