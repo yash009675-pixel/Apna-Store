@@ -2694,3 +2694,16 @@ body:not(:has(.admin-sidebar)) .account-stats b{color:#6d5dfc}
   body:not(:has(.admin-sidebar)) footer{grid-template-columns:1fr;padding:42px 5%}
   body:not(:has(.admin-sidebar)) .footer-links{flex-wrap:wrap;gap:14px}
 }
+
+/* Unified customer-page finishing pass */
+body:not(:has(.admin-sidebar)) .site-header{backdrop-filter:saturate(120%) blur(10px);background:rgba(248,247,244,.94)}
+body:not(:has(.admin-sidebar)) .site-header .logo{font-family:"DM Sans",Arial,sans-serif}
+body:not(:has(.admin-sidebar)) .site-header nav a,body:not(:has(.admin-sidebar)) .header-actions a,body:not(:has(.admin-sidebar)) .header-actions button{transition:opacity .18s ease,transform .18s ease}
+body:not(:has(.admin-sidebar)) .site-header nav a:hover,body:not(:has(.admin-sidebar)) .header-actions a:hover{opacity:.65}
+body:not(:has(.admin-sidebar)) .section>h1,body:not(:has(.admin-sidebar)) .section>h2,body:not(:has(.admin-sidebar)) .account-card h1,body:not(:has(.admin-sidebar)) .orders-title,body:not(:has(.admin-sidebar)) .search-title{font-family:"Playfair Display",Georgia,serif;font-weight:600}
+body:not(:has(.admin-sidebar)) .checkout-card,body:not(:has(.admin-sidebar)) .account-panel{border:1px solid #e5e1da;border-radius:14px;background:#fff;box-shadow:0 8px 28px rgba(16,21,34,.045)}
+body:not(:has(.admin-sidebar)) input,body:not(:has(.admin-sidebar)) select,body:not(:has(.admin-sidebar)) textarea{border-radius:8px}
+body:not(:has(.admin-sidebar)) .primary-btn{border-radius:8px;transition:transform .18s ease,box-shadow .18s ease}
+body:not(:has(.admin-sidebar)) .primary-btn:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(17,17,17,.12)}
+@media(max-width:760px){body:not(:has(.admin-sidebar)) .site-header{height:auto;min-height:68px;padding:12px 5% ;gap:10px;flex-wrap:wrap}body:not(:has(.admin-sidebar)) .site-header nav{order:3;width:100%;overflow:auto;padding-bottom:2px;gap:18px}body:not(:has(.admin-sidebar)) .site-header nav a{white-space:nowrap}.section{padding:58px 5%}.section-head{gap:18px;align-items:flex-start;flex-direction:column}.shop-tools{margin:0 0 26px}.advanced-filters{grid-template-columns:1fr 1fr}.filter-actions{grid-column:1/-1}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.categories{grid-template-columns:repeat(2,1fr)}footer{padding:38px 5%;grid-template-columns:1fr}.footer-links{flex-wrap:wrap;gap:14px}footer small{grid-column:auto}}
+@media(max-width:480px){body:not(:has(.admin-sidebar)) .header-actions{width:100%;justify-content:flex-end;overflow:auto}.advanced-filters{grid-template-columns:1fr}.filter-actions{grid-column:auto}.products{gap:12px}.categories{grid-template-columns:1fr}.category{min-height:250px}.announcement{font-size:10px}}
