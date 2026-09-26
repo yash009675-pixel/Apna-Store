@@ -1981,3 +1981,118 @@ body.apna-seller-language-page #apnaSellerLanguage{display:block!important}
 
 /* PAID AI FLOATING BUTTON REMOVED — keep Back to Top */
 .apna-ai,.apna-ai-fab,.apna-ai-panel{display:none!important;visibility:hidden!important;pointer-events:none!important}
+
+
+/* AUTH PAGE STRUCTURE — clean sign-in layout */
+[hidden]{display:none!important}
+.auth-card{
+  width:min(620px,100%)!important;
+  max-width:620px!important;
+  margin:0 auto!important;
+  text-align:left!important;
+  padding:46px 44px!important;
+  background:#fff!important;
+  border:1px solid #e3e0da!important;
+  border-radius:20px!important;
+  box-shadow:0 20px 60px rgba(17,17,17,.07)!important;
+}
+.auth-card .eyebrow{margin-bottom:14px!important;color:#777!important}
+.auth-card h1{
+  font-size:clamp(46px,7vw,70px)!important;
+  line-height:.92!important;
+  margin:0 0 14px!important;
+  letter-spacing:-.07em!important;
+}
+.auth-card>p:not(.eyebrow):not(.checkout-note){
+  margin:0 0 28px!important;
+  max-width:500px!important;
+  color:#777!important;
+  line-height:1.65!important;
+  font-size:13px!important;
+}
+.auth-form{display:grid!important;gap:12px!important;margin:0!important}
+.auth-form input{
+  width:100%!important;
+  min-height:50px!important;
+  padding:14px 15px!important;
+  border:1px solid #d8d5cf!important;
+  border-radius:10px!important;
+  background:#faf9f6!important;
+  color:#111!important;
+  font:inherit!important;
+  font-size:13px!important;
+  outline:none!important;
+}
+.auth-form input:focus{
+  border-color:#111!important;
+  background:#fff!important;
+  box-shadow:0 0 0 3px rgba(17,17,17,.06)!important;
+}
+.auth-form .primary-btn{
+  width:100%!important;
+  min-height:50px!important;
+  justify-content:center!important;
+  border:0!important;
+  border-radius:10px!important;
+  cursor:pointer!important;
+  margin-top:4px!important;
+}
+.auth-form .text-btn{
+  width:100%!important;
+  min-height:42px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border:0!important;
+}
+.auth-divider{
+  display:flex!important;
+  align-items:center!important;
+  gap:14px!important;
+  margin:24px 0 14px!important;
+  color:#999!important;
+  font-size:10px!important;
+  letter-spacing:.12em!important;
+}
+.auth-divider:before,.auth-divider:after{
+  content:""!important;
+  height:1px!important;
+  flex:1!important;
+  background:#e5e2dc!important;
+}
+.auth-divider span{flex:0 0 auto!important}
+.google-auth-btn{
+  width:100%!important;
+  min-height:50px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border:1px solid #d8d5cf!important;
+  border-radius:10px!important;
+  background:#fff!important;
+  color:#111!important;
+  font-weight:700!important;
+  cursor:pointer!important;
+}
+.google-auth-btn:hover{background:#f7f6f3!important;opacity:1!important}
+#toggleAuth{
+  margin-top:8px!important;
+  color:#555!important;
+  text-decoration:underline!important;
+  text-underline-offset:3px!important;
+}
+.auth-card .checkout-note{
+  margin:24px 0 0!important;
+  padding-top:18px!important;
+  border-top:1px solid #eee!important;
+  text-align:center!important;
+}
+@media(max-width:600px){
+  .auth-card{
+    padding:32px 22px!important;
+    border-radius:16px!important;
+  }
+  .auth-card h1{font-size:48px!important}
+  .auth-card>p:not(.eyebrow):not(.checkout-note){font-size:12px!important}
+  .account-page{padding:30px 5% 60px!important}
+}
