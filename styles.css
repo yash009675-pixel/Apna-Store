@@ -2096,3 +2096,35 @@ body.apna-seller-language-page #apnaSellerLanguage{display:block!important}
   .auth-card>p:not(.eyebrow):not(.checkout-note){font-size:12px!important}
   .account-page{padding:30px 5% 60px!important}
 }
+
+
+/* ADMIN CENTER — professional dashboard structure */
+body:has(.admin-shell){background:#f5f4f1}
+body:has(.admin-shell) .site-header{height:auto;min-height:74px;padding:14px 5%;gap:18px;align-items:flex-start;flex-wrap:wrap;background:#fff}
+body:has(.admin-shell) .site-header nav{flex:1;min-width:280px;display:flex;justify-content:flex-end;align-items:center;gap:7px 8px;flex-wrap:wrap;max-height:58px;overflow:auto;padding:2px 0}
+body:has(.admin-shell) .site-header nav a{font-size:11px;font-weight:600;color:#555;background:#f7f6f3;border:1px solid #e5e2dc;border-radius:999px;padding:8px 11px;white-space:nowrap;text-decoration:none;line-height:1}
+body:has(.admin-shell) .site-header nav a:hover{background:#111;color:#fff;border-color:#111}
+.admin-shell{width:min(1440px,92%);margin:0 auto;padding:48px 0 90px}
+.admin-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:28px;padding:34px 36px;background:#111;color:#fff;border-radius:20px;box-shadow:0 18px 50px rgba(17,17,17,.10)}
+.admin-head .eyebrow{color:#aaa;margin-bottom:12px}
+.admin-head h1{font-size:clamp(42px,6vw,76px);line-height:.9;letter-spacing:-.07em;margin:0 0 14px}
+.admin-head p:not(.eyebrow){margin:0;color:#bbb;font-size:13px;line-height:1.6}
+.admin-shell>.admin-logistics-link{margin:0 8px 12px 0;border-radius:10px;padding:12px 15px;font-size:11px;transition:.18s ease}
+.admin-shell>.admin-logistics-link:hover{transform:translateY(-1px);opacity:1}
+.admin-panel,.admin-card,.admin-grid .admin-card{border-color:#e1ded8!important;border-radius:14px!important;box-shadow:0 8px 30px rgba(17,17,17,.035)}
+.admin-panel{background:#fff!important;padding:24px!important;margin-top:14px}
+.admin-panel-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px}
+.admin-panel-head h2{font-size:22px!important;letter-spacing:-.04em;margin:0!important}
+.admin-management-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:10px!important}
+.admin-management-card{border-radius:11px!important;padding:17px!important;min-height:104px;transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease}
+.admin-management-card:hover{transform:translateY(-2px);border-color:#111!important;box-shadow:0 10px 25px rgba(17,17,17,.06)}
+.admin-management-card strong{font-size:13px}
+.admin-management-card span{font-size:11px;line-height:1.5}
+.admin-center-cards{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:10px!important}
+.admin-center-card{border-radius:11px!important;min-height:112px;box-shadow:none}
+.admin-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+.admin-grid .admin-card{background:#fff;padding:20px}
+.admin-grid .admin-card span{font-size:10px;color:#777}
+.admin-grid .admin-card strong{display:block;font-size:30px;margin-top:8px;letter-spacing:-.04em}
+@media(max-width:1050px){body:has(.admin-shell) .site-header nav{justify-content:flex-start}.admin-management-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}.admin-center-cards{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:700px){body:has(.admin-shell) .site-header{padding:12px 4%}.admin-shell{width:92%;padding-top:28px}.admin-head{padding:28px 22px;border-radius:16px}.admin-head h1{font-size:48px}.admin-management-grid,.admin-center-cards,.admin-grid{grid-template-columns:1fr!important}.admin-panel{padding:18px!important}.admin-shell>.admin-logistics-link{display:block;margin-right:0;text-align:center}.admin-grid{margin-top:10px}}
