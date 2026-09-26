@@ -2363,3 +2363,49 @@ body:has(.admin-sidebar) .admin-grid .admin-card strong{
   body:has(.admin-sidebar) .admin-head h1{font-size:50px!important}
   body:has(.admin-sidebar) .admin-head p:not(.eyebrow){font-size:14px!important}
 }
+
+
+/* ADMIN CENTER — FINAL TYPE + ICON SYSTEM */
+.admin-icon-sprite{position:absolute;width:0;height:0;overflow:hidden}
+body:has(.admin-sidebar){font-family:"DM Sans",Inter,Arial,sans-serif;color:#172033;background:#f7f8fb}
+body:has(.admin-sidebar) .admin-sidebar{width:264px!important;background:#101522!important;border-right:1px solid #222a3a!important;padding:24px 16px!important}
+body:has(.admin-sidebar) .admin-brand{font-family:"DM Sans",Inter,Arial,sans-serif;font-size:22px!important;letter-spacing:-.045em!important;padding:8px 10px 26px!important}
+body:has(.admin-sidebar) .admin-brand small{font-family:"DM Sans",Inter,Arial,sans-serif;font-size:9px!important;letter-spacing:.15em!important}
+body:has(.admin-sidebar) .admin-nav{gap:20px!important}
+body:has(.admin-sidebar) .admin-nav-group{gap:3px!important}
+body:has(.admin-sidebar) .admin-nav-group>span{font-family:"DM Sans",Inter,Arial,sans-serif;font-size:10px!important;letter-spacing:.12em!important;color:#8e98ab!important;padding:0 11px 7px!important}
+body:has(.admin-sidebar) .admin-nav-group a{min-height:39px!important;padding:8px 11px!important;border-radius:9px!important;gap:11px!important;font-family:"DM Sans",Inter,Arial,sans-serif;font-size:13px!important;font-weight:600!important;color:#c8cfdb!important}
+body:has(.admin-sidebar) .admin-nav-group a:hover{background:#1d2637!important;color:#fff!important}
+body:has(.admin-sidebar) .admin-nav-group a[href="admin.html"]{background:#6d5dfc!important;color:#fff!important}
+.admin-icon{width:18px;height:18px;flex:0 0 18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.admin-nav-group a span{min-width:0}
+body:has(.admin-sidebar) .admin-shell{margin-left:264px!important;padding:42px clamp(28px,4vw,68px) 96px!important}
+body:has(.admin-sidebar) .admin-head{padding:34px 40px!important;border-radius:20px!important;background:#fff!important;border:1px solid #e8ebf1!important;box-shadow:0 14px 38px rgba(19,29,45,.06)!important}
+body:has(.admin-sidebar) .admin-head .eyebrow{font-family:"DM Sans",Inter,Arial,sans-serif;font-size:11px!important;font-weight:700!important;letter-spacing:.14em!important;color:#6d5dfc!important}
+body:has(.admin-sidebar) .admin-head h1{font-family:"Playfair Display",Georgia,serif!important;font-size:clamp(48px,5.2vw,72px)!important;line-height:1.02!important;letter-spacing:-.035em!important;color:#172033!important;margin:0 0 15px!important}
+body:has(.admin-sidebar) .admin-head p:not(.eyebrow){font-family:"DM Sans",Inter,Arial,sans-serif!important;font-size:15px!important;line-height:1.7!important;color:#687286!important;max-width:720px!important}
+body:has(.admin-sidebar) .admin-logistics-link{display:inline-flex!important;align-items:center!important;gap:9px!important;margin:0 8px 14px 0!important;padding:12px 16px!important;border-radius:9px!important;background:#172033!important;border:1px solid #172033!important;font-family:"DM Sans",Inter,Arial,sans-serif!important;font-size:12.5px!important;font-weight:700!important;color:#fff!important}
+body:has(.admin-sidebar) .admin-logistics-link:hover{background:#6d5dfc!important;border-color:#6d5dfc!important;opacity:1!important}
+body:has(.admin-sidebar) .admin-panel{padding:28px!important;border-radius:16px!important;border:1px solid #e6e9ef!important;background:#fff!important;box-shadow:0 7px 28px rgba(19,29,45,.045)!important}
+body:has(.admin-sidebar) .admin-panel-head h2{font-family:"Playfair Display",Georgia,serif!important;font-size:27px!important;line-height:1.15!important;letter-spacing:-.02em!important;color:#172033!important}
+body:has(.admin-sidebar) .section-note,body:has(.admin-sidebar) .admin-message{font-family:"DM Sans",Inter,Arial,sans-serif!important;font-size:13px!important;line-height:1.6!important;color:#707b8e!important}
+body:has(.admin-sidebar) .admin-management-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px!important}
+body:has(.admin-sidebar) .admin-management-card{display:grid!important;grid-template-columns:42px 1fr!important;align-items:start!important;gap:14px!important;min-height:122px!important;padding:20px!important;border-radius:13px!important;border:1px solid #e4e8ef!important;background:#fff!important;transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease!important}
+body:has(.admin-sidebar) .admin-management-card:hover{transform:translateY(-2px)!important;border-color:#cfd5e2!important;box-shadow:0 10px 24px rgba(19,29,45,.07)!important}
+.admin-card-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:#f0eeff;color:#6d5dfc}
+.admin-card-icon .admin-icon{width:19px;height:19px}
+body:has(.admin-sidebar) .admin-card-copy strong{display:block;font-family:"DM Sans",Inter,Arial,sans-serif!important;font-size:14px!important;line-height:1.35!important;font-weight:700!important;color:#172033!important;margin:1px 0 7px!important}
+body:has(.admin-sidebar) .admin-card-copy span{display:block;font-family:"DM Sans",Inter,Arial,sans-serif!important;font-size:12px!important;line-height:1.55!important;color:#778197!important}
+body:has(.admin-sidebar) .admin-center-cards{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important}
+body:has(.admin-sidebar) .admin-center-card{min-height:132px!important;padding:20px!important;border-radius:13px!important;border:1px solid #e4e8ef!important;background:#fff!important}
+body:has(.admin-sidebar) .admin-center-card .admin-stat-top{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+body:has(.admin-sidebar) .admin-center-card .admin-stat-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:#f0eeff;color:#6d5dfc}
+body:has(.admin-sidebar) .admin-center-card span{font-family:"DM Sans",Inter,Arial,sans-serif!important;font-size:12px!important;font-weight:700!important;color:#5e697d!important;margin:0!important}
+body:has(.admin-sidebar) .admin-center-card strong{font-family:"DM Sans",Inter,Arial,sans-serif!important;font-size:29px!important;line-height:1.1!important;letter-spacing:-.035em!important;color:#172033!important}
+body:has(.admin-sidebar) .admin-center-card small{font-family:"DM Sans",Inter,Arial,sans-serif!important;font-size:11px!important;color:#8a93a4!important;margin-top:8px!important}
+body:has(.admin-sidebar) .admin-grid .admin-card{font-family:"DM Sans",Inter,Arial,sans-serif!important}
+body:has(.admin-sidebar) .admin-grid .admin-card span{font-size:12px!important;color:#778197!important}
+body:has(.admin-sidebar) .admin-grid .admin-card strong{font-size:30px!important;color:#172033!important}
+@media(max-width:1180px){body:has(.admin-sidebar) .admin-sidebar{width:236px!important}body:has(.admin-sidebar) .admin-shell{margin-left:236px!important}body:has(.admin-sidebar) .admin-management-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}body:has(.admin-sidebar) .admin-center-cards{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:800px){body:has(.admin-sidebar) .admin-sidebar{width:100%!important;padding:16px 13px!important}body:has(.admin-sidebar) .admin-shell{margin-left:0!important;padding:28px 5% 76px!important}body:has(.admin-sidebar) .admin-head{padding:29px 24px!important}body:has(.admin-sidebar) .admin-head h1{font-size:50px!important}}
+@media(max-width:560px){body:has(.admin-sidebar) .admin-management-grid,body:has(.admin-sidebar) .admin-center-cards{grid-template-columns:1fr!important}body:has(.admin-sidebar) .admin-head h1{font-size:43px!important}body:has(.admin-sidebar) .admin-panel{padding:18px!important}}
