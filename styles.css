@@ -2774,3 +2774,51 @@ body:not(:has(.admin-sidebar)) input,body:not(:has(.admin-sidebar)) select,body:
 .ui-icon{width:20px;height:20px;display:inline-grid;place-items:center;border-radius:7px;background:#f0eeff;color:#6d5dfc;font-size:11px;font-weight:800;line-height:1}
 .meta-icon{width:20px;height:20px;display:inline-grid;place-items:center;margin-right:6px;border-radius:7px;background:#f0eeff;color:#6d5dfc;font-style:normal;font-size:11px;font-weight:800}
 .discount-badge .ui-icon{width:16px;height:16px;background:transparent;color:inherit}
+
+
+/* Site-wide customer background + readability consistency */
+body:not(:has(.admin-sidebar)){
+  background:#f7f8fb;
+  color:#172033;
+}
+body:not(:has(.admin-sidebar)) .site-header{
+  background:#f7f8fb;
+  border-bottom-color:#e4e8ef;
+}
+body:not(:has(.admin-sidebar)) .hero{
+  background:#f7f8fb;
+  border-bottom-color:#e4e8ef;
+}
+body:not(:has(.admin-sidebar)) .trust{
+  background:#f7f8fb;
+  border-bottom-color:#e4e8ef;
+}
+body:not(:has(.admin-sidebar)) .trust div{
+  border-right-color:#e4e8ef;
+}
+body:not(:has(.admin-sidebar)) .section,
+body:not(:has(.admin-sidebar)) .product-page,
+body:not(:has(.admin-sidebar)) .checkout-page,
+body:not(:has(.admin-sidebar)) .account-page{
+  background:#f7f8fb;
+}
+body:not(:has(.admin-sidebar)) .search-title,
+body:not(:has(.admin-sidebar)) .section-head h2,
+body:not(:has(.admin-sidebar)) .product-details h1,
+body:not(:has(.admin-sidebar)) .checkout-page h1,
+body:not(:has(.admin-sidebar)) .account-card h1{
+  color:#172033;
+}
+body:not(:has(.admin-sidebar)) .hero-text,
+body:not(:has(.admin-sidebar)) .section-head>a,
+body:not(:has(.admin-sidebar)) .text-btn,
+body:not(:has(.admin-sidebar)) .search-summary,
+body:not(:has(.admin-sidebar)) .checkout-note,
+body:not(:has(.admin-sidebar)) .product-note,
+body:not(:has(.admin-sidebar)) .detail-desc{
+  color:#667085;
+}
+body:not(:has(.admin-sidebar)) .section-head>a:hover,
+body:not(:has(.admin-sidebar)) .text-btn:hover{
+  color:#6d5dfc;
+}
