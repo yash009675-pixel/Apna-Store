@@ -46,9 +46,35 @@ async function loadEmailChannel(){
   card.querySelector("small").textContent="Free Resend delivery is ready — add RESEND_API_KEY in Supabase Secrets.";
  }
 }
+function setupPushChannel(){
+ const button=$("enablePush"),status=$("pushStatus");
+ if(!button||!status)return;
+ button.onclick=async()=>{
+  button.disabled=true;status.textContent="Requesting browser permission…";
+  try{
+   if(typeof window.apnaEnableFcm!=="function")throw new Error("Push setup is still loading. Please try again.");
+   await window.apnaEnableFcm();
+   status.textContent="Active on this browser. Push notifications are enabled.";
+   button.textContent="Enabled";
+  }catch(error){
+   console.error("Apna Store push setup failed:",error);
+   status.textContent=error?.message||"Could not enable push notifications.";
+   button.disabled=false;
+  }
+ };
+ window.addEventListener("apna:fcm-enabled",()=>{
+  status.textContent="Active on this browser. Push notifications are enabled.";
+  button.textContent="Enabled";button.disabled=true;
+ },{once:false});
+}
 async function load(){
+ setupPushChannel();
  const {data:s,error:sessionError}=await apnaSupabase.auth.getSession();
- if(sessionError||!s.session){$("notificationStatus").textContent="Sign in to view your notifications.";$("markAll").hidden=true;$("notificationList").innerHTML='<div class="empty-cart"><a class="primary-btn" href="auth.html">Sign in / Create account →</a></div>';return}
+ if(sessionError||!s.session){
+  $("notificationStatus").textContent="Sign in to view your notifications.";
+  $("markAll").hidden=true;$("enablePush").disabled=true;$("enablePush").hidden=true;
+  $("notificationList").innerHTML='<div class="empty-cart"><a class="primary-btn" href="auth.html">Sign in / Create account →</a></div>';return;
+ }
  const uid=s.session.user.id;
  const {data:p}=await apnaSupabase.from("profiles").select("role").eq("id",uid).maybeSingle();
  role=p?.role||"customer";$("roleBadge").textContent=role;
