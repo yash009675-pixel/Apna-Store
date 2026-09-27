@@ -50,7 +50,7 @@ async function loadProducts(){
 if(root)root.innerHTML='<p class="checkout-note">Loading products…</p>';
  if(newArrivalsRoot)newArrivalsRoot.innerHTML='<p class="checkout-note">Loading products…</p>';
  const [featuredResult,newResult,categoryResult,imagesResult]=await Promise.all([
-  apnaSupabase.from("products").select("id,name,price,category_id,created_at").eq("status","active").order("updated_at",{ascending:false}).limit(4),
+  apnaSupabase.from("products").select("id,name,price,category_id,created_at").eq("status","active").order("updated_at",{ascending:false}).limit(5),
   apnaSupabase.from("products").select("id,name,price,category_id,created_at").eq("status","active").order("created_at",{ascending:false}).limit(4),
   apnaSupabase.from("categories").select("id,name"),
   apnaSupabase.from("product_images").select("product_id,storage_path,alt_text,is_primary,sort_order").order("is_primary",{ascending:false}).order("sort_order",{ascending:true})
