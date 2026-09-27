@@ -466,3 +466,9 @@
 .apna-reference-home .ref-social a{display:inline-flex!important;align-items:center;justify-content:center;width:16px;height:16px;color:#aaa!important;text-decoration:none!important}
 .apna-reference-home .ref-social a svg{width:14px;height:14px;display:block;fill:none;stroke:currentColor;stroke-width:1.45;stroke-linecap:round;stroke-linejoin:round}
 @media(max-width:600px){.apna-reference-home .ref-social{gap:9px!important}}
+
+
+/* APNASTORE REFERENCE — VISUAL VERIFICATION PASS 07 */
+.apna-reference-home .ref-back-top{position:fixed;right:22px;bottom:18px;width:34px;height:34px;border:1px solid #777;border-radius:50%;background:#202020;color:#fff;display:grid;place-items:center;z-index:50;font-size:17px;line-height:1;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.18)}
+.apna-reference-home .ref-back-top:hover{background:#111}
+@media(max-width:600px){.apna-reference-home .ref-back-top{right:14px;bottom:14px;width:32px;height:32px;font-size:15px}}
