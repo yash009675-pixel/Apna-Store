@@ -457,3 +457,12 @@
   .apna-reference-home .ref-inspo-grid>a,.apna-reference-home .ref-instagram{height:86px}
   .apna-reference-home .ref-footer{padding-top:25px!important}
 }
+
+
+/* APNASTORE REFERENCE — VISUAL VERIFICATION PASS 06 */
+.apna-reference-home .ref-benefit-icon svg{width:18px;height:18px;display:block;fill:none;stroke:currentColor;stroke-width:1.55;stroke-linecap:round;stroke-linejoin:round}
+.apna-reference-home .ref-instagram-icon svg{width:19px;height:19px;display:block;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.apna-reference-home .ref-social{display:flex!important;align-items:center;gap:11px!important}
+.apna-reference-home .ref-social a{display:inline-flex!important;align-items:center;justify-content:center;width:16px;height:16px;color:#aaa!important;text-decoration:none!important}
+.apna-reference-home .ref-social a svg{width:14px;height:14px;display:block;fill:none;stroke:currentColor;stroke-width:1.45;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:600px){.apna-reference-home .ref-social{gap:9px!important}}
