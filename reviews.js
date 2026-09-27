@@ -6,7 +6,7 @@ document.head.appendChild(s)};
 async function renderReviews(){
  const product=document.getElementById("product");if(!product||!reviewProductId)return;reviewStyle();
  const existing=document.getElementById("reviews");if(existing)existing.remove();
- const box=document.createElement("section");box.className="product-reviews";box.id="reviews";product.appendChild(box);
+ const box=document.createElement("section");box.className="product-reviews";box.id="reviews";const mount=document.getElementById("productReviewsMount")||product.querySelector(".related-section")||product;mount.parentNode.insertBefore(box,mount);
  const {data:rows,error}=await apnaSupabase.from("reviews").select("id,rating,title,body,created_at,verified_purchase,user_id,order_id,moderation_status").eq("product_id",reviewProductId).order("created_at",{ascending:false});
  if(error){box.innerHTML='<div class="reviews-empty">Reviews are temporarily unavailable.</div>';return}
  const reviews=rows||[],visible=reviews.filter(r=>r.moderation_status==="approved");
