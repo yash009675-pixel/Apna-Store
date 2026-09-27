@@ -22,10 +22,10 @@ async function loadCategories(){
  const toneClasses=["cat-men","cat-women","cat-kids","cat-new"];
  const subtitles=["Shop Now →","Shop Now →","Shop Now →","Shop Now →"];
  const categoryImages={
-   "Men":"https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=1000",
-   "Women":"https://images.pexels.com/photos/2474291/pexels-photo-2474291.jpeg?auto=compress&cs=tinysrgb&w=1000",
-   "Kids":"https://images.pexels.com/photos/1620760/pexels-photo-1620760.jpeg?auto=compress&cs=tinysrgb&w=1000",
-   "New Arrivals":"https://images.pexels.com/photos/7679444/pexels-photo-7679444.jpeg?auto=compress&cs=tinysrgb&w=1000"
+   "Men":"https://images.unsplash.com/photo-1636047250452-6772f6144b3d?auto=format&fit=crop&fm=jpg&q=80&w=1000",
+   "Women":"https://images.unsplash.com/photo-1753707407133-5af2cc35fd21?auto=format&fit=crop&fm=jpg&q=80&w=1000",
+   "Kids":"https://images.unsplash.com/photo-1768696082603-5b7a9f0a10ab?auto=format&fit=crop&fm=jpg&q=80&w=1000",
+   "New Arrivals":"https://images.unsplash.com/photo-1766149756155-4a8122ad0732?auto=format&fit=crop&fm=jpg&q=80&w=1000"
  };
  const renderCategoryCards=rows=>{
    if(!categoriesRoot)return;
@@ -116,11 +116,11 @@ async function loadProducts(){
   }
 }
 const REFERENCE_PRODUCT_IMAGES={
- "Oversized Graphic T-Shirt":"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80",
- "Basic Hoodie":"https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=80",
- "Wide Leg Jeans":"https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=900&q=80",
- "Polo T-Shirt":"https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=80",
- "Casual Sneakers":"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80"
+ "Oversized Graphic T-Shirt":"https://images.unsplash.com/photo-1636047250452-6772f6144b3d?auto=format&fit=crop&fm=jpg&q=80&w=900",
+ "Basic Hoodie":"https://images.unsplash.com/photo-1768696082603-5b7a9f0a10ab?auto=format&fit=crop&fm=jpg&q=80&w=900",
+ "Wide Leg Jeans":"https://images.unsplash.com/photo-1778118273275-ac9959d61a7f?auto=format&fit=crop&fm=jpg&q=80&w=900",
+ "Polo T-Shirt":"https://images.unsplash.com/photo-1766149756155-4a8122ad0732?auto=format&fit=crop&fm=jpg&q=80&w=900",
+ "Casual Sneakers":"https://images.unsplash.com/photo-1753707407133-5af2cc35fd21?auto=format&fit=crop&fm=jpg&q=80&w=900"
 };
 const REFERENCE_PRODUCT_IMAGE_LIST=Object.values(REFERENCE_PRODUCT_IMAGES);
 const REFERENCE_PRODUCTS={
