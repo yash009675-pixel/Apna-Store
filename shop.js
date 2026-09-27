@@ -58,7 +58,7 @@ async function loadProducts(){
  const sort=document.getElementById("sort")?.value||"default";
  if(sort==="low")query=query.order("price",{ascending:true}).order("id",{ascending:true});
  else if(sort==="high")query=query.order("price",{ascending:false}).order("id",{ascending:true});
- else query=query.order("created_at",{ascending:true}).order("id",{ascending:true});
+ else query=query.order("created_at",{ascending:false}).order("id",{ascending:false});
  const from=(currentPage-1)*PAGE_SIZE;
  const {data:productRows,error:productError,count}=await query.range(from,from+PAGE_SIZE-1);
  if(productError){console.error("Shop product query failed:",productError);root.innerHTML='<p class="checkout-note">We could not load products right now. Please refresh and try again.</p>';return}
@@ -130,10 +130,10 @@ function updatePagination(){
  box.querySelector("#prevPage").onclick=()=>{if(currentPage>1){currentPage--;loadProducts()}};
  box.querySelector("#nextPage").onclick=()=>{if(currentPage<totalPages){currentPage++;loadProducts()}};
 }
-function applyFilters(){currentPage=1;filters.min=document.getElementById("minPrice").value.trim();filters.max=document.getElementById("maxPrice").value.trim();filters.size=document.getElementById("sizeFilter").value;filters.color=document.getElementById("colorFilter").value;filters.stock=document.getElementById("stockFilter").value;syncUrl();render()}
-function clearFilters(){filters.min=filters.max=filters.size=filters.color="";filters.stock="all";syncFilterControls();syncUrl();render()}
+async function applyFilters(){currentPage=1;filters.min=document.getElementById("minPrice").value.trim();filters.max=document.getElementById("maxPrice").value.trim();filters.size=document.getElementById("sizeFilter").value;filters.color=document.getElementById("colorFilter").value;filters.stock=document.getElementById("stockFilter").value;if(filters.min!==""&&filters.max!==""&&Number(filters.min)>Number(filters.max)){[filters.min,filters.max]=[filters.max,filters.min];}syncFilterControls();syncUrl();await loadProducts()}
+async function clearFilters(){filters.min=filters.max=filters.size=filters.color="";filters.stock="all";currentPage=1;syncFilterControls();syncUrl();await loadProducts()}
 document.getElementById("sort").onchange=()=>{currentPage=1;syncUrl();loadProducts()};
-window.addEventListener("popstate",()=>{currentPage=1;const params=new URLSearchParams(location.search);selected=params.get("category")||"All";newArrivals=params.get("new")==="1";const sort=params.get("sort")||"default";document.getElementById("sort").value=["default","low","high"].includes(sort)?sort:"default";parseFilters();syncFilterControls();syncCategoryChip();render()});
+window.addEventListener("popstate",async()=>{currentPage=1;const params=new URLSearchParams(location.search);selected=params.get("category")||"All";newArrivals=params.get("new")==="1";const sort=params.get("sort")||"default";document.getElementById("sort").value=["default","low","high"].includes(sort)?sort:"default";parseFilters();syncFilterControls();syncCategoryChip();await loadProducts()});
 
 document.getElementById("applyFilters")?.addEventListener("click",applyFilters);
 document.getElementById("clearFilters")?.addEventListener("click",clearFilters);
