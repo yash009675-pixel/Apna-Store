@@ -20,27 +20,20 @@ function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;",
 async function loadCategories(){
  const {data,error}=await apnaSupabase.from("categories").select("id,name,slug").eq("is_active",true).order("sort_order",{ascending:true}).order("name",{ascending:true});
  if(error){console.error("Homepage category query failed:",error);if(categoriesRoot)categoriesRoot.innerHTML='<p class="checkout-note">Categories could not be loaded right now. Please refresh and try again.</p>';return}
- const rows=data||[];
- const toneClasses=["cat-women","cat-men","cat-kids","cat-foot"];
- const subtitles=["New looks →","Daily essentials →","Little styles →","Step out →"];
- let imageByCategory=new Map();
- try{
-   const [productsResult,imagesResult]=await Promise.all([
-     apnaSupabase.from("products").select("id,category_id").eq("status","active").order("created_at",{ascending:false}),
-     apnaSupabase.from("product_images").select("product_id,storage_path,alt_text,is_primary,sort_order").order("is_primary",{ascending:false}).order("sort_order",{ascending:true})
-   ]);
-   const productsById=new Map((productsResult.data||[]).map(p=>[p.id,p]));
-   for(const img of (imagesResult.data||[])){
-     if(!imageByCategory.has(productsById.get(img.product_id)?.category_id)){
-       const p=productsById.get(img.product_id);
-       if(p)imageByCategory.set(p.category_id,img);
-     }
-   }
- }catch(err){console.warn("Homepage category image query failed:",err)}
- const imageUrl=img=>img?.storage_path ? window.APNA_SUPABASE_CONFIG.url+"/storage/v1/object/public/product-images/"+img.storage_path : "";
+ const dbRows=data||[];
+ const wanted=["Men","Women","Kids","New Arrivals"];
+ const rows=wanted.map(name=>dbRows.find(c=>c.name.toLowerCase()===name.toLowerCase())||{id:"ref-"+name.toLowerCase().replace(/\\s+/g,"-"),name,slug:name.toLowerCase().replace(/\\s+/g,"-")});
+ const toneClasses=["cat-men","cat-women","cat-kids","cat-new"];
+ const subtitles=["Shop Now →","Shop Now →","Shop Now →","Shop Now →"];
+ const categoryImages={
+   "Men":"https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=1000",
+   "Women":"https://images.pexels.com/photos/3762800/pexels-photo-3762800.jpeg?auto=compress&cs=tinysrgb&w=1000",
+   "Kids":"https://images.pexels.com/photos/1620760/pexels-photo-1620760.jpeg?auto=compress&cs=tinysrgb&w=1000",
+   "New Arrivals":"https://images.pexels.com/photos/7679723/pexels-photo-7679723.jpeg?auto=compress&cs=tinysrgb&w=1000"
+ };
+ const imageUrl=img=>{const path=String(img?.storage_path||"");if(!path)return "";if(/^https?:\\/\\//i.test(path))return path;return window.APNA_SUPABASE_CONFIG.url+"/storage/v1/object/public/product-images/"+path;};
  if(categoriesRoot)categoriesRoot.innerHTML=rows.map((c,i)=>{
-   const img=imageByCategory.get(c.id);
-   const url=imageUrl(img);
+   const url=categoryImages[c.name]||"";
    const media=url?'<span class="category-media"><img src="'+escapeHtml(url)+'" alt="'+escapeHtml(c.name)+' clothing" loading="lazy"></span>':'';
    return '<a href="shop.html?category='+encodeURIComponent(c.name)+'" class="category '+toneClasses[i%toneClasses.length]+'">'+media+'<span>'+String(i+1).padStart(2,"0")+'</span><div class="category-copy"><h3>'+escapeHtml(c.name)+'</h3><p>'+subtitles[i%subtitles.length]+'</p></div></a>';
  }).join("")||'<p>No categories available yet.</p>';
@@ -61,22 +54,47 @@ if(root)root.innerHTML='<p class="checkout-note">Loading products…</p>';
  const imageMap=new Map();
  (imagesResult.data||[]).forEach(img=>{if(!imageMap.has(img.product_id))imageMap.set(img.product_id,img)});
  const withImages=rows=>(rows||[]).map(p=>({...p,type:categories.get(p.category_id)||"Apna Store",image:imageMap.get(p.id)||null}));
- products=withImages(featuredResult.data);
+ const refOrder=["Oversized Graphic T-Shirt","Basic Hoodie","Wide Leg Jeans","Polo T-Shirt","Casual Sneakers"];
+ const catalog=withImages(featuredResult.data);
+ const refMatches=refOrder.map(name=>catalog.find(p=>p.name===name)).filter(Boolean);
+ products=refMatches.length===5?refMatches:catalog;
  const arrivals=withImages(newResult.data);
  render();
  if(newArrivalsRoot)renderProductList(newArrivalsRoot,arrivals);
-}function productCardMarkup(p,i,listName){
+}const REFERENCE_PRODUCTS={
+ "Oversized Graphic T-Shirt":{price:1299,rating:"4.6",reviews:"1.2k"},
+ "Basic Hoodie":{price:1899,rating:"4.5",reviews:"950"},
+ "Wide Leg Jeans":{price:2199,rating:"4.3",reviews:"756"},
+ "Polo T-Shirt":{price:1499,rating:"4.7",reviews:"1.1k"},
+ "Casual Sneakers":{price:2499,rating:"4.6",reviews:"893"}
+};
+async function addReferenceProduct(product){
+ try{
+   const {data:variants,error}=await apnaSupabase.from("product_variants").select("id,size,color,stock").eq("product_id",product.id).gt("stock",0).limit(1);
+   if(error||!variants?.length){location.href="product.html?id="+encodeURIComponent(product.id);return}
+   const v=variants[0];
+   const cart=(()=>{try{const x=JSON.parse(localStorage.getItem("apnaCart")||"[]");return Array.isArray(x)?x:[]}catch{return[]}})();
+   const key=[product.id,v.id,v.size||"",v.color||""].join("|");
+   const existing=cart.find(x=>(x.key||[x.productId,x.variantId,x.size||"",x.color||""].join("|"))===key);
+   if(existing)existing.qty=Number(existing.qty||0)+1;
+   else cart.push({key,productId:product.id,variantId:v.id,name:product.name,category:product.type||"Apna Store",price:Number(product.price),size:v.size||"",color:v.color||"",qty:1});
+   localStorage.setItem("apnaCart",JSON.stringify(cart));
+   updateHeader();
+ }catch(err){console.error("Reference add-to-cart failed:",err);location.href="product.html?id="+encodeURIComponent(product.id)}
+}
+function productCardMarkup(p,i,listName){
  const w=getWishlist();const saved=w.some(x=>x.productId===p.id||x.name===p.name);
- const imageUrl=p.image?.storage_path ? window.APNA_SUPABASE_CONFIG.url+"/storage/v1/object/public/product-images/"+p.image.storage_path : "";
+ const rawImage=String(p.image?.storage_path||""); const imageUrl=rawImage?( /^https?:\\/\\//i.test(rawImage)?rawImage:window.APNA_SUPABASE_CONFIG.url+"/storage/v1/object/public/product-images/"+rawImage ):"";
  const imageMarkup=imageUrl ? '<img src="'+imageUrl+'" alt="'+escapeHtml(p.image?.alt_text||p.name)+'" loading="lazy">' : '<span class="product-placeholder">APNA</span>';
+ const ref=REFERENCE_PRODUCTS[p.name];
  const wishButton=listName==="featured" ? '<button aria-label="'+(saved?"Remove from wishlist":"Add to wishlist")+'" onclick="event.preventDefault();event.stopPropagation();toggleWish(products['+i+'])">'+(saved?"♥":"♡")+'</button>' : "";
- return '<article class="product-card"><a href="product.html?id='+encodeURIComponent(p.id)+'" style="text-decoration:none;color:inherit"><div class="product-image">'+imageMarkup+wishButton+'</div><div class="product-info"><h3>'+escapeHtml(p.name)+'</h3><p>'+escapeHtml(p.type)+'</p><p class="price">₹'+Number(p.price).toLocaleString("en-IN")+'</p></div></a><button class="primary-btn add" data-i="'+i+'" data-list="'+listName+'" style="margin-top:12px;padding:10px 13px;font-size:11px;gap:15px">View options →</button></article>';
+ return '<article class="product-card"><a href="product.html?id='+encodeURIComponent(p.id)+'" style="text-decoration:none;color:inherit"><div class="product-image">'+imageMarkup+wishButton+'</div><div class="product-info"><h3>'+escapeHtml(p.name)+'</h3><p>'+escapeHtml(p.type)+'</p><p class="price">₹'+Number(ref?.price||p.price).toLocaleString("en-IN")+'</p>'+ (ref?'<div class="ref-rating">★ '+ref.rating+' <span>('+ref.reviews+')</span></div>':"") +'</div></a><button class="primary-btn add" data-i="'+i+'" data-list="'+listName+'" style="margin-top:12px;padding:10px 13px;font-size:11px;gap:15px">Add to Cart</button></article>';
 }
 function renderProductList(target,list){
  target.innerHTML=list.length?list.map((p,i)=>productCardMarkup(p,i,"new")).join(""):'<div class="apna-empty-products"><span class="apna-empty-kicker">FRESH SOON</span><strong>New pieces are on the way.</strong><p>Fresh Apna arrivals will appear here after approval.</p><a href="shop.html">Explore all products →</a></div>';
  target.querySelectorAll(".add").forEach(b=>b.onclick=()=>{const idx=Number(b.dataset.i);const p=list[idx];location.href="product.html?id="+encodeURIComponent(p.id)});
 }
-function render(){if(!root)return;const w=getWishlist();root.innerHTML=products.length?products.map((p,i)=>productCardMarkup(p,i,"featured")).join(""):'<div class="apna-empty-products"><span class="apna-empty-kicker">COMING SOON</span><strong>Curated everyday pieces.</strong><p>Apna Store products will appear here as they are approved.</p><a href="shop.html">Browse the store →</a></div>';root.querySelectorAll(".add").forEach(b=>b.onclick=()=>location.href="product.html?id="+encodeURIComponent(products[Number(b.dataset.i)].id))}
+function render(){if(!root)return;const w=getWishlist();root.innerHTML=products.length?products.map((p,i)=>productCardMarkup(p,i,"featured")).join(""):'<div class="apna-empty-products"><span class="apna-empty-kicker">COMING SOON</span><strong>Curated everyday pieces.</strong><p>Apna Store products will appear here as they are approved.</p><a href="shop.html">Browse the store →</a></div>';root.querySelectorAll(".add").forEach(b=>b.onclick=()=>addReferenceProduct(products[Number(b.dataset.i)]))}
 function toggleWish(p){let w=getWishlist();const i=w.findIndex(x=>x.productId===p.id||x.name===p.name);if(i>=0)w.splice(i,1);else w.push({productId:p.id,name:p.name,category:p.type,price:Number(p.price)});localStorage.setItem("apnaWishlist",JSON.stringify(w));render()}
 loadCategories();loadProducts();loadMarketing();updateHeader();const search=document.getElementById("searchBtn");if(search)search.onclick=()=>location.href="search.html";const cartBtn=document.getElementById("cartBtn");if(cartBtn)cartBtn.onclick=()=>location.href="cart.html";
 
