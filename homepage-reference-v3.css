@@ -558,3 +558,16 @@
   .apna-store-intro,.apna-store-intro-logo{animation:none!important}
   .apna-store-intro{opacity:0;visibility:hidden}
 }
+
+/* Startup intro visibility fix */
+.apna-reference-home .apna-store-intro-logo{
+  width:min(78vw,900px)!important;
+  height:min(24vw,180px)!important;
+  min-height:90px!important;
+  aspect-ratio:auto!important;
+  background-size:contain!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+  opacity:1!important;
+  filter:brightness(7) contrast(1.15)!important;
+}
