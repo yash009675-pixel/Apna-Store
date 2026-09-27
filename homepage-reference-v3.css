@@ -536,3 +536,21 @@
 @media(max-width:600px){
   .apna-reference-home .ref-logo{width:125px!important;height:29px!important}
 }
+
+
+/* FOOTER LOGO FINAL — clear white ApnaStore mark on dark footer */
+.apna-reference-home .ref-footer-logo{
+  width:165px!important;
+  height:38px!important;
+  background-size:contain!important;
+  background-position:left center!important;
+  background-repeat:no-repeat!important;
+  filter:grayscale(1) brightness(0) invert(1)!important;
+  opacity:1!important;
+}
+@media(max-width:600px){
+  .apna-reference-home .ref-footer-logo{
+    width:150px!important;
+    height:36px!important;
+  }
+}
