@@ -3040,3 +3040,14 @@ body:not(.apna-reference-home) footer small{
     padding:6px!important;
   }
 }
+
+
+/* Phase A: Shop header search */
+body:not(.apna-reference-home) .header-search{display:flex!important;align-items:center!important;gap:0!important;margin:0 4px 0 0!important;border:1px solid #ddd8cf!important;border-radius:999px!important;background:#fff!important;overflow:hidden!important;height:36px!important}
+body:not(.apna-reference-home) .header-search input{width:150px!important;border:0!important;outline:0!important;background:transparent!important;padding:8px 8px 8px 13px!important;font:inherit!important;font-size:10px!important;color:#242220!important}
+body:not(.apna-reference-home) .header-search input::placeholder{color:#999!important}
+body:not(.apna-reference-home) .header-search button{border:0!important;background:transparent!important;min-width:32px!important;min-height:34px!important;padding:6px 9px!important;font-size:17px!important;line-height:1!important}
+body:not(.apna-reference-home) .header-search:focus-within{border-color:#aaa39a!important}
+body:not(.apna-reference-home) .header-bag-count{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-width:17px!important;height:17px!important;margin-left:4px!important;padding:0 4px!important;border-radius:999px!important;background:#171615!important;color:#fff!important;font-size:9px!important}
+@media(max-width:900px){body:not(.apna-reference-home) .header-search{width:36px!important;border:0!important;background:transparent!important;margin:0!important}.header-search input{display:none!important}.header-search button{width:36px!important;padding:6px!important}}
+@media(max-width:520px){body:not(.apna-reference-home) .header-actions a,body:not(.apna-reference-home) .header-actions button,body:not(.apna-reference-home) .header-search button{font-size:0!important}.header-search button:before{content:"⌕"!important;font-size:17px!important}.header-bag-count{font-size:8px!important}}
