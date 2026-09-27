@@ -132,3 +132,126 @@
 }
 
 .apna-reference-home .ref-rating{font-size:8px;color:#e49b16;margin:3px 0 0}.apna-reference-home .ref-rating span{color:#777}
+
+
+/* APNASTORE REFERENCE — VISUAL VERIFICATION PASS 01 */
+.apna-reference-home .ref-header{
+  grid-template-columns:205px 1fr auto;
+  height:62px;
+  padding:0 clamp(22px,5.2vw,76px);
+}
+.apna-reference-home .ref-logo{
+  font-size:23px;
+  letter-spacing:-.06em;
+}
+.apna-reference-home .ref-logo span{color:#777;font-weight:400}
+.apna-reference-home .ref-main-nav{gap:34px}
+.apna-reference-home .ref-main-nav a{font-size:12px}
+.apna-reference-home .ref-search{width:215px;height:34px}
+.apna-reference-home .ref-search input{font-size:10px}
+.apna-reference-home .ref-hero{
+  max-width:1240px;
+  height:390px;
+  margin-top:10px;
+}
+.apna-reference-home .ref-hero-image{
+  object-position:center 47%;
+}
+.apna-reference-home .ref-hero-overlay{
+  background:linear-gradient(90deg,rgba(244,237,226,.88) 0%,rgba(244,237,226,.68) 35%,rgba(244,237,226,.03) 72%);
+}
+.apna-reference-home .ref-hero-copy h1{
+  font-size:44px;
+}
+.apna-reference-home .ref-hero-copy>p:not(.ref-hero-kicker){
+  font-size:14px;
+}
+.apna-reference-home .ref-section{
+  max-width:1120px;
+  padding-top:30px;
+}
+.apna-reference-home .ref-section-title h2{
+  font-size:24px;
+}
+.apna-reference-home .ref-section-title p{
+  font-size:11px;
+}
+.apna-reference-home .ref-categories{
+  gap:12px;
+  margin-top:14px;
+}
+.apna-reference-home .ref-categories .category{
+  height:205px;
+  min-height:205px!important;
+}
+.apna-reference-home .ref-categories .category h3{
+  font-size:18px!important;
+}
+.apna-reference-home .ref-categories .category p{
+  font-size:10px!important;
+}
+.apna-reference-home .ref-products{
+  gap:12px;
+}
+.apna-reference-home .ref-products .product-image{
+  height:178px!important;
+}
+.apna-reference-home .ref-products .product-info h3{
+  font-size:10px!important;
+}
+.apna-reference-home .ref-products .product-info p{
+  font-size:9px!important;
+}
+.apna-reference-home .ref-products .product-info .price{
+  font-size:13px!important;
+}
+.apna-reference-home .ref-collection{
+  max-width:1120px;
+  height:220px;
+  margin-top:30px;
+}
+.apna-reference-home .ref-collection-copy{
+  padding:32px 42px;
+}
+.apna-reference-home .ref-collection-copy h2{
+  font-size:31px;
+}
+.apna-reference-home .ref-collection-copy>p:not(.ref-mini-label){
+  font-size:11px;
+}
+.apna-reference-home .ref-benefits{
+  gap:28px;
+  margin-top:16px;
+}
+.apna-reference-home .ref-benefit strong{font-size:10px}
+.apna-reference-home .ref-benefit p{font-size:9px}
+.apna-reference-home .ref-inspo-grid{
+  gap:8px;
+  margin-top:14px;
+}
+.apna-reference-home .ref-inspo-grid>a,
+.apna-reference-home .ref-instagram{
+  height:112px;
+}
+.apna-reference-home .ref-footer{
+  margin-top:8px!important;
+  padding-top:34px!important;
+}
+@media(max-width:900px){
+  .apna-reference-home .ref-header{height:auto;padding:12px 18px}
+  .apna-reference-home .ref-hero{height:330px;margin-top:8px}
+  .apna-reference-home .ref-section{width:calc(100% - 28px);padding-top:24px}
+  .apna-reference-home .ref-categories .category{height:180px;min-height:180px!important}
+  .apna-reference-home .ref-products .product-image{height:155px!important}
+  .apna-reference-home .ref-collection{width:calc(100% - 28px);height:190px}
+}
+@media(max-width:600px){
+  .apna-reference-home .ref-hero{height:310px}
+  .apna-reference-home .ref-hero-copy h1{font-size:31px}
+  .apna-reference-home .ref-section{padding-top:22px}
+  .apna-reference-home .ref-categories .category{height:166px;min-height:166px!important}
+  .apna-reference-home .ref-products .product-image{height:135px!important}
+  .apna-reference-home .ref-collection{height:auto}
+  .apna-reference-home .ref-inspo-grid>a,
+  .apna-reference-home .ref-instagram{height:100px}
+}
