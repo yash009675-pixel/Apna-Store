@@ -3364,3 +3364,109 @@ body:not(:has(.admin-sidebar)) .header-actions a[style],body:not(:has(.admin-sid
 @media(max-width:900px){body:not(:has(.admin-sidebar)) .help-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.membership-plans{grid-template-columns:1fr 1fr!important}.support-grid{grid-template-columns:1fr!important}}
 @media(max-width:700px){body:not(:has(.admin-sidebar)) .help-tools{grid-template-columns:1fr!important}.membership-head{align-items:flex-start!important;flex-direction:column!important}.membership-plans{grid-template-columns:1fr!important}.policy-page{padding-top:35px!important}.policy-page h1{font-size:42px!important}.support-shell{padding-top:32px!important}}
 @media(max-width:480px){body:not(:has(.admin-sidebar)) .help-grid{grid-template-columns:1fr!important}.help-shell>h1,.support-shell>h1{font-size:42px!important}}
+
+
+/* FINAL ADMIN COLOR POLISH — match ApnaStore homepage, preserve admin layout/functionality */
+body:has(.admin-sidebar){
+  background:#f4f1eb!important;
+  color:#292724!important;
+}
+body:has(.admin-sidebar) .admin-sidebar{
+  background:#171615!important;
+  border-right:1px solid #2a2826!important;
+}
+body:has(.admin-sidebar) .admin-brand{color:#fffdf9!important}
+body:has(.admin-sidebar) .admin-brand span{color:#fffdf9!important}
+body:has(.admin-sidebar) .admin-brand small{color:#aaa49c!important}
+body:has(.admin-sidebar) .admin-nav-group>span{color:#8f8981!important}
+body:has(.admin-sidebar) .admin-nav-group a{color:#d8d2ca!important}
+body:has(.admin-sidebar) .admin-nav-group a:hover{background:#292724!important;color:#fffdf9!important}
+body:has(.admin-sidebar) .admin-nav-group a[href="admin.html"]{background:#f4f1eb!important;color:#171615!important}
+body:has(.admin-sidebar) .admin-nav-bottom{border-color:#302e2b!important}
+body:has(.admin-sidebar) .admin-shell{color:#292724!important}
+body:has(.admin-sidebar) .admin-head{
+  background:#fffdf9!important;
+  border-color:#ded8cf!important;
+  box-shadow:0 10px 30px rgba(23,22,21,.05)!important;
+}
+body:has(.admin-sidebar) .admin-head .eyebrow{color:#6f675f!important}
+body:has(.admin-sidebar) .admin-head h1{color:#171615!important}
+body:has(.admin-sidebar) .admin-head p:not(.eyebrow){color:#77716a!important}
+body:has(.admin-sidebar) .admin-shell>.admin-logistics-link{
+  background:#171615!important;
+  border-color:#171615!important;
+  color:#fff!important;
+}
+body:has(.admin-sidebar) .admin-shell>.admin-logistics-link:hover{
+  background:#292724!important;
+  border-color:#292724!important;
+}
+body:has(.admin-sidebar) .admin-panel,
+body:has(.admin-sidebar) .admin-card,
+body:has(.admin-sidebar) .admin-management-card,
+body:has(.admin-sidebar) .admin-center-card{
+  background:#fffdf9!important;
+  border-color:#ded8cf!important;
+  color:#292724!important;
+  box-shadow:0 6px 20px rgba(23,22,21,.045)!important;
+}
+body:has(.admin-sidebar) .admin-panel-head{border-color:#e5dfd7!important}
+body:has(.admin-sidebar) .admin-panel-head h2,
+body:has(.admin-sidebar) .admin-card strong,
+body:has(.admin-sidebar) .admin-center-card strong,
+body:has(.admin-sidebar) .admin-management-card strong{color:#171615!important}
+body:has(.admin-sidebar) .admin-card span,
+body:has(.admin-sidebar) .admin-center-card span,
+body:has(.admin-sidebar) .admin-center-card small,
+body:has(.admin-sidebar) .admin-management-card span,
+body:has(.admin-sidebar) .section-note,
+body:has(.admin-sidebar) .admin-message{color:#77716a!important}
+body:has(.admin-sidebar) .admin-card-icon,
+body:has(.admin-sidebar) .admin-center-card .admin-stat-icon{
+  background:#f0ece6!important;
+  color:#4d4842!important;
+}
+body:has(.admin-sidebar) .admin-form,
+body:has(.admin-sidebar) .analytics-range{
+  background:#f4f1eb!important;
+  border-color:#ded8cf!important;
+}
+body:has(.admin-sidebar) .admin-form label,
+body:has(.admin-sidebar) .analytics-range label{color:#5d554d!important}
+body:has(.admin-sidebar) .admin-form input,
+body:has(.admin-sidebar) .admin-form select,
+body:has(.admin-sidebar) .admin-form textarea,
+body:has(.admin-sidebar) .analytics-range input,
+body:has(.admin-sidebar) .admin-search input{
+  background:#fffdf9!important;
+  color:#292724!important;
+  border-color:#d8d2ca!important;
+}
+body:has(.admin-sidebar) .admin-form input::placeholder,
+body:has(.admin-sidebar) .admin-form textarea::placeholder,
+body:has(.admin-sidebar) .admin-search input::placeholder{color:#9a948c!important}
+body:has(.admin-sidebar) .admin-form input:focus,
+body:has(.admin-sidebar) .admin-form select:focus,
+body:has(.admin-sidebar) .admin-form textarea:focus,
+body:has(.admin-sidebar) .analytics-range input:focus,
+body:has(.admin-sidebar) .admin-search input:focus{
+  border-color:#8e877f!important;
+  box-shadow:0 0 0 3px rgba(23,22,21,.06)!important;
+}
+body:has(.admin-sidebar) .admin-btn{
+  background:#fffdf9!important;
+  color:#292724!important;
+  border-color:#d8d2ca!important;
+}
+body:has(.admin-sidebar) .admin-btn:hover{background:#f0ece6!important;color:#171615!important}
+body:has(.admin-sidebar) .admin-btn.primary,
+body:has(.admin-sidebar) .admin-btn.primary:hover{
+  background:#171615!important;
+  color:#fff!important;
+  border-color:#171615!important;
+}
+body:has(.admin-sidebar) .admin-table th{background:#f4f1eb!important;color:#6f675f!important;border-color:#e5dfd7!important}
+body:has(.admin-sidebar) .admin-table td{color:#292724!important;border-color:#e5dfd7!important}
+body:has(.admin-sidebar) .admin-table tbody tr:hover{background:#f8f5ef!important}
+body:has(.admin-sidebar) .admin-error{color:#8a2f25!important}
+body:has(.admin-sidebar) ::selection{background:#d8d1c8!important;color:#171615!important}
