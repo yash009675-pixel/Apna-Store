@@ -1,0 +1,355 @@
+/* APNASTORE UI-01 — GLOBAL RESPONSIVE DESIGN SYSTEM
+   One shared responsive foundation for customer, seller and admin surfaces.
+   Layout behavior only: existing feature/data logic and page-specific designs stay intact.
+*/
+
+:root{
+  --apna-content-max:1400px;
+  --apna-page-gutter:clamp(18px,5vw,80px);
+  --apna-section-gap:clamp(48px,7vw,96px);
+  --apna-card-gap:clamp(12px,1.8vw,24px);
+}
+
+html,body{
+  max-width:100%;
+  overflow-x:hidden;
+}
+
+img,svg,video,canvas{
+  max-width:100%;
+}
+
+button,input,select,textarea{
+  max-width:100%;
+}
+
+.site-header{
+  width:100%;
+}
+
+.section{
+  width:100%;
+  max-width:var(--apna-content-max);
+  margin-inline:auto;
+}
+
+.account-page,
+.checkout-page,
+.seller-shell,
+.admin-shell{
+  width:100%;
+  max-width:var(--apna-content-max);
+  margin-inline:auto;
+}
+
+.account-card{
+  width:100%;
+}
+
+.account-panel,
+.account-form,
+.checkout-card,
+.checkout-page,
+.cart-layout,
+.seller-panel,
+.admin-panel{
+  min-width:0;
+}
+
+.account-form input,
+.form-grid input,
+.filter-field input,
+.filter-field select,
+.search-form input,
+.seller-search,
+.seller-filter{
+  min-width:0;
+}
+
+.products,
+.categories,
+.admin-grid,
+.admin-management-grid,
+.admin-center-cards,
+.seller-grid{
+  min-width:0;
+}
+
+.product-card,
+.category,
+.admin-card,
+.admin-management-card,
+.admin-center-card,
+.seller-stat,
+.seller-panel,
+.checkout-card,
+.account-stats a,
+.address-card{
+  min-width:0;
+}
+
+@media (min-width:1200px){
+  .account-page,
+  .checkout-page,
+  .seller-shell,
+  .admin-shell{
+    padding-left:var(--apna-page-gutter);
+    padding-right:var(--apna-page-gutter);
+  }
+}
+
+@media (max-width:1024px){
+  .account-page{
+    padding-left:clamp(24px,5vw,56px);
+    padding-right:clamp(24px,5vw,56px);
+  }
+
+  .checkout-page{
+    grid-template-columns:minmax(0,1fr) minmax(260px,.7fr);
+    padding-left:clamp(24px,5vw,56px);
+    padding-right:clamp(24px,5vw,56px);
+  }
+
+  .seller-shell{
+    padding-left:clamp(20px,4vw,40px);
+    padding-right:clamp(20px,4vw,40px);
+  }
+
+  .seller-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .admin-shell{
+    padding-left:clamp(20px,4vw,40px);
+    padding-right:clamp(20px,4vw,40px);
+  }
+
+  .admin-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media (max-width:800px){
+  .section{
+    padding-left:clamp(18px,5vw,36px);
+    padding-right:clamp(18px,5vw,36px);
+  }
+
+  .checkout-page{
+    grid-template-columns:1fr;
+    gap:20px;
+    padding-left:clamp(18px,5vw,32px);
+    padding-right:clamp(18px,5vw,32px);
+  }
+
+  .summary-card,
+  .cart-summary{
+    position:static;
+  }
+
+  .account-form,
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .account-form>.primary-btn,
+  .account-form>.check-row,
+  .account-form>.form-actions,
+  .form-grid .full{
+    grid-column:auto;
+  }
+
+  .seller-shell{
+    padding-left:18px;
+    padding-right:18px;
+  }
+
+  .seller-top{
+    flex-direction:column;
+  }
+
+  .seller-actions{
+    width:100%;
+  }
+
+  .seller-actions .seller-btn{
+    flex:1 1 auto;
+  }
+
+  .seller-panel{
+    overflow-x:auto;
+  }
+
+  .seller-table{
+    min-width:680px;
+  }
+
+  .admin-shell{
+    padding-left:18px;
+    padding-right:18px;
+  }
+
+  .admin-grid,
+  .admin-management-grid,
+  .admin-center-cards{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media (max-width:600px){
+  .section{
+    padding-left:16px;
+    padding-right:16px;
+  }
+
+  .section-head{
+    gap:16px;
+    align-items:flex-start;
+  }
+
+  .section-head h2{
+    font-size:clamp(28px,8vw,38px);
+  }
+
+  .shop-tools,
+  .filter-actions,
+  .account-actions,
+  .form-actions,
+  .seller-tools{
+    width:100%;
+  }
+
+  .shop-tools{
+    align-items:stretch;
+  }
+
+  .shop-tools>*,
+  .shop-sort select{
+    max-width:100%;
+  }
+
+  .advanced-filters{
+    grid-template-columns:1fr;
+  }
+
+  .filter-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+
+  .account-page{
+    padding:42px 16px;
+  }
+
+  .account-card h1{
+    font-size:clamp(42px,13vw,60px);
+  }
+
+  .account-stats{
+    grid-template-columns:1fr;
+  }
+
+  .account-panel{
+    margin-top:38px;
+    padding-top:28px;
+  }
+
+  .checkout-page{
+    padding:40px 16px;
+  }
+
+  .checkout-card{
+    padding:18px;
+  }
+
+  .cart-item{
+    grid-template-columns:84px minmax(0,1fr);
+    gap:12px;
+  }
+
+  .cart-thumb{
+    min-height:110px;
+  }
+
+  .seller-shell{
+    padding:18px 14px 44px;
+  }
+
+  .seller-grid{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+  .seller-stat{
+    padding:15px;
+  }
+
+  .seller-stat strong{
+    font-size:22px;
+  }
+
+  .seller-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+
+  .seller-actions .seller-btn{
+    width:100%;
+  }
+
+  .seller-tools{
+    align-items:stretch;
+  }
+
+  .seller-search,
+  .seller-filter{
+    width:100%;
+    min-width:0;
+  }
+
+  .admin-shell{
+    padding-left:14px;
+    padding-right:14px;
+  }
+
+  .admin-grid,
+  .admin-management-grid,
+  .admin-center-cards{
+    grid-template-columns:1fr;
+  }
+
+  .admin-panel-head{
+    flex-wrap:wrap;
+  }
+
+  .admin-form{
+    min-width:0;
+  }
+}
+
+@media (max-width:420px){
+  .seller-grid{
+    grid-template-columns:1fr;
+  }
+
+  .seller-actions{
+    grid-template-columns:1fr;
+  }
+
+  .filter-actions{
+    grid-template-columns:1fr;
+  }
+
+  .cart-item{
+    grid-template-columns:1fr;
+  }
+}
+
+/* UI-01: prevent common long-content breakage on every device */
+h1,h2,h3,h4,p,a,button,label,small,span,td,th{
+  overflow-wrap:anywhere;
+}
+
+table{
+  max-width:100%;
+}
