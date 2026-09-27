@@ -3254,3 +3254,55 @@ body:not(.apna-reference-home) ::selection{background:#d9d2c8!important;color:#1
 @media(max-width:900px){body:not(.apna-reference-home) .site-header{padding-left:16px!important;padding-right:16px!important}body:not(.apna-reference-home) .site-header nav{gap:14px!important}body:not(.apna-reference-home) .header-search{max-width:220px!important}}
 @media(max-width:700px){body:not(.apna-reference-home) .site-header{min-height:60px!important;flex-wrap:wrap!important;gap:10px!important;padding-top:9px!important;padding-bottom:9px!important}body:not(.apna-reference-home) .site-header nav{order:3!important;width:100%!important;justify-content:center!important;overflow-x:auto!important;padding-bottom:2px!important;scrollbar-width:none!important}body:not(.apna-reference-home) .site-header nav::-webkit-scrollbar{display:none!important}body:not(.apna-reference-home) .header-search{order:2!important;flex:1 1 150px!important;max-width:none!important;min-width:130px!important}.site-header .logo{flex:0 0 auto!important}}
 @media(max-width:430px){body:not(.apna-reference-home) .site-header{gap:7px!important}.site-header .logo{width:112px!important;height:28px!important}.header-search input{font-size:11px!important}.header-search{height:36px!important}.site-header nav{gap:12px!important}.site-header nav a{font-size:9px!important}}
+
+
+/* FINAL CUSTOMER THEME OVERRIDE — no blue/purple on storefront pages */
+body:not(:has(.admin-sidebar)){
+  --apna-ink:#171615!important;
+  --apna-muted:#77716a!important;
+  --apna-border:#ded8cf!important;
+  --apna-bg:#f4f1eb!important;
+  --apna-purple:#171615!important;
+  --apna-purple-soft:#f0ece6!important;
+  --apna-card:#fffdf9!important;
+  background:#f4f1eb!important;
+  color:#292724!important;
+}
+body:not(:has(.admin-sidebar)) .section,body:not(:has(.admin-sidebar)) .product-page,body:not(:has(.admin-sidebar)) .account-page,body:not(:has(.admin-sidebar)) .checkout-page{background:#f4f1eb!important;color:#292724!important}
+body:not(:has(.admin-sidebar)) .account-stats>a,
+body:not(:has(.admin-sidebar)) .account-stats>a:before,
+body:not(:has(.admin-sidebar)) .ui-icon,
+body:not(:has(.admin-sidebar)) .meta-icon,
+body:not(:has(.admin-sidebar)) .trust .trust-icon,
+body:not(:has(.admin-sidebar)) .trust-icon,
+body:not(:has(.admin-sidebar)) .admin-card-icon{background:#f0ece6!important;color:#4d4842!important}
+body:not(:has(.admin-sidebar)) .account-stats>a .site-ui-icon,
+body:not(:has(.admin-sidebar)) .account-stats a span[data-icon],
+body:not(:has(.admin-sidebar)) [data-icon] .site-ui-icon,
+body:not(:has(.admin-sidebar)) .site-ui-icon{color:#4d4842!important;stroke:currentColor!important}
+body:not(:has(.admin-sidebar)) .account-stats>a span{color:#77716a!important}
+body:not(:has(.admin-sidebar)) .account-stats>a b{color:#171615!important}
+body:not(:has(.admin-sidebar)) .eyebrow,
+body:not(:has(.admin-sidebar)) .account-panel .eyebrow,
+body:not(:has(.admin-sidebar)) .account-card .eyebrow{color:#6f675f!important}
+body:not(:has(.admin-sidebar)) .account-card,
+body:not(:has(.admin-sidebar)) .account-panel,
+body:not(:has(.admin-sidebar)) .checkout-card,
+body:not(:has(.admin-sidebar)) .product-card,
+body:not(:has(.admin-sidebar)) .category{background:#fffdf9!important;border-color:#ded8cf!important;box-shadow:0 6px 20px rgba(23,22,21,.045)!important}
+body:not(:has(.admin-sidebar)) input,
+body:not(:has(.admin-sidebar)) select,
+body:not(:has(.admin-sidebar)) textarea{background:#fffdf9!important;color:#292724!important;border-color:#d8d2ca!important}
+body:not(:has(.admin-sidebar)) input::placeholder,body:not(:has(.admin-sidebar)) textarea::placeholder{color:#9a948c!important}
+body:not(:has(.admin-sidebar)) input:focus,body:not(:has(.admin-sidebar)) select:focus,body:not(:has(.admin-sidebar)) textarea:focus{border-color:#8e877f!important;box-shadow:0 0 0 3px rgba(23,22,21,.06)!important}
+body:not(:has(.admin-sidebar)) a:hover,body:not(:has(.admin-sidebar)) .section-head>a:hover,body:not(:has(.admin-sidebar)) footer a:hover{color:#171615!important}
+body:not(:has(.admin-sidebar)) .site-header nav a:hover,body:not(:has(.admin-sidebar)) .site-header nav a[aria-current="page"],body:not(:has(.admin-sidebar)) .header-link:hover,body:not(:has(.admin-sidebar)) .header-actions a:hover{background:#f0ece6!important;color:#292724!important}
+body:not(:has(.admin-sidebar)) .primary-btn,body:not(:has(.admin-sidebar)) button.primary-btn{background:#171615!important;color:#fff!important;border-color:#171615!important}
+body:not(:has(.admin-sidebar)) .primary-btn:hover,body:not(:has(.admin-sidebar)) button.primary-btn:hover{background:#292724!important;color:#fff!important;border-color:#292724!important}
+body:not(:has(.admin-sidebar)) .filter-clear:hover,body:not(:has(.admin-sidebar)) .secondary-btn:hover,body:not(:has(.admin-sidebar)) .text-btn:hover{background:#f0ece6!important;color:#292724!important;border-color:#bdb5ac!important}
+body:not(:has(.admin-sidebar)) .site-header nav a,body:not(:has(.admin-sidebar)) .header-link{color:#292724!important}
+body:not(:has(.admin-sidebar)) .announcement-bar{background:#171615!important;color:#fff!important}
+body:not(:has(.admin-sidebar)) .price,body:not(:has(.admin-sidebar)) .product-info .price,body:not(:has(.admin-sidebar)) .account-stats b{color:#171615!important}
+body:not(:has(.admin-sidebar)) .search-title,body:not(:has(.admin-sidebar)) .hero h1 em,body:not(:has(.admin-sidebar)) .section-head>a{color:#171615!important}
+body:not(:has(.admin-sidebar)) .help-tab.active,body:not(:has(.admin-sidebar)) .membership-buy,body:not(:has(.admin-sidebar)) #copyRef{background:#171615!important;border-color:#171615!important;color:#fff!important}
+body:not(:has(.admin-sidebar)) ::selection{background:#d8d1c8!important;color:#171615!important}
