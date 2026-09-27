@@ -198,7 +198,8 @@ function renderProduct(product,variants=[],images=[],flashSale=null,dailyDeal=nu
   document.body.appendChild(overlay);
   draw();
   close.focus();
- }=()=>{if(activeImage)openLightbox(gallery.indexOf(activeImage))};
+ }
+ main.onclick=()=>{if(activeImage)openLightbox(Math.max(0,gallery.indexOf(activeImage)))};
 
  async function refreshOptions(){findVariant();renderGallery(galleryForVariant(variantId));const add=document.getElementById("add"),stockInfo=document.getElementById("stockInfo"),current=available.find(x=>x.id===variantId);add.disabled=!variantId;add.innerHTML=variantId?'Add to bag <span>→</span>':'Unavailable combination';if(variantId&&current){const stock=Number(current.stock||0);if(qty>stock)qty=stock;document.getElementById("qty").textContent=qty;document.getElementById("skuInfo").textContent=current.sku||"—";stockInfo.textContent="✓ In stock: "+stock+" available for "+(size||"standard")+" / "+(color||"standard")+"."}else{document.getElementById("skuInfo").textContent="—";stockInfo.textContent="✕ This size + color combination is unavailable.";let alertBtn=document.getElementById("backInStockBtn");if(!alertBtn){const wrap=document.createElement("div");wrap.innerHTML='<button id="backInStockBtn" class="text-btn">Notify Me When Available</button>';document.querySelector(".buy-row")?.after(wrap);alertBtn=wrap.firstElementChild;alertBtn.onclick=()=>notifyBackInStock(product,variantId)}alertBtn.hidden=!!variantId;}}
  document.querySelectorAll("[data-size]").forEach(b=>{if(b.dataset.size===size)b.classList.add("selected");b.onclick=()=>{document.querySelectorAll("[data-size]").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");size=b.dataset.size;refreshOptions()};});
