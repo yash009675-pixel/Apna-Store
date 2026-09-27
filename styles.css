@@ -3712,3 +3712,19 @@ body:not(:has(.admin-sidebar)) .account-stats>a>span:last-child{
     width:20px!important;height:20px!important;
   }
 }
+
+
+/* ADMIN LOGO FINAL — high-contrast white monochrome on dark sidebar */
+body:has(.admin-sidebar) .admin-brand{
+  width:190px!important;
+  height:52px!important;
+  background-size:170px auto!important;
+  background-position:left center!important;
+  background-repeat:no-repeat!important;
+  filter:grayscale(1) brightness(0) invert(1)!important;
+}
+body:has(.admin-sidebar) .admin-brand::after{
+  filter:none!important;
+  color:#aaa49c!important;
+  -webkit-text-fill-color:#aaa49c!important;
+}
