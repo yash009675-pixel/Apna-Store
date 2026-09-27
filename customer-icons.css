@@ -114,3 +114,16 @@ body:not(:has(.admin-sidebar)) .notification-role{background:#f0ece6!important;c
 body:not(:has(.admin-sidebar)) .notification-tools select,body:not(:has(.admin-sidebar)) .preference-row,body:not(:has(.admin-sidebar)) .push-enable{border-color:#ded8cf!important;background:#fffdf9!important;color:#292724!important}
 body:not(:has(.admin-sidebar)) .push-enable button{border-color:#171615!important;background:#171615!important;color:#fff!important}
 body:not(:has(.admin-sidebar)) .membership-buy,body:not(:has(.admin-sidebar)) #copyRef{border-color:#171615!important;background:#171615!important;color:#fff!important}
+
+
+/* Phase C hard neutralization for all customer-icons rules */
+body:not(:has(.admin-sidebar)) .wallet-page .eyebrow,body:not(:has(.admin-sidebar)) .rewards-page .eyebrow,body:not(:has(.admin-sidebar)) .membership-plans .card strong{color:#4d4842!important}
+body:not(:has(.admin-sidebar)) .rewards-page #refLink{background:#fffdf9!important;border-color:#ded8cf!important;color:#292724!important}
+body:not(:has(.admin-sidebar)) .rewards-page #copyRef,body:not(:has(.admin-sidebar)) .membership-plans .membership-buy{background:#171615!important;border-color:#171615!important;color:#fff!important}
+body:not(:has(.admin-sidebar)) .help-tools input:focus,body:not(:has(.admin-sidebar)) .help-tools select:focus{border-color:#8e877f!important}
+body:not(:has(.admin-sidebar)) .help-tab{border-color:#ded8cf!important;background:#fffdf9!important;color:#292724!important}
+body:not(:has(.admin-sidebar)) .help-tab.active{background:#171615!important;border-color:#171615!important;color:#fff!important}
+body:not(:has(.admin-sidebar)) .account-stats a span[data-icon]{color:#4d4842!important}
+body:not(:has(.admin-sidebar)) .account-panel input:focus,body:not(:has(.admin-sidebar)) .account-panel select:focus,body:not(:has(.admin-sidebar)) .account-panel textarea:focus{border-color:#8e877f!important;box-shadow:0 0 0 3px rgba(23,22,21,.06)!important}
+body:not(:has(.admin-sidebar)) #referralLink{background:#fffdf9!important;border-color:#ded8cf!important;color:#292724!important}
+body:not(:has(.admin-sidebar)) .account-panel .checkout-card{background:#f0ece6!important;border-color:#ded8cf!important}
