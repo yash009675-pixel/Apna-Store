@@ -3856,3 +3856,197 @@ body:not(.apna-reference-home):not(:has(.admin-sidebar)) footer .footer-links a:
   -webkit-text-fill-color:#ffffff!important;
   opacity:1!important;
 }
+
+
+/* PRODUCT EXPERIENCE — unified gallery layout for every current + future product */
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-main-layout{
+  grid-template-columns:minmax(0,1.02fr) minmax(390px,.98fr)!important;
+  gap:56px!important;
+  align-items:start!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-visual{
+  position:sticky!important;
+  top:92px!important;
+  min-width:0!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-gallery{
+  display:grid!important;
+  grid-template-columns:82px minmax(0,1fr)!important;
+  grid-template-rows:auto auto!important;
+  gap:14px!important;
+  align-items:start!important;
+  position:relative!important;
+  width:100%!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-thumbs{
+  grid-column:1!important;
+  grid-row:1!important;
+  width:82px!important;
+  max-height:620px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:12px!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  padding:2px!important;
+  margin:0!important;
+  scrollbar-width:thin!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-thumb{
+  width:74px!important;
+  height:86px!important;
+  flex:0 0 74px!important;
+  padding:0!important;
+  border:1px solid #d8d2c9!important;
+  border-radius:8px!important;
+  background:#fffdf9!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+  opacity:.82!important;
+  transition:border-color .2s ease,opacity .2s ease,transform .2s ease,box-shadow .2s ease!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-thumb:hover{
+  opacity:1!important;
+  transform:translateY(-1px)!important;
+  box-shadow:0 5px 14px rgba(23,22,21,.08)!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-thumb.selected{
+  border:2px solid #171615!important;
+  outline:none!important;
+  opacity:1!important;
+  box-shadow:0 4px 14px rgba(23,22,21,.08)!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-thumb img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  display:block!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-large{
+  grid-column:2!important;
+  grid-row:1!important;
+  width:100%!important;
+  height:620px!important;
+  min-height:620px!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:14px!important;
+  background:#fffdf9!important;
+  box-shadow:0 10px 35px rgba(23,22,21,.06)!important;
+  overflow:hidden!important;
+  position:relative!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-large.has-image{
+  background:#fffdf9!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-large .product-main-img{
+  width:100%!important;
+  height:100%!important;
+  padding:22px!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  background:#fffdf9!important;
+  display:block!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-large:hover{
+  transform:none!important;
+  box-shadow:0 14px 40px rgba(23,22,21,.08)!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .gallery-note{
+  grid-column:2!important;
+  grid-row:2!important;
+  margin:10px 0 0!important;
+  text-align:center!important;
+  color:#918a82!important;
+  font-size:9px!important;
+  letter-spacing:.08em!important;
+  text-transform:uppercase!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-details{
+  padding:6px 0 0!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-details .detail-meta{
+  border-top:1px solid #e3ddd5!important;
+  border-bottom:1px solid #e3ddd5!important;
+  padding:13px 0!important;
+  margin:18px 0 22px!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-details .option{
+  margin:24px 0!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-details .delivery-check{
+  border:1px solid #e1dbd2!important;
+  background:#f7f4ef!important;
+  border-radius:12px!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-details .product-specs{
+  margin-top:28px!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-details .product-specs h3{
+  font-size:23px!important;
+  margin-bottom:16px!important;
+}
+@media(max-width:900px){
+  body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-main-layout{
+    grid-template-columns:1fr!important;
+    gap:32px!important;
+  }
+  body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-visual{
+    position:relative!important;
+    top:auto!important;
+  }
+  body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-gallery{
+    grid-template-columns:72px minmax(0,1fr)!important;
+  }
+  body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-thumbs{
+    width:72px!important;
+  }
+  body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-thumb{
+    width:64px!important;
+    height:74px!important;
+    flex-basis:64px!important;
+  }
+  body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-large{
+    height:520px!important;
+    min-height:520px!important;
+  }
+}
+@media(max-width:600px){
+  body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-gallery{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:12px!important;
+  }
+  body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-large{
+    order:1!important;
+    width:100%!important;
+    height:420px!important;
+    min-height:420px!important;
+    border-radius:12px!important;
+  }
+  body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-thumbs{
+    order:2!important;
+    width:100%!important;
+    max-height:none!important;
+    flex-direction:row!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    padding:2px 0 5px!important;
+  }
+  body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-thumb{
+    width:62px!important;
+    height:72px!important;
+    flex-basis:62px!important;
+  }
+  body:not(.apna-reference-home):not(:has(.admin-sidebar)) .gallery-note{
+    order:3!important;
+    width:100%!important;
+  }
+}
+@media(max-width:420px){
+  body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-large{
+    height:370px!important;
+    min-height:370px!important;
+  }
+}
