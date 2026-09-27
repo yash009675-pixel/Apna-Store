@@ -530,6 +530,10 @@
 .apna-store-intro-logo{
   width:min(62vw,600px);
   height:auto;
+  aspect-ratio:4 / 1;
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:contain;
   display:block;
   opacity:0;
   filter:brightness(3.15) contrast(1.08);
