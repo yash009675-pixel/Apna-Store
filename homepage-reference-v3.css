@@ -498,3 +498,16 @@
     object-position:center 50%;
   }
 }
+
+
+/* APNASTORE HERO — SHOW FULL SOURCE IMAGE ON DESKTOP */
+@media(min-width:901px){
+  .apna-reference-home .ref-hero{height:330px;background:#d9d0c3}
+  .apna-reference-home .ref-hero-image{object-fit:contain;object-position:center center;background:#d9d0c3}
+}
+
+/* APNASTORE CATEGORY/PRODUCT VISIBILITY SAFETY */
+.apna-reference-home .ref-categories .category-media{display:block!important;visibility:visible!important;opacity:1!important}
+.apna-reference-home .ref-categories .category-media img{display:block!important;visibility:visible!important;opacity:1!important}
+.apna-reference-home .ref-products .product-image{display:block!important;visibility:visible!important}
+.apna-reference-home .ref-products .product-image img{display:block!important;visibility:visible!important;opacity:1!important}
