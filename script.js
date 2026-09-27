@@ -18,11 +18,7 @@ async function loadRecentlyViewed(){
 }
 function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 async function loadCategories(){
- const {data,error}=await apnaSupabase.from("categories").select("id,name,slug").eq("is_active",true).order("sort_order",{ascending:true}).order("name",{ascending:true});
- if(error){console.error("Homepage category query failed:",error);if(categoriesRoot)categoriesRoot.innerHTML='<p class="checkout-note">Categories could not be loaded right now. Please refresh and try again.</p>';return}
- const dbRows=data||[];
  const wanted=["Men","Women","Kids","New Arrivals"];
- const rows=wanted.map(name=>dbRows.find(c=>c.name.toLowerCase()===name.toLowerCase())||{id:"ref-"+name.toLowerCase().replace(/\\s+/g,"-"),name,slug:name.toLowerCase().replace(/\\s+/g,"-")});
  const toneClasses=["cat-men","cat-women","cat-kids","cat-new"];
  const subtitles=["Shop Now →","Shop Now →","Shop Now →","Shop Now →"];
  const categoryImages={
@@ -31,13 +27,24 @@ async function loadCategories(){
    "Kids":"https://images.pexels.com/photos/1620760/pexels-photo-1620760.jpeg?auto=compress&cs=tinysrgb&w=1000",
    "New Arrivals":"https://images.pexels.com/photos/7679444/pexels-photo-7679444.jpeg?auto=compress&cs=tinysrgb&w=1000"
  };
- const imageUrl=img=>{const path=String(img?.storage_path||"");if(!path)return "";if(/^https?:\/\//i.test(path))return path;return window.APNA_SUPABASE_CONFIG.url+"/storage/v1/object/public/product-images/"+path;};
- if(categoriesRoot)categoriesRoot.innerHTML=rows.map((c,i)=>{
-   const url=categoryImages[c.name]||"";
-   const media=url?'<span class="category-media"><img src="'+escapeHtml(url)+'" alt="'+escapeHtml(c.name)+' clothing" loading="lazy"></span>':'';
-   return '<a href="shop.html?category='+encodeURIComponent(c.name)+'" class="category '+toneClasses[i%toneClasses.length]+'">'+media+'<div class="category-copy"><h3>'+escapeHtml(c.name)+'</h3><p>'+subtitles[i%subtitles.length]+'</p></div></a>';
- }).join("")||'<p>No categories available yet.</p>';
- if(navCategoriesRoot){navCategoriesRoot.innerHTML='<a href="#shop">Shop</a>'+rows.map(c=>'<a href="shop.html?category='+encodeURIComponent(c.name)+'">'+escapeHtml(c.name)+'</a>').join("")+'<a href="#deals">Deals</a>';}
+ const renderCategoryCards=rows=>{
+   if(!categoriesRoot)return;
+   categoriesRoot.innerHTML=rows.map((c,i)=>{
+     const url=categoryImages[c.name]||"";
+     const media=url?'<span class="category-media"><img src="'+escapeHtml(url)+'" alt="'+escapeHtml(c.name)+' clothing" loading="eager" decoding="async"></span>':"";
+     return '<a href="shop.html?category='+encodeURIComponent(c.name)+'" class="category '+toneClasses[i%toneClasses.length]+'">'+media+'<div class="category-copy"><h3>'+escapeHtml(c.name)+'</h3><p>'+subtitles[i%subtitles.length]+'</p></div></a>';
+   }).join("");
+ };
+ const fallbackRows=wanted.map(name=>({id:"ref-"+name.toLowerCase().replace(/\s+/g,"-"),name,slug:name.toLowerCase().replace(/\s+/g,"-")}));
+ renderCategoryCards(fallbackRows);
+ try{
+   const {data,error}=await apnaSupabase.from("categories").select("id,name,slug").eq("is_active",true).order("sort_order",{ascending:true}).order("name",{ascending:true});
+   if(error){console.warn("Homepage category query failed:",error);return}
+   const dbRows=data||[];
+   const rows=wanted.map(name=>dbRows.find(c=>c.name.toLowerCase()===name.toLowerCase())||{id:"ref-"+name.toLowerCase().replace(/\s+/g,"-"),name,slug:name.toLowerCase().replace(/\s+/g,"-")});
+   renderCategoryCards(rows);
+   if(navCategoriesRoot){navCategoriesRoot.innerHTML='<a href="#shop">Shop</a>'+rows.map(c=>'<a href="shop.html?category='+encodeURIComponent(c.name)+'">'+escapeHtml(c.name)+'</a>').join("")+'<a href="#deals">Deals</a>';}
+ }catch(err){console.warn("Homepage category load failed:",err)}
 }
 async function loadProducts(){
 if(root)root.innerHTML='<p class="checkout-note">Loading products…</p>';
@@ -92,7 +99,10 @@ async function addReferenceProduct(product){
 function productCardMarkup(p,i,listName){
  const w=getWishlist();const saved=w.some(x=>x.productId===p.id||x.name===p.name);
  const rawImage=String(p.image?.storage_path||""); const imageUrl=rawImage?( /^https?:\/\//i.test(rawImage)?rawImage:window.APNA_SUPABASE_CONFIG.url+"/storage/v1/object/public/product-images/"+rawImage ):((listName==="featured"&&REFERENCE_PRODUCT_IMAGES[p.name])||"");
- const imageMarkup=imageUrl ? '<img src="'+imageUrl+'" alt="'+escapeHtml(p.image?.alt_text||p.name)+'" loading="lazy">' : '<span class="product-placeholder">APNA</span>';
+ const fallbackImage=REFERENCE_PRODUCT_IMAGES[p.name]||"";
+ const imageMarkup=imageUrl
+   ? '<img src="'+imageUrl+'" alt="'+escapeHtml(p.image?.alt_text||p.name)+'" loading="lazy" decoding="async"'+(fallbackImage?' onerror="this.onerror=null;this.src=\''+fallbackImage+'\';"':"")+'>' 
+   : (fallbackImage?'<img src="'+fallbackImage+'" alt="'+escapeHtml(p.name)+'" loading="lazy" decoding="async">':'<span class="product-placeholder">APNA</span>');
  const ref=REFERENCE_PRODUCTS[p.name];
  const wishButton=listName==="featured" ? '<button aria-label="'+(saved?"Remove from wishlist":"Add to wishlist")+'" onclick="event.preventDefault();event.stopPropagation();toggleWish(products['+i+'])">'+(saved?"♥":"♡")+'</button>' : "";
  return '<article class="product-card"><a href="product.html?id='+encodeURIComponent(p.id)+'" style="text-decoration:none;color:inherit"><div class="product-image">'+imageMarkup+wishButton+'</div><div class="product-info"><h3>'+escapeHtml(p.name)+'</h3><p>'+escapeHtml(p.type)+'</p><p class="price">₹'+Number(ref?.price||p.price).toLocaleString("en-IN")+'</p>'+ (ref?'<div class="ref-rating">★ '+ref.rating+' <span>('+ref.reviews+')</span></div>':"") +'</div></a><button class="primary-btn add" data-i="'+i+'" data-list="'+listName+'" style="margin-top:12px;padding:10px 13px;font-size:11px;gap:15px">Add to Cart</button></article>';
