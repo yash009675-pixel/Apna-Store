@@ -554,3 +554,36 @@
     height:36px!important;
   }
 }
+
+
+/* HOMEPAGE FOOTER — improve Shop / Help / About readability */
+.apna-reference-home .ref-footer-grid h3{
+  color:#fffdf9!important;
+  font-size:11px!important;
+  line-height:1.2!important;
+  letter-spacing:.02em!important;
+  margin:0 0 7px!important;
+}
+.apna-reference-home .ref-footer-grid>div>a{
+  color:#e1ddd7!important;
+  font-size:11px!important;
+  line-height:1.45!important;
+  opacity:1!important;
+  text-decoration:none!important;
+}
+.apna-reference-home .ref-footer-grid>div>a:hover{
+  color:#fff!important;
+  text-decoration:underline!important;
+}
+.apna-reference-home .ref-footer-brand p{
+  color:#c8c1b9!important;
+  font-size:10px!important;
+  line-height:1.4!important;
+}
+.apna-reference-home .ref-footer-bottom{
+  color:#aaa39b!important;
+  font-size:9px!important;
+}
+.apna-reference-home .ref-footer-bottom a{
+  color:#c8c1b9!important;
+}
