@@ -354,3 +354,63 @@
   .apna-reference-home .ref-title-row{margin-bottom:12px}
   .apna-reference-home .ref-collection{margin-top:24px}
 }
+
+
+/* APNASTORE REFERENCE — VISUAL VERIFICATION PASS 04 */
+.apna-reference-home .ref-truck svg,
+.apna-reference-home .ref-search svg,
+.apna-reference-home .ref-icon-btn svg{
+  width:1em;
+  height:1em;
+  display:block;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.7;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.apna-reference-home .ref-truck{
+  width:15px;
+  height:15px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+.apna-reference-home .ref-truck svg{width:14px;height:14px;stroke-width:1.5}
+.apna-reference-home .ref-search{
+  gap:7px;
+}
+.apna-reference-home .ref-search>span{
+  width:15px;
+  height:15px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+}
+.apna-reference-home .ref-search>span svg{
+  width:14px;
+  height:14px;
+  stroke-width:1.55;
+}
+.apna-reference-home .ref-icon-btn{
+  width:24px;
+  height:24px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+.apna-reference-home .ref-icon-btn svg{
+  width:20px;
+  height:20px;
+}
+.apna-reference-home .ref-bag svg{width:19px;height:19px}
+.apna-reference-home .ref-bag b{
+  right:-6px;
+  top:-4px;
+}
+@media(max-width:600px){
+  .apna-reference-home .ref-icon-btn{width:22px;height:22px}
+  .apna-reference-home .ref-icon-btn svg{width:18px;height:18px}
+  .apna-reference-home .ref-search>span svg{width:13px;height:13px}
+}
