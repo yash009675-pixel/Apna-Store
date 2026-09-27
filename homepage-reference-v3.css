@@ -479,3 +479,11 @@
   .apna-reference-home .ref-inspo-grid>a,
   .apna-reference-home .ref-instagram{height:104px}
 }
+
+
+/* APNASTORE REFERENCE — VISUAL VERIFICATION PASS 10 */
+@media(min-width:901px){
+  .apna-reference-home .ref-social{gap:9px!important}
+  .apna-reference-home .ref-social a{width:14px;height:14px}
+  .apna-reference-home .ref-social a svg{width:12px;height:12px}
+}
