@@ -3564,3 +3564,93 @@ body:has(.admin-sidebar) .admin-brand::after{
   color:#aaa49c!important;
   -webkit-text-fill-color:#aaa49c!important;
 }
+
+
+/* FINAL ADMIN SIDEBAR VISIBILITY — icons, all nav labels, and Account */
+body:has(.admin-sidebar) .admin-sidebar{
+  background:#171615!important;
+  color:#fffdf9!important;
+  overflow-y:auto!important;
+  scrollbar-width:thin;
+}
+body:has(.admin-sidebar) .admin-nav-group>a,
+body:has(.admin-sidebar) .admin-nav-bottom>a{
+  color:#d8d2ca!important;
+  opacity:1!important;
+  visibility:visible!important;
+  -webkit-text-fill-color:#d8d2ca!important;
+}
+body:has(.admin-sidebar) .admin-nav-group>a:hover,
+body:has(.admin-sidebar) .admin-nav-bottom>a:hover{
+  color:#fffdf9!important;
+  -webkit-text-fill-color:#fffdf9!important;
+}
+body:has(.admin-sidebar) .admin-nav-group>a[href="admin.html"]{
+  color:#171615!important;
+  -webkit-text-fill-color:#171615!important;
+}
+body:has(.admin-sidebar) .admin-nav-group>a[href="admin.html"] span{
+  color:#171615!important;
+  -webkit-text-fill-color:#171615!important;
+}
+body:has(.admin-sidebar) .admin-icon{
+  display:block!important;
+  width:18px!important;
+  height:18px!important;
+  min-width:18px!important;
+  flex:0 0 18px!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:1.8!important;
+  stroke-linecap:round!important;
+  stroke-linejoin:round!important;
+  color:inherit!important;
+  opacity:1!important;
+  visibility:visible!important;
+}
+body:has(.admin-sidebar) .admin-icon use{
+  color:inherit!important;
+  stroke:currentColor!important;
+  fill:none!important;
+}
+body:has(.admin-sidebar) .admin-nav-group>a .admin-icon{
+  color:#aaa49c!important;
+  stroke:currentColor!important;
+}
+body:has(.admin-sidebar) .admin-nav-group>a:hover .admin-icon{
+  color:#fffdf9!important;
+}
+body:has(.admin-sidebar) .admin-nav-group>a[href="admin.html"] .admin-icon{
+  color:#171615!important;
+  stroke:currentColor!important;
+}
+body:has(.admin-sidebar) .admin-nav-group>span{
+  color:#9b948c!important;
+  opacity:1!important;
+  visibility:visible!important;
+  -webkit-text-fill-color:#9b948c!important;
+}
+body:has(.admin-sidebar) .admin-nav-bottom{
+  position:sticky!important;
+  bottom:0!important;
+  z-index:5!important;
+  margin-top:18px!important;
+  padding-top:12px!important;
+  padding-bottom:4px!important;
+  background:#171615!important;
+  border-top:1px solid #302e2b!important;
+}
+body:has(.admin-sidebar) .admin-nav-bottom>a{
+  background:#292724!important;
+  border:1px solid #3a3733!important;
+  border-radius:10px!important;
+  min-height:42px!important;
+}
+body:has(.admin-sidebar) .admin-nav-bottom>a span{
+  color:#fffdf9!important;
+  -webkit-text-fill-color:#fffdf9!important;
+}
+body:has(.admin-sidebar) .admin-nav-bottom>a .admin-icon{
+  color:#fffdf9!important;
+  stroke:currentColor!important;
+}
