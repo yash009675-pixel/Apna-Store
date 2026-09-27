@@ -134,6 +134,7 @@ async function loadProduct(){
 
   const categoryMap=new Map(categories.map(c=>[c.id,c.name])),brandMap=new Map(brands.map(b=>[b.id,b.name]));
   const realProductId=data.id;
+  window.apnaCurrentProductId=realProductId;
   const [vr,ir]=await Promise.all([
    apnaSupabase.from("product_variants").select("id,size,color,sku,stock").eq("product_id",realProductId).order("size"),
    apnaSupabase.from("product_images").select("storage_path,alt_text,sort_order,is_primary,variant_id").eq("product_id",realProductId).order("is_primary",{ascending:false}).order("sort_order")
