@@ -5066,3 +5066,24 @@ body .product-page .product-visual .product-gallery,body .product-page .product-
 body .product-page .product-visual .product-large{overflow:hidden!important}
 body .product-page .product-visual .gallery-zoom{position:absolute!important;top:14px!important;right:14px!important;left:auto!important;bottom:auto!important;z-index:50!important;display:grid!important;place-items:center!important;width:42px!important;height:42px!important;min-width:42px!important;max-width:42px!important;padding:0!important;margin:0!important;border-radius:50%!important;box-sizing:border-box!important}
 @media(max-width:767px){body .product-page .product-details .product-detail-top{margin-bottom:20px!important}body .product-page .product-details .product-detail-top .eyebrow{margin-bottom:8px!important}body .product-page .product-details .product-action-group{width:100%!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,max-content))!important;justify-content:start!important;gap:6px!important;overflow:visible!important}body .product-page .product-details .product-action-group>*{justify-self:start!important}body .product-page .product-details .product-action-group .text-btn,body .product-page .product-details .product-action-group .wishlist-detail{height:32px!important;min-height:32px!important;padding:0 8px!important;font-size:10px!important}body .product-page .product-visual .gallery-zoom{top:12px!important;right:12px!important;width:40px!important;height:40px!important;min-width:40px!important;max-width:40px!important}}
+
+/* UI-02 GLOBAL DESKTOP HEADER */
+@media (min-width:801px){
+.site-header{min-height:72px;height:auto;padding:12px clamp(22px,5vw,72px);gap:24px;box-shadow:0 1px 0 rgba(17,17,17,.06)}
+.site-header .logo{flex:0 0 auto;white-space:nowrap}
+.site-header nav{display:flex;align-items:center;justify-content:center;gap:clamp(14px,2.2vw,28px);flex:1 1 auto;min-width:0}
+.site-header nav a{position:relative;white-space:nowrap;padding:10px 2px}
+.site-header .header-actions{flex:0 0 auto;align-items:center;gap:4px;white-space:nowrap}
+.site-header .header-link{display:inline-flex;align-items:center;min-height:36px;padding:8px 10px;border-radius:6px}
+.site-header .header-link:hover{background:#efede9}
+.site-header .header-search{display:flex;align-items:center;min-width:180px;max-width:270px}
+.site-header .header-search input{min-width:0}
+.site-header>*{min-width:0}
+.apna-reference-home .ref-header{min-height:76px;height:auto;padding:12px clamp(22px,5vw,72px);gap:clamp(22px,3vw,44px);box-shadow:0 1px 0 rgba(17,17,17,.06)}
+.apna-reference-home .ref-main-nav{display:flex;align-items:center;justify-content:center;gap:clamp(14px,2.2vw,30px);flex:1 1 auto;min-width:0}
+.apna-reference-home .ref-main-nav a{white-space:nowrap;padding:10px 2px}
+.apna-reference-home .ref-header-tools{flex:0 0 auto;min-width:0}
+.apna-reference-home .ref-search{min-width:190px;max-width:280px}
+.site-header .seller-nav{flex:0 1 auto;justify-content:flex-end;gap:clamp(10px,1.5vw,20px)}
+.site-header .seller-nav .seller-btn{flex:0 0 auto}
+}
