@@ -255,3 +255,71 @@
   .apna-reference-home .ref-inspo-grid>a,
   .apna-reference-home .ref-instagram{height:100px}
 }
+
+
+/* APNASTORE REFERENCE — VISUAL VERIFICATION PASS 02 */
+.apna-reference-home .ref-header{
+  background:#fbfaf7;
+  grid-template-columns:210px minmax(0,1fr) auto;
+  gap:28px;
+}
+.apna-reference-home .ref-logo{
+  font-size:24px;
+  font-weight:800;
+  letter-spacing:-.065em;
+}
+.apna-reference-home .ref-logo span{color:#777}
+.apna-reference-home .ref-header-tools{gap:15px}
+.apna-reference-home .ref-icon-btn{font-size:22px}
+.apna-reference-home .ref-hero{
+  width:calc(100% - 48px);
+  max-width:1240px;
+  height:390px;
+}
+.apna-reference-home .ref-hero-image{
+  object-position:center 52%;
+}
+.apna-reference-home .ref-hero-overlay{
+  background:linear-gradient(90deg,rgba(247,239,228,.93) 0%,rgba(247,239,228,.76) 32%,rgba(247,239,228,.18) 62%,rgba(247,239,228,0) 76%);
+}
+.apna-reference-home .ref-hero-copy{
+  left:7%;
+  max-width:510px;
+}
+.apna-reference-home .ref-hero-copy h1{
+  color:#151515;
+  font-size:45px;
+  text-shadow:0 1px 0 rgba(255,255,255,.18);
+}
+.apna-reference-home .ref-hero-copy>p:not(.ref-hero-kicker){color:#303030}
+.apna-reference-home .ref-btn-light{
+  background:rgba(251,248,241,.72);
+  border-color:#5f5b56;
+}
+.apna-reference-home .ref-section-title h2,
+.apna-reference-home .ref-collection-copy h2{
+  color:#171717;
+}
+.apna-reference-home .ref-section-title p,
+.apna-reference-home .ref-benefit p,
+.apna-reference-home .ref-collection-copy>p:not(.ref-mini-label){
+  color:#66625d;
+}
+.apna-reference-home .ref-products .product-info h3,
+.apna-reference-home .ref-products .product-info p,
+.apna-reference-home .ref-products .product-info .price{
+  color:#171717!important;
+}
+.apna-reference-home .ref-products .product-info p{color:#6d6a65!important}
+.apna-reference-home .ref-collection-image img{object-position:center 52%}
+.apna-reference-home .ref-inspo-grid>a img{object-position:center 40%}
+@media(max-width:900px){
+  .apna-reference-home .ref-hero{width:calc(100% - 28px)}
+  .apna-reference-home .ref-hero-image{object-position:center 50%}
+}
+@media(max-width:600px){
+  .apna-reference-home .ref-logo{font-size:21px}
+  .apna-reference-home .ref-hero-image{object-position:center 48%}
+  .apna-reference-home .ref-hero-copy{max-width:88%}
+  .apna-reference-home .ref-hero-copy h1{font-size:32px}
+}
