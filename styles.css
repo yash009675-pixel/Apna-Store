@@ -4506,3 +4506,68 @@ body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox>img{
     bottom:8px!important;
   }
 }
+
+
+/* REAL IMAGE ZOOM MODAL */
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:72px 86px!important;
+  background:rgba(12,11,10,.97)!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox .lightbox-stage{
+  width:min(88vw,1200px)!important;
+  height:min(84vh,820px)!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:auto!important;
+  cursor:zoom-in!important;
+  scrollbar-width:none!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox .lightbox-stage::-webkit-scrollbar{display:none!important}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox .lightbox-stage img{
+  display:block!important;
+  width:auto!important;
+  height:auto!important;
+  max-width:86vw!important;
+  max-height:82vh!important;
+  min-width:0!important;
+  min-height:0!important;
+  object-fit:contain!important;
+  transform-origin:center center!important;
+  transition:transform .18s ease!important;
+  user-select:none!important;
+  cursor:zoom-in!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox .lightbox-close,
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox .lightbox-prev,
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox .lightbox-next{
+  z-index:3!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox .lightbox-zoom-out,
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox .lightbox-zoom-in,
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox .lightbox-zoom-reset{
+  position:fixed!important;
+  bottom:24px!important;
+  z-index:4!important;
+  height:40px!important;
+  min-width:40px!important;
+  border:1px solid rgba(255,255,255,.25)!important;
+  background:rgba(255,255,255,.12)!important;
+  color:#fff!important;
+  border-radius:7px!important;
+  cursor:pointer!important;
+  backdrop-filter:blur(8px)!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox .lightbox-zoom-out{right:128px!important;font-size:22px!important}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox .lightbox-zoom-in{right:80px!important;font-size:22px!important}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox .lightbox-zoom-reset{right:24px!important;padding:0 12px!important}
+@media(max-width:600px){
+  body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox{padding:58px 12px!important}
+  body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox .lightbox-stage{width:96vw!important;height:78vh!important}
+  body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox .lightbox-zoom-out{right:116px!important}
+  body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox .lightbox-zoom-in{right:68px!important}
+  body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox .lightbox-zoom-reset{right:12px!important}
+}
