@@ -3306,3 +3306,36 @@ body:not(:has(.admin-sidebar)) .price,body:not(:has(.admin-sidebar)) .product-in
 body:not(:has(.admin-sidebar)) .search-title,body:not(:has(.admin-sidebar)) .hero h1 em,body:not(:has(.admin-sidebar)) .section-head>a{color:#171615!important}
 body:not(:has(.admin-sidebar)) .help-tab.active,body:not(:has(.admin-sidebar)) .membership-buy,body:not(:has(.admin-sidebar)) #copyRef{background:#171615!important;border-color:#171615!important;color:#fff!important}
 body:not(:has(.admin-sidebar)) ::selection{background:#d8d1c8!important;color:#171615!important}
+
+
+/* PHASE C — auth/profile/orders/wishlist/address responsive editorial finish */
+body:not(:has(.admin-sidebar)) .auth-card{background:#fffdf9!important;border:1px solid #ded8cf!important;border-radius:18px!important;box-shadow:0 10px 34px rgba(23,22,21,.055)!important;color:#292724!important}
+body:not(:has(.admin-sidebar)) .auth-card h1{font-family:"Playfair Display",Georgia,serif!important;color:#171615!important;font-size:clamp(42px,6vw,64px)!important;letter-spacing:-.045em!important}
+body:not(:has(.admin-sidebar)) .auth-card #authMessage{color:#77716a!important;line-height:1.6!important}
+body:not(:has(.admin-sidebar)) .auth-card .auth-divider{color:#9a948c!important}
+body:not(:has(.admin-sidebar)) .auth-card .google-auth-btn{background:#fffdf9!important;border:1px solid #d8d2ca!important;color:#292724!important}
+body:not(:has(.admin-sidebar)) .auth-card .google-auth-btn:hover{background:#f0ece6!important;border-color:#bdb5ac!important}
+body:not(:has(.admin-sidebar)) .account-page{min-height:calc(100vh - 110px)!important;box-sizing:border-box}
+body:not(:has(.admin-sidebar)) .account-card{max-width:920px!important;margin:0 auto!important}
+body:not(:has(.admin-sidebar)) .account-card>h1{font-size:clamp(42px,5vw,62px)!important}
+body:not(:has(.admin-sidebar)) .account-card>p:not(.eyebrow){color:#77716a!important}
+body:not(:has(.admin-sidebar)) .account-panel h2{font-size:clamp(28px,4vw,40px)!important;letter-spacing:-.035em!important}
+body:not(:has(.admin-sidebar)) .account-form .check-row{display:flex!important;align-items:center!important;gap:9px!important;color:#4d4842!important}
+body:not(:has(.admin-sidebar)) .account-form .check-row input{width:auto!important;margin:0!important;accent-color:#171615!important}
+body:not(:has(.admin-sidebar)) .account-actions .primary-btn{background:#171615!important;color:#fff!important}
+body:not(:has(.admin-sidebar)) .account-actions a:not(.primary-btn){color:#4d4842!important}
+body:not(:has(.admin-sidebar)) .orders-page{max-width:980px!important;margin:0 auto!important}
+body:not(:has(.admin-sidebar)) .orders-title{font-size:clamp(42px,5vw,62px)!important}
+body:not(:has(.admin-sidebar)) .orders-page #ordersList .checkout-card{background:#fffdf9!important;border-color:#ded8cf!important;color:#292724!important}
+body:not(:has(.admin-sidebar)) .orders-page #ordersList a{color:#292724!important}
+body:not(:has(.admin-sidebar)) .wishlist-page,body:not(:has(.admin-sidebar)) #wishlistGrid{color:#292724!important}
+body:not(:has(.admin-sidebar)) #wishlistGrid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:18px!important}
+body:not(:has(.admin-sidebar)) #wishlistGrid .product-card{background:#fffdf9!important;border:1px solid #ded8cf!important;box-shadow:0 6px 20px rgba(23,22,21,.045)!important}
+body:not(:has(.admin-sidebar)) #wishlistGrid .product-info h3{color:#171615!important}
+body:not(:has(.admin-sidebar)) #wishlistGrid .product-info p{color:#77716a!important}
+body:not(:has(.admin-sidebar)) #wishlistGrid .product-image{background:#f0ece6!important}
+body:not(:has(.admin-sidebar)) .account-panel #addressList{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;margin-top:18px!important}
+body:not(:has(.admin-sidebar)) .account-panel #addressList>*{background:#fffdf9!important;border:1px solid #ded8cf!important;border-radius:12px!important;padding:16px!important;color:#292724!important}
+@media(max-width:900px){body:not(:has(.admin-sidebar)) #wishlistGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.account-panel #addressList{grid-template-columns:1fr!important}}
+@media(max-width:600px){body:not(:has(.admin-sidebar)) .account-page{padding-top:28px!important;padding-left:14px!important;padding-right:14px!important}.account-card{padding:22px!important}.account-card>h1{font-size:40px!important}.account-panel{padding:18px!important}.auth-card{padding:24px!important}.orders-page{padding-left:14px!important;padding-right:14px!important}.orders-title{font-size:40px!important}body:not(:has(.admin-sidebar)) #wishlistGrid{grid-template-columns:1fr 1fr!important;gap:12px!important}}
+@media(max-width:380px){body:not(:has(.admin-sidebar)) #wishlistGrid{grid-template-columns:1fr!important}}
