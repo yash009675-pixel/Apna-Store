@@ -150,7 +150,7 @@ function productCardMarkup(p,i,listName){
  const fallbackImage=REFERENCE_PRODUCT_IMAGES[p.name]||REFERENCE_PRODUCT_IMAGE_LIST[i%REFERENCE_PRODUCT_IMAGE_LIST.length]||"";
  const imageUrl=listName==="featured"
    ? (REFERENCE_PRODUCT_IMAGES[p.name]||fallbackImage)
-   : (rawImage?( /^https?:\/\/i.test(rawImage)?rawImage:window.APNA_SUPABASE_CONFIG.url+"/storage/v1/object/public/product-images/"+rawImage ):"");
+   : (rawImage?( /^https?:\/\//i.test(rawImage)?rawImage:window.APNA_SUPABASE_CONFIG.url+"/storage/v1/object/public/product-images/"+rawImage ):"");
  const imageMarkup=imageUrl
    ? '<img src="'+imageUrl+'" alt="'+escapeHtml(p.image?.alt_text||p.name)+'" loading="lazy" decoding="async"'+(fallbackImage?' onerror="this.onerror=null;this.src=\''+fallbackImage+'\';"':"")+'>' 
    : (fallbackImage?'<img src="'+fallbackImage+'" alt="'+escapeHtml(p.name)+'" loading="lazy" decoding="async">':'<span class="product-placeholder">APNA</span>');
