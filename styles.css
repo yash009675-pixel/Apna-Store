@@ -3150,3 +3150,30 @@ body:not(.apna-reference-home) #cart .empty-cart h2{font-family:"Playfair Displa
 body:not(.apna-reference-home) #cart .empty-cart p{color:#77716a!important;font-size:11px!important;margin-bottom:22px!important}
 @media(max-width:800px){body:not(.apna-reference-home) #cart .cart-layout{grid-template-columns:1fr!important}.cart-summary{position:static!important}}
 @media(max-width:520px){body:not(.apna-reference-home) main.section:has(> #cart){padding:32px 14px 55px!important}.cart-item{grid-template-columns:82px minmax(0,1fr)!important;gap:11px!important}.cart-item img{width:82px!important;height:105px!important}.cart-item>:last-child{grid-column:2!important}.cart-summary{padding:17px!important}}
+
+
+/* Phase B: Wishlist editorial layout */
+body:not(.apna-reference-home) main.section:has(> #wishlistGrid){max-width:1180px!important;margin:0 auto!important;padding:48px clamp(18px,4vw,48px) 80px!important}
+body:not(.apna-reference-home) main.section:has(> #wishlistGrid) .section-head{margin-bottom:28px!important}
+body:not(.apna-reference-home) main.section:has(> #wishlistGrid) .eyebrow{color:#77716a!important;font-size:10px!important;letter-spacing:.16em!important;font-weight:800!important}
+body:not(.apna-reference-home) main.section:has(> #wishlistGrid) .search-title{font-family:"Playfair Display",Georgia,serif!important;font-size:clamp(40px,5vw,58px)!important;line-height:1!important;letter-spacing:-.035em!important;color:#171615!important;margin:7px 0 0!important}
+body:not(.apna-reference-home) #wishlistGrid.products{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:18px!important}
+body:not(.apna-reference-home) #wishlistGrid .product-card{background:#fffdf9!important;border:1px solid #e2dcd4!important;border-radius:14px!important;overflow:hidden!important;box-shadow:0 5px 20px rgba(23,22,21,.035)!important;transition:transform .18s ease,box-shadow .18s ease!important}
+body:not(.apna-reference-home) #wishlistGrid .product-card:hover{transform:translateY(-3px)!important;box-shadow:0 12px 28px rgba(23,22,21,.09)!important}
+body:not(.apna-reference-home) #wishlistGrid .product-card>a{display:block!important;text-decoration:none!important}
+body:not(.apna-reference-home) #wishlistGrid .wishlist-image{height:300px!important;aspect-ratio:auto!important;background:#eeeae4!important;display:flex!important;align-items:flex-end!important;justify-content:center!important;padding:18px!important;position:relative!important;overflow:hidden!important}
+body:not(.apna-reference-home) #wishlistGrid .wishlist-image:before{width:64%!important;height:76%!important;background:#77716a!important;border-radius:42% 42% 10px 10px!important;box-shadow:inset -20px 0 30px rgba(0,0,0,.08)!important}
+body:not(.apna-reference-home) #wishlistGrid .product-card:nth-child(3n) .wishlist-image:before{background:#b29a86!important}
+body:not(.apna-reference-home) #wishlistGrid .product-card:nth-child(4n) .wishlist-image:before{background:#414442!important}
+body:not(.apna-reference-home) #wishlistGrid .wishlist-image span{position:absolute!important;left:16px!important;right:16px!important;bottom:18px!important;z-index:2!important;color:#fff!important;font-family:"Playfair Display",Georgia,serif!important;font-size:18px!important;font-weight:600!important;line-height:1.05!important;letter-spacing:-.02em!important;text-align:center!important;text-shadow:0 2px 8px rgba(0,0,0,.18)!important}
+body:not(.apna-reference-home) #wishlistGrid .product-info{padding:15px!important}
+body:not(.apna-reference-home) #wishlistGrid .product-info h3{font-size:13px!important;line-height:1.35!important;color:#1d1b19!important;margin:0 0 5px!important}
+body:not(.apna-reference-home) #wishlistGrid .product-info p{font-size:10px!important;color:#77716a!important;margin:0!important}
+body:not(.apna-reference-home) #wishlistGrid .product-info .price{font-size:13px!important;color:#171615!important;font-weight:800!important;margin-top:9px!important}
+body:not(.apna-reference-home) #wishlistGrid .text-btn{margin-top:12px!important;padding:0!important;color:#5f5952!important;font-size:10px!important;text-decoration:underline!important;text-underline-offset:3px!important}
+body:not(.apna-reference-home) #wishlistGrid .empty-cart{grid-column:1/-1!important;text-align:center!important;padding:75px 20px!important;background:#fffdf9!important;border:1px solid #ded8cf!important;border-radius:16px!important}
+body:not(.apna-reference-home) #wishlistGrid .empty-cart h2{font-family:"Playfair Display",Georgia,serif!important;font-size:32px!important;color:#171615!important;margin:0 0 8px!important}
+body:not(.apna-reference-home) #wishlistGrid .empty-cart p{color:#77716a!important;font-size:11px!important;margin:0 0 22px!important}
+body:not(.apna-reference-home) #wishlistGrid .empty-cart .primary-btn{display:inline-flex!important;color:#fff!important;background:#171615!important;border-radius:999px!important;padding:12px 18px!important;font-size:10px!important}
+@media(max-width:800px){body:not(.apna-reference-home) #wishlistGrid.products{grid-template-columns:repeat(2,minmax(0,1fr))!important}body:not(.apna-reference-home) #wishlistGrid .wishlist-image{height:260px!important}}
+@media(max-width:520px){body:not(.apna-reference-home) main.section:has(> #wishlistGrid){padding:32px 14px 55px!important}body:not(.apna-reference-home) #wishlistGrid.products{gap:10px!important}body:not(.apna-reference-home) #wishlistGrid .wishlist-image{height:210px!important}body:not(.apna-reference-home) #wishlistGrid .product-info{padding:10px!important}body:not(.apna-reference-home) #wishlistGrid .wishlist-image span{font-size:15px!important;left:10px!important;right:10px!important;bottom:12px!important}}
