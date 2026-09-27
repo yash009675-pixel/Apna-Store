@@ -1,4 +1,4 @@
-let products=[];let variants=[];let categories=[];let cloudWishlistIds=new Set();let cloudWishlistLoaded=false;let selected=new URLSearchParams(location.search).get("category")||"All";let currentPage=1;const PAGE_SIZE=12;let totalProducts=0;
+let products=[];let variants=[];let categories=[];let cloudWishlistIds=new Set();let cloudWishlistLoaded=false;const initialParams=new URLSearchParams(location.search);let selected=initialParams.get("category")||"All";let newArrivals=initialParams.get("new")==="1";let currentPage=1;const PAGE_SIZE=12;let totalProducts=0;
 const root=document.getElementById("shopProducts"),count=document.getElementById("cartCount");
 const filters={min:"",max:"",size:"",color:"",stock:"all"};
 function readCart(){try{const c=JSON.parse(localStorage.getItem("apnaCart")||"[]");return Array.isArray(c)?c:[]}catch{return[]}}
@@ -45,8 +45,9 @@ async function loadProducts(){
  const categoryId=categories.find(c=>c.name===selected)?.id||null;
  const matchingIds=matchingVariantIds();
  const variantFilterActive=Boolean(filters.size||filters.color||filters.stock==="in");
- let query=apnaSupabase.from("products").select("id,name,slug,description,price,category_id",{count:"planned"}).eq("status","active");
+ let query=apnaSupabase.from("products").select("id,name,slug,description,price,category_id,created_at",{count:"planned"}).eq("status","active");
  if(categoryId)query=query.eq("category_id",categoryId);
+ if(newArrivals)query=query.order("created_at",{ascending:false});
  if(filters.min!==""&&Number.isFinite(Number(filters.min)))query=query.gte("price",Number(filters.min));
  if(filters.max!==""&&Number.isFinite(Number(filters.max)))query=query.lte("price",Number(filters.max));
  if(variantFilterActive){
@@ -115,6 +116,7 @@ async function wishlist(id){
 function syncUrl(){
  const params=new URLSearchParams(location.search);
  if(selected==="All")params.delete("category");else params.set("category",selected);
+ if(newArrivals)params.set("new","1");else params.delete("new");
  const sort=document.getElementById("sort").value;if(sort==="default")params.delete("sort");else params.set("sort",sort);
  for(const key of ["min","max","size","color"]){if(filters[key])params.set(key,filters[key]);else params.delete(key)}
  if(filters.stock==="in")params.set("stock","in");else params.delete("stock");
@@ -131,7 +133,7 @@ function updatePagination(){
 function applyFilters(){currentPage=1;filters.min=document.getElementById("minPrice").value.trim();filters.max=document.getElementById("maxPrice").value.trim();filters.size=document.getElementById("sizeFilter").value;filters.color=document.getElementById("colorFilter").value;filters.stock=document.getElementById("stockFilter").value;syncUrl();render()}
 function clearFilters(){filters.min=filters.max=filters.size=filters.color="";filters.stock="all";syncFilterControls();syncUrl();render()}
 document.getElementById("sort").onchange=()=>{currentPage=1;syncUrl();loadProducts()};
-window.addEventListener("popstate",()=>{currentPage=1;const params=new URLSearchParams(location.search);selected=params.get("category")||"All";const sort=params.get("sort")||"default";document.getElementById("sort").value=["default","low","high"].includes(sort)?sort:"default";parseFilters();syncFilterControls();syncCategoryChip();render()});
+window.addEventListener("popstate",()=>{currentPage=1;const params=new URLSearchParams(location.search);selected=params.get("category")||"All";newArrivals=params.get("new")==="1";const sort=params.get("sort")||"default";document.getElementById("sort").value=["default","low","high"].includes(sort)?sort:"default";parseFilters();syncFilterControls();syncCategoryChip();render()});
 
 document.getElementById("applyFilters")?.addEventListener("click",applyFilters);
 document.getElementById("clearFilters")?.addEventListener("click",clearFilters);
