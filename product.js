@@ -60,7 +60,7 @@ function renderProduct(product,variants=[],images=[],flashSale=null,dailyDeal=nu
  findVariant();
  const mrp=Number(product.compare_at_price||0),basePrice=Number(product.price||0),price=Number(flashSale?.sale_price||dailyDeal?.deal_price||basePrice),discount=mrp>price?Math.round((1-price/mrp)*100):0;
  let gallery=[];
- el.innerHTML='<div class="product-main-layout"><div class="product-visual"><div class="product-gallery"><div class="product-thumbs" id="productThumbs">'+gallery.map((u,i)=>'<button class="product-thumb '+(i===0?"selected":"")+'" data-gallery="'+i+'" aria-label="Product image '+(i+1)+'"><img src="'+esc(u)+'" alt="'+esc(product.name)+'"></button>').join("")+'</div><div class="product-large '+(gallery.length?"has-image":"")+'" id="mainProductImage">'+(gallery.length?'<button class="gallery-zoom" id="galleryZoom" aria-label="Zoom product image">⌕</button><img class="product-main-img" src="'+esc(gallery[0])+'" alt="'+esc(product.name)+'"><span class="gallery-counter">1 / '+gallery.length+'</span>':"<span>APNA<br>STORE</span>")+'</div><p class="gallery-note">Click image or zoom icon to view full size</p></div></div><div class="product-details"><div class="product-detail-top"><p class="eyebrow">'+esc(product.category||"PRODUCT").toUpperCase()+'</p><button id="wishlistBtn" class="wishlist-detail">♡ Wishlist</button><button id="compareBtn" class="text-btn">⇄ Compare</button><button id="sizeFitBtn" class="text-btn">↗ Size / Fit Guide</button><button id="followProductBtn" class="text-btn">＋ Follow Product</button><button id="priceDropBtn" class="text-btn">! Price Drop Alert</button></div><h1>'+esc(product.name)+'</h1>'+(product.brand?'<p class="product-note">Brand: '+esc(product.brand)+'</p>':"")+'<div class="price-block"><strong>₹'+money(price)+'</strong>'+(mrp>price?'<del>₹'+money(mrp)+'</del><span class="discount-badge">'+discount+'% OFF</span>':"")+(flashSale?'<span class="discount-badge"><span class="ui-icon" aria-hidden="true">⚡</span> FLASH SALE</span>':(dailyDeal?'<span class="discount-badge"><span class="ui-icon" aria-hidden="true">★</span> DEAL OF THE DAY</span>':""))+'</div><p class="detail-desc">'+esc(product.description||"A carefully selected everyday product from Apna Store.")+'</p><div class="detail-meta"><span><i class="meta-icon" aria-hidden="true">✓</i> Secure checkout</span><span><i class="meta-icon" aria-hidden="true">↺</i> Easy returns</span><span><i class="meta-icon" aria-hidden="true">→</i> India delivery</span></div><div class="option"><b>Size</b><div class="option-list">'+(allSizes.length?allSizes.map(x=>'<button '+(!available.some(v=>(v.size||"")===x)?"disabled ":"")+'data-size="'+esc(x)+'">'+esc(x)+'</button>').join(""):"<span class=\"product-note\">One size</span>")+'</div></div><div class="option"><b>Color: <span id="colorName">'+esc(color||"Standard")+'</span></b><div class="option-list">'+(allColors.length?allColors.map(x=>'<button class="swatch" '+(!available.some(v=>(v.color||"")===x)?"disabled ":"")+'data-color="'+esc(x)+'">'+esc(x)+'</button>').join(""):"<span class=\"product-note\">Standard</span>")+'</div></div><div class="buy-row"><div class="qty"><button id="minus">−</button><span id="qty">1</span><button id="plus">+</button></div><button class="primary-btn" id="add">Add to bag <span>→</span></button></div><p id="stockInfo" class="product-note"></p><div class="delivery-check"><b>Check delivery</b><div><input id="pincode" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit pincode"><button id="checkPincode" class="text-btn">Check</button></div><small id="pincodeMessage">Delivery availability will be confirmed at checkout.</small></div><div class="product-specs"><h3>Product information</h3><div><span>SKU</span><b id="skuInfo">—</b></div><div><span>Category</span><b>'+esc(product.category||"Apna Store")+'</b></div><div><span>Seller</span><b><a id="sellerStoreLink" href="seller-store.html">Visit seller store →</a></b></div></div></div></div><section class="related-section section"><div class="section-head"><div><p class="eyebrow">YOU MAY ALSO LIKE</p><h2>Related products</h2></div></div><div class="products" id="relatedProducts"><p class="checkout-note">Loading related products…</p></div></section>';
+ el.innerHTML='<div class="product-main-layout"><div class="product-visual"><div class="product-gallery"><div class="product-thumbs" id="productThumbs">'+gallery.map((u,i)=>'<button class="product-thumb '+(i===0?"selected":"")+'" data-gallery="'+i+'" aria-label="Product image '+(i+1)+'"><img src="'+esc(u)+'" alt="'+esc(product.name)+'"></button>').join("")+'</div><div class="product-large '+(gallery.length?"has-image":"")+'" id="mainProductImage">'+(gallery.length?'<button class="gallery-zoom" id="galleryZoom" aria-label="Zoom product image">⌕</button><img class="product-main-img" src="'+esc(gallery[0])+'" alt="'+esc(product.name)+'"><span class="gallery-counter">1 / '+gallery.length+'</span>':"<span>APNA<br>STORE</span>")+'</div><p class="gallery-note">Click image or zoom icon to view full size</p></div></div><div class="product-details"><div class="product-detail-top"><p class="eyebrow">'+esc(product.category||"PRODUCT").toUpperCase()+'</p><button id="wishlistBtn" class="wishlist-detail">♡ Wishlist</button><button id="compareBtn" class="text-btn">⇄ Compare</button><button id="sizeFitBtn" class="text-btn">↗ Size / Fit Guide</button><button id="followProductBtn" class="text-btn">＋ Follow Product</button><button id="priceDropBtn" class="text-btn">! Price Drop Alert</button></div><h1>'+esc(product.name)+'</h1>'+(product.brand?'<p class="product-note">Brand: '+esc(product.brand)+'</p>':"")+'<div class="price-block"><strong>₹'+money(price)+'</strong>'+(mrp>price?'<del>₹'+money(mrp)+'</del><span class="discount-badge">'+discount+'% OFF</span>':"")+(flashSale?'<span class="discount-badge"><span class="ui-icon" aria-hidden="true">⚡</span> FLASH SALE</span>':(dailyDeal?'<span class="discount-badge"><span class="ui-icon" aria-hidden="true">★</span> DEAL OF THE DAY</span>':""))+'</div><p class="detail-desc">'+esc(product.description||"A carefully selected everyday product from Apna Store.")+'</p><div class="detail-meta"><span><i class="meta-icon" aria-hidden="true">✓</i> Secure checkout</span><span><i class="meta-icon" aria-hidden="true">↺</i> Easy returns</span><span><i class="meta-icon" aria-hidden="true">→</i> India delivery</span></div><div class="option"><b>Size</b><div class="option-list">'+(allSizes.length?allSizes.map(x=>'<button '+(!available.some(v=>(v.size||"")===x)?"disabled ":"")+'data-size="'+esc(x)+'">'+esc(x)+'</button>').join(""):"<span class=\"product-note\">One size</span>")+'</div></div><div class="option"><b>Color: <span id="colorName">'+esc(color||"Standard")+'</span></b><div class="option-list">'+(allColors.length?allColors.map(x=>'<button class="swatch" '+(!available.some(v=>(v.color||"")===x)?"disabled ":"")+'data-color="'+esc(x)+'">'+esc(x)+'</button>').join(""):"<span class=\"product-note\">Standard</span>")+'</div></div><div class="buy-row"><div class="qty"><button id="minus">−</button><span id="qty">1</span><button id="plus">+</button></div><button class="primary-btn" id="add">Add to bag <span>→</span></button></div><p id="stockInfo" class="product-note"></p><div class="delivery-check"><b>Check delivery</b><div><input id="pincode" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit pincode"><button id="checkPincode" class="text-btn">Check</button></div><small id="pincodeMessage">Delivery availability will be confirmed at checkout.</small></div><div class="product-specs"><h3>Product information</h3><div><span>SKU</span><b id="skuInfo">—</b></div><div><span>Category</span><b>'+esc(product.category||"Apna Store")+'</b></div><div><span>Seller</span><b><a id="sellerStoreLink" href="seller-store.html">Visit seller store →</a></b></div></div></div></div><div id="productReviewsMount"></div><section class="related-section section"><div class="section-head"><div><p class="eyebrow">YOU MAY ALSO LIKE</p><h2>Related products</h2></div></div><div class="products" id="relatedProducts"><p class="checkout-note">Loading related products…</p></div></section>';
  const sellerStoreLink=document.getElementById("sellerStoreLink");if(sellerStoreLink&&product.seller_id)sellerStoreLink.href="seller-store.html?seller="+encodeURIComponent(product.seller_id);
  const main=document.getElementById("mainProductImage"),thumbBox=document.getElementById("productThumbs");
  let activeImage=null;
@@ -71,134 +71,27 @@ function renderProduct(product,variants=[],images=[],flashSale=null,dailyDeal=nu
   if(!gallery[start])return;
   let index=start,scale=1;
   const previousOverflow=document.body.style.overflow;
-  const overlay=document.createElement("div");
-  overlay.className="image-lightbox";
-  overlay.setAttribute("role","dialog");
-  overlay.setAttribute("aria-modal","true");
-  overlay.setAttribute("aria-label","Product image viewer");
-
-  const stage=document.createElement("div");
-  stage.className="lightbox-stage";
-
-  const close=document.createElement("button");
-  const prev=document.createElement("button");
-  const next=document.createElement("button");
-  const zoomOut=document.createElement("button");
-  const zoomIn=document.createElement("button");
-  const zoomReset=document.createElement("button");
-  const img=document.createElement("img");
-  const counter=document.createElement("span");
-
-  close.className="lightbox-close";
-  close.setAttribute("aria-label","Close");
-  close.textContent="×";
-
-  prev.className="lightbox-prev";
-  prev.setAttribute("aria-label","Previous image");
-  prev.textContent="‹";
-
-  next.className="lightbox-next";
-  next.setAttribute("aria-label","Next image");
-  next.textContent="›";
-
-  zoomOut.className="lightbox-zoom-out";
-  zoomOut.setAttribute("aria-label","Zoom out");
-  zoomOut.textContent="−";
-
-  zoomIn.className="lightbox-zoom-in";
-  zoomIn.setAttribute("aria-label","Zoom in");
-  zoomIn.textContent="+";
-
-  zoomReset.className="lightbox-zoom-reset";
-  zoomReset.setAttribute("aria-label","Reset zoom");
-  zoomReset.textContent="Reset";
-
-  img.alt=product.name;
-  img.decoding="async";
-  img.draggable=false;
-  img.style.display="block";
-  img.style.maxWidth="86vw";
-  img.style.maxHeight="82vh";
-  img.style.width="auto";
-  img.style.height="auto";
-  img.style.objectFit="contain";
-  img.style.transformOrigin="center center";
-  img.style.transition="transform .18s ease";
-  img.style.background="transparent";
-
+  const overlay=document.createElement("div");overlay.className="image-lightbox";overlay.setAttribute("role","dialog");overlay.setAttribute("aria-modal","true");overlay.setAttribute("aria-label","Product image viewer");
+  const stage=document.createElement("div");stage.className="lightbox-stage";
+  const close=document.createElement("button"),prev=document.createElement("button"),next=document.createElement("button"),zoomOut=document.createElement("button"),zoomIn=document.createElement("button"),zoomReset=document.createElement("button"),img=document.createElement("img"),counter=document.createElement("span");
+  close.className="lightbox-close";close.setAttribute("aria-label","Close");close.textContent="×";
+  prev.className="lightbox-prev";prev.setAttribute("aria-label","Previous image");prev.textContent="‹";
+  next.className="lightbox-next";next.setAttribute("aria-label","Next image");next.textContent="›";
+  zoomOut.className="lightbox-zoom-out";zoomOut.setAttribute("aria-label","Zoom out");zoomOut.textContent="−";
+  zoomIn.className="lightbox-zoom-in";zoomIn.setAttribute("aria-label","Zoom in");zoomIn.textContent="+";
+  zoomReset.className="lightbox-zoom-reset";zoomReset.setAttribute("aria-label","Reset zoom");zoomReset.textContent="Reset";
   counter.className="lightbox-counter";
-
-  stage.appendChild(img);
-  overlay.append(close,prev,stage,next,zoomOut,zoomIn,zoomReset,counter);
-
-  const closeLightbox=()=>{
-    document.body.style.overflow=previousOverflow;
-    document.removeEventListener("keydown",onKey);
-    overlay.remove();
-  };
-
-  const applyZoom=()=>{
-    img.style.transform="scale("+scale+")";
-    img.style.cursor=scale>1?"zoom-out":"zoom-in";
-  };
-
-  const draw=()=>{
-    const url=gallery[index];
-    if(!url)return;
-    scale=1;
-    img.style.transform="scale(1)";
-    img.src=url;
-    img.alt=product.name;
-    counter.textContent=(index+1)+" / "+gallery.length;
-    requestAnimationFrame(applyZoom);
-  };
-
-  const goPrevious=()=>{
-    index=(index-1+gallery.length)%gallery.length;
-    draw();
-  };
-
-  const goNext=()=>{
-    index=(index+1)%gallery.length;
-    draw();
-  };
-
-  const onKey=(e)=>{
-    if(e.key==="Escape"){e.preventDefault();closeLightbox();}
-    else if(e.key==="ArrowLeft"){e.preventDefault();goPrevious();}
-    else if(e.key==="ArrowRight"){e.preventDefault();goNext();}
-    else if(e.key==="+"){e.preventDefault();scale=Math.min(3,+(scale+.25).toFixed(2));applyZoom();}
-    else if(e.key==="-"){e.preventDefault();scale=Math.max(1,+(scale-.25).toFixed(2));applyZoom();}
-    else if(e.key==="0"){e.preventDefault();scale=1;applyZoom();}
-  };
-
-  close.onclick=e=>{e.stopPropagation();closeLightbox();};
-  prev.onclick=e=>{e.stopPropagation();goPrevious();};
-  next.onclick=e=>{e.stopPropagation();goNext();};
-  zoomIn.onclick=e=>{e.stopPropagation();scale=Math.min(3,+(scale+.25).toFixed(2));applyZoom();};
-  zoomOut.onclick=e=>{e.stopPropagation();scale=Math.max(1,+(scale-.25).toFixed(2));applyZoom();};
-  zoomReset.onclick=e=>{e.stopPropagation();scale=1;applyZoom();};
-
-  img.onclick=e=>{
-    e.stopPropagation();
-    scale=scale>1?1:2;
-    applyZoom();
-  };
-
-  stage.onclick=e=>{if(e.target===stage)closeLightbox();};
-  overlay.onclick=e=>{if(e.target===overlay)closeLightbox();};
-
-  img.onerror=()=>{
-    img.alt="Product image could not be loaded";
-    counter.textContent=(index+1)+" / "+gallery.length+" · Image unavailable";
-  };
-
-  document.body.style.overflow="hidden";
-  document.addEventListener("keydown",onKey);
-  document.body.appendChild(overlay);
-  draw();
-  close.focus();
+  img.alt=product.name;img.decoding="async";img.draggable=false;img.style.display="block";img.style.width="auto";img.style.height="auto";img.style.maxWidth="100%";img.style.maxHeight="100%";img.style.objectFit="contain";img.style.transformOrigin="center center";img.style.transition="transform .18s ease";
+  stage.appendChild(img);overlay.append(close,prev,stage,next,zoomOut,zoomIn,zoomReset,counter);
+  const applyZoom=()=>{img.style.transform="scale("+scale+")";stage.classList.toggle("is-zoomed",scale>1);img.style.cursor=scale>1?"zoom-out":"zoom-in"};
+  const draw=()=>{const url=gallery[index];if(!url)return;scale=1;img.onload=()=>applyZoom();img.src=url;img.alt=product.name;counter.textContent=(index+1)+" / "+gallery.length;applyZoom()};
+  const closeLightbox=()=>{document.body.style.overflow=previousOverflow;document.removeEventListener("keydown",onKey);overlay.remove()};
+  const goPrevious=()=>{index=(index-1+gallery.length)%gallery.length;draw()};const goNext=()=>{index=(index+1)%gallery.length;draw()};
+  const onKey=e=>{if(e.key==="Escape"){e.preventDefault();closeLightbox()}else if(e.key==="ArrowLeft"){e.preventDefault();goPrevious()}else if(e.key==="ArrowRight"){e.preventDefault();goNext()}else if(e.key==="+"){e.preventDefault();scale=Math.min(3,+(scale+.25).toFixed(2));applyZoom()}else if(e.key==="-"){e.preventDefault();scale=Math.max(1,+(scale-.25).toFixed(2));applyZoom()}else if(e.key==="0"){e.preventDefault();scale=1;applyZoom()}};
+  close.onclick=e=>{e.stopPropagation();closeLightbox()};prev.onclick=e=>{e.stopPropagation();goPrevious()};next.onclick=e=>{e.stopPropagation();goNext()};zoomIn.onclick=e=>{e.stopPropagation();scale=Math.min(3,+(scale+.25).toFixed(2));applyZoom()};zoomOut.onclick=e=>{e.stopPropagation();scale=Math.max(1,+(scale-.25).toFixed(2));applyZoom()};zoomReset.onclick=e=>{e.stopPropagation();scale=1;applyZoom()};img.onclick=e=>{e.stopPropagation();scale=scale>1?1:2;applyZoom()};stage.onclick=e=>{if(e.target===stage)closeLightbox()};overlay.onclick=e=>{if(e.target===overlay)closeLightbox()};img.onerror=()=>{counter.textContent=(index+1)+" / "+gallery.length+" · Image unavailable"};
+  document.body.style.overflow="hidden";document.addEventListener("keydown",onKey);document.body.appendChild(overlay);draw();setTimeout(()=>close.focus(),0);
  }
+
  main.onclick=()=>{if(activeImage)openLightbox(Math.max(0,gallery.indexOf(activeImage)))};
 
  async function refreshOptions(){findVariant();renderGallery(galleryForVariant(variantId));const add=document.getElementById("add"),stockInfo=document.getElementById("stockInfo"),current=available.find(x=>x.id===variantId);add.disabled=!variantId;add.innerHTML=variantId?'Add to bag <span>→</span>':'Unavailable combination';const stickyButton=document.getElementById("mobileStickyAdd");if(stickyButton){stickyButton.disabled=!variantId;stickyButton.textContent=variantId?"Add to bag →":"Unavailable";}if(variantId&&current){const stock=Number(current.stock||0);if(qty>stock)qty=stock;document.getElementById("qty").textContent=qty;document.getElementById("skuInfo").textContent=current.sku||"—";stockInfo.textContent="✓ In stock: "+stock+" available for "+(size||"standard")+" / "+(color||"standard")+"."}else{document.getElementById("skuInfo").textContent="—";stockInfo.textContent="✕ This size + color combination is unavailable.";let alertBtn=document.getElementById("backInStockBtn");if(!alertBtn){const wrap=document.createElement("div");wrap.innerHTML='<button id="backInStockBtn" class="text-btn">Notify Me When Available</button>';document.querySelector(".buy-row")?.after(wrap);alertBtn=wrap.firstElementChild;alertBtn.onclick=()=>notifyBackInStock(product,variantId)}alertBtn.hidden=!!variantId;}}
