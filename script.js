@@ -35,7 +35,7 @@ async function loadCategories(){
  if(categoriesRoot)categoriesRoot.innerHTML=rows.map((c,i)=>{
    const url=categoryImages[c.name]||"";
    const media=url?'<span class="category-media"><img src="'+escapeHtml(url)+'" alt="'+escapeHtml(c.name)+' clothing" loading="lazy"></span>':'';
-   return '<a href="shop.html?category='+encodeURIComponent(c.name)+'" class="category '+toneClasses[i%toneClasses.length]+'">'+media+'<span>'+String(i+1).padStart(2,"0")+'</span><div class="category-copy"><h3>'+escapeHtml(c.name)+'</h3><p>'+subtitles[i%subtitles.length]+'</p></div></a>';
+   return '<a href="shop.html?category='+encodeURIComponent(c.name)+'" class="category '+toneClasses[i%toneClasses.length]+'">'+media+'<div class="category-copy"><h3>'+escapeHtml(c.name)+'</h3><p>'+subtitles[i%subtitles.length]+'</p></div></a>';
  }).join("")||'<p>No categories available yet.</p>';
  if(navCategoriesRoot){navCategoriesRoot.innerHTML='<a href="#shop">Shop</a>'+rows.map(c=>'<a href="shop.html?category='+encodeURIComponent(c.name)+'">'+escapeHtml(c.name)+'</a>').join("")+'<a href="#deals">Deals</a>';}
 }
