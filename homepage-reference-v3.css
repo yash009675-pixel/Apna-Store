@@ -130,3 +130,5 @@
   .apna-reference-home .ref-footer-brand,.apna-reference-home .ref-newsletter{grid-column:1/-1}
   .apna-reference-home .ref-footer-bottom{flex-direction:column}
 }
+
+.apna-reference-home .ref-rating{font-size:8px;color:#e49b16;margin:3px 0 0}.apna-reference-home .ref-rating span{color:#777}
