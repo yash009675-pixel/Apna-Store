@@ -3126,3 +3126,27 @@ body:not(.apna-reference-home) .product-specs{margin-top:26px!important;border-t
 body:not(.apna-reference-home) .related-section{max-width:none!important;margin:62px 0 0!important;padding:44px 0 0!important;border-top:1px solid #ded8cf!important}.related-section .section-head h2{font-size:34px!important}.related-section .products{grid-template-columns:repeat(4,minmax(0,1fr))!important}
 @media(max-width:900px){body:not(.apna-reference-home) .product-main-layout{grid-template-columns:1fr!important;gap:28px!important}.product-gallery{position:static!important}.product-large{min-height:520px!important}}
 @media(max-width:520px){body:not(.apna-reference-home) .product-page{padding:24px 14px 48px!important}.product-large{min-height:420px!important}.product-details h1{font-size:35px!important}.buy-row{gap:7px!important}.qty button{width:34px!important}.related-section .products{grid-template-columns:repeat(2,minmax(0,1fr))!important}.related-section .product-image{height:210px!important}.detail-meta{display:grid!important;grid-template-columns:1fr 1fr!important}.detail-meta span{border-right:0!important}}
+
+
+/* Phase B: Cart editorial layout */
+body:not(.apna-reference-home) main.section:has(> #cart){max-width:1180px!important;margin:0 auto!important;padding:48px clamp(18px,4vw,48px) 80px!important}
+body:not(.apna-reference-home) main.section:has(> #cart)>h1{font-size:clamp(38px,5vw,58px)!important;line-height:1!important;letter-spacing:-.04em!important;margin:7px 0 30px!important}
+body:not(.apna-reference-home) #cart{min-height:260px!important}
+body:not(.apna-reference-home) #cart .cart-layout{display:grid!important;grid-template-columns:minmax(0,1fr) 340px!important;gap:28px!important;align-items:start!important}
+body:not(.apna-reference-home) #cart .cart-items,body:not(.apna-reference-home) #cart .cart-summary{background:#fffdf9!important;border:1px solid #ded8cf!important;border-radius:16px!important}
+body:not(.apna-reference-home) #cart .cart-items{overflow:hidden!important}
+body:not(.apna-reference-home) #cart .cart-item{display:grid!important;grid-template-columns:112px minmax(0,1fr) auto!important;gap:18px!important;padding:18px!important;border-bottom:1px solid #e9e3db!important;align-items:center!important}
+body:not(.apna-reference-home) #cart .cart-item:last-child{border-bottom:0!important}
+body:not(.apna-reference-home) #cart .cart-item img{width:112px!important;height:132px!important;object-fit:cover!important;background:#eeeae4!important;border-radius:7px!important}
+body:not(.apna-reference-home) #cart .cart-item h3{font-size:14px!important;color:#201e1b!important;margin:0 0 7px!important}
+body:not(.apna-reference-home) #cart .cart-item p{color:#77716a!important;font-size:10px!important;margin:4px 0!important}
+body:not(.apna-reference-home) #cart .cart-item .price{font-size:13px!important;color:#171615!important;font-weight:800!important}
+body:not(.apna-reference-home) #cart .cart-summary{padding:22px!important;position:sticky!important;top:86px!important}
+body:not(.apna-reference-home) #cart .cart-summary h2{font-family:"Playfair Display",Georgia,serif!important;font-size:25px!important;margin:0 0 18px!important;color:#171615!important}
+body:not(.apna-reference-home) #cart .cart-summary>div{display:flex!important;justify-content:space-between!important;gap:15px!important;padding:9px 0!important;color:#6f6962!important;font-size:10px!important}
+body:not(.apna-reference-home) #cart .cart-summary .total{margin-top:8px!important;padding-top:15px!important;border-top:1px solid #ddd7cf!important;color:#171615!important;font-size:14px!important;font-weight:800!important}
+body:not(.apna-reference-home) #cart .empty-cart{text-align:center!important;padding:70px 20px!important;background:#fffdf9!important;border:1px solid #ded8cf!important;border-radius:16px!important}
+body:not(.apna-reference-home) #cart .empty-cart h2{font-family:"Playfair Display",Georgia,serif!important;font-size:32px!important;color:#171615!important;margin:0 0 8px!important}
+body:not(.apna-reference-home) #cart .empty-cart p{color:#77716a!important;font-size:11px!important;margin-bottom:22px!important}
+@media(max-width:800px){body:not(.apna-reference-home) #cart .cart-layout{grid-template-columns:1fr!important}.cart-summary{position:static!important}}
+@media(max-width:520px){body:not(.apna-reference-home) main.section:has(> #cart){padding:32px 14px 55px!important}.cart-item{grid-template-columns:82px minmax(0,1fr)!important;gap:11px!important}.cart-item img{width:82px!important;height:105px!important}.cart-item>:last-child{grid-column:2!important}.cart-summary{padding:17px!important}}
