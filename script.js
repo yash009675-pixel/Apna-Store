@@ -69,11 +69,11 @@ if(root)root.innerHTML='<p class="checkout-note">Loading products…</p>';
  render();
  if(newArrivalsRoot)renderProductList(newArrivalsRoot,arrivals);
 }const REFERENCE_PRODUCT_IMAGES={
- "Oversized Graphic T-Shirt":"https://images.unsplash.com/photo-1622519407650-3df9883f76a5?auto=format&fit=crop&fm=jpg&q=80&w=900",
- "Basic Hoodie":"https://images.unsplash.com/photo-1622131527801-78b144aa7f2c?auto=format&fit=crop&fm=jpg&q=80&w=900",
- "Wide Leg Jeans":"https://images.unsplash.com/photo-1603364374348-890320e28dda?auto=format&fit=crop&fm=jpg&q=80&w=900",
- "Polo T-Shirt":"https://images.unsplash.com/photo-1624138305790-fcc04974a0b5?auto=format&fit=crop&fm=jpg&q=80&w=900",
- "Casual Sneakers":"https://images.unsplash.com/photo-1637437757614-6491c8e915b5?auto=format&fit=crop&fm=jpg&q=80&w=900"
+ "Oversized Graphic T-Shirt":"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80",
+ "Basic Hoodie":"https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=80",
+ "Wide Leg Jeans":"https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=900&q=80",
+ "Polo T-Shirt":"https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=80",
+ "Casual Sneakers":"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80"
 };
 const REFERENCE_PRODUCT_IMAGE_LIST=Object.values(REFERENCE_PRODUCT_IMAGES);
 const REFERENCE_PRODUCTS={
