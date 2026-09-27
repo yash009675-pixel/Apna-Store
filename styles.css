@@ -3224,3 +3224,33 @@ body:not(.apna-reference-home) #orderDetail{max-width:900px!important;margin:0 a
 body:not(.apna-reference-home) .account-actions{display:flex!important;gap:10px!important;flex-wrap:wrap!important;margin-top:24px!important}.account-actions a{color:#4d4842!important}.account-actions .primary-btn{background:#171615!important;color:#fff!important;border-radius:999px!important;text-decoration:none!important}
 @media(max-width:800px){body:not(.apna-reference-home) .account-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}body:not(.apna-reference-home) .checkout-page{grid-template-columns:1fr!important}body:not(.apna-reference-home) .account-page .account-card{padding:22px!important}}
 @media(max-width:520px){body:not(.apna-reference-home) .account-page,body:not(.apna-reference-home) .checkout-page,body:not(.apna-reference-home) main.orders-page{padding:32px 14px 55px!important}body:not(.apna-reference-home) .account-stats{gap:7px!important}.account-stats a{padding:12px 7px!important}.checkout-page h1,.orders-title{font-size:40px!important}}
+
+
+/* APNA STORE — site-wide visual consistency pass (homepage language) */
+body:not(.apna-reference-home){background:#f4f1eb!important;color:#292724!important;-webkit-font-smoothing:antialiased!important;text-rendering:optimizeLegibility!important}
+body:not(.apna-reference-home) main{color:#292724!important}
+body:not(.apna-reference-home) p,body:not(.apna-reference-home) li,body:not(.apna-reference-home) label,body:not(.apna-reference-home) small,body:not(.apna-reference-home) span{color:inherit}
+body:not(.apna-reference-home) a:not(.primary-btn):not(.secondary-btn):not(.text-btn){color:#292724!important}
+body:not(.apna-reference-home) a:not(.primary-btn):not(.secondary-btn):not(.text-btn):hover{color:#171615!important}
+body:not(.apna-reference-home) .eyebrow{color:#5d554d!important}
+body:not(.apna-reference-home) h1,body:not(.apna-reference-home) h2,body:not(.apna-reference-home) h3,body:not(.apna-reference-home) h4{color:#171615!important}
+body:not(.apna-reference-home) button,body:not(.apna-reference-home) input,body:not(.apna-reference-home) select,body:not(.apna-reference-home) textarea{font-family:inherit}
+body:not(.apna-reference-home) button{color:#292724}
+body:not(.apna-reference-home) button:focus,body:not(.apna-reference-home) input:focus,body:not(.apna-reference-home) select:focus,body:not(.apna-reference-home) textarea:focus{outline:none!important}
+body:not(.apna-reference-home) button:focus-visible,body:not(.apna-reference-home) a:focus-visible,body:not(.apna-reference-home) input:focus-visible,body:not(.apna-reference-home) select:focus-visible,body:not(.apna-reference-home) textarea:focus-visible{outline:2px solid #6b6259!important;outline-offset:2px!important;box-shadow:none!important}
+body:not(.apna-reference-home) button:active,body:not(.apna-reference-home) a:active{color:#171615!important;filter:none!important}
+body:not(.apna-reference-home) .primary-btn,body:not(.apna-reference-home) button.primary-btn{background:#171615!important;color:#fff!important;border-color:#171615!important}
+body:not(.apna-reference-home) .secondary-btn,body:not(.apna-reference-home) .text-btn{background:transparent;color:#292724!important;border-color:#d8d2ca!important}
+body:not(.apna-reference-home) .header-actions a,body:not(.apna-reference-home) .site-header nav a{color:#292724!important}
+body:not(.apna-reference-home) .header-actions a:hover,body:not(.apna-reference-home) .site-header nav a:hover{color:#171615!important}
+body:not(.apna-reference-home) .header-search input{color:#292724!important;background:#fffdf9!important;border-color:#d8d2ca!important}
+body:not(.apna-reference-home) .header-search input::placeholder{color:#9a948c!important}
+body:not(.apna-reference-home) .header-search button{color:#292724!important;background:transparent!important}
+body:not(.apna-reference-home) .site-header{background:#fffdf9!important;border-bottom:1px solid #ddd7cf!important}
+body:not(.apna-reference-home) footer{background:#171615!important;color:#f5f1eb!important}
+body:not(.apna-reference-home) footer p,body:not(.apna-reference-home) footer small,body:not(.apna-reference-home) footer a{color:#f5f1eb!important}
+body:not(.apna-reference-home) .checkout-note,.body:not(.apna-reference-home) .muted{color:#77716a!important}
+body:not(.apna-reference-home) ::selection{background:#d9d2c8!important;color:#171615!important}
+@media(max-width:900px){body:not(.apna-reference-home) .site-header{padding-left:16px!important;padding-right:16px!important}body:not(.apna-reference-home) .site-header nav{gap:14px!important}body:not(.apna-reference-home) .header-search{max-width:220px!important}}
+@media(max-width:700px){body:not(.apna-reference-home) .site-header{min-height:60px!important;flex-wrap:wrap!important;gap:10px!important;padding-top:9px!important;padding-bottom:9px!important}body:not(.apna-reference-home) .site-header nav{order:3!important;width:100%!important;justify-content:center!important;overflow-x:auto!important;padding-bottom:2px!important;scrollbar-width:none!important}body:not(.apna-reference-home) .site-header nav::-webkit-scrollbar{display:none!important}body:not(.apna-reference-home) .header-search{order:2!important;flex:1 1 150px!important;max-width:none!important;min-width:130px!important}.site-header .logo{flex:0 0 auto!important}}
+@media(max-width:430px){body:not(.apna-reference-home) .site-header{gap:7px!important}.site-header .logo{width:112px!important;height:28px!important}.header-search input{font-size:11px!important}.header-search{height:36px!important}.site-header nav{gap:12px!important}.site-header nav a{font-size:9px!important}}
