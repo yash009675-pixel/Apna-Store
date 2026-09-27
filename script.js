@@ -47,28 +47,65 @@ async function loadCategories(){
  }catch(err){console.warn("Homepage category load failed:",err)}
 }
 async function loadProducts(){
-if(root)root.innerHTML='<p class="checkout-note">Loading products…</p>';
- if(newArrivalsRoot)newArrivalsRoot.innerHTML='<p class="checkout-note">Loading products…</p>';
- const [featuredResult,newResult,categoryResult,imagesResult]=await Promise.all([
-  apnaSupabase.from("products").select("id,name,price,category_id,created_at").eq("status","active").order("updated_at",{ascending:false}).limit(5),
-  apnaSupabase.from("products").select("id,name,price,category_id,created_at").eq("status","active").order("created_at",{ascending:false}).limit(4),
-  apnaSupabase.from("categories").select("id,name"),
-  apnaSupabase.from("product_images").select("product_id,storage_path,alt_text,is_primary,sort_order").order("is_primary",{ascending:false}).order("sort_order",{ascending:true})
-]);
- if(featuredResult.error||newResult.error){console.error("Homepage product query failed:",featuredResult.error||newResult.error);if(root)root.innerHTML='<p class="checkout-note">Products could not be loaded right now. Please refresh and try again.</p>';if(newArrivalsRoot)newArrivalsRoot.innerHTML='<p class="checkout-note">Products could not be loaded right now. Please refresh and try again.</p>';return}
- if(categoryResult.error)console.warn("Homepage category query failed:",categoryResult.error);
- const categories=new Map((categoryResult.data||[]).map(c=>[c.id,c.name]));
- const imageMap=new Map();
- (imagesResult.data||[]).forEach(img=>{if(!imageMap.has(img.product_id))imageMap.set(img.product_id,img)});
- const withImages=rows=>(rows||[]).map(p=>({...p,type:categories.get(p.category_id)||"Apna Store",image:imageMap.get(p.id)||null}));
- const refOrder=["Oversized Graphic T-Shirt","Basic Hoodie","Wide Leg Jeans","Polo T-Shirt","Casual Sneakers"];
- const catalog=withImages(featuredResult.data);
- const refMatches=refOrder.map(name=>catalog.find(p=>p.name===name)).filter(Boolean);
- products=refMatches.length===5?refMatches:catalog;
- const arrivals=withImages(newResult.data);
- render();
- if(newArrivalsRoot)renderProductList(newArrivalsRoot,arrivals);
-}const REFERENCE_PRODUCT_IMAGES={
+  if(root)root.innerHTML='<p class="checkout-note">Loading products…</p>';
+  if(newArrivalsRoot)newArrivalsRoot.innerHTML='<p class="checkout-note">Loading products…</p>';
+
+  // Load products first. Image/category lookups must never block the homepage.
+  try{
+    const [featuredResult,newResult]=await Promise.all([
+      apnaSupabase.from("products").select("id,name,price,category_id,created_at").eq("status","active").order("updated_at",{ascending:false}).limit(5),
+      apnaSupabase.from("products").select("id,name,price,category_id,created_at").eq("status","active").order("created_at",{ascending:false}).limit(4)
+    ]);
+
+    if(featuredResult.error||newResult.error){
+      console.error("Homepage product query failed:",featuredResult.error||newResult.error);
+      if(root)root.innerHTML='<p class="checkout-note">Products could not be loaded right now. Please refresh and try again.</p>';
+      if(newArrivalsRoot)newArrivalsRoot.innerHTML='<p class="checkout-note">Products could not be loaded right now. Please refresh and try again.</p>';
+      return;
+    }
+
+    const rawFeatured=featuredResult.data||[];
+    const rawArrivals=newResult.data||[];
+
+    // Render immediately with safe reference data. Nothing else can block this.
+    const refOrder=["Oversized Graphic T-Shirt","Basic Hoodie","Wide Leg Jeans","Polo T-Shirt","Casual Sneakers"];
+    const catalog=rawFeatured.map(p=>({...p,type:"Apna Store",image:null}));
+    const refMatches=refOrder.map(name=>catalog.find(p=>p.name===name)).filter(Boolean);
+    products=refMatches.length===5?refMatches:catalog;
+
+    const arrivals=rawArrivals.map(p=>({...p,type:"Apna Store",image:null}));
+    render();
+    if(newArrivalsRoot)renderProductList(newArrivalsRoot,arrivals);
+
+    // Enrich cards with real categories/images without blocking the initial render.
+    try{
+      const [categoryResult,imagesResult]=await Promise.all([
+        apnaSupabase.from("categories").select("id,name"),
+        apnaSupabase.from("product_images").select("product_id,storage_path,alt_text,is_primary,sort_order").order("is_primary",{ascending:false}).order("sort_order",{ascending:true})
+      ]);
+
+      if(categoryResult.error)console.warn("Homepage category query failed:",categoryResult.error);
+      if(imagesResult.error)console.warn("Homepage product image query failed:",imagesResult.error);
+
+      const categories=new Map((categoryResult.data||[]).map(c=>[c.id,c.name]));
+      const imageMap=new Map();
+      (imagesResult.data||[]).forEach(img=>{if(!imageMap.has(img.product_id))imageMap.set(img.product_id,img)});
+
+      const enrich=p=>({...p,type:categories.get(p.category_id)||"Apna Store",image:imageMap.get(p.id)||null});
+      products=products.map(enrich);
+      render();
+
+      if(newArrivalsRoot)renderProductList(newArrivalsRoot,arrivals.map(enrich));
+    }catch(enrichError){
+      console.warn("Homepage product enrichment skipped:",enrichError);
+    }
+  }catch(err){
+    console.error("Homepage loadProducts failed:",err);
+    if(root)root.innerHTML='<p class="checkout-note">Products could not be loaded right now. Please refresh and try again.</p>';
+    if(newArrivalsRoot)newArrivalsRoot.innerHTML='<p class="checkout-note">Products could not be loaded right now. Please refresh and try again.</p>';
+  }
+}
+const REFERENCE_PRODUCT_IMAGES={
  "Oversized Graphic T-Shirt":"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80",
  "Basic Hoodie":"https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=80",
  "Wide Leg Jeans":"https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=900&q=80",
