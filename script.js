@@ -53,7 +53,7 @@ async function loadProducts(){
   // Load products first. Image/category lookups must never block the homepage.
   try{
     const [featuredResult,newResult]=await Promise.all([
-      apnaSupabase.from("products").select("id,name,price,category_id,created_at").eq("status","active").order("updated_at",{ascending:false}).limit(5),
+      apnaSupabase.from("products").select("id,name,price,category_id,created_at").eq("status","active").order("created_at",{ascending:false}).limit(5),
       apnaSupabase.from("products").select("id,name,price,category_id,created_at").eq("status","active").order("created_at",{ascending:false}).limit(4)
     ]);
 
