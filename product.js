@@ -1,5 +1,6 @@
 const params=new URLSearchParams(location.search);
-const productId=params.get("id");
+const productId=params.get("id")||params.get("product")||params.get("productId")||params.get("product_id")||"";
+const productSlug=params.get("slug")||"";
 function rememberRecentlyViewed(product){
  try{
   const current=JSON.parse(localStorage.getItem("apnaRecentlyViewed")||"[]");
@@ -105,23 +106,51 @@ function renderProduct(product,variants=[],images=[],flashSale=null,dailyDeal=nu
  setProductStructuredData(product,images.map(x=>x.url),price,available.length>0);refreshOptions();wishlistState().then(v=>{document.getElementById("wishlistBtn").textContent=v?"♥ Saved":"♡ Wishlist"});renderRelated(product);const addButton=document.getElementById("add");if(addButton&&!document.querySelector(".mobile-sticky-buy")){const sticky=document.createElement("div");sticky.className="mobile-sticky-buy";sticky.innerHTML='<span class="mobile-sticky-price">₹'+money(price)+'</span><button id="mobileStickyAdd" type="button">Add to bag →</button>';document.body.appendChild(sticky);const syncSticky=()=>{const b=document.getElementById("mobileStickyAdd");if(b){b.disabled=addButton.disabled;b.textContent=addButton.disabled?"Unavailable":"Add to bag →"}};document.getElementById("mobileStickyAdd").onclick=()=>{if(!addButton.disabled)addButton.click()};syncSticky();}
 }
 async function loadProduct(){
- if(!productId)return showError("Please choose a product from the shop.");
+ if(!productId&&!productSlug)return showError("Please choose a product from the shop.");
  try{
-  const [{data,error},{data:categories,error:categoryError},{data:brands,error:brandError}]=await Promise.all([
-   apnaSupabase.from("products").select("id,name,slug,description,price,compare_at_price,category_id,brand_id,seller_id").eq("id",productId).eq("status","active").maybeSingle(),
+  let productQuery=apnaSupabase.from("products").select("id,name,slug,description,price,compare_at_price,category_id,brand_id,seller_id").eq("status","active");
+  productQuery=productId?productQuery.eq("id",productId):productQuery.eq("slug",productSlug);
+  let {data,error}=await productQuery.maybeSingle();
+  if(error)throw error;
+
+  // Keep older/shared product links working: if an old URL used an ID-like value
+  // in a slug parameter, retry by slug before declaring the product unavailable.
+  if(!data&&productId){
+   const fallback=await apnaSupabase.from("products").select("id,name,slug,description,price,compare_at_price,category_id,brand_id,seller_id").eq("slug",productId).eq("status","active").maybeSingle();
+   if(fallback.error)throw fallback.error;
+   data=fallback.data||null;
+  }
+  if(!data)return showError("This product is no longer available.");
+
+  // Category/brand labels are optional metadata. A problem in either table
+  // must not make a valid active product disappear.
+  const [categoryResult,brandResult]=await Promise.all([
    apnaSupabase.from("categories").select("id,name"),
    apnaSupabase.from("brands").select("id,name").eq("is_active",true)
   ]);
-  if(error||categoryError||brandError)throw error||categoryError||brandError;
-  if(!data)return showError("This product does not exist.");
-  const categoryMap=new Map((categories||[]).map(c=>[c.id,c.name])),brandMap=new Map((brands||[]).map(b=>[b.id,b.name]));
+  const categories=categoryResult.data||[],brands=brandResult.data||[];
+  if(categoryResult.error)console.warn("Product category lookup failed:",categoryResult.error);
+  if(brandResult.error)console.warn("Product brand lookup failed:",brandResult.error);
+
+  const categoryMap=new Map(categories.map(c=>[c.id,c.name])),brandMap=new Map(brands.map(b=>[b.id,b.name]));
+  const realProductId=data.id;
   const [vr,ir]=await Promise.all([
-   apnaSupabase.from("product_variants").select("id,size,color,sku,stock").eq("product_id",productId).order("size"),
-   apnaSupabase.from("product_images").select("storage_path,alt_text,sort_order,is_primary,variant_id").eq("product_id",productId).order("is_primary",{ascending:false}).order("sort_order")
+   apnaSupabase.from("product_variants").select("id,size,color,sku,stock").eq("product_id",realProductId).order("size"),
+   apnaSupabase.from("product_images").select("storage_path,alt_text,sort_order,is_primary,variant_id").eq("product_id",realProductId).order("is_primary",{ascending:false}).order("sort_order")
   ]);
   if(vr.error||ir.error)throw vr.error||ir.error;
   const images=(ir.data||[]).map(x=>{const u=apnaSupabase.storage.from("product-images").getPublicUrl(x.storage_path).data.publicUrl;return {url:u,alt:x.alt_text||data.name,variant_id:x.variant_id||null}}).filter(x=>x.url);
-  const renderedProduct={...data,category:categoryMap.get(data.category_id)||"Apna Store",brand:brandMap.get(data.brand_id)||""};const [{data:flashRows},{data:dealRows}]=await Promise.all([apnaSupabase.rpc("get_active_flash_sales"),apnaSupabase.rpc("get_active_daily_deals")]);const flashSale=(flashRows||[]).find(x=>x.product_id===data.id)||null;const dailyDeal=(dealRows||[]).find(x=>x.product_id===data.id)||null;renderProduct(renderedProduct,vr.data||[],images,flashSale,dailyDeal);rememberRecentlyViewed(renderedProduct);if(window.apnaTrackProductView)apnaTrackProductView(data.id);if(window.apnaRecommendationFeed)window.apnaRecommendationFeed(data.id);
- }catch(e){console.error("Product detail load failed:",e);showError("We could not load this product right now. Please refresh and try again.")}
+  const renderedProduct={...data,category:categoryMap.get(data.category_id)||"Apna Store",brand:brandMap.get(data.brand_id)||""};
+  const [{data:flashRows},{data:dealRows}]=await Promise.all([apnaSupabase.rpc("get_active_flash_sales"),apnaSupabase.rpc("get_active_daily_deals")]);
+  const flashSale=(flashRows||[]).find(x=>x.product_id===realProductId)||null;
+  const dailyDeal=(dealRows||[]).find(x=>x.product_id===realProductId)||null;
+  renderProduct(renderedProduct,vr.data||[],images,flashSale,dailyDeal);
+  rememberRecentlyViewed(renderedProduct);
+  if(window.apnaTrackProductView)apnaTrackProductView(realProductId);
+  if(window.apnaRecommendationFeed)window.apnaRecommendationFeed(realProductId);
+ }catch(e){
+  console.error("Product detail load failed:",e);
+  showError("We could not load this product right now. Please refresh and try again.");
+ }
 }
 loadProduct();
