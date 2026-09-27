@@ -98,3 +98,19 @@ body:not(:has(.admin-sidebar)) .account-panel input:focus,body:not(:has(.admin-s
 body:not(:has(.admin-sidebar)) #referralLink{width:100%;padding:12px 13px!important;margin:8px 0 10px;border:1px solid var(--apna-border)!important;border-radius:10px!important;background:#f7f8fb!important}
 body:not(:has(.admin-sidebar)) .account-panel .checkout-card{border-color:var(--apna-border)!important;border-radius:12px!important;background:#f7f8fb!important;box-shadow:none!important}
 @media(max-width:600px){body:not(:has(.admin-sidebar)) .account-card{max-width:100%!important}.account-stats a{border-radius:12px!important}}
+
+
+/* Phase C final neutral storefront theme */
+body:not(:has(.admin-sidebar)) .site-ui-icon{color:#4d4842!important;stroke:currentColor!important}
+body:not(:has(.admin-sidebar)) .account-stats>a{border-color:#ded8cf!important;background:#fffdf9!important;color:#292724!important;box-shadow:0 6px 18px rgba(23,22,21,.04)!important}
+body:not(:has(.admin-sidebar)) .account-stats>a:before{background:#f0ece6!important}
+body:not(:has(.admin-sidebar)) .account-stats>a .site-ui-icon{color:#4d4842!important}
+body:not(:has(.admin-sidebar)) .account-stats>a span{color:#77716a!important}
+body:not(:has(.admin-sidebar)) .notification-channels,body:not(:has(.admin-sidebar)) .notification-preferences{border-color:#ded8cf!important;background:#fffdf9!important;box-shadow:0 6px 18px rgba(23,22,21,.04)!important}
+body:not(:has(.admin-sidebar)) .channel-card{border-color:#ded8cf!important;background:#f4f1eb!important;color:#292724!important}
+body:not(:has(.admin-sidebar)) .channel-card.ready{border-color:#bdb5ac!important;background:#f0ece6!important}
+body:not(:has(.admin-sidebar)) .summary-line{border-color:#e5dfd7!important}
+body:not(:has(.admin-sidebar)) .notification-role{background:#f0ece6!important;color:#4d4842!important}
+body:not(:has(.admin-sidebar)) .notification-tools select,body:not(:has(.admin-sidebar)) .preference-row,body:not(:has(.admin-sidebar)) .push-enable{border-color:#ded8cf!important;background:#fffdf9!important;color:#292724!important}
+body:not(:has(.admin-sidebar)) .push-enable button{border-color:#171615!important;background:#171615!important;color:#fff!important}
+body:not(:has(.admin-sidebar)) .membership-buy,body:not(:has(.admin-sidebar)) #copyRef{border-color:#171615!important;background:#171615!important;color:#fff!important}
