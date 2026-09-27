@@ -61,7 +61,14 @@ if(root)root.innerHTML='<p class="checkout-note">Loading products…</p>';
  const arrivals=withImages(newResult.data);
  render();
  if(newArrivalsRoot)renderProductList(newArrivalsRoot,arrivals);
-}const REFERENCE_PRODUCTS={
+}const REFERENCE_PRODUCT_IMAGES={
+ "Oversized Graphic T-Shirt":"https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg?auto=compress&cs=tinysrgb&w=900",
+ "Basic Hoodie":"https://images.pexels.com/photos/6311392/pexels-photo-6311392.jpeg?auto=compress&cs=tinysrgb&w=900",
+ "Wide Leg Jeans":"https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=900",
+ "Polo T-Shirt":"https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=900",
+ "Casual Sneakers":"https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=900"
+};
+const REFERENCE_PRODUCTS={
  "Oversized Graphic T-Shirt":{price:1299,rating:"4.6",reviews:"1.2k"},
  "Basic Hoodie":{price:1899,rating:"4.5",reviews:"950"},
  "Wide Leg Jeans":{price:2199,rating:"4.3",reviews:"756"},
@@ -84,7 +91,7 @@ async function addReferenceProduct(product){
 }
 function productCardMarkup(p,i,listName){
  const w=getWishlist();const saved=w.some(x=>x.productId===p.id||x.name===p.name);
- const rawImage=String(p.image?.storage_path||""); const imageUrl=rawImage?( /^https?:\/\//i.test(rawImage)?rawImage:window.APNA_SUPABASE_CONFIG.url+"/storage/v1/object/public/product-images/"+rawImage ):"";
+ const rawImage=String(p.image?.storage_path||""); const imageUrl=rawImage?( /^https?:\/\//i.test(rawImage)?rawImage:window.APNA_SUPABASE_CONFIG.url+"/storage/v1/object/public/product-images/"+rawImage ):((listName==="featured"&&REFERENCE_PRODUCT_IMAGES[p.name])||"");
  const imageMarkup=imageUrl ? '<img src="'+imageUrl+'" alt="'+escapeHtml(p.image?.alt_text||p.name)+'" loading="lazy">' : '<span class="product-placeholder">APNA</span>';
  const ref=REFERENCE_PRODUCTS[p.name];
  const wishButton=listName==="featured" ? '<button aria-label="'+(saved?"Remove from wishlist":"Add to wishlist")+'" onclick="event.preventDefault();event.stopPropagation();toggleWish(products['+i+'])">'+(saved?"♥":"♡")+'</button>' : "";
