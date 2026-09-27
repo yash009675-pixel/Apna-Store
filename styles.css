@@ -4571,3 +4571,7 @@ body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox .lightb
   body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox .lightbox-zoom-in{right:68px!important}
   body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox .lightbox-zoom-reset{right:12px!important}
 }
+
+/* Step 4 recommendation polish */
+.recommendation-engine{grid-column:1/-1;width:100%;min-width:0}.recommendation-section{padding:55px 0 0}.recommendation-section .section-head{margin-bottom:24px}.recommendation-section .products{grid-template-columns:repeat(4,minmax(0,1fr))}.recommendation-section .product-image img{width:100%;height:100%;object-fit:cover;display:block}.recommendation-save{font-size:10px!important;color:#999!important;margin-top:4px!important}
+@media(max-width:800px){.recommendation-section{padding:40px 0 0}.recommendation-section .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.recommendation-section .section-head h2{font-size:28px}}
