@@ -3654,3 +3654,61 @@ body:has(.admin-sidebar) .admin-nav-bottom>a .admin-icon{
   color:#fffdf9!important;
   stroke:currentColor!important;
 }
+
+
+/* ACCOUNT STATS ICON FIT — keep one icon inside one icon tile */
+body:not(:has(.admin-sidebar)) .account-stats>a{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:6px!important;
+  padding:14px 10px!important;
+  text-align:center!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a:before{
+  display:none!important;
+  content:none!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a span[data-icon]{
+  width:42px!important;
+  height:42px!important;
+  min-width:42px!important;
+  min-height:42px!important;
+  display:grid!important;
+  place-items:center!important;
+  margin:0 0 2px!important;
+  border-radius:11px!important;
+  background:#f0ece6!important;
+  color:#4d4842!important;
+  position:relative!important;
+  z-index:1!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a span[data-icon] .site-ui-icon{
+  width:21px!important;
+  height:21px!important;
+  display:block!important;
+  margin:0!important;
+  color:#4d4842!important;
+  stroke:currentColor!important;
+  fill:none!important;
+  stroke-width:1.8!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a b{
+  display:block!important;
+  line-height:1.05!important;
+  margin:0!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a>span:last-child{
+  display:block!important;
+  line-height:1.2!important;
+  margin:0!important;
+}
+@media(max-width:600px){
+  body:not(:has(.admin-sidebar)) .account-stats>a span[data-icon]{
+    width:40px!important;height:40px!important;min-width:40px!important;min-height:40px!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-stats>a span[data-icon] .site-ui-icon{
+    width:20px!important;height:20px!important;
+  }
+}
