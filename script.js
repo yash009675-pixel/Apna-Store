@@ -69,12 +69,13 @@ if(root)root.innerHTML='<p class="checkout-note">Loading products…</p>';
  render();
  if(newArrivalsRoot)renderProductList(newArrivalsRoot,arrivals);
 }const REFERENCE_PRODUCT_IMAGES={
- "Oversized Graphic T-Shirt":"https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg?auto=compress&cs=tinysrgb&w=900",
- "Basic Hoodie":"https://images.pexels.com/photos/6311392/pexels-photo-6311392.jpeg?auto=compress&cs=tinysrgb&w=900",
- "Wide Leg Jeans":"https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=900",
- "Polo T-Shirt":"https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=900",
- "Casual Sneakers":"https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=900"
+ "Oversized Graphic T-Shirt":"https://images.unsplash.com/photo-1622519407650-3df9883f76a5?auto=format&fit=crop&fm=jpg&q=80&w=900",
+ "Basic Hoodie":"https://images.unsplash.com/photo-1622131527801-78b144aa7f2c?auto=format&fit=crop&fm=jpg&q=80&w=900",
+ "Wide Leg Jeans":"https://images.unsplash.com/photo-1603364374348-890320e28dda?auto=format&fit=crop&fm=jpg&q=80&w=900",
+ "Polo T-Shirt":"https://images.unsplash.com/photo-1624138305790-fcc04974a0b5?auto=format&fit=crop&fm=jpg&q=80&w=900",
+ "Casual Sneakers":"https://images.unsplash.com/photo-1637437757614-6491c8e915b5?auto=format&fit=crop&fm=jpg&q=80&w=900"
 };
+const REFERENCE_PRODUCT_IMAGE_LIST=Object.values(REFERENCE_PRODUCT_IMAGES);
 const REFERENCE_PRODUCTS={
  "Oversized Graphic T-Shirt":{price:1299,rating:"4.6",reviews:"1.2k"},
  "Basic Hoodie":{price:1899,rating:"4.5",reviews:"950"},
@@ -99,7 +100,7 @@ async function addReferenceProduct(product){
 function productCardMarkup(p,i,listName){
  const w=getWishlist();const saved=w.some(x=>x.productId===p.id||x.name===p.name);
  const rawImage=String(p.image?.storage_path||""); const imageUrl=rawImage?( /^https?:\/\//i.test(rawImage)?rawImage:window.APNA_SUPABASE_CONFIG.url+"/storage/v1/object/public/product-images/"+rawImage ):((listName==="featured"&&REFERENCE_PRODUCT_IMAGES[p.name])||"");
- const fallbackImage=REFERENCE_PRODUCT_IMAGES[p.name]||"";
+ const fallbackImage=REFERENCE_PRODUCT_IMAGES[p.name]||REFERENCE_PRODUCT_IMAGE_LIST[i%REFERENCE_PRODUCT_IMAGE_LIST.length]||"";
  const imageMarkup=imageUrl
    ? '<img src="'+imageUrl+'" alt="'+escapeHtml(p.image?.alt_text||p.name)+'" loading="lazy" decoding="async"'+(fallbackImage?' onerror="this.onerror=null;this.src=\''+fallbackImage+'\';"':"")+'>' 
    : (fallbackImage?'<img src="'+fallbackImage+'" alt="'+escapeHtml(p.name)+'" loading="lazy" decoding="async">':'<span class="product-placeholder">APNA</span>');
