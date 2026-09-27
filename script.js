@@ -52,13 +52,23 @@ async function loadProducts(){
 
   // Load products first. Image/category lookups must never block the homepage.
   try{
-    const [featuredResult,newResult]=await Promise.all([
-      apnaSupabase.from("products").select("id,name,price,category_id,created_at").eq("status","active").order("created_at",{ascending:false}).limit(5),
-      apnaSupabase.from("products").select("id,name,price,category_id,created_at").eq("status","active").order("created_at",{ascending:false}).limit(4)
+    let featuredResult,newResult;
+    [featuredResult,newResult]=await Promise.all([
+      apnaSupabase.from("products").select("id,name,slug,description,price,category_id").eq("status","active").order("created_at",{ascending:true}).order("id",{ascending:true}).limit(5),
+      apnaSupabase.from("products").select("id,name,slug,description,price,category_id").eq("status","active").order("created_at",{ascending:true}).order("id",{ascending:true}).limit(4)
     ]);
 
+    // Fallback query keeps the homepage usable if a schema/order field is unavailable.
     if(featuredResult.error||newResult.error){
-      console.error("Homepage product query failed:",featuredResult.error||newResult.error);
+      console.warn("Homepage primary product query failed; retrying simple query:",featuredResult.error||newResult.error);
+      [featuredResult,newResult]=await Promise.all([
+        apnaSupabase.from("products").select("id,name,price,category_id").eq("status","active").limit(5),
+        apnaSupabase.from("products").select("id,name,price,category_id").eq("status","active").limit(4)
+      ]);
+    }
+
+    if(featuredResult.error||newResult.error){
+      console.error("Homepage product query failed after fallback:",featuredResult.error||newResult.error);
       if(root)root.innerHTML='<p class="checkout-note">Products could not be loaded right now. Please refresh and try again.</p>';
       if(newArrivalsRoot)newArrivalsRoot.innerHTML='<p class="checkout-note">Products could not be loaded right now. Please refresh and try again.</p>';
       return;
@@ -136,8 +146,11 @@ async function addReferenceProduct(product){
 }
 function productCardMarkup(p,i,listName){
  const w=getWishlist();const saved=w.some(x=>x.productId===p.id||x.name===p.name);
- const rawImage=String(p.image?.storage_path||""); const imageUrl=rawImage?( /^https?:\/\//i.test(rawImage)?rawImage:window.APNA_SUPABASE_CONFIG.url+"/storage/v1/object/public/product-images/"+rawImage ):((listName==="featured"&&REFERENCE_PRODUCT_IMAGES[p.name])||"");
+ const rawImage=String(p.image?.storage_path||"");
  const fallbackImage=REFERENCE_PRODUCT_IMAGES[p.name]||REFERENCE_PRODUCT_IMAGE_LIST[i%REFERENCE_PRODUCT_IMAGE_LIST.length]||"";
+ const imageUrl=listName==="featured"
+   ? (REFERENCE_PRODUCT_IMAGES[p.name]||fallbackImage)
+   : (rawImage?( /^https?:\/\/i.test(rawImage)?rawImage:window.APNA_SUPABASE_CONFIG.url+"/storage/v1/object/public/product-images/"+rawImage ):"");
  const imageMarkup=imageUrl
    ? '<img src="'+imageUrl+'" alt="'+escapeHtml(p.image?.alt_text||p.name)+'" loading="lazy" decoding="async"'+(fallbackImage?' onerror="this.onerror=null;this.src=\''+fallbackImage+'\';"':"")+'>' 
    : (fallbackImage?'<img src="'+fallbackImage+'" alt="'+escapeHtml(p.name)+'" loading="lazy" decoding="async">':'<span class="product-placeholder">APNA</span>');
