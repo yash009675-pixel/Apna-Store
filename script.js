@@ -27,9 +27,9 @@ async function loadCategories(){
  const subtitles=["Shop Now →","Shop Now →","Shop Now →","Shop Now →"];
  const categoryImages={
    "Men":"https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=1000",
-   "Women":"https://images.pexels.com/photos/3762800/pexels-photo-3762800.jpeg?auto=compress&cs=tinysrgb&w=1000",
+   "Women":"https://images.pexels.com/photos/2474291/pexels-photo-2474291.jpeg?auto=compress&cs=tinysrgb&w=1000",
    "Kids":"https://images.pexels.com/photos/1620760/pexels-photo-1620760.jpeg?auto=compress&cs=tinysrgb&w=1000",
-   "New Arrivals":"https://images.pexels.com/photos/7679723/pexels-photo-7679723.jpeg?auto=compress&cs=tinysrgb&w=1000"
+   "New Arrivals":"https://images.pexels.com/photos/7679444/pexels-photo-7679444.jpeg?auto=compress&cs=tinysrgb&w=1000"
  };
  const imageUrl=img=>{const path=String(img?.storage_path||"");if(!path)return "";if(/^https?:\/\//i.test(path))return path;return window.APNA_SUPABASE_CONFIG.url+"/storage/v1/object/public/product-images/"+path;};
  if(categoriesRoot)categoriesRoot.innerHTML=rows.map((c,i)=>{
