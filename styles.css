@@ -5087,3 +5087,71 @@ body .product-page .product-visual .gallery-zoom{position:absolute!important;top
 .site-header .seller-nav{flex:0 1 auto;justify-content:flex-end;gap:clamp(10px,1.5vw,20px)}
 .site-header .seller-nav .seller-btn{flex:0 0 auto}
 }
+
+/* UI-03 — GLOBAL MOBILE NAVIGATION */
+@media (max-width:800px){
+  .site-header{
+    min-height:64px!important;height:auto!important;padding:10px 16px!important;
+    gap:10px!important;position:sticky!important;top:0!important;z-index:100!important;
+    flex-wrap:wrap!important;
+  }
+  .site-header .logo{flex:0 0 auto!important;font-size:19px!important;white-space:nowrap!important}
+  .site-header nav{
+    order:3!important;flex:1 1 100%!important;width:100%!important;
+    display:flex!important;align-items:center!important;justify-content:flex-start!important;
+    gap:8px!important;overflow-x:auto!important;overflow-y:hidden!important;
+    padding:2px 0 3px!important;scrollbar-width:none!important;
+  }
+  .site-header nav::-webkit-scrollbar{display:none!important}
+  .site-header nav a{
+    flex:0 0 auto!important;min-height:36px!important;display:inline-flex!important;
+    align-items:center!important;padding:8px 11px!important;border:1px solid #e3e0da!important;
+    border-radius:999px!important;background:#fff!important;font-size:11px!important;white-space:nowrap!important;
+  }
+  .site-header .header-actions{
+    flex:0 0 auto!important;margin-left:auto!important;gap:3px!important;min-width:0!important;
+  }
+  .site-header .header-actions .header-search{display:none!important}
+  .site-header .header-actions .header-link{
+    min-height:36px!important;padding:7px 8px!important;font-size:10px!important;white-space:nowrap!important;
+  }
+  .site-header .header-actions .header-link:nth-of-type(2){display:none!important}
+  .site-header .header-actions .header-bag-count{min-width:17px!important;height:17px!important}
+  .site-header>form.header-search{order:2!important;display:flex!important;flex:1 1 auto!important;min-width:0!important;max-width:none!important}
+  .site-header>form.header-search input{min-width:0!important;width:100%!important}
+  .site-header .seller-nav{
+    order:3!important;flex:1 1 100%!important;width:100%!important;justify-content:flex-start!important;
+    gap:7px!important;overflow-x:auto!important;scrollbar-width:none!important;padding-bottom:2px!important;
+  }
+  .site-header .seller-nav::-webkit-scrollbar{display:none!important}
+  .site-header .seller-nav a,.site-header .seller-nav .seller-btn{
+    flex:0 0 auto!important;min-height:36px!important;white-space:nowrap!important;
+    padding:8px 11px!important;font-size:11px!important;border-radius:999px!important;
+  }
+}
+@media (max-width:800px){
+  .apna-reference-home .ref-header{
+    min-height:64px!important;height:auto!important;padding:10px 16px!important;gap:10px!important;flex-wrap:wrap!important;
+  }
+  .apna-reference-home .ref-logo{flex:0 0 auto!important;font-size:19px!important}
+  .apna-reference-home .ref-main-nav{
+    order:3!important;flex:1 1 100%!important;width:100%!important;justify-content:flex-start!important;
+    gap:7px!important;overflow-x:auto!important;scrollbar-width:none!important;padding-bottom:2px!important;
+  }
+  .apna-reference-home .ref-main-nav::-webkit-scrollbar{display:none!important}
+  .apna-reference-home .ref-main-nav a{
+    flex:0 0 auto!important;padding:8px 11px!important;min-height:34px!important;display:inline-flex!important;
+    align-items:center!important;border:1px solid #e3e0da!important;border-radius:999px!important;
+    background:#fff!important;font-size:11px!important;
+  }
+  .apna-reference-home .ref-header-tools{flex:1 1 auto!important;min-width:0!important;margin-left:auto!important}
+  .apna-reference-home .ref-search{min-width:0!important;max-width:none!important;flex:1 1 auto!important}
+  .apna-reference-home .ref-search input{min-width:0!important;width:100%!important}
+  .apna-reference-home .ref-icon-btn{flex:0 0 auto!important}
+}
+@media (max-width:420px){
+  .site-header{padding-left:12px!important;padding-right:12px!important}
+  .site-header .logo{font-size:18px!important}
+  .site-header .header-actions .header-link{padding-left:6px!important;padding-right:6px!important}
+  .apna-reference-home .ref-header{padding-left:12px!important;padding-right:12px!important}
+}
