@@ -31,7 +31,7 @@ async function loadCategories(){
    "Kids":"https://images.pexels.com/photos/1620760/pexels-photo-1620760.jpeg?auto=compress&cs=tinysrgb&w=1000",
    "New Arrivals":"https://images.pexels.com/photos/7679723/pexels-photo-7679723.jpeg?auto=compress&cs=tinysrgb&w=1000"
  };
- const imageUrl=img=>{const path=String(img?.storage_path||"");if(!path)return "";if(/^https?:\\/\\//i.test(path))return path;return window.APNA_SUPABASE_CONFIG.url+"/storage/v1/object/public/product-images/"+path;};
+ const imageUrl=img=>{const path=String(img?.storage_path||"");if(!path)return "";if(/^https?:\/\//i.test(path))return path;return window.APNA_SUPABASE_CONFIG.url+"/storage/v1/object/public/product-images/"+path;};
  if(categoriesRoot)categoriesRoot.innerHTML=rows.map((c,i)=>{
    const url=categoryImages[c.name]||"";
    const media=url?'<span class="category-media"><img src="'+escapeHtml(url)+'" alt="'+escapeHtml(c.name)+' clothing" loading="lazy"></span>':'';
@@ -84,7 +84,7 @@ async function addReferenceProduct(product){
 }
 function productCardMarkup(p,i,listName){
  const w=getWishlist();const saved=w.some(x=>x.productId===p.id||x.name===p.name);
- const rawImage=String(p.image?.storage_path||""); const imageUrl=rawImage?( /^https?:\\/\\//i.test(rawImage)?rawImage:window.APNA_SUPABASE_CONFIG.url+"/storage/v1/object/public/product-images/"+rawImage ):"";
+ const rawImage=String(p.image?.storage_path||""); const imageUrl=rawImage?( /^https?:\/\//i.test(rawImage)?rawImage:window.APNA_SUPABASE_CONFIG.url+"/storage/v1/object/public/product-images/"+rawImage ):"";
  const imageMarkup=imageUrl ? '<img src="'+imageUrl+'" alt="'+escapeHtml(p.image?.alt_text||p.name)+'" loading="lazy">' : '<span class="product-placeholder">APNA</span>';
  const ref=REFERENCE_PRODUCTS[p.name];
  const wishButton=listName==="featured" ? '<button aria-label="'+(saved?"Remove from wishlist":"Add to wishlist")+'" onclick="event.preventDefault();event.stopPropagation();toggleWish(products['+i+'])">'+(saved?"♥":"♡")+'</button>' : "";
