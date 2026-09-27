@@ -323,3 +323,34 @@
   .apna-reference-home .ref-hero-copy{max-width:88%}
   .apna-reference-home .ref-hero-copy h1{font-size:32px}
 }
+
+
+/* APNASTORE REFERENCE — VISUAL VERIFICATION PASS 03 */
+.apna-reference-home .ref-category-section{padding-top:34px}
+.apna-reference-home .ref-trending-section{padding-top:34px}
+.apna-reference-home .ref-title-row{margin-bottom:16px}
+.apna-reference-home .ref-collection{margin-top:38px}
+.apna-reference-home .ref-why{padding-top:34px}
+.apna-reference-home .ref-inspo{padding-top:34px;padding-bottom:28px}
+.apna-reference-home .ref-footer{margin-top:0!important}
+.apna-reference-home .ref-categories .category{border-radius:7px}
+.apna-reference-home .ref-products .product-card{border-radius:7px!important}
+.apna-reference-home .ref-products .product-image{background:#f2eee8!important}
+.apna-reference-home .ref-collection{border-radius:7px}
+.apna-reference-home .ref-collection-copy h2{line-height:.98}
+.apna-reference-home .ref-benefit-icon{background:#eee7dd;color:#292929}
+@media(max-width:900px){
+  .apna-reference-home .ref-category-section,
+  .apna-reference-home .ref-trending-section,
+  .apna-reference-home .ref-why,
+  .apna-reference-home .ref-inspo{padding-top:28px}
+  .apna-reference-home .ref-collection{margin-top:30px}
+}
+@media(max-width:600px){
+  .apna-reference-home .ref-category-section,
+  .apna-reference-home .ref-trending-section,
+  .apna-reference-home .ref-why,
+  .apna-reference-home .ref-inspo{padding-top:24px}
+  .apna-reference-home .ref-title-row{margin-bottom:12px}
+  .apna-reference-home .ref-collection{margin-top:24px}
+}
