@@ -414,3 +414,46 @@
   .apna-reference-home .ref-icon-btn svg{width:18px;height:18px}
   .apna-reference-home .ref-search>span svg{width:13px;height:13px}
 }
+
+/* APNASTORE REFERENCE — VISUAL VERIFICATION PASS 05 */
+@media(min-width:901px){
+  .apna-reference-home .ref-header{height:54px;grid-template-columns:180px 1fr auto;gap:22px;padding:0 7%}
+  .apna-reference-home .ref-logo{font-size:20px;letter-spacing:-.055em}
+  .apna-reference-home .ref-main-nav{gap:31px}
+  .apna-reference-home .ref-main-nav a{font-size:11px}
+  .apna-reference-home .ref-header-tools{gap:13px}
+  .apna-reference-home .ref-search{width:198px;height:30px}
+  .apna-reference-home .ref-search input{font-size:9px}
+  .apna-reference-home .ref-hero{width:calc(100% - 40px);max-width:1240px;height:278px;margin-top:0}
+  .apna-reference-home .ref-hero-copy{left:6.5%;max-width:none}
+  .apna-reference-home .ref-hero-copy h1{font-size:39px}
+  .apna-reference-home .ref-hero-copy>p:not(.ref-hero-kicker){font-size:13px}
+  .apna-reference-home .ref-section{max-width:880px;padding-top:20px}
+  .apna-reference-home .ref-section-title h2{font-size:20px}
+  .apna-reference-home .ref-section-title p{font-size:10px}
+  .apna-reference-home .ref-category-section{padding-top:18px}
+  .apna-reference-home .ref-categories{gap:9px;margin-top:11px}
+  .apna-reference-home .ref-categories .category{height:166px;min-height:166px!important;border-radius:4px}
+  .apna-reference-home .ref-categories .category h3{font-size:16px!important}
+  .apna-reference-home .ref-categories .category p{font-size:9px!important}
+  .apna-reference-home .ref-trending-section{padding-top:20px}
+  .apna-reference-home .ref-title-row{margin-bottom:13px}
+  .apna-reference-home .ref-products{gap:9px}
+  .apna-reference-home .ref-products .product-card{border-radius:4px!important}
+  .apna-reference-home .ref-products .product-image{height:142px!important}
+  .apna-reference-home .ref-products .product-info h3{font-size:9px!important}
+  .apna-reference-home .ref-products .product-info p{font-size:8px!important}
+  .apna-reference-home .ref-products .product-info .price{font-size:11px!important}
+  .apna-reference-home .ref-collection{max-width:880px;height:178px;margin-top:18px;border-radius:4px}
+  .apna-reference-home .ref-collection-copy{padding:27px 35px}
+  .apna-reference-home .ref-collection-copy h2{font-size:27px}
+  .apna-reference-home .ref-collection-copy>p:not(.ref-mini-label){font-size:10px}
+  .apna-reference-home .ref-why{padding-top:18px}
+  .apna-reference-home .ref-benefits{gap:20px;margin-top:11px}
+  .apna-reference-home .ref-benefit strong{font-size:9px}
+  .apna-reference-home .ref-benefit p{font-size:8px}
+  .apna-reference-home .ref-inspo{padding-top:18px;padding-bottom:16px}
+  .apna-reference-home .ref-inspo-grid{gap:6px;margin-top:10px}
+  .apna-reference-home .ref-inspo-grid>a,.apna-reference-home .ref-instagram{height:86px}
+  .apna-reference-home .ref-footer{padding-top:25px!important}
+}
