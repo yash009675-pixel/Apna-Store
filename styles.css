@@ -3051,3 +3051,36 @@ body:not(.apna-reference-home) .header-search:focus-within{border-color:#aaa39a!
 body:not(.apna-reference-home) .header-bag-count{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-width:17px!important;height:17px!important;margin-left:4px!important;padding:0 4px!important;border-radius:999px!important;background:#171615!important;color:#fff!important;font-size:9px!important}
 @media(max-width:900px){body:not(.apna-reference-home) .header-search{width:36px!important;border:0!important;background:transparent!important;margin:0!important}.header-search input{display:none!important}.header-search button{width:36px!important;padding:6px!important}}
 @media(max-width:520px){body:not(.apna-reference-home) .header-actions a,body:not(.apna-reference-home) .header-actions button,body:not(.apna-reference-home) .header-search button{font-size:0!important}.header-search button:before{content:"⌕"!important;font-size:17px!important}.header-bag-count{font-size:8px!important}}
+
+
+/* Phase B: Shop page editorial storefront */
+body:not(.apna-reference-home) .section{max-width:1180px!important;margin:0 auto!important;padding:48px clamp(18px,4vw,48px) 72px!important}
+body:not(.apna-reference-home) .section-head{margin-bottom:26px!important}
+body:not(.apna-reference-home) .section-head .eyebrow{color:#77716a!important;font-size:10px!important;letter-spacing:.16em!important;font-weight:700!important}
+body:not(.apna-reference-home) .section-head h2{font-size:clamp(34px,5vw,54px)!important;line-height:1!important;margin:7px 0 0!important;letter-spacing:-.035em!important}
+body:not(.apna-reference-home) .shop-tools{background:#fffdf9!important;border:1px solid #ded8cf!important;border-radius:18px!important;padding:18px!important;box-shadow:0 8px 30px rgba(23,22,21,.045)!important}
+body:not(.apna-reference-home) .chips{display:flex!important;gap:8px!important;flex-wrap:wrap!important;margin-bottom:18px!important}
+body:not(.apna-reference-home) .chip{border:1px solid #d7d1c8!important;border-radius:999px!important;background:#fff!important;color:#393632!important;padding:9px 15px!important;font-size:10px!important;font-weight:700!important;letter-spacing:.04em!important;cursor:pointer!important}
+body:not(.apna-reference-home) .chip.active,body:not(.apna-reference-home) .chip:hover{background:#171615!important;color:#fff!important;border-color:#171615!important}
+body:not(.apna-reference-home) .advanced-filters{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important;padding:16px 0!important;border-top:1px solid #ebe6df!important}
+body:not(.apna-reference-home) .filter-field label{display:block!important;margin:0 0 6px!important;color:#6e6861!important;font-size:9px!important;font-weight:700!important;letter-spacing:.1em!important;text-transform:uppercase!important}
+body:not(.apna-reference-home) .filter-field input,body:not(.apna-reference-home) .filter-field select,body:not(.apna-reference-home) .shop-sort select{width:100%!important;min-height:40px!important;border:1px solid #d8d2ca!important;border-radius:9px!important;background:#fff!important;color:#272522!important;padding:9px 11px!important;font:inherit!important;font-size:11px!important;outline:none!important}
+body:not(.apna-reference-home) .filter-field input:focus,body:not(.apna-reference-home) .filter-field select:focus,body:not(.apna-reference-home) .shop-sort select:focus{border-color:#8e877f!important;box-shadow:0 0 0 2px rgba(23,22,21,.06)!important}
+body:not(.apna-reference-home) .filter-actions{display:flex!important;align-items:end!important;gap:8px!important}
+body:not(.apna-reference-home) .filter-clear{min-height:44px!important;padding:11px 16px!important;border:1px solid #d5cfc6!important;border-radius:999px!important;background:#fff!important;color:#292724!important;font-size:10px!important;font-weight:700!important;cursor:pointer!important}
+body:not(.apna-reference-home) .filter-summary{display:flex!important;justify-content:space-between!important;gap:15px!important;align-items:center!important;padding:13px 0!important;border-top:1px solid #ebe6df!important;color:#817a72!important;font-size:10px!important}
+body:not(.apna-reference-home) #filterResultCount{color:#292724!important;font-weight:700!important}
+body:not(.apna-reference-home) .shop-sort{display:flex!important;justify-content:flex-end!important;margin:0 0 18px!important}
+body:not(.apna-reference-home) .shop-sort select{width:auto!important;min-width:170px!important;border-radius:999px!important}
+body:not(.apna-reference-home) .products{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:18px!important}
+body:not(.apna-reference-home) .products .product-card{background:#fff!important;border:1px solid #e5dfd7!important;border-radius:14px!important;overflow:hidden!important;box-shadow:0 5px 20px rgba(23,22,21,.035)!important;transition:transform .18s ease,box-shadow .18s ease!important}
+body:not(.apna-reference-home) .products .product-card:hover{transform:translateY(-3px)!important;box-shadow:0 12px 28px rgba(23,22,21,.09)!important}
+body:not(.apna-reference-home) .products .product-image{height:300px!important;background:#eeeae4!important;border-radius:0!important;overflow:hidden!important}
+body:not(.apna-reference-home) .products .product-image img{width:100%!important;height:100%!important;object-fit:cover!important;padding:0!important;display:block!important}
+body:not(.apna-reference-home) .products .product-info{padding:14px!important}
+body:not(.apna-reference-home) .products .product-info h3{color:#1d1b19!important;font-size:13px!important;line-height:1.35!important;margin:0 0 6px!important;font-weight:700!important}
+body:not(.apna-reference-home) .products .product-info p,body:not(.apna-reference-home) .products .product-meta{color:#716b64!important;font-size:10px!important}
+body:not(.apna-reference-home) .products .price{color:#171615!important;font-weight:800!important;font-size:13px!important}
+body:not(.apna-reference-home) .shop-pagination{display:flex!important;justify-content:center!important;gap:7px!important;margin-top:28px!important}
+@media(max-width:800px){body:not(.apna-reference-home) .advanced-filters{grid-template-columns:repeat(2,minmax(0,1fr))!important}body:not(.apna-reference-home) .products{grid-template-columns:repeat(2,minmax(0,1fr))!important}body:not(.apna-reference-home) .products .product-image{height:260px!important}body:not(.apna-reference-home) .filter-summary{align-items:flex-start!important;flex-direction:column!important}}
+@media(max-width:520px){body:not(.apna-reference-home) .section{padding:32px 14px 52px!important}.shop-tools{padding:12px!important;border-radius:14px!important}.advanced-filters{grid-template-columns:1fr!important}.products{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}.products .product-image{height:210px!important}.products .product-info{padding:10px!important}.shop-sort select{min-width:150px!important}.section-head h2{font-size:38px!important}}
