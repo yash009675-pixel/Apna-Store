@@ -4316,3 +4316,52 @@ body:not(.apna-reference-home):not(:has(.admin-sidebar)) .mobile-sticky-buy{
     cursor:pointer!important;
   }
 }
+
+
+/* FINAL PRODUCT GALLERY CLEANUP — no artificial white frame, stronger thumbnails, reliable lightbox */
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-large,
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-large.has-image{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-large .product-main-img{
+  padding:0!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  object-fit:contain!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-thumbs{
+  gap:14px!important;
+  padding:4px!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-thumb{
+  background:#fffdf9!important;
+  border:1px solid #d8d2c9!important;
+  border-radius:8px!important;
+  overflow:hidden!important;
+  opacity:.78!important;
+  transition:opacity .2s ease,transform .2s ease,border-color .2s ease!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-thumb:hover,
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-thumb.selected{
+  opacity:1!important;
+  border-color:#171615!important;
+  transform:translateY(-1px)!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .product-thumb img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  display:block!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox{
+  background:rgba(10,9,8,.96)!important;
+}
+body:not(.apna-reference-home):not(:has(.admin-sidebar)) .image-lightbox>img{
+  background:transparent!important;
+  border:0!important;
+  border-radius:4px!important;
+}
