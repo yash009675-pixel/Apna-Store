@@ -85,12 +85,13 @@ async function loadProducts(){
 const COMING_SOON_CATEGORIES=new Set(["men","women","kids","footwear","accessories","ethnic wear","western wear"]);
 function isComingSoonCategory(name){return COMING_SOON_CATEGORIES.has(String(name||"").trim().toLowerCase())}
 function renderComingSoonCategory(){
- const title=String(selected||"").trim();
+ const rawTitle=String(selected||"").trim();
+ const title=rawTitle==="Men"?"Men’s":rawTitle==="Women"?"Women’s":rawTitle;
  root.innerHTML='<div class="apna-empty-products" style="grid-column:1/-1;text-align:center;padding:64px 24px"><span class="apna-empty-kicker">COMING SOON</span><strong>'+escapeHtml(title)+' products are not live yet.</strong><p>This category will be added soon. Please check back shortly.</p><a href="shop.html?category=Ladies%20Saree">Shop Ladies Sarees →</a></div>';
  const resultCount=document.getElementById("filterResultCount");if(resultCount)resultCount.textContent="0 products";
 }
 function renderCategoryChips(){const el=document.getElementById("categoryChips");if(!el)return;el.innerHTML='<button class="chip active" data-cat="All">All</button>'+categories.map(c=>'<button class="chip" data-cat="'+escapeHtml(c.name)+'">'+escapeHtml(c.name)+'</button>').join("");el.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{selected=b.dataset.cat;currentPage=1;syncCategoryChip();syncUrl();loadProducts()});syncCategoryChip()}
-function syncCategoryChip(){const valid=["All",...categories.map(c=>c.name)];if(!valid.includes(selected))selected="All";document.querySelectorAll("#categoryChips .chip").forEach(x=>x.classList.toggle("active",x.dataset.cat===selected))}
+function syncCategoryChip(){const valid=["All",...categories.map(c=>c.name)];if(categories.length&&!valid.includes(selected))selected="All";document.querySelectorAll("#categoryChips .chip").forEach(x=>x.classList.toggle("active",x.dataset.cat===selected))}
 function matchingVariantIds(){
  const wantedSize=filters.size,wantedColor=filters.color,wantedStock=filters.stock==="in";
  return new Set(variants.filter(v=>(!wantedSize||v.size===wantedSize)&&(!wantedColor||v.color===wantedColor)&&(!wantedStock||Number(v.stock)>0)).map(v=>v.product_id));
