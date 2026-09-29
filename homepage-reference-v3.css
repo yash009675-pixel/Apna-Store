@@ -759,3 +759,38 @@
   }
   .apna-reference-home .ref-inspo-grid>a{height:145px!important}
 }
+
+/* ===== CATEGORY: ABSOLUTELY NO FRAME/BORDER ===== */
+.apna-reference-home .ref-categories .category,
+.apna-reference-home .ref-categories .category:hover,
+.apna-reference-home .ref-categories .category:focus,
+.apna-reference-home .ref-categories .category:focus-visible{
+  border:none!important;
+  outline:none!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  background:transparent!important;
+  margin:0!important;
+}
+.apna-reference-home .ref-categories .category::before{
+  content:none!important;
+  display:none!important;
+}
+.apna-reference-home .ref-categories .category::after{
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+.apna-reference-home .ref-categories .category-media{
+  inset:0!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+}
+.apna-reference-home .ref-categories .category-media img{
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+}
