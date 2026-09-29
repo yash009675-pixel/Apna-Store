@@ -25,7 +25,7 @@ async function loadCategories(){
  const categoryImages={
    "Men":"assets/IMG_2487.jpeg",
    "Women":"assets/IMG_2502.jpeg",
-   "Kids":"https://images.unsplash.com/photo-1768696082603-5b7a9f0a10ab?auto=format&fit=crop&fm=jpg&q=80&w=1000",
+   "Kids":"assets/IMG_2503.jpeg",
    "Ladies Saree":"assets/IMG_2497.jpeg",
    "Footwear":"assets/IMG_2498.jpeg",
    "Accessories":"assets/IMG_2500.jpeg",
