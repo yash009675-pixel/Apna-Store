@@ -16,7 +16,7 @@ async function loadAddresses(){
 }
 async function loadAccount(){
  const r=await apnaSupabase.auth.getSession();if(r.error)throw r.error;session=r.data.session;$("bagCount").textContent=guestCount();
- if(!session){$("accountStatus").textContent="Sign in to access your Apna Store account.";return}
+ if(!session){$("accountStatus").textContent="Sign in to access your Apna Store account.";$("accountActions").innerHTML='<a class="primary-btn" href="auth.html">Sign in / Create account →</a><a href="shop.html">Continue shopping</a>';return}
  const p=await apnaSupabase.from("profiles").select("full_name,role,birthday,referral_code").eq("id",session.user.id).maybeSingle();if(p.error)throw p.error;
  const name=p.data?.full_name||session.user.user_metadata?.full_name||session.user.email;
  $("accountTitle").textContent="Welcome, "+esc(name)+".";$("accountStatus").textContent=session.user.email||"";
