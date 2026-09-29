@@ -1,7 +1,7 @@
 /* APNASTORE REFERENCE HOME — matches supplied reference structure */
 .apna-reference-home{background:#f7f6f2!important;color:#171717!important;font-family:Inter,Arial,sans-serif!important}
 .apna-reference-home .ref-topbar{height:30px;background:#191919;color:#fff;display:block;overflow:hidden;font-size:11px;line-height:1;white-space:nowrap}
-.apna-reference-home .ref-top-track{display:flex;width:max-content;height:100%;align-items:center;animation:apnaTopTicker 12s linear infinite;will-change:transform}
+.apna-reference-home .ref-top-track{display:flex;width:max-content;height:100%;align-items:center;animation:apnaTopTicker 12s linear infinite}
 .apna-reference-home .ref-top-group{display:flex;align-items:center;gap:52px;padding-right:100px;flex:none}
 .apna-reference-home .ref-top-left{display:flex;align-items:center;gap:7px}
 .apna-reference-home .ref-truck{font-size:14px;display:inline-flex}
