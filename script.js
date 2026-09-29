@@ -22,11 +22,15 @@ async function loadCategories(){
  const toneClasses=["cat-men","cat-women","cat-kids","cat-saree","cat-footwear","cat-accessories","cat-ethnic","cat-western"];
  const subtitles=["Shop Now →","Shop Now →","Shop Now →","Shop Now →","Shop Now →","Shop Now →","Shop Now →","Shop Now →"];
  const categoryImages={
-   "Men":"https://images.unsplash.com/photo-1636047250452-6772f6144b3d?auto=format&fit=crop&fm=jpg&q=80&w=1000",
-   "Women":"https://images.unsplash.com/photo-1753707407133-5af2cc35fd21?auto=format&fit=crop&fm=jpg&q=80&w=1000",
-   "Ladies Saree":"https://images.unsplash.com/photo-1778148046511-27141f5f01ae?auto=format&fit=crop&fm=jpg&q=80&w=1000",
+   "Men":"assets/IMG_2487.jpeg",
+   "Women":"assets/IMG_2502.jpeg",
    "Kids":"https://images.unsplash.com/photo-1768696082603-5b7a9f0a10ab?auto=format&fit=crop&fm=jpg&q=80&w=1000",
-   "New Arrivals":"https://images.unsplash.com/photo-1766149756155-4a8122ad0732?auto=format&fit=crop&fm=jpg&q=80&w=1000"
+   "Ladies Saree":"assets/IMG_2497.jpeg",
+   "Footwear":"assets/IMG_2498.jpeg",
+   "Accessories":"assets/IMG_2500.jpeg",
+   "Ethnic Wear":"assets/IMG_2501.jpeg",
+   "Western Wear":"assets/IMG_2499.jpeg",
+   "New Arrivals":"assets/IMG_2488.jpeg"
  };
  const renderCategoryCards=rows=>{
    if(!categoriesRoot)return;
