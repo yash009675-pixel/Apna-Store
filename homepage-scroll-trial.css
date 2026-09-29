@@ -1,0 +1,74 @@
+/* APNASTORE — SCROLL SCREEN TRIAL (reversible) */
+.apna-reference-home{
+  scroll-behavior:smooth;
+  scroll-snap-type:y proximity;
+}
+.apna-reference-home .ref-hero,
+.apna-reference-home .ref-category-section,
+.apna-reference-home .ref-trending-section,
+.apna-reference-home .ref-collection,
+.apna-reference-home .ref-why,
+.apna-reference-home .ref-inspo{
+  scroll-snap-align:start;
+  scroll-snap-stop:normal;
+}
+.apna-reference-home .ref-hero{
+  min-height:calc(100vh - 126px);
+  height:calc(100vh - 126px);
+  max-height:760px;
+}
+.apna-reference-home .ref-category-section,
+.apna-reference-home .ref-trending-section,
+.apna-reference-home .ref-why,
+.apna-reference-home .ref-inspo{
+  min-height:calc(100vh - 84px);
+  box-sizing:border-box;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.apna-reference-home .ref-category-section > *,
+.apna-reference-home .ref-trending-section > *,
+.apna-reference-home .ref-why > *,
+.apna-reference-home .ref-inspo > *{
+  flex-shrink:0;
+}
+.apna-reference-home .ref-collection{
+  min-height:calc(100vh - 84px);
+  height:auto;
+  box-sizing:border-box;
+  align-content:center;
+}
+@media(max-width:900px){
+  .apna-reference-home .ref-hero{
+    min-height:calc(100vh - 118px);
+    height:calc(100vh - 118px);
+  }
+  .apna-reference-home .ref-category-section,
+  .apna-reference-home .ref-trending-section,
+  .apna-reference-home .ref-why,
+  .apna-reference-home .ref-inspo,
+  .apna-reference-home .ref-collection{
+    min-height:calc(100vh - 76px);
+  }
+}
+@media(max-width:600px){
+  .apna-reference-home{
+    scroll-snap-type:y proximity;
+  }
+  .apna-reference-home .ref-hero{
+    min-height:calc(100svh - 98px);
+    height:calc(100svh - 98px);
+  }
+  .apna-reference-home .ref-category-section,
+  .apna-reference-home .ref-trending-section,
+  .apna-reference-home .ref-why,
+  .apna-reference-home .ref-inspo{
+    min-height:auto;
+    padding-top:46px;
+    padding-bottom:46px;
+  }
+  .apna-reference-home .ref-collection{
+    min-height:auto;
+  }
+}
