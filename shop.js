@@ -24,25 +24,25 @@ async function loadSponsored(){const section=document.getElementById("sponsoredS
 async function loadProducts(){
  root.innerHTML='<p class="checkout-note">Loading Apna products…</p>';
  const cachedCategories=readShopCache("apnaShopCategories"),cachedVariants=readShopCache("apnaShopVariants");
- let categoryResult={data:cachedCategories,error:null},variantResult={data:cachedVariants,error:null};
- if(!cachedCategories||!cachedVariants){
-  const [cr,vr]=await Promise.all([
-   apnaSupabase.from("categories").select("id,name,is_active,sort_order").eq("is_active",true).order("sort_order").order("name"),
-   apnaSupabase.from("product_variants").select("product_id,size,color,stock")
-  ]);
-  categoryResult=cr;variantResult=vr;
-  if(!cr.error)writeShopCache("apnaShopCategories",cr.data||[]);
-  if(!vr.error)writeShopCache("apnaShopVariants",vr.data||[]);
+ let categoryResult={data:cachedCategories,error:null};
+ if(!cachedCategories){
+  categoryResult=await apnaSupabase.from("categories").select("id,name,is_active,sort_order").eq("is_active",true).order("sort_order").order("name");
+  if(!categoryResult.error)writeShopCache("apnaShopCategories",categoryResult.data||[]);
  }
  if(categoryResult.error){console.error("Shop category query failed:",categoryResult.error);root.innerHTML='<p class="checkout-note">Categories could not be loaded right now. Please refresh and try again.</p>';return}
- if(variantResult.error){console.error("Shop variant query failed:",variantResult.error);root.innerHTML='<p class="checkout-note">We could not load product filters right now. Please refresh and try again.</p>';return}
  categories=categoryResult.data||[];
- variants=variantResult.data||[];
  const categoryMap=new Map(categories.map(c=>[c.id,c.name]));
  renderCategoryChips();
- buildFilterOptions();
  syncCategoryChip();
  if(isComingSoonCategory(selected)){products=[];totalProducts=0;renderComingSoonCategory();updatePagination();const sponsored=document.getElementById("sponsoredSection");if(sponsored)sponsored.hidden=true;return;}
+ let variantResult={data:cachedVariants,error:null};
+ if(!cachedVariants){
+  variantResult=await apnaSupabase.from("product_variants").select("product_id,size,color,stock");
+  if(!variantResult.error)writeShopCache("apnaShopVariants",variantResult.data||[]);
+ }
+ if(variantResult.error){console.error("Shop variant query failed:",variantResult.error);root.innerHTML='<p class="checkout-note">We could not load product filters right now. Please refresh and try again.</p>';return}
+ variants=variantResult.data||[];
+ buildFilterOptions();
  const categoryId=categories.find(c=>String(c.name).toLowerCase()===String(selected).toLowerCase())?.id||null;
  const matchingIds=matchingVariantIds();
  const variantFilterActive=Boolean(filters.size||filters.color||filters.stock==="in");
