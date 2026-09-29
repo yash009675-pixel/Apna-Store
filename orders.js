@@ -10,7 +10,7 @@ function renderOrders(orders){
 }
 (async()=>{
  const {data:{session}}=await apnaSupabase.auth.getSession();
- if(!session){list.innerHTML='<div class="empty-cart"><h2>Sign in to view your orders.</h2><p>Your order history is securely connected to your Apna Store account.</p><a class="primary-btn" href="auth.html">Sign in / Create account →</a></div>';return}
+ if(!session){list.innerHTML='<div class="empty-cart"><h2>Sign in to view your orders.</h2><p>Your order history is securely connected to your Apna Store account.</p><a class="primary-btn orders-auth-btn" href="auth.html">Sign in / Create account →</a></div>';return}
  const {data,error}=await apnaSupabase.from("orders").select("id,order_number,status,delivery_status,payment_method,payment_status,subtotal,discount_amount,coupon_code,delivery_fee,total,created_at,order_items(product_name,unit_price,quantity)").eq("user_id",session.user.id).order("created_at",{ascending:false});
  if(error){console.error(error);list.innerHTML='<div class="empty-cart"><h2>Could not load orders.</h2><p>Please refresh and try again.</p></div>';return}
  renderOrders(data||[]);
