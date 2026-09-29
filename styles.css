@@ -5217,3 +5217,48 @@ body:not(.apna-reference-home) #wishlistGrid .wishlist-image{
 .apna-reference-home .ref-hero-copy{
   z-index:2!important;
 }
+
+/* ===== BRAND LOGO VISIBILITY ===== */
+.apna-reference-home .ref-logo{
+  display:inline-flex!important;
+  align-items:center!important;
+  text-decoration:none!important;
+  line-height:0!important;
+}
+.apna-reference-home .ref-logo img{
+  display:block!important;
+  width:142px!important;
+  height:auto!important;
+  max-height:24px!important;
+  object-fit:contain!important;
+}
+.apna-reference-home .ref-footer-logo img{
+  width:150px!important;
+  max-height:25px!important;
+}
+body:has(.admin-sidebar) .admin-brand{
+  display:flex!important;
+  align-items:center!important;
+  gap:10px!important;
+  line-height:0!important;
+}
+body:has(.admin-sidebar) .admin-brand img{
+  display:block!important;
+  width:142px!important;
+  height:auto!important;
+  max-height:24px!important;
+  filter:invert(1)!important;
+  object-fit:contain!important;
+}
+body:has(.admin-sidebar) .admin-brand small{
+  line-height:1!important;
+  white-space:nowrap!important;
+}
+.empty-cart .orders-auth-btn,
+.orders-auth-btn{
+  display:inline-flex!important;
+  visibility:visible!important;
+  opacity:1!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
