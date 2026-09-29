@@ -794,3 +794,35 @@
   box-shadow:none!important;
   border-radius:0!important;
 }
+
+/* ===== IMAGE FIT FIX — NEVER CROP UPLOADED HOMEPAGE IMAGES ===== */
+.apna-reference-home .ref-categories .category-media img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  background:#f4f1ea!important;
+}
+
+/* Style Inspo: show the complete uploaded image */
+.apna-reference-home .ref-inspo-grid>a{
+  height:auto!important;
+  min-height:0!important;
+  aspect-ratio:auto!important;
+  background:#f4f1ea!important;
+  overflow:hidden!important;
+}
+.apna-reference-home .ref-inspo-grid>a img{
+  width:100%!important;
+  height:auto!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  display:block!important;
+  background:#f4f1ea!important;
+}
+@media(max-width:600px){
+  .apna-reference-home .ref-inspo-grid>a{
+    height:auto!important;
+  }
+}
