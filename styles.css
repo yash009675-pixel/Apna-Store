@@ -5155,3 +5155,65 @@ body .product-page .product-visual .gallery-zoom{position:absolute!important;top
   .site-header .header-actions .header-link{padding-left:6px!important;padding-right:6px!important}
   .apna-reference-home .ref-header{padding-left:12px!important;padding-right:12px!important}
 }
+
+/* GLOBAL CONTRAST PASS — keep text readable over every image/background */
+body:not(.apna-reference-home) .hero-photo::after,
+body:not(.apna-reference-home) .hero-photo-label,
+body:not(.apna-reference-home) .hero-photo-copy,
+body:not(.apna-reference-home) #wishlistGrid .wishlist-image span,
+body:not(.apna-reference-home) .wishlist-image span{
+  text-shadow:0 2px 5px rgba(0,0,0,.78),0 1px 14px rgba(0,0,0,.42)!important;
+}
+body:not(.apna-reference-home) .hero-photo::before,
+body:not(.apna-reference-home) .hero-photo::after{
+  pointer-events:none;
+}
+body:not(.apna-reference-home) .hero-photo-label{
+  background:rgba(17,17,17,.48)!important;
+  border-color:rgba(255,255,255,.72)!important;
+}
+body:not(.apna-reference-home) .hero-photo-copy{
+  background:linear-gradient(90deg,rgba(0,0,0,.62),rgba(0,0,0,0))!important;
+  padding:7px 12px!important;
+  border-radius:6px!important;
+}
+body:not(.apna-reference-home) #wishlistGrid .wishlist-image::after,
+body:not(.apna-reference-home) .wishlist-image::after{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:1!important;
+  pointer-events:none!important;
+  background:linear-gradient(180deg,rgba(0,0,0,0) 38%,rgba(0,0,0,.62) 100%)!important;
+}
+body:not(.apna-reference-home) #wishlistGrid .wishlist-image{
+  position:relative!important;
+  overflow:hidden!important;
+}
+
+/* Homepage reference cards: always maintain readable white labels */
+.apna-reference-home .ref-categories .category::after{
+  background:linear-gradient(180deg,rgba(0,0,0,.08) 15%,rgba(0,0,0,.82) 100%)!important;
+}
+.apna-reference-home .ref-categories .category>span{
+  background:rgba(0,0,0,.46)!important;
+  color:#fff!important;
+  padding:4px 6px!important;
+  border-radius:3px!important;
+  text-shadow:0 1px 4px rgba(0,0,0,.8)!important;
+}
+.apna-reference-home .ref-categories .category h3,
+.apna-reference-home .ref-categories .category p{
+  text-shadow:0 2px 5px rgba(0,0,0,.8)!important;
+}
+.apna-reference-home .ref-hero::after{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:1!important;
+  pointer-events:none!important;
+  background:linear-gradient(90deg,rgba(255,255,255,.06) 0%,rgba(0,0,0,.02) 48%,rgba(0,0,0,.22) 100%)!important;
+}
+.apna-reference-home .ref-hero-copy{
+  z-index:2!important;
+}
