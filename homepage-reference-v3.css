@@ -1,10 +1,16 @@
 /* APNASTORE REFERENCE HOME — matches supplied reference structure */
 .apna-reference-home{background:#f7f6f2!important;color:#171717!important;font-family:Inter,Arial,sans-serif!important}
-.apna-reference-home .ref-topbar{height:30px;background:#191919;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 6.7%;font-size:10px;line-height:1}
+.apna-reference-home .ref-topbar{height:30px;background:#191919;color:#fff;display:block;overflow:hidden;font-size:10px;line-height:1;white-space:nowrap}
+.apna-reference-home .ref-top-track{display:flex;width:max-content;height:100%;align-items:center;animation:apnaTopTicker 24s linear infinite;will-change:transform}
+.apna-reference-home .ref-top-group{display:flex;align-items:center;gap:12px;padding-right:70px;flex:none}
 .apna-reference-home .ref-top-left{display:flex;align-items:center;gap:7px}
-.apna-reference-home .ref-truck{font-size:14px}
-.apna-reference-home .ref-top-right{display:flex;gap:9px;color:#eee}
-.apna-reference-home .ref-top-right a{color:#eee;text-decoration:none}
+.apna-reference-home .ref-truck{font-size:14px;display:inline-flex}
+.apna-reference-home .ref-truck svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8}
+.apna-reference-home .ref-top-group a{color:#eee;text-decoration:none}
+.apna-reference-home .ref-top-sep{color:#777}
+@keyframes apnaTopTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.apna-reference-home .ref-top-track{animation:none;transform:none}}
+@media(max-width:700px){.ref-topbar{height:28px;font-size:9px}.apna-reference-home .ref-top-group{gap:9px;padding-right:45px}}
 .apna-reference-home .ref-header{height:54px;background:#fbfaf7;display:grid;grid-template-columns:180px 1fr auto;align-items:center;gap:22px;padding:0 7%;border:0;position:relative;z-index:20}
 .apna-reference-home .ref-logo{color:#171717;text-decoration:none;font-size:20px;font-weight:800;letter-spacing:-.055em}
 .apna-reference-home .ref-logo span{font-weight:400}
