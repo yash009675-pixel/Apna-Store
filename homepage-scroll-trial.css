@@ -76,20 +76,3 @@
   .apna-reference-home .ref-why,
   .apna-reference-home .ref-collection{min-height:calc(100svh - 120px)}
 }
-
-/* PayPal-style editorial visual scene */
-.paypal-style-fashion-scene{width:100%;padding:clamp(28px,4vw,56px) 0 0;background:#fff;overflow:hidden}
-.paypal-style-heading{width:min(1180px,90vw);margin:0 auto clamp(16px,2vw,28px);text-align:left}
-.paypal-style-heading h2{margin:0;font-size:clamp(36px,5.6vw,78px);line-height:.94;letter-spacing:-.045em;font-weight:800;color:#111}
-.paypal-style-heading p{margin:12px 0 0;font-size:clamp(15px,1.3vw,20px);color:#555}
-.paypal-style-visual{width:100%;height:min(64svh,720px);min-height:360px;overflow:hidden}
-.paypal-style-visual img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 42%;transform:scale(1.01);transition:transform .9s cubic-bezier(.2,.7,.2,1);will-change:transform}
-.paypal-style-fashion-scene:hover .paypal-style-visual img{transform:scale(1.025)}
-@media(max-width:700px){
- .paypal-style-fashion-scene{padding-top:28px}
- .paypal-style-heading{width:90vw;margin-bottom:14px}
- .paypal-style-heading h2{font-size:clamp(32px,10vw,48px)}
- .paypal-style-heading p{margin-top:10px;font-size:15px;line-height:1.35}
- .paypal-style-visual{height:52svh;min-height:340px}
- .paypal-style-visual img{object-position:center center}
-}
