@@ -5,9 +5,9 @@ const safeLink=value=>{if(!value)return "";try{const u=new URL(value,location.hr
 const roleCategories={
  customer:[["order","Orders"],["payment","Payments"],["shipment","Shipments"],["delivery","Delivery"],["return","Returns"],["refund","Refunds"],["offers","Offers"],["system","System"]],
  seller:[["new_order","New Orders"],["low_stock","Low Stock"],["pickup","Pickup"],["payment","Payments"],["return","Returns"],["listing","Listing Approval"],["campaign","Campaigns"],["growth","Growth Alerts"],["system","System"]],
- admin:[["critical","Critical Issues"],["payment","Payment Issues"],["courier","Courier Issues"],["seller","Seller Issues"],["support","Support Escalation"],["fraud_risk","Fraud / Risk Alerts"],["system","System"]]
+ admin:[["low_stock","Low Stock"],["critical","Critical Issues"],["payment","Payment Issues"],["courier","Courier Issues"],["seller","Seller Issues"],["support","Support Escalation"],["fraud_risk","Fraud / Risk Alerts"],["system","System"]]
 };
-let rows=[],role="customer",preferences=[];
+let rows=[],role="customer",preferences=[],notificationChannel=null;
 function notificationLink(n){const href=safeLink(n.link);return href?'<a href="'+esc(href)+'" data-open="'+esc(n.id)+'">View →</a>':""}
 function categoryLabel(v){const found=(roleCategories[role]||[]).find(x=>x[0]===v);return found?found[1]:v}
 function renderList(){
@@ -67,10 +67,21 @@ function setupPushChannel(){
   button.textContent="Enabled";button.disabled=true;
  },{once:false});
 }
+function setupRealtime(uid){
+ if(notificationChannel)apnaSupabase.removeChannel(notificationChannel);
+ notificationChannel=apnaSupabase.channel("apna-notifications-"+uid)
+   .on("postgres_changes",{event:"INSERT",schema:"public",table:"notifications",filter:"user_id=eq."+uid},payload=>{
+      const n=payload.new;
+      if(!n||n.user_id!==uid)return;
+      if(!rows.some(x=>x.id===n.id)){rows=[n,...rows].slice(0,100);renderList();}
+   })
+   .subscribe(status=>{if(status==="CHANNEL_ERROR")console.warn("Notification realtime channel error");});
+}
 async function load(){
  setupPushChannel();
  const {data:s,error:sessionError}=await apnaSupabase.auth.getSession();
  if(sessionError||!s.session){
+  if(notificationChannel){await apnaSupabase.removeChannel(notificationChannel);notificationChannel=null;}
   $("notificationStatus").textContent="Sign in to view your notifications.";
   $("markAll").hidden=true;$("enablePush").disabled=true;$("enablePush").hidden=true;
   $("notificationList").innerHTML='<div class="empty-cart"><a class="primary-btn" href="auth.html">Sign in / Create account →</a></div>';return;
@@ -82,7 +93,7 @@ async function load(){
  $("categoryFilter").innerHTML='<option value="all">All categories</option>'+categories.map(x=>'<option value="'+esc(x[0])+'">'+esc(x[1])+"</option>").join("");
  const {data,error}=await apnaSupabase.from("notifications").select("id,type,title,body,link,category,audience_role,is_read,created_at").eq("user_id",uid).order("created_at",{ascending:false}).limit(100);
  if(error){$("notificationStatus").textContent="Could not load notifications.";$("notificationList").innerHTML='<div class="empty-cart"><p>Please refresh and try again.</p></div>';return}
- rows=data||[];renderList();await loadPreferences();$("markAll").hidden=false;await loadEmailChannel();
+ rows=data||[];renderList();setupRealtime(uid);await loadPreferences();$("markAll").hidden=false;await loadEmailChannel();
 }
 $("categoryFilter").onchange=renderList;$("readFilter").onchange=renderList;
 $("markAll").onclick=async()=>{$("markAll").disabled=true;const r=await apnaSupabase.rpc("mark_all_notifications_read");$("markAll").disabled=false;if(r.error){alert("Could not mark notifications as read.");return}await load()};
