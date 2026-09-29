@@ -8,7 +8,7 @@
 .apna-reference-home .ref-truck svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8}
 .apna-reference-home .ref-top-group a{color:#eee;text-decoration:none}
 .apna-reference-home .ref-top-sep{color:#777}
-@keyframes apnaTopTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes apnaTopTicker{from{transform:translateX(0)}to{transform:translateX(-25%)}}
 @media(prefers-reduced-motion:reduce){.apna-reference-home .ref-top-track{animation:none;transform:none}}
 @media(max-width:700px){.ref-topbar{height:28px;font-size:9px}.apna-reference-home .ref-top-group{gap:34px;padding-right:70px}}
 .apna-reference-home .ref-header{height:54px;background:#fbfaf7;display:grid;grid-template-columns:180px 1fr auto;align-items:center;gap:22px;padding:0 7%;border:0;position:relative;z-index:20}
