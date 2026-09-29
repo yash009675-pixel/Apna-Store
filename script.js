@@ -21,6 +21,7 @@ async function loadCategories(){
  const wanted=["Men","Women","Kids","Ladies Saree","Footwear","Accessories","Ethnic Wear","Western Wear"];
  const toneClasses=["cat-men","cat-women","cat-kids","cat-saree","cat-footwear","cat-accessories","cat-ethnic","cat-western"];
  const subtitles=["Shop Now →","Shop Now →","Shop Now →","Shop Now →","Shop Now →","Shop Now →","Shop Now →","Shop Now →"];
+ const displayNames={"Ladies Saree":"Saree"};
  const categoryImages={
    "Men":"assets/IMG_2487.jpeg",
    "Women":"assets/IMG_2502.jpeg",
@@ -37,7 +38,8 @@ async function loadCategories(){
    categoriesRoot.innerHTML=rows.map((c,i)=>{
      const url=categoryImages[c.name]||"";
      const media=url?'<span class="category-media"><img src="'+escapeHtml(url)+'" alt="'+escapeHtml(c.name)+' clothing" loading="eager" decoding="async"></span>':"";
-     return '<a href="shop.html?category='+encodeURIComponent(c.name)+'" class="category '+toneClasses[i%toneClasses.length]+'">'+media+'<div class="category-copy"><h3>'+escapeHtml(c.name)+'</h3><p>'+subtitles[i%subtitles.length]+'</p></div></a>';
+     const label=displayNames[c.name]||c.name;
+     return '<a href="shop.html?category='+encodeURIComponent(c.name)+'" class="category '+toneClasses[i%toneClasses.length]+'">'+media+'<div class="category-copy"><h3>'+escapeHtml(label)+'</h3><p>'+subtitles[i%subtitles.length]+'</p></div></a>';
    }).join("");
  };
  const fallbackRows=wanted.map(name=>({id:"ref-"+name.toLowerCase().replace(/\s+/g,"-"),name,slug:name.toLowerCase().replace(/\s+/g,"-")}));
