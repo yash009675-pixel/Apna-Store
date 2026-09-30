@@ -826,3 +826,8 @@
     height:auto!important;
   }
 }
+
+/* Stay Connected newsletter feedback */
+.apna-reference-home .ref-newsletter form{position:relative;}
+.apna-reference-home .newsletter-message{display:block;min-height:18px;margin-top:8px;font-size:12px;line-height:1.4;color:inherit;opacity:.8;}
+.apna-reference-home .ref-newsletter button:disabled{opacity:.55;cursor:wait;}
