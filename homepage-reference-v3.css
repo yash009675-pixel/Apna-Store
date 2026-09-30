@@ -863,3 +863,136 @@
   .apna-reference-home .ref-logo img{width:125px!important;max-height:24px!important}
   .apna-reference-home .ref-footer-logo img{width:150px!important;max-height:25px!important}
 }
+
+
+/* ===== FINAL HOMEPAGE IMAGE FIT — clean, uniform, responsive ===== */
+
+/* Shop by Category: image-only tiles, no visible frame/border */
+.apna-reference-home .ref-categories{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:10px!important;
+  align-items:stretch!important;
+}
+.apna-reference-home .ref-categories .category{
+  position:relative!important;
+  display:block!important;
+  width:100%!important;
+  aspect-ratio:4 / 5!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  background:transparent!important;
+  overflow:hidden!important;
+}
+.apna-reference-home .ref-categories .category-media{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  overflow:hidden!important;
+}
+.apna-reference-home .ref-categories .category-media img{
+  width:100%!important;
+  height:100%!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  object-fit:cover!important;
+  object-position:center!important;
+  display:block!important;
+  background:transparent!important;
+}
+.apna-reference-home .ref-categories .category::before{
+  display:none!important;
+  content:none!important;
+}
+.apna-reference-home .ref-categories .category::after{
+  border:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+}
+.apna-reference-home .ref-categories .category-copy{
+  left:14px!important;
+  right:10px!important;
+  bottom:12px!important;
+  z-index:2!important;
+}
+
+/* Style Inspo: every photo gets its own natural-size section.
+   Prevent CSS grid row stretching that created the blank area under image 1. */
+.apna-reference-home .ref-inspo-grid{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:10px!important;
+  align-items:start!important;
+}
+.apna-reference-home .ref-inspo-grid>a{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  aspect-ratio:auto!important;
+  align-self:start!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  background:transparent!important;
+  overflow:hidden!important;
+}
+.apna-reference-home .ref-inspo-grid>a img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  max-width:100%!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  object-fit:initial!important;
+  object-position:center!important;
+  background:transparent!important;
+}
+
+/* Responsive: keep the grid inside the viewport without horizontal overflow. */
+@media(max-width:900px){
+  .apna-reference-home .ref-categories,
+  .apna-reference-home .ref-inspo-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  .apna-reference-home .ref-categories .category{
+    aspect-ratio:4 / 5!important;
+  }
+}
+@media(max-width:600px){
+  .apna-reference-home .ref-categories,
+  .apna-reference-home .ref-inspo-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+  .apna-reference-home .ref-categories .category{
+    aspect-ratio:4 / 5!important;
+  }
+  .apna-reference-home .ref-categories .category-copy{
+    left:10px!important;
+    bottom:9px!important;
+  }
+}
