@@ -207,3 +207,177 @@ body:not(:has(.admin-sidebar)) .account-stats>a:hover{
 }
 
 
+
+
+/* Customer account — clean ecommerce reference layout */
+body:not(:has(.admin-sidebar)) .account-page{
+  background:#f4f4f2!important;
+  padding:32px 22px 72px!important;
+}
+body:not(:has(.admin-sidebar)) .account-card{
+  width:min(1180px,100%)!important;
+  max-width:none!important;
+  margin:0 auto!important;
+  padding:0!important;
+  display:grid!important;
+  grid-template-columns:190px minmax(0,1fr)!important;
+  gap:0!important;
+  background:#fff!important;
+  border:1px solid #e3e3df!important;
+  border-radius:2px!important;
+  box-shadow:0 10px 35px rgba(0,0,0,.035)!important;
+  overflow:hidden!important;
+}
+body:not(:has(.admin-sidebar)) .account-reference-sidebar{
+  grid-column:1!important;
+  grid-row:1!important;
+  padding:34px 18px!important;
+  border-right:1px solid #e8e8e5!important;
+  background:#fff!important;
+  min-height:100%!important;
+  box-sizing:border-box!important;
+}
+body:not(:has(.admin-sidebar)) .account-sidebar-title{
+  margin:0 0 18px!important;
+  padding:0 10px 14px!important;
+  border-bottom:1px solid #e8e8e5!important;
+  color:#111!important;
+  font:600 14px/1.2 "DM Sans",Arial,sans-serif!important;
+}
+body:not(:has(.admin-sidebar)) .account-reference-sidebar a{
+  display:flex!important;
+  align-items:center!important;
+  min-height:38px!important;
+  padding:9px 10px!important;
+  margin:2px 0!important;
+  border-radius:3px!important;
+  color:#666!important;
+  text-decoration:none!important;
+  font:500 11px/1.25 "DM Sans",Arial,sans-serif!important;
+}
+body:not(:has(.admin-sidebar)) .account-reference-sidebar a:hover{
+  color:#111!important;
+  background:#f5f5f3!important;
+}
+body:not(:has(.admin-sidebar)) .account-reference-sidebar a.active{
+  background:#111!important;
+  color:#fff!important;
+}
+body:not(:has(.admin-sidebar)) .account-main{
+  grid-column:2!important;
+  grid-row:1!important;
+  min-width:0!important;
+  padding:0 34px 40px!important;
+  box-sizing:border-box!important;
+}
+body:not(:has(.admin-sidebar)) .account-main>.eyebrow{
+  margin:32px 0 8px!important;
+  color:#777!important;
+  font:700 10px/1 "DM Sans",Arial,sans-serif!important;
+  letter-spacing:.14em!important;
+}
+body:not(:has(.admin-sidebar)) #accountTitle{
+  margin:0!important;
+  color:#171717!important;
+  font:500 clamp(36px,4vw,56px)/1.02 Georgia,"Times New Roman",serif!important;
+  letter-spacing:-.04em!important;
+}
+body:not(:has(.admin-sidebar)) #accountStatus{
+  margin:10px 0 26px!important;
+  color:#777!important;
+  font:14px/1.55 "DM Sans",Arial,sans-serif!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats{
+  display:grid!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  gap:9px!important;
+  margin:0 0 28px!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a{
+  min-width:0!important;
+  min-height:82px!important;
+  padding:13px 10px!important;
+  border:1px solid #dededb!important;
+  border-radius:3px!important;
+  background:#fff!important;
+  box-shadow:none!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a .site-ui-icon{
+  width:17px!important;height:17px!important;margin-bottom:6px!important;color:#555!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a b{
+  font:700 18px/1 "DM Sans",Arial,sans-serif!important;color:#111!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a>span:last-child{
+  display:block!important;margin-top:5px!important;color:#777!important;
+  font:10px/1.2 "DM Sans",Arial,sans-serif!important;
+}
+body:not(:has(.admin-sidebar)) .account-panel{
+  margin:0 0 12px!important;
+  padding:24px!important;
+  border:1px solid #dededb!important;
+  border-radius:3px!important;
+  background:#fff!important;
+  box-shadow:none!important;
+}
+body:not(:has(.admin-sidebar)) .account-panel .eyebrow{
+  margin:0 0 8px!important;
+  color:#777!important;
+  font:700 10px/1 "DM Sans",Arial,sans-serif!important;
+  letter-spacing:.14em!important;
+}
+body:not(:has(.admin-sidebar)) .account-panel h2{
+  margin:0 0 12px!important;
+  color:#171717!important;
+  font:500 clamp(25px,3vw,34px)/1.08 Georgia,"Times New Roman",serif!important;
+  letter-spacing:-.03em!important;
+}
+body:not(:has(.admin-sidebar)) .account-panel .checkout-note{
+  color:#777!important;
+  font:13px/1.6 "DM Sans",Arial,sans-serif!important;
+}
+body:not(:has(.admin-sidebar)) .account-panel .primary-btn{
+  background:#111!important;
+  border:1px solid #111!important;
+  color:#fff!important;
+  border-radius:999px!important;
+  font:700 11px/1 "DM Sans",Arial,sans-serif!important;
+}
+body:not(:has(.admin-sidebar)) .account-panel input,
+body:not(:has(.admin-sidebar)) .account-panel select,
+body:not(:has(.admin-sidebar)) .account-panel textarea{
+  border:1px solid #d9d9d6!important;
+  border-radius:3px!important;
+  background:#fff!important;
+  color:#222!important;
+}
+@media(max-width:800px){
+  body:not(:has(.admin-sidebar)) .account-page{padding:18px 10px 50px!important}
+  body:not(:has(.admin-sidebar)) .account-card{grid-template-columns:150px minmax(0,1fr)!important}
+  body:not(:has(.admin-sidebar)) .account-reference-sidebar{padding:24px 10px!important}
+  body:not(:has(.admin-sidebar)) .account-main{padding:0 20px 30px!important}
+  body:not(:has(.admin-sidebar)) .account-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:600px){
+  body:not(:has(.admin-sidebar)) .account-card{display:block!important}
+  body:not(:has(.admin-sidebar)) .account-reference-sidebar{
+    border-right:0!important;
+    border-bottom:1px solid #e8e8e5!important;
+    padding:12px 12px 10px!important;
+    min-height:0!important;
+    overflow-x:auto!important;
+    white-space:nowrap!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-sidebar-title{
+    display:none!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-reference-sidebar a{
+    display:inline-flex!important;
+    margin:0 3px 0 0!important;
+    min-height:34px!important;
+    padding:8px 11px!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-main{padding:0 16px 28px!important}
+  body:not(:has(.admin-sidebar)) .account-main>.eyebrow{margin-top:25px!important}
+  body:not(:has(.admin-sidebar)) #accountTitle{font-size:clamp(34px,10vw,48px)!important}
+}
