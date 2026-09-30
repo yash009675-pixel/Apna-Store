@@ -171,6 +171,31 @@ function renderProductList(target,list){
 }
 function render(){if(!root)return;const w=getWishlist();root.innerHTML=products.length?products.map((p,i)=>productCardMarkup(p,i,"featured")).join(""):'<div class="apna-empty-products"><span class="apna-empty-kicker">COMING SOON</span><strong>Curated everyday pieces.</strong><p>Apna Store products will appear here as they are approved.</p><a href="shop.html">Browse the store →</a></div>';root.querySelectorAll(".add").forEach(b=>b.onclick=()=>addReferenceProduct(products[Number(b.dataset.i)]))}
 function toggleWish(p){let w=getWishlist();const i=w.findIndex(x=>x.productId===p.id||x.name===p.name);if(i>=0)w.splice(i,1);else w.push({productId:p.id,name:p.name,category:p.type,price:Number(p.price)});localStorage.setItem("apnaWishlist",JSON.stringify(w));render()}
+/* Stay Connected — homepage newsletter subscription */
+(function(){
+  const form=document.getElementById("newsletterForm");
+  const email=document.getElementById("newsletterEmail");
+  const msg=document.getElementById("newsletterMessage");
+  if(!form||!email)return;
+  form.addEventListener("submit",async function(e){
+    e.preventDefault();
+    const value=email.value.trim().toLowerCase();
+    if(!value)return;
+    const button=form.querySelector("button");
+    if(button)button.disabled=true;
+    if(msg)msg.textContent="Saving…";
+    try{
+      const{error}=await apnaSupabase.from("newsletter_subscriptions").insert({email:value,source:"homepage"});
+      if(error&&error.code!=="23505")throw error;
+      if(msg)msg.textContent=error?.code==="23505"?"You're already connected.":"You're connected — thank you!";
+      if(!error)email.value="";
+    }catch(err){
+      console.error("Newsletter subscription failed:",err);
+      if(msg)msg.textContent="Something went wrong. Please try again.";
+    }finally{if(button)button.disabled=false;}
+  });
+})();
+
 loadCategories();loadProducts();loadMarketing();updateHeader();const search=document.getElementById("searchBtn");if(search)search.onclick=()=>location.href="search.html";const cartBtn=document.getElementById("cartBtn");if(cartBtn)cartBtn.onclick=()=>location.href="cart.html";
 
 /* UI-03 — mobile navigation injection */
