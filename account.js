@@ -17,7 +17,7 @@ async function loadAddresses(){
 async function loadAccount(){
  const r=await apnaSupabase.auth.getSession();if(r.error)throw r.error;session=r.data.session;$("bagCount").textContent=guestCount();
  if(!session){$("accountStatus").textContent="Sign in to access your Apna Store account.";$("accountActions").innerHTML='<a class="primary-btn" href="auth.html">Sign in / Create account →</a><a href="shop.html">Continue shopping</a>';return}
- const p=await apnaSupabase.from("profiles").select("full_name,role,birthday,referral_code").eq("id",session.user.id).maybeSingle();if(p.error)throw p.error;
+ const p=await apnaSupabase.from("profiles").select("full_name,role,birthday,referral_code").eq("id",session.user.id).maybeSingle();if(p.error)throw p.error;const referralResult=await apnaSupabase.rpc("ensure_my_referral_code");if(referralResult.error)throw referralResult.error;if(p.data)p.data.referral_code=referralResult.data;
  const name=p.data?.full_name||session.user.user_metadata?.full_name||session.user.email;
  const membershipResult=await apnaSupabase.rpc("ensure_free_membership");
  const rewardsResult=await apnaSupabase.rpc("get_my_rewards");
