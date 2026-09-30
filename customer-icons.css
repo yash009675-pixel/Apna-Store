@@ -958,3 +958,162 @@ body:not(:has(.admin-sidebar)) .account-panel .primary-btn{
   }
 }
 
+
+
+/* ===== ACCOUNT PREMIUM UPGRADE v2 ===== */
+body:not(:has(.admin-sidebar)) .account-page{
+  background:#f4f2ed!important;
+}
+body:not(:has(.admin-sidebar)) .account-card{
+  box-shadow:0 28px 70px rgba(20,19,17,.12)!important;
+}
+body:not(:has(.admin-sidebar)) .account-reference-sidebar{
+  position:sticky!important;
+  top:22px!important;
+  align-self:start!important;
+  height:max-content!important;
+  min-height:0!important;
+}
+body:not(:has(.admin-sidebar)) .account-editorial-hero{
+  height:clamp(370px,38vw,520px)!important;
+}
+body:not(:has(.admin-sidebar)) .account-editorial-hero>img{
+  transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .5s ease!important;
+}
+body:not(:has(.admin-sidebar)) .account-editorial-hero:hover>img{
+  transform:scale(1.035)!important;
+}
+body:not(:has(.admin-sidebar)) .account-editorial-overlay{
+  background:
+    linear-gradient(90deg,rgba(10,10,9,.78) 0%,rgba(10,10,9,.38) 46%,rgba(10,10,9,.04) 100%),
+    linear-gradient(0deg,rgba(10,10,9,.32),transparent 45%)!important;
+}
+body:not(:has(.admin-sidebar)) .account-editorial-copy{
+  max-width:850px!important;
+}
+body:not(:has(.admin-sidebar)) .account-editorial-copy .eyebrow{
+  display:inline-flex!important;
+  padding:7px 10px!important;
+  margin-bottom:16px!important;
+  border:1px solid rgba(255,255,255,.3)!important;
+  background:rgba(255,255,255,.08)!important;
+  backdrop-filter:blur(8px)!important;
+  -webkit-backdrop-filter:blur(8px)!important;
+  letter-spacing:.18em!important;
+}
+body:not(:has(.admin-sidebar)) .account-editorial-copy #accountStatus{
+  max-width:580px!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats{
+  margin-top:-44px!important;
+  margin-bottom:42px!important;
+  box-shadow:0 15px 32px rgba(24,23,20,.09)!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a{
+  position:relative!important;
+  overflow:hidden!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a:after{
+  content:""!important;
+  position:absolute!important;
+  left:0!important;
+  right:0!important;
+  bottom:0!important;
+  height:2px!important;
+  background:#171716!important;
+  transform:scaleX(0)!important;
+  transform-origin:left!important;
+  transition:transform .22s ease!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a:hover:after{
+  transform:scaleX(1)!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a .site-ui-icon{
+  transition:transform .22s ease!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a:hover .site-ui-icon{
+  transform:translateY(-2px)!important;
+}
+body:not(:has(.admin-sidebar)) .account-panel{
+  position:relative!important;
+  transition:box-shadow .25s ease,transform .25s ease!important;
+}
+body:not(:has(.admin-sidebar)) .account-panel:hover{
+  box-shadow:0 14px 34px rgba(24,23,20,.065)!important;
+  transform:translateY(-1px)!important;
+}
+body:not(:has(.admin-sidebar)) #membershipSummaryPanel{
+  min-height:250px!important;
+  padding:36px!important;
+}
+body:not(:has(.admin-sidebar)) #membershipSummaryPanel:before{
+  content:""!important;
+  position:absolute!important;
+  inset:12px!important;
+  border:1px solid rgba(255,255,255,.16)!important;
+  pointer-events:none!important;
+  z-index:1!important;
+}
+body:not(:has(.admin-sidebar)) #membershipSummaryPanel:after{
+  width:46%!important;
+  opacity:.82!important;
+}
+body:not(:has(.admin-sidebar)) #membershipSummaryPanel h2{
+  font-size:clamp(32px,3.6vw,48px)!important;
+}
+body:not(:has(.admin-sidebar)) #membershipSummaryPanel .primary-btn{
+  margin-top:8px!important;
+}
+body:not(:has(.admin-sidebar)) #rewardsProfilePanel{
+  background:#f8f6f1!important;
+}
+body:not(:has(.admin-sidebar)) .account-form label,
+body:not(:has(.admin-sidebar)) #rewardsProfilePanel>label{
+  color:#393631!important;
+  font-weight:600!important;
+}
+body:not(:has(.admin-sidebar)) .account-form input,
+body:not(:has(.admin-sidebar)) .account-form select,
+body:not(:has(.admin-sidebar)) .account-form textarea,
+body:not(:has(.admin-sidebar)) #rewardsProfilePanel input{
+  border-color:#d9d5cd!important;
+  border-radius:0!important;
+  background:#fff!important;
+}
+body:not(:has(.admin-sidebar)) .account-form input:focus,
+body:not(:has(.admin-sidebar)) .account-form select:focus,
+body:not(:has(.admin-sidebar)) .account-form textarea:focus,
+body:not(:has(.admin-sidebar)) #rewardsProfilePanel input:focus{
+  border-color:#171716!important;
+  box-shadow:0 0 0 2px rgba(23,23,22,.08)!important;
+}
+body:not(:has(.admin-sidebar)) .account-actions{
+  margin-top:30px!important;
+}
+@media(max-width:900px){
+  body:not(:has(.admin-sidebar)) .account-reference-sidebar{position:static!important}
+  body:not(:has(.admin-sidebar)) .account-editorial-hero{height:390px!important}
+  body:not(:has(.admin-sidebar)) .account-stats{margin-top:-34px!important}
+}
+@media(max-width:640px){
+  body:not(:has(.admin-sidebar)) .account-page{padding-top:8px!important}
+  body:not(:has(.admin-sidebar)) .account-editorial-hero{height:350px!important}
+  body:not(:has(.admin-sidebar)) .account-editorial-copy .eyebrow{
+    padding:6px 8px!important;
+    margin-bottom:11px!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-stats{
+    margin:-22px 12px 28px!important;
+    box-shadow:0 12px 25px rgba(24,23,20,.10)!important;
+  }
+  body:not(:has(.admin-sidebar)) #membershipSummaryPanel{
+    padding:25px 22px 205px!important;
+    min-height:0!important;
+  }
+  body:not(:has(.admin-sidebar)) #membershipSummaryPanel:before{inset:10px!important}
+  body:not(:has(.admin-sidebar)) #membershipSummaryPanel:after{
+    width:100%!important;
+    height:50%!important;
+  }
+}
+
