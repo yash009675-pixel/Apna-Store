@@ -1319,32 +1319,3 @@
   }
 }
 
-
-/* APNASTORE BRAND WATERMARK — subtle editorial background */
-.apna-reference-home .ref-section,
-.apna-reference-home .ref-collection{
-  position:relative!important;
-  isolation:isolate!important;
-}
-.apna-reference-home .ref-section::before,
-.apna-reference-home .ref-collection::before{
-  content:""!important;
-  position:absolute!important;
-  inset:0!important;
-  background-image:url("assets/apnastore-watermark.svg")!important;
-  background-repeat:repeat!important;
-  background-size:720px 416px!important;
-  background-position:center!important;
-  opacity:.78!important;
-  pointer-events:none!important;
-  z-index:-1!important;
-}
-.apna-reference-home .ref-section>* ,
-.apna-reference-home .ref-collection>*{
-  position:relative!important;
-  z-index:1!important;
-}
-.apna-reference-home .ref-collection::before{opacity:.42!important}
-@media(max-width:600px){
- .apna-reference-home .ref-section::before{background-size:560px 324px!important}
-}
