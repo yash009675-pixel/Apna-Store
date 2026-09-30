@@ -996,3 +996,96 @@
     bottom:9px!important;
   }
 }
+
+
+/* ===== FINAL HARD OVERRIDE — UNIFORM HOMEPAGE IMAGE SECTIONS ===== */
+
+/* Style Inspo: one consistent frame per image.
+   Cover removes blank canvas/extra whitespace from source images. */
+.apna-reference-home .ref-inspo-grid{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:10px!important;
+  align-items:start!important;
+  grid-auto-rows:auto!important;
+}
+.apna-reference-home .ref-inspo-grid>a,
+.apna-reference-home .ref-inspo-grid>a:before,
+.apna-reference-home .ref-inspo-grid>a:after{
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  aspect-ratio:2 / 3!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+  overflow:hidden!important;
+  display:block!important;
+}
+.apna-reference-home .ref-inspo-grid>a img{
+  width:100%!important;
+  height:100%!important;
+  min-width:100%!important;
+  min-height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  display:block!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  object-fit:cover!important;
+  object-position:center center!important;
+}
+
+/* Shop by Category: absolutely no card frame, radius or shadow. */
+.apna-reference-home .ref-categories,
+.apna-reference-home .ref-categories .category,
+.apna-reference-home .ref-categories .category-media,
+.apna-reference-home .ref-categories .category-media img{
+  border:0!important;
+  border-radius:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  clip-path:none!important;
+  -webkit-clip-path:none!important;
+}
+.apna-reference-home .ref-categories .category{
+  aspect-ratio:4 / 5!important;
+  height:auto!important;
+  min-height:0!important;
+  background:transparent!important;
+}
+.apna-reference-home .ref-categories .category-media,
+.apna-reference-home .ref-categories .category-media img{
+  width:100%!important;
+  height:100%!important;
+}
+.apna-reference-home .ref-categories .category::before,
+.apna-reference-home .ref-categories .category::after{
+  border:0!important;
+  border-radius:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+
+/* Keep every viewport inside its available width. */
+@media(max-width:900px){
+  .apna-reference-home .ref-inspo-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+}
+@media(max-width:600px){
+  .apna-reference-home .ref-inspo-grid,
+  .apna-reference-home .ref-categories{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+}
