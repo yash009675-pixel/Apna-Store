@@ -368,3 +368,148 @@ body:not(:has(.admin-sidebar)) #accountNote{
   body:not(:has(.admin-sidebar)) .account-panel h2{font-size:31px!important}
   body:not(:has(.admin-sidebar)) .account-panel .primary-btn{width:auto!important;max-width:100%!important}
 }
+
+
+/* ACCOUNT — align customer dashboard with Admin Command Center */
+body:not(:has(.admin-sidebar)) .account-page{
+  background:#f7f8fb!important;
+  min-height:calc(100vh - 126px)!important;
+  padding:42px clamp(18px,4vw,68px) 96px!important;
+  box-sizing:border-box!important;
+}
+body:not(:has(.admin-sidebar)) .account-card{
+  width:min(1500px,100%)!important;
+  max-width:none!important;
+  margin:0 auto!important;
+  padding:0!important;
+  color:#172033!important;
+}
+body:not(:has(.admin-sidebar)) .account-card> .eyebrow{
+  font-family:"DM Sans",Inter,Arial,sans-serif!important;
+  font-size:11px!important;
+  font-weight:700!important;
+  letter-spacing:.14em!important;
+  color:#6d5dfc!important;
+  margin:0 0 10px!important;
+}
+body:not(:has(.admin-sidebar)) #accountTitle{
+  font-family:"Playfair Display",Georgia,serif!important;
+  font-size:clamp(44px,5.2vw,72px)!important;
+  line-height:1.02!important;
+  letter-spacing:-.035em!important;
+  color:#172033!important;
+  margin:0 0 15px!important;
+}
+body:not(:has(.admin-sidebar)) #accountStatus{
+  font-family:"DM Sans",Inter,Arial,sans-serif!important;
+  max-width:720px!important;
+  font-size:15px!important;
+  line-height:1.7!important;
+  color:#687286!important;
+  margin:0!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats{
+  display:grid!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  gap:14px!important;
+  margin:28px 0!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a{
+  min-height:126px!important;
+  padding:20px!important;
+  box-sizing:border-box!important;
+  border:1px solid #e6e9ef!important;
+  border-radius:13px!important;
+  background:#fff!important;
+  box-shadow:0 7px 28px rgba(19,29,45,.045)!important;
+  color:#172033!important;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a:hover{
+  transform:translateY(-2px)!important;
+  border-color:#d8dce5!important;
+  box-shadow:0 12px 32px rgba(19,29,45,.08)!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a .site-ui-icon{
+  width:19px!important;height:19px!important;
+  color:#6d5dfc!important;
+  margin:0 0 13px!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a b{
+  font-family:"DM Sans",Inter,Arial,sans-serif!important;
+  font-size:25px!important;
+  line-height:1.1!important;
+  color:#172033!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a>span:last-child{
+  margin-top:7px!important;
+  font-family:"DM Sans",Inter,Arial,sans-serif!important;
+  font-size:12px!important;
+  color:#687286!important;
+}
+body:not(:has(.admin-sidebar)) .account-panel{
+  margin:14px 0!important;
+  padding:28px!important;
+  border:1px solid #e6e9ef!important;
+  border-radius:16px!important;
+  background:#fff!important;
+  box-shadow:0 7px 28px rgba(19,29,45,.045)!important;
+  box-sizing:border-box!important;
+}
+body:not(:has(.admin-sidebar)) .account-panel .eyebrow{
+  font-family:"DM Sans",Inter,Arial,sans-serif!important;
+  font-size:11px!important;
+  font-weight:700!important;
+  letter-spacing:.14em!important;
+  color:#6d5dfc!important;
+}
+body:not(:has(.admin-sidebar)) .account-panel h2{
+  font-family:"Playfair Display",Georgia,serif!important;
+  font-size:clamp(28px,3vw,42px)!important;
+  line-height:1.08!important;
+  letter-spacing:-.03em!important;
+  color:#172033!important;
+  margin:0 0 14px!important;
+}
+body:not(:has(.admin-sidebar)) .account-panel .checkout-note{
+  font-family:"DM Sans",Inter,Arial,sans-serif!important;
+  color:#687286!important;
+  line-height:1.7!important;
+}
+body:not(:has(.admin-sidebar)) .account-panel .primary-btn{
+  font-family:"DM Sans",Inter,Arial,sans-serif!important;
+  background:#172033!important;
+  border:1px solid #172033!important;
+  color:#fff!important;
+  border-radius:9px!important;
+  min-height:42px!important;
+  padding:11px 16px!important;
+  font-weight:700!important;
+}
+body:not(:has(.admin-sidebar)) .account-panel .primary-btn:hover{
+  background:#6d5dfc!important;
+  border-color:#6d5dfc!important;
+}
+body:not(:has(.admin-sidebar)) .account-panel input,
+body:not(:has(.admin-sidebar)) .account-panel select,
+body:not(:has(.admin-sidebar)) .account-panel textarea{
+  font-family:"DM Sans",Inter,Arial,sans-serif!important;
+  border-color:#e0e4eb!important;
+  background:#fff!important;
+  color:#172033!important;
+  border-radius:9px!important;
+}
+body:not(:has(.admin-sidebar)) #rewardsProfilePanel{
+  background:#fff!important;
+}
+@media(max-width:900px){
+  body:not(:has(.admin-sidebar)) .account-page{padding:32px 28px 76px!important}
+  body:not(:has(.admin-sidebar)) .account-stats{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media(max-width:600px){
+  body:not(:has(.admin-sidebar)) .account-page{padding:26px 16px 60px!important}
+  body:not(:has(.admin-sidebar)) #accountTitle{font-size:clamp(40px,12vw,56px)!important}
+  body:not(:has(.admin-sidebar)) .account-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;margin:24px 0!important}
+  body:not(:has(.admin-sidebar)) .account-stats>a{min-height:120px!important;padding:17px 12px!important}
+  body:not(:has(.admin-sidebar)) .account-panel{padding:21px!important;border-radius:13px!important}
+}
