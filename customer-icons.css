@@ -660,3 +660,78 @@ body:not(:has(.admin-sidebar)) .account-main .checkout-note{
     font-size:11px!important;
   }
 }
+
+
+/* ACCOUNT SIDEBAR FIX — explicit layout, preserve all existing account content */
+body:not(:has(.admin-sidebar)) .account-page .account-card{
+  display:grid!important;
+  grid-template-columns:240px minmax(0,1fr)!important;
+  grid-template-areas:"sidebar main"!important;
+  align-items:start!important;
+  gap:24px!important;
+  width:min(1500px,100%)!important;
+  max-width:none!important;
+  margin:0 auto!important;
+}
+body:not(:has(.admin-sidebar)) .account-page .account-sidebar{
+  grid-area:sidebar!important;
+  width:240px!important;
+  min-width:240px!important;
+  max-width:240px!important;
+  box-sizing:border-box!important;
+}
+body:not(:has(.admin-sidebar)) .account-page .account-main{
+  grid-area:main!important;
+  width:100%!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+}
+body:not(:has(.admin-sidebar)) .account-main .account-stats{
+  width:100%!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+}
+body:not(:has(.admin-sidebar)) .account-main .account-panel{
+  width:100%!important;
+  box-sizing:border-box!important;
+}
+@media(max-width:900px){
+  body:not(:has(.admin-sidebar)) .account-page .account-card{
+    grid-template-columns:205px minmax(0,1fr)!important;
+    grid-template-areas:"sidebar main"!important;
+    gap:18px!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-page .account-sidebar{
+    width:205px!important;
+    min-width:205px!important;
+    max-width:205px!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-main .account-stats{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+@media(max-width:700px){
+  body:not(:has(.admin-sidebar)) .account-page .account-card{
+    display:block!important;
+    width:100%!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-page .account-sidebar{
+    display:block!important;
+    width:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+    margin:0 0 18px!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-page .account-main{
+    display:block!important;
+    width:100%!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-main .account-stats{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    width:100%!important;
+  }
+}
+@media(max-width:380px){
+  body:not(:has(.admin-sidebar)) .account-main .account-stats{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
