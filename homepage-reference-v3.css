@@ -831,3 +831,35 @@
 .apna-reference-home .ref-newsletter form{position:relative;}
 .apna-reference-home .newsletter-message{display:block;min-height:18px;margin-top:8px;font-size:12px;line-height:1.4;color:inherit;opacity:.8;}
 .apna-reference-home .ref-newsletter button:disabled{opacity:.55;cursor:wait;}
+
+
+/* FINAL LOGO FIX — use the real SVG only; prevent duplicate background logo */
+.apna-reference-home .ref-logo{
+  background-image:none!important;
+  background:none!important;
+  overflow:visible!important;
+}
+.apna-reference-home .ref-logo img{
+  display:block!important;
+  width:142px!important;
+  height:auto!important;
+  max-height:24px!important;
+  object-fit:contain!important;
+  background:none!important;
+}
+.apna-reference-home .ref-footer-logo{
+  background-image:none!important;
+  background:none!important;
+}
+.apna-reference-home .ref-footer-logo img{
+  display:block!important;
+  width:150px!important;
+  height:auto!important;
+  max-height:25px!important;
+  object-fit:contain!important;
+  filter:grayscale(1) brightness(0) invert(1)!important;
+}
+@media(max-width:600px){
+  .apna-reference-home .ref-logo img{width:125px!important;max-height:24px!important}
+  .apna-reference-home .ref-footer-logo img{width:150px!important;max-height:25px!important}
+}
