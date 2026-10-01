@@ -17,6 +17,7 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body class="apna-home-v2 apna-reference-home">
+<div class="apna-intro" id="apnaIntro" aria-label="Apna Store" role="status"><div class="apna-intro-inner"><img src="assets/branding/apnastore-logo.svg" alt="ApnaStore"><span>STYLE THAT FEELS LIKE YOU.</span></div></div>
 <a class="skip-link" href="#main-content">Skip to main content</a>
 
 <div class="ref-topbar" aria-label="Store announcements">
@@ -132,6 +133,17 @@
   <div class="ref-footer-bottom"><span>© 2025 ApnaStore. All rights reserved.</span><span><a href="privacy.html">Privacy Policy</a> <b>|</b> <a href="terms.html">Terms & Conditions</a> <b>|</b> <a href="shipping-policy.html">Shipping</a> <b>|</b> <a href="return-refund-policy.html">Returns & Refunds</a> <b>|</b> <a href="cancellation-policy.html">Cancellation</a> <b>|</b> <a href="cookie-notice.html">Cookies</a> <b>|</b> <a href="grievance.html">Grievance</a> <b>|</b> <a href="help.html">Contact</a></span></div>
 </footer>
 
+<script>
+(function(){
+  var intro=document.getElementById("apnaIntro");
+  if(!intro)return;
+  var finish=function(){intro.classList.add("is-done");setTimeout(function(){intro.remove()},500)};
+  if(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches){finish();return}
+  if(document.readyState==="complete")setTimeout(finish,250);
+  else window.addEventListener("load",function(){setTimeout(finish,250)},{once:true});
+  setTimeout(finish,1400);
+})();
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="backend/supabase-client.js"></script>
 <script>
