@@ -5262,3 +5262,24 @@ body:has(.admin-sidebar) .admin-brand small{
   align-items:center!important;
   justify-content:center!important;
 }
+
+/* APNA STORE — GLOBAL PAGE BACKGROUND
+   Keep every page canvas aligned with the current homepage reference theme.
+   Component/card surfaces intentionally keep their own backgrounds. */
+body,
+html{
+  background:#f7f6f2 !important;
+}
+
+body{
+  min-height:100vh;
+}
+
+/* Customer account uses the same homepage canvas; cards remain independently styled. */
+body:has(.account-page) .account-page,
+body:has(.account-page) .account-shell,
+body:has(.account-page) .account-nav-strip,
+body:has(.account-page) .account-content,
+body:has(.account-page) .account-welcome{
+  background:#f7f6f2;
+}
