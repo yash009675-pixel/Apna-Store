@@ -47,8 +47,5 @@ if (window.apnaSupabase?.auth) {
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState !== "visible") return;
     window.apnaSupabase.auth.startAutoRefresh?.();
-    window.apnaSupabase.auth.refreshSession?.().catch((error) => {
-      console.warn("Apna Store session refresh deferred:", error?.message || error);
-    });
   });
 }
