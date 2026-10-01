@@ -253,3 +253,54 @@ body:not(:has(.admin-sidebar)) #accountNote{
   body:not(:has(.admin-sidebar)) .account-stats>a{min-height:88px!important}
   body:not(:has(.admin-sidebar)) .account-panel{padding:18px!important}
 }
+
+/* ===== ACCOUNT HOTFIX — image visibility, nav contrast, stats grid ===== */
+body:not(:has(.admin-sidebar)) .account-reference-sidebar a{
+  color:#c7c2b9!important;
+  opacity:1!important;
+  visibility:visible!important;
+}
+body:not(:has(.admin-sidebar)) .account-reference-sidebar a.active{
+  color:#171716!important;
+}
+body:not(:has(.admin-sidebar)) .account-editorial-hero{
+  background:#26231f!important;
+}
+body:not(:has(.admin-sidebar)) .account-editorial-hero>img{
+  opacity:1!important;
+  visibility:visible!important;
+  filter:none!important;
+  mix-blend-mode:normal!important;
+  background:#26231f!important;
+  object-position:center 35%!important;
+}
+body:not(:has(.admin-sidebar)) .account-editorial-overlay{
+  z-index:1!important;
+}
+body:not(:has(.admin-sidebar)) .account-editorial-copy{
+  z-index:3!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats{
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a{
+  grid-column:auto!important;
+  grid-row:auto!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a:nth-child(4),
+body:not(:has(.admin-sidebar)) .account-stats>a:nth-child(5){
+  grid-column:auto!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a:empty{
+  display:none!important;
+}
+body:not(:has(.admin-sidebar)) .account-panel:not(#membershipSummaryPanel):before{
+  opacity:.16!important;
+}
+@media(max-width:900px){
+  body:not(:has(.admin-sidebar)) .account-stats{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media(max-width:640px){
+  body:not(:has(.admin-sidebar)) .account-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  body:not(:has(.admin-sidebar)) .account-stats>a:last-child{grid-column:span 2!important}
+}
