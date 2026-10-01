@@ -14,7 +14,7 @@ async function load(){
  const end=new Date((to||iso(new Date()))+"T00:00:00");end.setDate(end.getDate()+1);
  if(end<=start){$("status").textContent="Please choose a valid date range.";return}
  $("status").textContent="Loading real search activity…";
- const {data,error}=await apnaSupabase.rpc("seller_search_trends",{p_start_at:start.toISOString(),p_end_at:end.toISOString()});
+ const {data,error}=await apnaSupabase.rpc("admin_search_trends",{p_start_at:start.toISOString(),p_end_at:end.toISOString()});
  if(error){console.error(error);$("status").textContent=error.message||"Could not load search analytics.";return}
  const d=data||{};
  $("popular").innerHTML=table(d.popular_searches,[["Search",x=>"<strong>"+esc(x.term)+"</strong>"],["Searches",x=>num(x.searches)],["Visitors",x=>num(x.visitors)]],"No recorded searches yet.");
