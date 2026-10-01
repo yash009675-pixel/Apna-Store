@@ -18,7 +18,8 @@ async function routeUser(user){
  routing=true;
  let role="customer";
  try{const {data}=await apnaSupabase.from("profiles").select("role").eq("id",user.id).maybeSingle();role=data?.role||"customer";}catch(e){console.error("Role lookup failed:",e)}
- const isOwnerAdmin=role==="admin"&&String(user.email||"").toLowerCase()==="withapnastore@gmail.com";\n location.href=isOwnerAdmin?"admin.html":getPostAuthDestination();
+ const isOwnerAdmin=role==="admin"&&String(user.email||"").toLowerCase()==="withapnastore@gmail.com";
+ location.href=isOwnerAdmin?"admin.html":getPostAuthDestination();
 }
 
 async function finishAuthenticatedUser(user){
