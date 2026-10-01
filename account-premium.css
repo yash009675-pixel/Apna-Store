@@ -857,3 +857,273 @@ body:not(:has(.admin-sidebar)) .account-stats>a:hover{
     background:#f5f3ee!important;
   }
 }
+
+/* ===== ACCOUNT EDITORIAL REFINEMENT v5 ===== */
+
+/* 01 — Account navigation: readable, restrained, fashion-site feel */
+body:not(:has(.admin-sidebar)) .account-reference-sidebar{
+  background:#151514!important;
+}
+body:not(:has(.admin-sidebar)) .account-reference-sidebar a{
+  color:#ddd8cf!important;
+  opacity:1!important;
+  visibility:visible!important;
+  font-weight:600!important;
+  letter-spacing:.01em!important;
+}
+body:not(:has(.admin-sidebar)) .account-reference-sidebar a:hover{
+  color:#fff!important;
+  background:rgba(255,255,255,.09)!important;
+}
+body:not(:has(.admin-sidebar)) .account-reference-sidebar a.active{
+  color:#171716!important;
+  background:#f5f3ee!important;
+}
+
+/* 02 — Quick access: one editorial composition, not five dashboard boxes */
+body:not(:has(.admin-sidebar)) .account-stats{
+  margin-top:-28px!important;
+  margin-bottom:38px!important;
+  display:grid!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  gap:0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a{
+  min-height:150px!important;
+  padding:20px 14px 17px!important;
+  position:relative!important;
+  display:flex!important;
+  align-items:flex-start!important;
+  justify-content:flex-end!important;
+  text-align:left!important;
+  background:#f7f5f0!important;
+  border:0!important;
+  border-right:1px solid #d8d3ca!important;
+  border-radius:0!important;
+  overflow:hidden!important;
+  transition:background .25s ease,transform .25s ease!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a:first-child{
+  border-radius:2px 0 0 2px!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a:last-child{
+  border-right:0!important;
+  border-radius:0 2px 2px 0!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a:before{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  background-position:center!important;
+  background-size:cover!important;
+  opacity:.065!important;
+  z-index:0!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a:nth-child(1):before{background-image:url("assets/IMG_2508.jpeg")!important}
+body:not(:has(.admin-sidebar)) .account-stats>a:nth-child(2):before{background-image:url("assets/IMG_2509.jpeg")!important}
+body:not(:has(.admin-sidebar)) .account-stats>a:nth-child(3):before{background-image:url("assets/IMG_2510.jpeg")!important}
+body:not(:has(.admin-sidebar)) .account-stats>a:nth-child(4):before{background-image:url("assets/IMG_2511.jpeg")!important}
+body:not(:has(.admin-sidebar)) .account-stats>a:nth-child(5):before{background-image:url("assets/IMG_2512.jpeg")!important}
+body:not(:has(.admin-sidebar)) .account-stats>a>*{
+  position:relative!important;
+  z-index:2!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a .site-ui-icon,
+body:not(:has(.admin-sidebar)) .account-stats>a span[data-icon]{
+  width:34px!important;
+  height:34px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  margin:0 0 auto!important;
+  border:0!important;
+  border-radius:50%!important;
+  background:#e8e4dc!important;
+  color:#282521!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a b{
+  position:absolute!important;
+  left:14px!important;
+  bottom:38px!important;
+  color:#11100f!important;
+  font-size:28px!important;
+  line-height:1!important;
+  font-weight:700!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a>span:last-child{
+  position:absolute!important;
+  left:14px!important;
+  bottom:17px!important;
+  color:#5b554e!important;
+  font-size:9px!important;
+  line-height:1!important;
+  font-weight:700!important;
+  letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a:hover{
+  background:#fff!important;
+  transform:translateY(-3px)!important;
+}
+
+/* 03 — Membership: campaign/banner, remove nested-card feeling */
+body:not(:has(.admin-sidebar)) #membershipSummaryPanel{
+  margin-top:0!important;
+  margin-bottom:24px!important;
+  min-height:300px!important;
+  padding:40px 44% 40px 34px!important;
+  border:0!important;
+  border-radius:2px!important;
+  background:#171716!important;
+}
+body:not(:has(.admin-sidebar)) #membershipSummaryPanel:after{
+  width:54%!important;
+  opacity:1!important;
+  background:
+    linear-gradient(90deg,#171716 0%,rgba(23,23,22,.7) 20%,rgba(23,23,22,.08) 75%),
+    url("assets/IMG_2506.jpeg") center/cover!important;
+}
+body:not(:has(.admin-sidebar)) #membershipSummaryPanel>*{
+  max-width:100%!important;
+}
+body:not(:has(.admin-sidebar)) #membershipSummaryPanel h2{
+  margin-bottom:15px!important;
+}
+body:not(:has(.admin-sidebar)) #membershipSummaryPanel .primary-btn{
+  margin-top:10px!important;
+  border-radius:999px!important;
+}
+
+/* 04 — Rewards: clean editorial section instead of a heavy card */
+body:not(:has(.admin-sidebar)) #rewardsProfilePanel{
+  margin-top:0!important;
+  padding:34px 38% 36px 34px!important;
+  border:0!important;
+  border-top:1px solid #d9d4cc!important;
+  border-bottom:1px solid #d9d4cc!important;
+  background:#f6f3ed!important;
+}
+body:not(:has(.admin-sidebar)) #rewardsProfilePanel:before{
+  width:34%!important;
+  height:100%!important;
+  top:0!important;
+  right:0!important;
+  bottom:auto!important;
+  opacity:.13!important;
+  background-position:center!important;
+  background-size:cover!important;
+}
+body:not(:has(.admin-sidebar)) #rewardsProfilePanel h2{
+  margin-bottom:12px!important;
+}
+body:not(:has(.admin-sidebar)) #rewardsProfilePanel>label,
+body:not(:has(.admin-sidebar)) #rewardsProfilePanel>input{
+  display:block!important;
+  max-width:100%!important;
+}
+body:not(:has(.admin-sidebar)) #rewardsProfilePanel>label{
+  margin-top:20px!important;
+}
+body:not(:has(.admin-sidebar)) #rewardsProfilePanel>input{
+  width:100%!important;
+  box-sizing:border-box!important;
+}
+body:not(:has(.admin-sidebar)) #rewardsProfilePanel>button{
+  margin-top:10px!important;
+}
+body:not(:has(.admin-sidebar)) #rewardsProfilePanel>p strong{
+  color:#171716!important;
+}
+body:not(:has(.admin-sidebar)) #rewardsProfilePanel .primary-btn{
+  border-radius:999px!important;
+}
+
+/* 05 — Closing actions: lighter, intentional */
+body:not(:has(.admin-sidebar)) .account-actions{
+  display:flex!important;
+  align-items:center!important;
+  flex-wrap:wrap!important;
+  gap:16px!important;
+  padding-top:20px!important;
+}
+body:not(:has(.admin-sidebar)) #accountNote{
+  margin-top:10px!important;
+}
+body:not(:has(.admin-sidebar)) .account-actions .primary-btn{
+  border-radius:999px!important;
+}
+
+/* Responsive */
+@media(max-width:900px){
+  body:not(:has(.admin-sidebar)) .account-stats{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    margin-left:12px!important;
+    margin-right:12px!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-stats>a{
+    min-height:132px!important;
+  }
+  body:not(:has(.admin-sidebar)) #membershipSummaryPanel{
+    padding:34px 42% 34px 26px!important;
+  }
+  body:not(:has(.admin-sidebar)) #rewardsProfilePanel{
+    padding:30px 36% 30px 26px!important;
+  }
+}
+@media(max-width:640px){
+  body:not(:has(.admin-sidebar)) .account-stats{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    margin:-16px 10px 24px!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-stats>a{
+    min-height:118px!important;
+    padding:15px 12px!important;
+    border-right:1px solid #d8d3ca!important;
+    border-bottom:1px solid #d8d3ca!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-stats>a:nth-child(2n){
+    border-right:0!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-stats>a:last-child{
+    grid-column:span 2!important;
+    border-bottom:0!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-stats>a b{
+    left:12px!important;
+    bottom:35px!important;
+    font-size:25px!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-stats>a>span:last-child{
+    left:12px!important;
+    bottom:15px!important;
+  }
+  body:not(:has(.admin-sidebar)) #membershipSummaryPanel{
+    padding:25px 21px 185px!important;
+    min-height:0!important;
+  }
+  body:not(:has(.admin-sidebar)) #membershipSummaryPanel:after{
+    top:auto!important;
+    bottom:0!important;
+    width:100%!important;
+    height:46%!important;
+    background:
+      linear-gradient(0deg,#171716,rgba(23,23,22,.03)),
+      url("assets/IMG_2506.jpeg") center/cover!important;
+  }
+  body:not(:has(.admin-sidebar)) #rewardsProfilePanel{
+    padding:24px 20px 150px!important;
+  }
+  body:not(:has(.admin-sidebar)) #rewardsProfilePanel:before{
+    width:100%!important;
+    height:120px!important;
+    top:auto!important;
+    bottom:0!important;
+    opacity:.11!important;
+  }
+}
