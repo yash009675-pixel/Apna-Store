@@ -1413,3 +1413,109 @@ body:not(:has(.admin-sidebar)) #rewardsProfilePanel:before{
     opacity:.2!important;
   }
 }
+
+
+/* ACCOUNT ONE-PASS FINAL POLISH — 2026-10-01 */
+body:not(:has(.admin-sidebar)) .account-editorial-hero>img{
+  opacity:1!important;
+  visibility:visible!important;
+  filter:none!important;
+  mix-blend-mode:normal!important;
+  background:#242321!important;
+  object-fit:cover!important;
+  object-position:center 32%!important;
+}
+body:not(:has(.admin-sidebar)) .account-editorial-hero{
+  background:#242321 url("assets/IMG_2502.jpeg") center/cover no-repeat!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats{
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  grid-auto-flow:column!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  gap:0!important;
+  margin-top:-32px!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a{
+  min-height:112px!important;
+  background:rgba(250,249,246,.96)!important;
+  border-right:1px solid #d9d5ce!important;
+  position:relative!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a:last-child{border-right:0!important}
+body:not(:has(.admin-sidebar)) .account-stats>a:after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.65),rgba(255,255,255,0));
+  pointer-events:none;
+}
+body:not(:has(.admin-sidebar)) #membershipSummaryPanel{
+  min-height:270px!important;
+  padding:34px!important;
+  isolation:isolate!important;
+}
+body:not(:has(.admin-sidebar)) #membershipSummaryPanel .account-membership-image{
+  display:block!important;
+  position:absolute!important;
+  z-index:1!important;
+  top:0!important;right:0!important;
+  width:47%!important;height:100%!important;
+  object-fit:cover!important;
+  object-position:center!important;
+  opacity:.78!important;
+  visibility:visible!important;
+  filter:none!important;
+}
+body:not(:has(.admin-sidebar)) #membershipSummaryPanel:after{
+  z-index:2!important;
+  width:62%!important;
+  opacity:1!important;
+  background:linear-gradient(90deg,#171716 0%,rgba(23,23,22,.93) 18%,rgba(23,23,22,.58) 58%,rgba(23,23,22,.08) 100%)!important;
+}
+body:not(:has(.admin-sidebar)) #membershipSummaryPanel>*:not(.account-membership-image){
+  position:relative!important;
+  z-index:3!important;
+}
+body:not(:has(.admin-sidebar)) #rewardsProfilePanel:before{
+  opacity:.24!important;
+  width:38%!important;
+}
+body:not(:has(.admin-sidebar)) #rewardsProfilePanel{
+  min-height:360px!important;
+}
+@media(max-width:900px) and (min-width:641px){
+  body:not(:has(.admin-sidebar)) .account-card{grid-template-columns:170px minmax(0,1fr)!important}
+  body:not(:has(.admin-sidebar)) .account-stats{
+    grid-template-columns:repeat(5,minmax(0,1fr))!important;
+    grid-auto-flow:row!important;
+    margin-top:-26px!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-stats>a:nth-child(4),
+  body:not(:has(.admin-sidebar)) .account-stats>a:nth-child(5){
+    grid-column:auto!important;
+  }
+  body:not(:has(.admin-sidebar)) #membershipSummaryPanel .account-membership-image{
+    width:44%!important;
+  }
+  body:not(:has(.admin-sidebar)) #membershipSummaryPanel>*:not(.account-membership-image){
+    max-width:57%!important;
+  }
+}
+@media(max-width:640px){
+  body:not(:has(.admin-sidebar)) .account-stats{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    grid-auto-flow:row!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-stats>a:nth-child(4),
+  body:not(:has(.admin-sidebar)) .account-stats>a:nth-child(5){
+    grid-column:auto!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-stats>a:last-child{grid-column:span 2!important}
+  body:not(:has(.admin-sidebar)) #membershipSummaryPanel .account-membership-image{
+    width:100%!important;height:46%!important;top:auto!important;bottom:0!important;
+  }
+  body:not(:has(.admin-sidebar)) #membershipSummaryPanel:after{
+    top:auto!important;bottom:0!important;width:100%!important;height:58%!important;
+    background:linear-gradient(0deg,#171716 0%,rgba(23,23,22,.78) 48%,rgba(23,23,22,.06) 100%)!important;
+  }
+}
