@@ -108,7 +108,7 @@ function renderProduct(product,variants=[],images=[],flashSale=null,dailyDeal=nu
 async function loadProduct(){
  if(!productId&&!productSlug)return showError("Please choose a product from the shop.");
  try{
-  let productQuery=apnaSupabase.from("products").select("id,name,slug,description,price,compare_at_price,category_id,brand_id,seller_id").eq("status","active");
+  let productQuery=apnaSupabase.from("products").select("id,name,slug,description,price,compare_at_price,category_id,brand_id").eq("status","active");
   productQuery=productId?productQuery.eq("id",productId):productQuery.eq("slug",productSlug);
   let {data,error}=await productQuery.maybeSingle();
   if(error)throw error;
@@ -116,7 +116,7 @@ async function loadProduct(){
   // Keep older/shared product links working: if an old URL used an ID-like value
   // in a slug parameter, retry by slug before declaring the product unavailable.
   if(!data&&productId){
-   const fallback=await apnaSupabase.from("products").select("id,name,slug,description,price,compare_at_price,category_id,brand_id,seller_id").eq("slug",productId).eq("status","active").maybeSingle();
+   const fallback=await apnaSupabase.from("products").select("id,name,slug,description,price,compare_at_price,category_id,brand_id").eq("slug",productId).eq("status","active").maybeSingle();
    if(fallback.error)throw fallback.error;
    data=fallback.data||null;
   }
