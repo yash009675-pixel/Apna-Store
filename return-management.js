@@ -14,13 +14,13 @@ async function call(url,body){
 const ask=(label,required=true)=>{const v=window.prompt(label,"");if(v===null||required&&!v.trim())throw Error("Operation cancelled.");return v.trim()};
 async function createReverse(id){
  const destination={
-  name:ask("Seller/warehouse name:"),
-  address:ask("Seller/warehouse address:"),
-  city:ask("Seller/warehouse city:"),
-  state:ask("Seller/warehouse state:"),
-  pincode:ask("Seller/warehouse 6-digit pincode:"),
-  phone:ask("Seller/warehouse phone:"),
-  email:window.prompt("Seller/warehouse email (optional):","")||""
+  name:ask("Warehouse name:"),
+  address:ask("Warehouse address:"),
+  city:ask("Warehouse city:"),
+  state:ask("Warehouse state:"),
+  pincode:ask("Warehouse 6-digit pincode:"),
+  phone:ask("Warehouse phone:"),
+  email:window.prompt("Warehouse email (optional):","")||""
  };
  const pkg={
   weight_kg:ask("Return package weight in kg (example: 0.5):"),
