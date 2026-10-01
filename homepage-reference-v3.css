@@ -1321,7 +1321,7 @@
 
 
 /* ===== APNA STORE INTRO ===== */
-.apna-intro{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#111;opacity:1;visibility:visible;pointer-events:auto;transition:opacity .45s ease,visibility .45s ease}
+.apna-intro{position:fixed!important;top:0!important;left:0!important;width:100vw!important;height:100vh!important;height:100dvh!important;z-index:2147483647!important;display:grid!important;place-items:center!important;background:#111!important;opacity:1;visibility:visible;pointer-events:auto;transition:opacity .45s ease,visibility .45s ease;overflow:hidden}
 .apna-intro.is-done{opacity:0;visibility:hidden;pointer-events:none}
 .apna-intro-inner{display:grid;justify-items:center;gap:18px;transform:translateY(0);opacity:1;transition:transform .55s ease,opacity .55s ease}
 .apna-intro.is-done .apna-intro-inner{transform:translateY(-8px);opacity:0}
