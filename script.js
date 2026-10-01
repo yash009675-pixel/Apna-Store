@@ -130,13 +130,6 @@ const REFERENCE_PRODUCT_IMAGES={
  "Casual Sneakers":"https://images.unsplash.com/photo-1753707407133-5af2cc35fd21?auto=format&fit=crop&fm=jpg&q=80&w=900"
 };
 const REFERENCE_PRODUCT_IMAGE_LIST=Object.values(REFERENCE_PRODUCT_IMAGES);
-const REFERENCE_PRODUCTS={
- "Oversized Graphic T-Shirt":{price:1299,rating:"4.6",reviews:"1.2k"},
- "Basic Hoodie":{price:1899,rating:"4.5",reviews:"950"},
- "Wide Leg Jeans":{price:2199,rating:"4.3",reviews:"756"},
- "Polo T-Shirt":{price:1499,rating:"4.7",reviews:"1.1k"},
- "Casual Sneakers":{price:2499,rating:"4.6",reviews:"893"}
-};
 async function addReferenceProduct(product){
  try{
    const {data:variants,error}=await apnaSupabase.from("product_variants").select("id,size,color,stock").eq("product_id",product.id).gt("stock",0).limit(1);
@@ -161,7 +154,6 @@ function productCardMarkup(p,i,listName){
  const imageMarkup=imageUrl
    ? '<img src="'+imageUrl+'" alt="'+escapeHtml(p.image?.alt_text||p.name)+'" loading="lazy" decoding="async"'+(fallbackImage?' onerror="this.onerror=null;this.src=\''+fallbackImage+'\';"':"")+'>' 
    : (fallbackImage?'<img src="'+fallbackImage+'" alt="'+escapeHtml(p.name)+'" loading="lazy" decoding="async">':'<span class="product-placeholder">APNA</span>');
- const ref=REFERENCE_PRODUCTS[p.name];
  const wishButton=listName==="featured" ? '<button aria-label="'+(saved?"Remove from wishlist":"Add to wishlist")+'" onclick="event.preventDefault();event.stopPropagation();toggleWish(products['+i+'])">'+(saved?"♥":"♡")+'</button>' : "";
  return '<article class="product-card"><a href="product.html?id='+encodeURIComponent(p.id)+'" style="text-decoration:none;color:inherit"><div class="product-image">'+imageMarkup+wishButton+'</div><div class="product-info"><h3>'+escapeHtml(p.name)+'</h3><p>'+escapeHtml(p.type)+'</p><p class="price">₹'+Number(ref?.price||p.price).toLocaleString("en-IN")+'</p>'+ (ref?'<div class="ref-rating">★ '+ref.rating+' <span>('+ref.reviews+')</span></div>':"") +'</div></a><button class="primary-btn add" data-i="'+i+'" data-list="'+listName+'" style="margin-top:12px;padding:10px 13px;font-size:11px;gap:15px">Add to Cart</button></article>';
 }
