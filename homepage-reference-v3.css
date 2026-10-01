@@ -1319,3 +1319,12 @@
   }
 }
 
+
+/* ===== APNA STORE INTRO ===== */
+.apna-intro{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#111;opacity:1;visibility:visible;pointer-events:auto;transition:opacity .45s ease,visibility .45s ease}
+.apna-intro.is-done{opacity:0;visibility:hidden;pointer-events:none}
+.apna-intro-inner{display:grid;justify-items:center;gap:18px;transform:translateY(0);opacity:1;transition:transform .55s ease,opacity .55s ease}
+.apna-intro.is-done .apna-intro-inner{transform:translateY(-8px);opacity:0}
+.apna-intro img{width:min(220px,52vw);height:auto;display:block;filter:brightness(0) invert(1)}
+.apna-intro span{font-size:10px;letter-spacing:.22em;font-weight:600;color:#fff;text-align:center}
+@media(prefers-reduced-motion:reduce){.apna-intro{transition:none}.apna-intro-inner{transition:none}}
