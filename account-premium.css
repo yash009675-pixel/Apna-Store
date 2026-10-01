@@ -708,3 +708,152 @@ body:not(:has(.admin-sidebar)) .form-actions .primary-btn{
     padding:18px!important;
   }
 }
+
+/* ===== ACCOUNT VISUAL UPGRADE — STATS + TEXT CONTRAST ===== */
+
+/* Keep all customer-account text readable over inherited legacy rules. */
+body:not(:has(.admin-sidebar)) .account-main,
+body:not(:has(.admin-sidebar)) .account-main p,
+body:not(:has(.admin-sidebar)) .account-main label,
+body:not(:has(.admin-sidebar)) .account-main strong,
+body:not(:has(.admin-sidebar)) .account-main span{
+  text-shadow:none!important;
+}
+body:not(:has(.admin-sidebar)) .account-panel label{
+  color:#24211e!important;
+  font-weight:600!important;
+}
+body:not(:has(.admin-sidebar)) .account-panel label input,
+body:not(:has(.admin-sidebar)) .account-panel label select,
+body:not(:has(.admin-sidebar)) .account-panel label textarea{
+  color:#171716!important;
+}
+body:not(:has(.admin-sidebar)) .account-panel .checkout-note,
+body:not(:has(.admin-sidebar)) .account-panel p{
+  color:#5e5952!important;
+}
+body:not(:has(.admin-sidebar)) #membershipSummaryPanel p,
+body:not(:has(.admin-sidebar)) #membershipSummaryPanel .checkout-note{
+  color:#f4f1eb!important;
+}
+body:not(:has(.admin-sidebar)) #accountNote{
+  color:#625d56!important;
+}
+body:not(:has(.admin-sidebar)) .account-actions a,
+body:not(:has(.admin-sidebar)) .account-actions button{
+  color:#fff!important;
+}
+
+/* Five navigation metrics become a premium fashion information strip. */
+body:not(:has(.admin-sidebar)) .account-stats{
+  position:relative!important;
+  isolation:isolate!important;
+  border:1px solid #cbc6bd!important;
+  background:#171716!important;
+  box-shadow:0 20px 42px rgba(23,23,22,.13)!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a{
+  position:relative!important;
+  overflow:hidden!important;
+  min-height:118px!important;
+  padding:18px 13px!important;
+  background:#f8f6f1!important;
+  transition:transform .22s ease,background .22s ease!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a:before{
+  display:block!important;
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
+  background-position:center!important;
+  background-size:cover!important;
+  opacity:.055!important;
+  pointer-events:none!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a:nth-child(1):before{background-image:url("assets/IMG_2508.jpeg")!important}
+body:not(:has(.admin-sidebar)) .account-stats>a:nth-child(2):before{background-image:url("assets/IMG_2509.jpeg")!important}
+body:not(:has(.admin-sidebar)) .account-stats>a:nth-child(3):before{background-image:url("assets/IMG_2510.jpeg")!important}
+body:not(:has(.admin-sidebar)) .account-stats>a:nth-child(4):before{background-image:url("assets/IMG_2511.jpeg")!important}
+body:not(:has(.admin-sidebar)) .account-stats>a:nth-child(5):before{background-image:url("assets/IMG_2512.jpeg")!important}
+body:not(:has(.admin-sidebar)) .account-stats>a>*{
+  position:relative!important;
+  z-index:2!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a .site-ui-icon,
+body:not(:has(.admin-sidebar)) .account-stats>a span[data-icon]{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:38px!important;
+  height:38px!important;
+  margin:0 0 1px!important;
+  border:1px solid #d8d2c9!important;
+  border-radius:50%!important;
+  background:#eeebe5!important;
+  color:#302c27!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a b{
+  display:block!important;
+  color:#11100f!important;
+  font-size:24px!important;
+  font-weight:700!important;
+  letter-spacing:-.035em!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a>span:last-child{
+  color:#514c45!important;
+  font-size:10px!important;
+  font-weight:700!important;
+  letter-spacing:.08em!important;
+  text-transform:uppercase!important;
+}
+body:not(:has(.admin-sidebar)) .account-stats>a:hover{
+  background:#fff!important;
+  transform:translateY(-3px)!important;
+}
+
+/* Desktop: subtle separators, no accidental blank tile. */
+@media(min-width:901px){
+  body:not(:has(.admin-sidebar)) .account-stats>a+ a{
+    border-left:1px solid #d8d2c9!important;
+  }
+}
+
+/* Tablet and phone: keep the upgraded cards readable. */
+@media(max-width:900px){
+  body:not(:has(.admin-sidebar)) .account-stats>a{
+    min-height:104px!important;
+  }
+}
+@media(max-width:640px){
+  body:not(:has(.admin-sidebar)) .account-stats{
+    gap:1px!important;
+    border-width:1px!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-stats>a{
+    min-height:96px!important;
+    padding:12px 5px!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-stats>a .site-ui-icon,
+  body:not(:has(.admin-sidebar)) .account-stats>a span[data-icon]{
+    width:34px!important;
+    height:34px!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-stats>a b{
+    font-size:21px!important;
+  }
+}
+
+/* Mobile account navigation: visible, readable, and scrollable. */
+@media(max-width:640px){
+  body:not(:has(.admin-sidebar)) .account-reference-sidebar a{
+    color:#d2cec7!important;
+    opacity:1!important;
+    visibility:visible!important;
+    flex:0 0 auto!important;
+  }
+  body:not(:has(.admin-sidebar)) .account-reference-sidebar a.active{
+    color:#171716!important;
+    background:#f5f3ee!important;
+  }
+}
