@@ -1328,3 +1328,24 @@
 .apna-intro img{width:min(220px,52vw);height:auto;display:block;filter:none}
 .apna-intro span{font-size:10px;letter-spacing:.22em;font-weight:600;color:#111;text-align:center}
 @media(prefers-reduced-motion:reduce){.apna-intro{transition:none}.apna-intro-inner{transition:none}}
+
+/* ===== SUBTLE SCROLL REVEALS ===== */
+.apna-reference-home .apna-scroll-reveal{
+  opacity:0;
+  transform:translate3d(0,22px,0);
+  transition:opacity .65s ease,transform .65s cubic-bezier(.22,1,.36,1);
+  will-change:opacity,transform;
+}
+.apna-reference-home .apna-scroll-reveal.is-visible{
+  opacity:1;
+  transform:none;
+}
+.apna-reference-home .apna-scroll-reveal[data-reveal-delay="1"]{transition-delay:.08s}
+.apna-reference-home .apna-scroll-reveal[data-reveal-delay="2"]{transition-delay:.16s}
+.apna-reference-home .apna-scroll-reveal[data-reveal-delay="3"]{transition-delay:.24s}
+@media(prefers-reduced-motion:reduce){
+  .apna-reference-home .apna-scroll-reveal,
+  .apna-reference-home .apna-scroll-reveal.is-visible{
+    opacity:1;transform:none;transition:none;
+  }
+}
