@@ -5283,3 +5283,101 @@ body:has(.account-page) .account-content,
 body:has(.account-page) .account-welcome{
   background:#f7f6f2;
 }
+
+
+/* APNASTORE — SITE-WIDE CONTENT WIDTH BALANCE PASS
+   Uses the available viewport without creating oversized empty side gutters.
+   Responsive behavior is intentionally fluid across desktop, tablet and phone.
+*/
+body:not(:has(.admin-sidebar)) .section{
+  width:calc(100% - clamp(28px,4vw,64px))!important;
+  max-width:1500px!important;
+  margin-inline:auto!important;
+}
+
+body:not(:has(.admin-sidebar)) .product-page,
+body:not(:has(.admin-sidebar)) .search-page,
+body:not(:has(.admin-sidebar)) .account-page,
+body:not(:has(.admin-sidebar)) .checkout-page{
+  width:calc(100% - clamp(28px,4vw,64px))!important;
+  max-width:1500px!important;
+  margin-inline:auto!important;
+}
+
+body:not(:has(.admin-sidebar)) .product-page{
+  padding-left:clamp(20px,3vw,48px)!important;
+  padding-right:clamp(20px,3vw,48px)!important;
+}
+
+body:not(:has(.admin-sidebar)) .checkout-page{
+  padding-left:clamp(20px,3vw,48px)!important;
+  padding-right:clamp(20px,3vw,48px)!important;
+}
+
+body:not(:has(.admin-sidebar)) .account-page{
+  padding-left:clamp(20px,3vw,48px)!important;
+  padding-right:clamp(20px,3vw,48px)!important;
+}
+
+body:not(:has(.admin-sidebar)) .search-page{
+  padding-left:clamp(20px,3vw,48px)!important;
+  padding-right:clamp(20px,3vw,48px)!important;
+}
+
+@media (min-width:1401px){
+  body:not(:has(.admin-sidebar)) .section,
+  body:not(:has(.admin-sidebar)) .product-page,
+  body:not(:has(.admin-sidebar)) .search-page,
+  body:not(:has(.admin-sidebar)) .account-page,
+  body:not(:has(.admin-sidebar)) .checkout-page{
+    max-width:1540px!important;
+  }
+}
+
+@media (max-width:900px){
+  body:not(:has(.admin-sidebar)) .section,
+  body:not(:has(.admin-sidebar)) .product-page,
+  body:not(:has(.admin-sidebar)) .search-page,
+  body:not(:has(.admin-sidebar)) .account-page,
+  body:not(:has(.admin-sidebar)) .checkout-page{
+    width:calc(100% - 28px)!important;
+  }
+
+  body:not(:has(.admin-sidebar)) .product-page{
+    grid-template-columns:1fr!important;
+    gap:28px!important;
+  }
+}
+
+@media (max-width:600px){
+  body:not(:has(.admin-sidebar)) .section,
+  body:not(:has(.admin-sidebar)) .product-page,
+  body:not(:has(.admin-sidebar)) .search-page,
+  body:not(:has(.admin-sidebar)) .account-page,
+  body:not(:has(.admin-sidebar)) .checkout-page{
+    width:calc(100% - 20px)!important;
+  }
+
+  body:not(:has(.admin-sidebar)) .section{
+    padding-left:8px!important;
+    padding-right:8px!important;
+  }
+
+  body:not(:has(.admin-sidebar)) .product-page,
+  body:not(:has(.admin-sidebar)) .search-page,
+  body:not(:has(.admin-sidebar)) .account-page,
+  body:not(:has(.admin-sidebar)) .checkout-page{
+    padding-left:10px!important;
+    padding-right:10px!important;
+  }
+}
+
+@media (max-width:390px){
+  body:not(:has(.admin-sidebar)) .section,
+  body:not(:has(.admin-sidebar)) .product-page,
+  body:not(:has(.admin-sidebar)) .search-page,
+  body:not(:has(.admin-sidebar)) .account-page,
+  body:not(:has(.admin-sidebar)) .checkout-page{
+    width:calc(100% - 12px)!important;
+  }
+}
