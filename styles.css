@@ -5555,3 +5555,129 @@ body:has(.admin-sidebar) .admin-shell{
     padding-right:10px!important;
   }
 }
+
+
+/* APNASTORE — UNIVERSAL FOOTER FINAL PASS
+   Every footer uses the available viewport, keeps its responsive gutters,
+   and guarantees readable foreground contrast on dark footer backgrounds.
+*/
+footer{
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  min-width:0!important;
+  background:#171615!important;
+  color:#f5f1eb!important;
+  border-top:0!important;
+  padding:56px clamp(20px,5vw,80px) 28px!important;
+}
+
+footer a,
+footer p,
+footer small,
+footer span,
+footer li,
+footer label,
+footer strong,
+footer h1,
+footer h2,
+footer h3,
+footer h4{
+  color:#f5f1eb!important;
+  -webkit-text-fill-color:#f5f1eb!important;
+  opacity:1!important;
+  visibility:visible!important;
+}
+
+footer .footer-links{
+  min-width:0!important;
+}
+
+footer .footer-links a{
+  display:inline-flex!important;
+  color:#f5f1eb!important;
+  -webkit-text-fill-color:#f5f1eb!important;
+  text-decoration:none!important;
+}
+
+footer .footer-links a:hover{
+  color:#ffffff!important;
+  -webkit-text-fill-color:#ffffff!important;
+  opacity:.82!important;
+}
+
+/* Fallback brand mark: stays visible even if the embedded logo asset fails. */
+footer .logo{
+  position:relative!important;
+  display:block!important;
+  width:max-content!important;
+  min-width:170px!important;
+  height:auto!important;
+  min-height:34px!important;
+  margin:0!important;
+  padding:0!important;
+  background-image:none!important;
+  background:none!important;
+  color:#ffffff!important;
+  -webkit-text-fill-color:#ffffff!important;
+  text-indent:0!important;
+  font-family:Georgia,"Times New Roman",serif!important;
+  font-size:24px!important;
+  line-height:1.15!important;
+  letter-spacing:-.055em!important;
+  overflow:visible!important;
+  filter:none!important;
+}
+
+footer .logo::before{
+  content:"APNASTORE"!important;
+  color:#ffffff!important;
+  -webkit-text-fill-color:#ffffff!important;
+  display:block!important;
+}
+
+footer .logo span{
+  display:none!important;
+}
+
+footer .logo::after{
+  content:none!important;
+  display:none!important;
+}
+
+/* Footer itself is a full canvas; only its inner grid creates intentional spacing. */
+footer > *{
+  min-width:0!important;
+}
+
+@media (min-width:1200px){
+  footer{
+    grid-template-columns:minmax(260px,1.2fr) minmax(0,2fr)!important;
+  }
+}
+
+@media (max-width:760px){
+  footer{
+    width:100%!important;
+    grid-template-columns:1fr!important;
+    padding:42px 20px 24px!important;
+    gap:28px!important;
+  }
+
+  footer .footer-links{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:16px!important;
+  }
+}
+
+@media (max-width:420px){
+  footer{
+    padding:36px 14px 22px!important;
+  }
+
+  footer .footer-links{
+    grid-template-columns:1fr 1fr!important;
+    gap:14px!important;
+  }
+}
