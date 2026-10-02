@@ -1392,3 +1392,136 @@
     transition:none!important;
   }
 }
+
+
+/* APNASTORE — RESPONSIVE WIDTH / EMPTY-SPACE BALANCE PASS
+   Keep the reference design intact while using available viewport width.
+   Desktop: wider editorial canvas. Tablet: fluid canvas. Phone: compact safe gutters.
+*/
+.apna-reference-home .ref-hero,
+.apna-reference-home .ref-section,
+.apna-reference-home .ref-collection{
+  width:calc(100% - clamp(24px,4vw,56px));
+  max-width:1500px;
+}
+
+.apna-reference-home .ref-section{
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.apna-reference-home .ref-collection{
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.apna-reference-home .ref-hero{
+  max-width:1500px;
+}
+
+@media (min-width:1401px){
+  .apna-reference-home .ref-section{
+    max-width:1500px;
+  }
+  .apna-reference-home .ref-collection{
+    max-width:1500px;
+  }
+  .apna-reference-home .ref-hero{
+    max-width:1500px;
+  }
+  .apna-reference-home .ref-products{
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    gap:16px;
+  }
+  .apna-reference-home .ref-categories{
+    gap:14px;
+  }
+}
+
+@media (min-width:901px) and (max-width:1400px){
+  .apna-reference-home .ref-section,
+  .apna-reference-home .ref-collection,
+  .apna-reference-home .ref-hero{
+    width:calc(100% - 36px);
+  }
+}
+
+@media (min-width:601px) and (max-width:900px){
+  .apna-reference-home .ref-section,
+  .apna-reference-home .ref-collection,
+  .apna-reference-home .ref-hero{
+    width:calc(100% - 28px);
+  }
+
+  .apna-reference-home .ref-section{
+    padding-top:26px;
+  }
+
+  .apna-reference-home .ref-products{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:12px;
+  }
+
+  .apna-reference-home .ref-categories{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+  }
+
+  .apna-reference-home .ref-collection{
+    height:210px;
+  }
+}
+
+@media (max-width:600px){
+  .apna-reference-home .ref-section,
+  .apna-reference-home .ref-collection,
+  .apna-reference-home .ref-hero{
+    width:calc(100% - 24px);
+  }
+
+  .apna-reference-home .ref-section{
+    padding-top:22px;
+  }
+
+  .apna-reference-home .ref-title-row{
+    gap:12px;
+  }
+
+  .apna-reference-home .ref-products,
+  .apna-reference-home .ref-categories{
+    gap:10px;
+  }
+
+  .apna-reference-home .ref-products .product-image{
+    height:auto!important;
+    aspect-ratio:4/5!important;
+  }
+
+  .apna-reference-home .ref-categories .category{
+    height:auto;
+    min-height:0!important;
+    aspect-ratio:4/5;
+  }
+
+  .apna-reference-home .ref-collection{
+    margin-top:24px;
+  }
+}
+
+@media (max-width:390px){
+  .apna-reference-home .ref-section,
+  .apna-reference-home .ref-collection,
+  .apna-reference-home .ref-hero{
+    width:calc(100% - 20px);
+  }
+
+  .apna-reference-home .ref-products .product-info{
+    padding:7px 7px 3px!important;
+  }
+
+  .apna-reference-home .ref-products .product-card .primary-btn.add{
+    margin-left:7px!important;
+    margin-right:7px!important;
+    width:calc(100% - 14px)!important;
+  }
+}
