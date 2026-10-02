@@ -5848,3 +5848,42 @@ body>.ref-footer{
   flex:0 0 auto!important;
   margin-top:auto!important;
 }
+
+
+/* LEGAL / POLICY PAGES — use the same site shell while keeping policy content readable */
+.legal-page{
+  width:min(1100px,calc(100% - 48px))!important;
+  margin:0 auto!important;
+  padding:72px 0 96px!important;
+  box-sizing:border-box!important;
+}
+.legal-page h1{
+  font-family:Georgia,"Times New Roman",serif!important;
+  font-size:clamp(42px,5vw,72px)!important;
+  line-height:1.02!important;
+  margin:0 0 14px!important;
+  color:#171717!important;
+}
+.legal-page h2{
+  font-family:Georgia,"Times New Roman",serif!important;
+  font-size:clamp(24px,2.5vw,34px)!important;
+  line-height:1.15!important;
+  margin:48px 0 14px!important;
+  color:#171717!important;
+}
+.legal-page p,.legal-page li{
+  max-width:980px!important;
+  font-size:16px!important;
+  line-height:1.8!important;
+  color:#3f3b36!important;
+}
+.legal-page>p:first-child{margin-bottom:28px!important}
+.legal-page>p:first-child a{color:#171717!important;text-decoration:none!important}
+.legal-page a{color:#171717!important}
+.legal-page .legal-meta{color:#777!important;font-size:14px!important}
+@media(max-width:600px){
+  .legal-page{width:calc(100% - 32px)!important;padding:48px 0 64px!important}
+  .legal-page h1{font-size:42px!important}
+  .legal-page h2{font-size:26px!important;margin-top:36px!important}
+  .legal-page p,.legal-page li{font-size:15px!important;line-height:1.7!important}
+}
