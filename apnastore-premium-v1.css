@@ -1,0 +1,135 @@
+/* APNASTORE PREMIUM INTERACTION LAYER — V1
+   Homepage-only visual enhancement. No commerce logic is changed. */
+
+.apna-reference-home .ref-hero{
+  transform:translateZ(0);
+  box-shadow:0 18px 48px rgba(24,22,19,.08);
+}
+.apna-reference-home .ref-hero-image{
+  transform:scale(1.015);
+  transition:transform 1.1s cubic-bezier(.2,.7,.2,1);
+}
+.apna-reference-home .ref-hero:hover .ref-hero-image{
+  transform:scale(1.045);
+}
+.apna-reference-home .ref-hero-copy{
+  animation:apnaHeroCopyIn .8s cubic-bezier(.2,.75,.2,1) both;
+}
+.apna-reference-home .ref-hero-copy h1{
+  text-wrap:balance;
+}
+.apna-reference-home .ref-btn{
+  transition:transform .22s ease,box-shadow .22s ease,background-color .22s ease,color .22s ease;
+}
+.apna-reference-home .ref-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 9px 20px rgba(20,20,20,.12);
+}
+.apna-reference-home .ref-btn span{
+  display:inline-block;
+  transition:transform .22s ease;
+}
+.apna-reference-home .ref-btn:hover span{
+  transform:translateX(3px);
+}
+
+.apna-reference-home .ref-category-section .category,
+.apna-reference-home .ref-trending-section .product-card,
+.apna-reference-home .ref-why .ref-benefit,
+.apna-reference-home .ref-inspo .ref-inspo-grid>a,
+.apna-reference-home .ref-collection{
+  will-change:transform;
+}
+
+.apna-reference-home .ref-categories .category{
+  transition:transform .38s cubic-bezier(.2,.7,.2,1),box-shadow .38s ease;
+}
+.apna-reference-home .ref-categories .category .category-media img{
+  transition:transform .65s cubic-bezier(.2,.7,.2,1),filter .45s ease;
+}
+.apna-reference-home .ref-categories .category:hover{
+  transform:translateY(-5px);
+  box-shadow:0 16px 30px rgba(24,22,19,.14);
+}
+.apna-reference-home .ref-categories .category:hover .category-media img{
+  transform:scale(1.055);
+  filter:saturate(1) contrast(1);
+}
+
+.apna-reference-home .ref-products .product-card{
+  transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s ease,border-color .3s ease;
+}
+.apna-reference-home .ref-products .product-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 16px 30px rgba(24,22,19,.11)!important;
+  border-color:#d3cec5!important;
+}
+.apna-reference-home .ref-products .product-image img{
+  transition:transform .55s cubic-bezier(.2,.7,.2,1);
+}
+.apna-reference-home .ref-products .product-card:hover .product-image img{
+  transform:scale(1.035);
+}
+
+.apna-reference-home .ref-collection{
+  transition:transform .35s ease,box-shadow .35s ease;
+}
+.apna-reference-home .ref-collection:hover{
+  transform:translateY(-3px);
+  box-shadow:0 18px 36px rgba(24,22,19,.1);
+}
+.apna-reference-home .ref-collection-image img{
+  transition:transform .65s cubic-bezier(.2,.7,.2,1);
+}
+.apna-reference-home .ref-collection:hover .ref-collection-image img{
+  transform:scale(1.035);
+}
+
+.apna-reference-home .ref-inspo-grid>a{
+  transition:transform .3s ease,box-shadow .3s ease;
+}
+.apna-reference-home .ref-inspo-grid>a:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 24px rgba(24,22,19,.12);
+}
+
+.apna-reference-home .apna-premium-reveal{
+  opacity:0;
+  transform:translateY(22px);
+  transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1);
+}
+.apna-reference-home .apna-premium-reveal.is-visible{
+  opacity:1;
+  transform:none;
+}
+.apna-reference-home .apna-premium-reveal:nth-child(2){transition-delay:.06s}
+.apna-reference-home .apna-premium-reveal:nth-child(3){transition-delay:.12s}
+.apna-reference-home .apna-premium-reveal:nth-child(4){transition-delay:.18s}
+.apna-reference-home .apna-premium-reveal:nth-child(5){transition-delay:.24s}
+
+@keyframes apnaHeroCopyIn{
+  from{opacity:0;transform:translateY(calc(-50% + 18px))}
+  to{opacity:1;transform:translateY(-50%)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .apna-reference-home .ref-hero-image,
+  .apna-reference-home .ref-hero-copy,
+  .apna-reference-home .ref-btn,
+  .apna-reference-home .ref-btn span,
+  .apna-reference-home .ref-categories .category,
+  .apna-reference-home .ref-categories .category .category-media img,
+  .apna-reference-home .ref-products .product-card,
+  .apna-reference-home .ref-products .product-image img,
+  .apna-reference-home .ref-collection,
+  .apna-reference-home .ref-collection-image img,
+  .apna-reference-home .ref-inspo-grid>a,
+  .apna-reference-home .apna-premium-reveal{
+    transition:none!important;
+    animation:none!important;
+    transform:none!important;
+  }
+  .apna-reference-home .apna-premium-reveal{
+    opacity:1!important;
+  }
+}
