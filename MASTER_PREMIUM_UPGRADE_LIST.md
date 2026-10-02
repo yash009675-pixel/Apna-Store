@@ -22,44 +22,111 @@ This is the master checklist for the new professional/premium website upgrade re
 
 ## Core rule
 Do not remove or rebuild working customer/admin functionality without a specific reason.
-Inspect first → mark status → implement one focused change → validate → deploy → update this list.
+
+**Inspect first → mark status → implement one focused change → validate → deploy → update this list.**
+
+**Important:** The four screen recordings supplied by the owner are the visual benchmark. The target is to make the corresponding Apna Store experience **live on the website**, not merely describe it, mock it, or add a few animations.
 
 ---
 
+# 0. 🎬 FOUR SCREEN RECORDINGS — PRIMARY LIVE DESIGN BENCHMARK
 
+The four screen recordings supplied by the owner are the primary visual reference for this upgrade.
 
-# 0. 🎬 FOUR REFERENCE SCREEN RECORDINGS — DESIGN NORTH STAR
+## 0.1 What must be reproduced in Apna Store
+The implementation should translate the reference experience into Apna Store's own brand and real ecommerce content:
 
-The four screen recordings shared by the owner are the primary visual reference for this upgrade. The goal is to reproduce the same level of premium visual experience and interaction quality in Apna Store, while keeping Apna Store's own branding, real commerce data, and business functionality.
-
-## 0.1 Reference principles
 - 🔵 Premium fashion/editorial first impression
 - 🔵 Hero-led visual composition
 - 🔵 Large, art-directed imagery
-- 🔵 Strong typography as part of the layout
-- 🔵 Layered/depth-based visual composition
-- 🔵 Cinematic but purposeful section transitions
-- 🔵 Product presentation treated as part of the visual experience
-- 🔵 Minimal, refined navigation
-- 🔵 Interactive CTAs and micro-interactions
-- 🔵 Mobile-specific composition, not merely desktop scaled down
-- 🔵 Strong visual rhythm with intentional whitespace
-- 🔵 Commerce remains easy and obvious inside the premium experience
+- 🔵 Strong typography integrated into the composition
+- 🔵 Layered/depth-based visual presentation
+- 🔵 Cinematic, purposeful section transitions
+- 🔵 Product presentation as a visual experience
+- 🔵 Minimal/refined navigation
+- 🔵 Interactive CTAs and polished micro-interactions
+- 🔵 Mobile-specific composition
+- 🔵 Strong visual rhythm and intentional spacing
+- 🔵 Commerce remains obvious and easy to use
+- 🔵 Overall page composition should feel designed, not like a collection of ordinary cards
 
-## 0.2 Redesign permission
+## 0.2 Reference → Apna Store translation
+The reference is **not** to be copied literally. Instead:
+
+| Reference characteristic | Apna Store implementation target |
+|---|---|
+| Hero as visual experience | Full-width fashion hero with strong type, real Apna Store imagery/video and clear shopping CTA |
+| Large visual storytelling | Large editorial image/video sections using existing approved assets |
+| Depth/layering | Controlled foreground/background layering, scale, overlap and depth |
+| Typography-led composition | Strong Apna Store typography hierarchy with oversized display type where appropriate |
+| Section transitions | Smooth reveal/slide/scale transitions that support the story without slowing shopping |
+| Product showcase | Products presented as editorial collections rather than only plain grids |
+| Minimal navigation | Clean navigation with important shopping actions always discoverable |
+| Interactive CTAs | Refined hover/tap states, movement and feedback |
+| Mobile composition | Purpose-built mobile layouts rather than desktop layouts simply shrinking |
+| Premium visual rhythm | Intentional spacing, image scale and section pacing; remove dead/boring gaps |
+
+## 0.3 Live implementation rule
+- 🔒 The final target is the **live GitHub Pages website**.
+- 🔒 Each completed visual pass must be deployed and checked on the live site before being marked complete.
+- 🔒 Existing product, cart, account, auth, order and admin logic must continue working.
+- 🔒 Real Supabase data must continue to drive products, inventory, reviews, orders and customer information.
+- 🟢 Existing correct content/assets should be reused where practical.
+- 🔵 Visual structure can be substantially redesigned when needed to achieve the reference-level result.
+- 🚫 Do not preserve an old section structure merely because it already exists if that structure prevents the target experience.
+- 🚫 Do not call the upgrade complete because only CSS hover effects or small spacing changes were added.
+
+## 0.4 Definition of visual completion
+A page is considered visually complete only when:
+1. Its overall composition matches the intended premium/editorial quality of the four references.
+2. Hero, typography, imagery, sections and CTAs work together as one design.
+3. Motion/depth is purposeful and smooth.
+4. Mobile/tablet/desktop each receive an intentional composition.
+5. Shopping remains easy and clear.
+6. No accidental white/cream blocks, dead space, cut-off images or invisible text remain.
+7. The live deployed page has been checked.
+
+## 0.5 Redesign permission
 - 🟢 Homepage may be substantially redesigned or rebuilt where the current structure prevents the reference-level experience.
 - 🔒 Existing working customer, admin, authentication, commerce, order and business logic must remain intact unless a specific change is required and validated.
-- 🔒 Content/data that is already correct should be reused where practical; visual structure may change.
-- 🚫 Do not force the old homepage layout to remain merely to avoid redesign work.
-- 🚫 Do not pixel-copy the third-party/reference site's branding, proprietary assets, text, or identity.
+- 🔒 Correct content/data should be reused where practical; visual structure may change.
+- 🚫 Do not pixel-copy third-party branding, proprietary assets, text, or identity.
+- 🚫 Do not add features only because they look impressive in a Reel.
 
-## 0.3 Definition of success
-The result is not considered complete merely because hover effects, animations, or spacing were added. The homepage and subsequent customer pages should feel like one cohesive premium fashion ecommerce experience comparable in visual sophistication to the four references, while remaining fast, usable, responsive, and commerce-first.
-\n# 2. 🎨 PREMIUM VISUAL DESIGN
+---
+
+# 1. 🧭 MASTER EXPERIENCE TARGET
+
+The finished Apna Store customer website should feel like one connected premium fashion brand experience:
+
+**OPEN SITE → HERO EXPERIENCE → EXPLORE VISUAL COLLECTIONS → DISCOVER PRODUCTS → PRODUCT EXPERIENCE → ADD TO BAG → CHECKOUT → ORDER → ACCOUNT → SUPPORT**
+
+The same design language must continue across:
+- Homepage
+- Shop/category
+- Search
+- Product detail
+- Cart
+- Checkout
+- Order pages
+- Account
+- Wishlist
+- Wallet
+- Notifications
+- Membership
+- Support
+- Footer-linked informational pages
+
+Admin/business functionality remains preserved separately.
+
+---
+
+# 2. 🎨 PREMIUM VISUAL DESIGN
 
 ## 2.1 Global design system
 - 🔵 One consistent Apna Store visual language across all customer pages
-- 🔵 Same background treatment as approved homepage; eliminate accidental white/cream blocks where they conflict
+- 🔵 Same approved homepage background treatment across pages
+- 🔵 Eliminate accidental white/cream blocks where they conflict with the approved background
 - 🔵 Consistent typography hierarchy
 - 🔵 Consistent heading/body/label sizing
 - 🔵 Consistent spacing scale
@@ -72,7 +139,7 @@ The result is not considered complete merely because hover effects, animations, 
 - 🔵 Consistent responsive breakpoints
 - 🟠 Design tokens/variables for the above so future pages do not drift
 
-## 2.2 Homepage
+## 2.2 Homepage — primary reference implementation
 Existing functionality to preserve:
 - 🟢 Marketing hero
 - 🟢 Categories
@@ -83,18 +150,20 @@ Existing functionality to preserve:
 - 🟢 Wishlist/product/cart links
 - 🟢 Footer/navigation
 
-Premium upgrade:
+Reference-level upgrade:
 - 🔵 Editorial fashion hero
 - 🔵 Stronger visual hierarchy
 - 🔵 Oversized/expressive typography where appropriate
 - 🔵 Art-directed product imagery
 - 🟠 Layered/depth-based compositions
-- 🟠 More cinematic section transitions
-- 🟠 Premium visual storytelling without hurting shopping usability
+- 🟠 Cinematic section transitions
+- 🟠 Visual storytelling through image → type → product → image rhythm
 - 🔵 Better section spacing/rhythm
 - 🔵 Remove boring/empty-looking gaps
 - 🔵 Category tiles without unwanted visible borders
 - 🔵 Full/fit image presentation with no cut-off
+- 🟠 Premium collection/product showcase sections
+- 🟠 Reference-style visual transitions between major sections
 
 ## 2.3 Shop/category
 - 🔵 Premium product-card system
@@ -104,7 +173,8 @@ Premium upgrade:
 - 🔵 Consistent price/offer/rating hierarchy
 - 🔵 Better empty states
 - 🔵 Better loading/skeleton presentation
-- 🔵 No unnecessary visual clutter
+- 🟠 Editorial collection headers where appropriate
+- 🚫 No unnecessary visual clutter
 
 ## 2.4 Product detail
 - 🔵 Premium gallery hierarchy
@@ -115,7 +185,8 @@ Premium upgrade:
 - 🔵 Purchase CTA hierarchy
 - 🔵 Wishlist/compare/share/size-guide spacing
 - 🔵 Related-product presentation
-- 🟠 Optional immersive product visual treatment where technically appropriate
+- 🟠 Immersive product visual treatment where technically appropriate
+- 🟠 Smooth gallery transitions
 
 ## 2.5 Account/support/secondary pages
 - 🔵 Same global background/design language
@@ -126,7 +197,7 @@ Premium upgrade:
 - 🔵 Footer-linked pages must visually belong to the same brand
 
 ## 2.6 Visual polish
-- 🟠 Premium hover states
+- 🟠 Premium hover/tap states
 - 🟠 Image depth/zoom
 - 🟠 Subtle shadows
 - 🟠 Better transitions
@@ -154,11 +225,11 @@ Premium upgrade:
 ## 3.2 Product cards
 - 🟢 Product navigation
 - 🟢 Wishlist actions
-- 🔵 Premium card layout
+- 🔵 Premium editorial card layout
 - 🔵 Clear price/offer hierarchy
 - 🔵 Rating/review display based on real data
 - 🔵 Stock state presentation
-- 🟠 Quick-view interaction if it improves UX and does not duplicate product-page functionality
+- 🟠 Quick-view interaction only if it improves UX and does not duplicate product-page functionality
 - 🚫 Never fabricate ratings/review counts/stock
 
 ## 3.3 Product page
@@ -218,8 +289,7 @@ Premium upgrade:
 - 🔵 No cut-off images
 - 🔵 Fit-to-screen layouts
 - 🔵 Touch-friendly controls
-- 🔵 Proper bottom navigation where applicable
-- 🔵 Mobile-specific composition rather than simply shrinking desktop
+- 🔵 Mobile-specific composition
 - 🔵 Account page complete on phone
 - 🔵 Product page order: image → details → purchase → reviews → related
 - 🔵 Cart/checkout easy with one hand
@@ -270,7 +340,7 @@ Premium upgrade:
 - 🔵 Scroll reveal
 - 🟠 Advanced section transitions
 - 🟠 Layered/parallax effects where performance allows
-- 🟠 Product-focused visual movement inspired by premium fashion sites
+- 🟠 Reference-inspired product-focused visual movement
 
 ## 5.3 Shopping interactions
 - 🟠 Add-to-bag feedback
@@ -312,7 +382,7 @@ Target flow:
 
 **Discover → Explore → Product → Decide → Add to Bag → Checkout → Order → Track → Support/Return**
 
-- 🔵 Remove unnecessary friction between these stages
+- 🔵 Remove unnecessary friction
 - 🟠 Contextual CTAs
 - 🟠 Better reassurance at decision points
 - 🟠 Better post-purchase guidance
@@ -358,7 +428,90 @@ Target flow:
 
 ---
 
-# 7. 🚫 EXPLICITLY NOT PART OF THIS UPGRADE
+# 7. 🧩 PAGE-BY-PAGE LIVE BUILD TARGET
+
+## Phase A — Homepage
+**Goal:** The first screen should immediately feel like the supplied premium fashion references.
+
+Build target:
+- Hero composition
+- Large imagery/video
+- Strong display typography
+- Layered/depth treatment
+- Refined navigation
+- Visual collection sections
+- Editorial product presentation
+- Premium CTAs
+- Cinematic but lightweight transitions
+- Mobile-specific hero and section layouts
+
+## Phase B — Shop + Search
+**Goal:** The premium visual language continues after the homepage without making shopping harder.
+
+Build target:
+- Editorial category headers
+- Premium product cards
+- Better image presentation
+- Refined filters/sort
+- Search suggestions/results
+- Loading/empty states
+- Responsive layouts
+
+## Phase C — Product experience
+**Goal:** Product detail should feel like a premium fashion product presentation.
+
+Build target:
+- Large gallery
+- Real image zoom/lightbox
+- Strong product hierarchy
+- Reviews/ratings
+- Size/variant selection
+- Purchase area
+- Related products
+- Mobile purchase flow
+
+## Phase D — Cart + Checkout + Orders
+**Goal:** Premium visual design continues while checkout remains extremely clear.
+
+Build target:
+- Clean cart
+- Clear totals
+- Clear delivery information
+- Validation feedback
+- Order success
+- Order details
+- Status/timeline presentation
+
+## Phase E — Account
+**Goal:** Account should feel like the same brand, not a separate utility page.
+
+Build target:
+- Customer navigation
+- Attractive dashboard
+- Orders
+- Wishlist
+- Wallet
+- Notifications
+- Membership
+- Support
+- Shopping/personalization area
+- Mobile-first navigation
+
+## Phase F — Supporting pages
+**Goal:** No footer link should lead to an old-looking or visually disconnected page.
+
+Build target:
+- About
+- Help
+- Shipping
+- Returns
+- Support
+- Terms/privacy
+- Membership/rewards/wallet where applicable
+
+---
+
+# 8. 🚫 EXPLICITLY NOT PART OF THIS UPGRADE
 
 - 🚫 Do not remove working customer functionality
 - 🚫 Do not remove useful admin/business functionality
@@ -369,15 +522,52 @@ Target flow:
 - 🚫 Do not duplicate features that already work
 - 🚫 Do not add heavy animation that harms performance
 - 🚫 Do not re-add permanently removed Warehouse Management (Phase 60)
+- 🚫 Do not mark something complete until the live website is checked
 
 ---
 
-# 8. IMPLEMENTATION ORDER
+# 9. 🔒 BUSINESS / FUNCTIONALITY SAFETY
+
+Every visual rebuild must preserve:
+- Authentication
+- Customer sessions
+- Product data
+- Categories
+- Inventory
+- Wishlist
+- Cart
+- Orders
+- Reviews
+- Coupons/deals
+- Returns/refunds
+- Notifications
+- Account data
+- Admin access
+- Admin product management
+- Admin order management
+- Admin inventory/business tools
+- Supabase/RLS behavior
+- GitHub Pages deployment
+
+If a visual change requires touching business logic:
+1. inspect current implementation,
+2. make the smallest necessary change,
+3. test the affected flow,
+4. test regression,
+5. deploy,
+6. verify live.
+
+---
+
+# 10. 🚦 IMPLEMENTATION ORDER
 
 ### Pass 0 — Audit / baseline
-- [ ] Review this master list against current GitHub implementation
-- [ ] Mark each item accurately as existing/missing/upgrade
-- [ ] Freeze approved scope before broad implementation
+- [ ] Review current GitHub implementation against this master list
+- [ ] Identify what already exists
+- [ ] Identify what is genuinely missing
+- [ ] Identify what only needs visual upgrade
+- [ ] Confirm current live baseline
+- [ ] Freeze approved scope
 
 ### Pass 1 — Global visual foundation
 - [ ] Background
@@ -389,23 +579,29 @@ Target flow:
 - [ ] Image system
 - [ ] Responsive tokens
 
-### Pass 2 — Homepage
+### Pass 2 — Homepage reference implementation
 - [ ] Hero
 - [ ] Editorial sections
+- [ ] Layering/depth
+- [ ] Typography
 - [ ] Categories
 - [ ] Products
 - [ ] Collections
 - [ ] Style Inspo
+- [ ] Reference-inspired transitions
 - [ ] Premium motion
+- [ ] Mobile-specific composition
 
 ### Pass 3 — Shop/Search
 - [ ] Product cards
 - [ ] Filters/sort
 - [ ] Search
 - [ ] Empty/loading states
+- [ ] Responsive QA
 
 ### Pass 4 — Product
 - [ ] Gallery
+- [ ] Real zoom/lightbox
 - [ ] Details
 - [ ] Reviews
 - [ ] Purchase area
@@ -433,7 +629,8 @@ Target flow:
 - [ ] Help
 - [ ] Shipping
 - [ ] Returns
-- [ ] Terms/privacy and other footer destinations
+- [ ] Terms/privacy
+- [ ] Other footer destinations
 - [ ] Global background/spacing consistency
 
 ### Pass 8 — Responsive + interaction QA
@@ -444,12 +641,38 @@ Target flow:
 - [ ] Motion
 - [ ] Accessibility
 - [ ] Performance
+- [ ] No regression
 
 ### Pass 9 — Live verification
 - [ ] GitHub Pages deployment green
 - [ ] Live homepage check
-- [ ] Live shop/product/account checks
-- [ ] No regression in customer/admin functionality
+- [ ] Live shop/search check
+- [ ] Live product check
+- [ ] Live cart/checkout/order check
+- [ ] Live account check
+- [ ] Footer-linked pages check
+- [ ] Customer/admin functionality regression check
 
-## Current note
-The first premium homepage interaction layer was started before this master list was formally created. It must now be treated as part of Pass 2, not as proof that the homepage is complete.
+---
+
+# 11. ✅ DEFINITION OF DONE
+
+This premium upgrade is complete only when:
+
+- [ ] The four supplied screen recordings have been translated into the Apna Store design language.
+- [ ] The homepage has the same **level of visual composition, depth, typography, imagery, transitions and interaction quality** targeted by the references.
+- [ ] The premium experience continues across the customer website instead of stopping at the homepage.
+- [ ] Mobile/tablet/laptop/desktop each look intentionally designed.
+- [ ] Shopping remains simple and fast.
+- [ ] Existing working functionality remains intact.
+- [ ] No fake data/provider states were introduced.
+- [ ] No accidental white/cream blocks, invisible text, cut-off images or giant dead spaces remain.
+- [ ] GitHub Pages deployment is green.
+- [ ] The live website has been checked before final sign-off.
+
+## Current status
+**MASTER PLAN = LOCKED FOR REFERENCE-BASED LIVE IMPLEMENTATION.**
+
+The previously added homepage interaction layer is treated as preliminary Pass 2 work only. It does **not** mean the homepage is complete.
+
+**Next required step: PASS 0 — CURRENT WEBSITE AUDIT, followed by the first actual reference-based live implementation.**
