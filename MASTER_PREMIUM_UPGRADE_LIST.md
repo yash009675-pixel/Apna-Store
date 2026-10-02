@@ -26,7 +26,36 @@ Inspect first → mark status → implement one focused change → validate → 
 
 ---
 
-# 2. 🎨 PREMIUM VISUAL DESIGN
+
+
+# 0. 🎬 FOUR REFERENCE SCREEN RECORDINGS — DESIGN NORTH STAR
+
+The four screen recordings shared by the owner are the primary visual reference for this upgrade. The goal is to reproduce the same level of premium visual experience and interaction quality in Apna Store, while keeping Apna Store's own branding, real commerce data, and business functionality.
+
+## 0.1 Reference principles
+- 🔵 Premium fashion/editorial first impression
+- 🔵 Hero-led visual composition
+- 🔵 Large, art-directed imagery
+- 🔵 Strong typography as part of the layout
+- 🔵 Layered/depth-based visual composition
+- 🔵 Cinematic but purposeful section transitions
+- 🔵 Product presentation treated as part of the visual experience
+- 🔵 Minimal, refined navigation
+- 🔵 Interactive CTAs and micro-interactions
+- 🔵 Mobile-specific composition, not merely desktop scaled down
+- 🔵 Strong visual rhythm with intentional whitespace
+- 🔵 Commerce remains easy and obvious inside the premium experience
+
+## 0.2 Redesign permission
+- 🟢 Homepage may be substantially redesigned or rebuilt where the current structure prevents the reference-level experience.
+- 🔒 Existing working customer, admin, authentication, commerce, order and business logic must remain intact unless a specific change is required and validated.
+- 🔒 Content/data that is already correct should be reused where practical; visual structure may change.
+- 🚫 Do not force the old homepage layout to remain merely to avoid redesign work.
+- 🚫 Do not pixel-copy the third-party/reference site's branding, proprietary assets, text, or identity.
+
+## 0.3 Definition of success
+The result is not considered complete merely because hover effects, animations, or spacing were added. The homepage and subsequent customer pages should feel like one cohesive premium fashion ecommerce experience comparable in visual sophistication to the four references, while remaining fast, usable, responsive, and commerce-first.
+\n# 2. 🎨 PREMIUM VISUAL DESIGN
 
 ## 2.1 Global design system
 - 🔵 One consistent Apna Store visual language across all customer pages
