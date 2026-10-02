@@ -29,4 +29,4 @@ await loadStock();
 const stockChannel=client.channel('admin-command-stock').on('postgres_changes',{event:'UPDATE',schema:'public',table:'product_variants'},()=>loadStock()).subscribe();
 }catch(e){document.querySelectorAll('.command-note').forEach(x=>x.className='command-note command-error');$('healthList').textContent=e.message||'Live command-center data unavailable.'}
 })()
-</script><script src="pwa.js?v=20260929-01"></script></body></html>
+</script><script src="pwa.js?v=20260929-01"></script><footer><div><a class="logo" href="index.html">APNA<span>STORE</span></a><p>Everyday shopping, the Apna way.</p></div><div class="footer-links"><a href="about.html">About</a><a href="help.html">Help</a><a href="shipping.html">Shipping</a><a href="returns.html">Returns</a></div><small>© 2026 Apna Store.</small></footer></body></html>
