@@ -125,3 +125,198 @@
 @media(prefers-reduced-motion:reduce){
   .account-nav-inner a:after,.account-quick-card,.account-quick-card em,.account-button,.ref-btn{transition:none}
 }
+
+/* ACCOUNT — FINAL RESPONSIVE STRUCTURE / WIDTH BALANCE
+   Preserve all existing account content and labels; correct the canvas and section geometry.
+*/
+.account-page{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:24px clamp(16px,3vw,48px) 72px!important;
+}
+
+.account-shell{
+  width:min(1480px,100%)!important;
+  max-width:1480px!important;
+  margin-inline:auto!important;
+}
+
+.account-content{
+  width:100%!important;
+}
+
+.account-welcome{
+  min-height:300px!important;
+  padding:64px clamp(28px,5vw,86px) 48px!important;
+}
+
+.account-quick-grid{
+  width:100%!important;
+}
+
+.account-feature{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  min-height:360px!important;
+  margin:34px 0!important;
+  background:#f1eee8!important;
+}
+
+.account-membership-image{
+  position:relative!important;
+  inset:auto!important;
+  grid-column:2!important;
+  grid-row:1!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:360px!important;
+  object-fit:cover!important;
+  opacity:1!important;
+  z-index:0!important;
+}
+
+.account-feature:after{
+  display:none!important;
+}
+
+.account-feature-copy{
+  grid-column:1!important;
+  grid-row:1!important;
+  align-self:center!important;
+  width:100%!important;
+  max-width:none!important;
+  padding:54px clamp(28px,4vw,72px)!important;
+  z-index:2!important;
+  background:#f1eee8!important;
+}
+
+.account-feature-copy h2{
+  max-width:620px!important;
+}
+
+.account-section-grid{
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  gap:32px!important;
+  width:100%!important;
+}
+
+.account-panel{
+  min-width:0!important;
+}
+
+.account-form,
+.account-form-grid{
+  width:100%!important;
+  max-width:none!important;
+}
+
+.account-form-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:20px 28px!important;
+}
+
+.account-panel input,
+.account-panel select,
+.account-panel textarea{
+  min-width:0!important;
+}
+
+.account-wide-panel{
+  width:100%!important;
+}
+
+@media (min-width:1200px){
+  .account-welcome h1{
+    font-size:clamp(52px,5vw,78px)!important;
+  }
+
+  .account-feature-copy h2{
+    font-size:clamp(38px,3.5vw,52px)!important;
+  }
+
+  .account-quick-card{
+    min-height:155px!important;
+    padding:24px!important;
+  }
+}
+
+@media (max-width:900px){
+  .account-page{
+    padding:16px 14px 55px!important;
+  }
+
+  .account-shell{
+    width:100%!important;
+  }
+
+  .account-section-grid{
+    grid-template-columns:1fr!important;
+    gap:0!important;
+  }
+
+  .account-feature{
+    grid-template-columns:1fr 1fr!important;
+    min-height:300px!important;
+  }
+
+  .account-membership-image{
+    min-height:300px!important;
+  }
+
+  .account-feature-copy{
+    padding:36px 28px!important;
+  }
+}
+
+@media (max-width:700px){
+  .account-page{
+    padding:8px 8px 45px!important;
+  }
+
+  .account-welcome{
+    min-height:260px!important;
+    padding:48px 18px 34px!important;
+  }
+
+  .account-feature{
+    display:flex!important;
+    flex-direction:column!important;
+    min-height:0!important;
+    margin:22px 0!important;
+  }
+
+  .account-feature-copy{
+    order:1!important;
+    width:100%!important;
+    padding:28px 20px 24px!important;
+  }
+
+  .account-membership-image{
+    order:2!important;
+    width:100%!important;
+    height:300px!important;
+    min-height:300px!important;
+    object-fit:cover!important;
+  }
+
+  .account-form-grid{
+    grid-template-columns:1fr!important;
+    gap:17px!important;
+  }
+
+  .span-2{
+    grid-column:auto!important;
+  }
+}
+
+@media (max-width:420px){
+  .account-feature-copy{
+    padding:24px 16px 20px!important;
+  }
+
+  .account-membership-image{
+    height:250px!important;
+    min-height:250px!important;
+  }
+}
