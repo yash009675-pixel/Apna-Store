@@ -5822,3 +5822,29 @@ footer > *{
   .ref-footer-bottom{flex-direction:column!important}
   .ref-footer-bottom span:last-child{display:flex!important;flex-wrap:wrap!important;gap:2px 0!important}
 }
+
+
+/* UNIVERSAL FOOTER BOTTOM-ANCHOR
+   Prevents the page background from continuing as an empty strip below the
+   footer when the page content is shorter than the viewport. Content remains
+   responsive; the footer simply occupies the bottom of the page canvas.
+*/
+html{
+  min-height:100%;
+}
+body{
+  min-height:100vh!important;
+  min-height:100dvh!important;
+  display:flex!important;
+  flex-direction:column!important;
+  margin:0!important;
+}
+body>main{
+  flex:1 0 auto!important;
+  min-height:0!important;
+}
+body>footer,
+body>.ref-footer{
+  flex:0 0 auto!important;
+  margin-top:auto!important;
+}
