@@ -5415,3 +5415,81 @@ body:has(.account-page) .account-content{
     padding:0 0 45px!important;
   }
 }
+
+
+/* APNASTORE — SITE-WIDE FULL-CANVAS RESPONSIVE SYSTEM
+   Apply the same balanced screen usage to every customer-facing page.
+   Admin canvas/sidebar remains untouched.
+*/
+body:not(:has(.admin-sidebar)){
+  overflow-x:hidden;
+}
+
+body:not(:has(.admin-sidebar)) main,
+body:not(:has(.admin-sidebar)) .page,
+body:not(:has(.admin-sidebar)) .page-container,
+body:not(:has(.admin-sidebar)) .content,
+body:not(:has(.admin-sidebar)) .main-content,
+body:not(:has(.admin-sidebar)) .container{
+  box-sizing:border-box;
+}
+
+body:not(:has(.admin-sidebar)) main{
+  width:100%;
+  max-width:none;
+  margin-inline:0;
+}
+
+body:not(:has(.admin-sidebar)) .page-container,
+body:not(:has(.admin-sidebar)) .content,
+body:not(:has(.admin-sidebar)) .main-content{
+  max-width:1600px;
+  width:100%;
+  margin-inline:auto;
+}
+
+@media (min-width:1401px){
+  body:not(:has(.admin-sidebar)) .page-container,
+  body:not(:has(.admin-sidebar)) .content,
+  body:not(:has(.admin-sidebar)) .main-content{
+    padding-inline:clamp(24px,2.5vw,48px);
+  }
+}
+
+@media (min-width:601px) and (max-width:1400px){
+  body:not(:has(.admin-sidebar)) .page-container,
+  body:not(:has(.admin-sidebar)) .content,
+  body:not(:has(.admin-sidebar)) .main-content{
+    padding-inline:24px;
+  }
+}
+
+@media (max-width:600px){
+  body:not(:has(.admin-sidebar)) .page-container,
+  body:not(:has(.admin-sidebar)) .content,
+  body:not(:has(.admin-sidebar)) .main-content{
+    padding-inline:10px;
+  }
+}
+
+@media (max-width:390px){
+  body:not(:has(.admin-sidebar)) .page-container,
+  body:not(:has(.admin-sidebar)) .content,
+  body:not(:has(.admin-sidebar)) .main-content{
+    padding-inline:7px;
+  }
+}
+
+/* Common customer sections should not become narrow centered cards. */
+body:not(:has(.admin-sidebar)) .section{
+  box-sizing:border-box;
+  width:min(1600px,calc(100% - clamp(20px,4vw,64px)))!important;
+  max-width:1600px!important;
+  margin-inline:auto!important;
+}
+
+@media (max-width:600px){
+  body:not(:has(.admin-sidebar)) .section{
+    width:calc(100% - 16px)!important;
+  }
+}
