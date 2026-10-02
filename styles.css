@@ -5381,3 +5381,37 @@ body:not(:has(.admin-sidebar)) .search-page{
     width:calc(100% - 12px)!important;
   }
 }
+
+
+/* ACCOUNT CANVAS — REMOVE ARTIFICIAL OUTER GUTTERS
+   The account shell is an editorial full-width page, not a narrow card.
+   Keep responsive inner padding inside the actual sections.
+*/
+body:has(.account-page) .account-page{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:0 0 72px!important;
+}
+
+body:has(.account-page) .account-shell{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+}
+
+body:has(.account-page) .account-content{
+  width:100%!important;
+}
+
+@media (max-width:900px){
+  body:has(.account-page) .account-page{
+    padding:0 0 55px!important;
+  }
+}
+
+@media (max-width:600px){
+  body:has(.account-page) .account-page{
+    padding:0 0 45px!important;
+  }
+}
