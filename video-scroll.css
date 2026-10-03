@@ -1,0 +1,52 @@
+/* ApnaStore video-style scroll sections. Delete this file + video-scroll.js + the HTML block to remove. */
+.vs-story,.vs-spot{--vs-top:0px;--vs-bg:#1f3a8a;--vs-ink:#f6efdc;font-family:inherit}
+/* ---------- STORY: default (no JS / reduced motion) = stacked colour blocks ---------- */
+.vs-chapter{background:var(--bg);color:var(--ink);padding:44px 20px;display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start}
+.vs-img{width:min(46%,260px);aspect-ratio:4/5;object-fit:cover;border-radius:14px;background:rgba(255,255,255,.15);display:block}
+.vs-main{width:min(100%,420px)}
+.vs-missing{display:none}
+.vs-chip{background:var(--ink);color:var(--bg);padding:6px 14px;border-radius:99px;font-weight:600;font-size:13px}
+.vs-copy{flex-basis:100%}
+.vs-num{margin:0 0 6px;font-size:13px;letter-spacing:.14em;opacity:.8}
+.vs-copy h2{margin:0;font-size:clamp(30px,6vw,60px);line-height:1.02;font-weight:800;letter-spacing:-.02em}
+.vs-copy p{margin:8px 0 0;max-width:30em}
+.vs-cta{display:inline-block;margin-top:16px;background:var(--ink);color:var(--bg);padding:14px 26px;border-radius:99px;font-weight:700;text-decoration:none;min-height:44px}
+.vs-word,.vs-tabs{display:none}
+/* ---------- STORY: enhanced (JS adds .vs-on) ---------- */
+.vs-on{height:calc(var(--n)*95vh)}
+.vs-on .vs-pin{position:sticky;top:var(--vs-top);height:calc(100svh - var(--vs-top));overflow:hidden;background:var(--vs-bg);color:var(--vs-ink);transition:background .6s,color .6s}
+.vs-on .vs-chapter{position:absolute;inset:0;padding:0;display:block;background:none;color:inherit;opacity:0;visibility:hidden;transition:opacity .25s}
+.vs-on .vs-chapter.vs-active{opacity:1;visibility:visible}
+.vs-on .vs-img{aspect-ratio:auto;position:absolute;left:50%;top:44%;width:auto;max-width:80vw;height:var(--h);border-radius:14px;box-shadow:0 18px 40px rgba(0,0,0,.35);will-change:transform,opacity}
+.vs-on .vs-main{--h:50svh}.vs-on .vs-s1{--h:26svh}.vs-on .vs-s2{--h:24svh}
+.vs-on [data-style=cutout] .vs-img{border-radius:0;box-shadow:none;object-fit:contain;background:none;filter:drop-shadow(0 18px 18px rgba(0,0,0,.35))}
+.vs-on .vs-word{display:block;position:absolute;left:50%;top:38%;font-weight:800;font-size:clamp(80px,26vw,380px);line-height:.9;letter-spacing:-.04em;white-space:nowrap;opacity:.18;pointer-events:none;will-change:transform}
+.vs-on .vs-chip{position:absolute;opacity:0;z-index:2}
+.vs-on .vs-c1{left:5%;top:20%}.vs-on .vs-c2{right:5%;top:32%}.vs-on .vs-c3{left:6%;bottom:36%}
+.vs-on .vs-copy{position:absolute;left:5%;right:5%;bottom:76px;z-index:3;display:flex;flex-wrap:wrap;gap:12px 28px;align-items:flex-end;justify-content:space-between}
+.vs-on .vs-copy>div{max-width:30em}
+.vs-on .vs-cta{margin:0}
+.vs-on .vs-tabs{display:flex;gap:8px;position:absolute;left:5%;right:5%;bottom:14px;z-index:4}
+.vs-tabs button{flex:1;background:none;border:0;border-top:4px solid color-mix(in srgb,currentColor 30%,transparent);padding:10px 0 0;text-align:left;font:600 14px/1.2 inherit;color:inherit;opacity:.7;cursor:pointer;min-height:44px}
+.vs-tabs button[aria-selected=true]{border-top-color:currentColor;opacity:1}
+@media(max-width:700px){.vs-on{height:calc(var(--n)*80vh)}.vs-on .vs-main{--h:44svh}.vs-on .vs-s1{--h:20svh}.vs-on .vs-s2,.vs-on .vs-c3{display:none}.vs-on .vs-c1{top:16%}.vs-on .vs-c2{top:26%}}
+/* ---------- SPOTLIGHT ---------- */
+.vs-spot{background:#faf7f2;color:#171615;padding:48px 0}
+.vs-spot-head{padding:0 20px 20px}
+.vs-spot-head h2{margin:0;font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-.02em}
+.vs-spot-head p{margin:4px 0 0;color:#6b665f}
+.vs-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 20px 8px;scrollbar-width:none}
+.vs-track::-webkit-scrollbar{display:none}
+.vs-panel{position:relative;flex:0 0 78vw;max-width:360px;aspect-ratio:3/4;border-radius:16px;overflow:hidden;scroll-snap-align:start;background:#ddd;color:#fff;text-decoration:none}
+.vs-panel img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+.vs-panel:hover img{transform:scale(1.06)}
+.vs-panel::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent 55%)}
+.vs-pn{position:absolute;left:16px;top:8px;z-index:2;font-size:64px;font-weight:800;line-height:1;text-shadow:0 2px 12px rgba(0,0,0,.4)}
+.vs-pt{position:absolute;left:16px;right:16px;bottom:16px;z-index:2;font-size:22px;font-weight:700;line-height:1.15}
+.vs-pt small{display:block;font-size:14px;font-weight:600;opacity:.9;margin-top:6px}
+@media(min-width:900px){
+.vs-spot.vs-h{height:calc(var(--n)*70vh);padding:0}
+.vs-spot.vs-h .vs-hpin{position:sticky;top:var(--vs-top);height:calc(100svh - var(--vs-top));display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.vs-spot.vs-h .vs-track{overflow:visible;scroll-snap-type:none;will-change:transform}
+.vs-spot.vs-h .vs-panel{flex:0 0 30vw;max-width:none;max-height:64svh}}
+@media(prefers-reduced-motion:reduce){.vs-panel img{transition:none}.vs-on .vs-pin{transition:none}}

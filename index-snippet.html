@@ -1,0 +1,66 @@
+<!-- ========== 1) In <head> of index.html, AFTER apnastore-premium-v1.css ========== -->
+<link rel="stylesheet" href="video-scroll.css?v=1">
+
+<!-- ========== 2) Before </body>, AFTER premium-interactions.js ========== -->
+<script src="video-scroll.js?v=1" defer></script>
+
+<!-- ========== 3) In <main>, paste RIGHT AFTER the closing </section> of <section class="ref-hero"> ========== -->
+<section class="vs-story" id="vsStory" aria-label="Shop by style">
+ <div class="vs-pin">
+  <div class="vs-word" aria-hidden="true"></div>
+
+  <div class="vs-chapter" data-cat="Men" style="--bg:#1f3a8a;--ink:#f6efdc">
+   <img class="vs-img vs-main" src="assets/story/men-main.webp" alt="Men's printed shirt with cranes" width="736" height="736">
+   <img class="vs-img vs-s1" src="assets/story/men-2.webp" alt="Men's wave print shirt" width="667" height="1000" loading="lazy">
+   <img class="vs-img vs-s2" src="assets/story/men-3.webp" alt="Men's printed shirt" width="565" height="764" loading="lazy">
+   <span class="vs-chip vs-c1">Oversized fit</span><span class="vs-chip vs-c2">Soft cotton</span><span class="vs-chip vs-c3">Sizes S–XXL</span>
+   <div class="vs-copy"><div><p class="vs-num">01</p><h2>Made for every day.</h2><p>Shirts, tees, jeans and shorts that fit right and last.</p></div><a class="vs-cta" href="shop.html?category=Men">Shop Men →</a></div>
+  </div>
+
+  <!-- NO PHOTOS YET: remove this comment start when Women photos are in assets/story/
+  <div class="vs-chapter" data-cat="Women" style="--bg:#b0124f;--ink:#fff1e6">
+   <img class="vs-img vs-main" src="assets/story/women-main.webp" alt="Women's outfit" width="800" height="1000" loading="lazy">
+   <img class="vs-img vs-s1" src="assets/story/women-2.webp" alt="Women's top" width="800" height="1000" loading="lazy">
+   <img class="vs-img vs-s2" src="assets/story/women-3.webp" alt="Women's denim" width="800" height="1000" loading="lazy">
+   <span class="vs-chip vs-c1">High-rise</span><span class="vs-chip vs-c2">Flowy fabric</span><span class="vs-chip vs-c3">New designs</span>
+   <div class="vs-copy"><div><p class="vs-num">02</p><h2>Wear what you love.</h2><p>Dresses, tops and denim for every mood.</p></div><a class="vs-cta" href="shop.html?category=Women">Shop Women →</a></div>
+  </div>
+  -->
+
+  <!-- NO PHOTOS YET: remove this comment start when Kids photos are in assets/story/
+  <div class="vs-chapter" data-cat="Kids" style="--bg:#ffc933;--ink:#1d1d1d">
+   <img class="vs-img vs-main" src="assets/story/kids-main.webp" alt="Kids' outfit" width="800" height="1000" loading="lazy">
+   <img class="vs-img vs-s1" src="assets/story/kids-2.webp" alt="Kids' tee" width="800" height="1000" loading="lazy">
+   <img class="vs-img vs-s2" src="assets/story/kids-3.webp" alt="Kids' shorts" width="800" height="1000" loading="lazy">
+   <span class="vs-chip vs-c1">Washable</span><span class="vs-chip vs-c2">Fade-proof</span><span class="vs-chip vs-c3">Ages 2–14</span>
+   <div class="vs-copy"><div><p class="vs-num">03</p><h2>Play. Jump. Repeat.</h2><p>Tough, washable clothes that keep up with them.</p></div><a class="vs-cta" href="shop.html?category=Kids">Shop Kids →</a></div>
+  </div>
+  -->
+
+  <!-- NO PHOTOS YET: remove this comment start when Accessories photos are in assets/story/
+  <div class="vs-chapter" data-cat="Accessories" style="--bg:#0f6b62;--ink:#effaf5">
+   <img class="vs-img vs-main" src="assets/story/acc-main.webp" alt="Accessories" width="800" height="1000" loading="lazy">
+   <img class="vs-img vs-s1" src="assets/story/acc-2.webp" alt="Cap" width="800" height="1000" loading="lazy">
+   <img class="vs-img vs-s2" src="assets/story/acc-3.webp" alt="Bag" width="800" height="1000" loading="lazy">
+   <span class="vs-chip vs-c1">Everyday</span><span class="vs-chip vs-c2">Lightweight</span><span class="vs-chip vs-c3">Gift ready</span>
+   <div class="vs-copy"><div><p class="vs-num">04</p><h2>Small things. Big difference.</h2><p>Caps, bags and the details that finish a look.</p></div><a class="vs-cta" href="shop.html?category=Accessories">Shop Accessories →</a></div>
+  </div>
+  -->
+
+  <div class="vs-tabs" role="tablist" aria-label="Categories"></div>
+ </div>
+</section>
+
+<!-- ========== 4) OPTIONAL - only when you have 5 look photos (look-1..look-5). Until then keep your old #deals section. REPLACE the whole <section id="deals" class="ref-collection"> ... </section> with this ========== -->
+<section id="deals" class="vs-spot" aria-label="New collection">
+ <div class="vs-hpin">
+  <div class="vs-spot-head"><h2>New Season. New You.</h2><p>Fresh styles. Timeless looks.</p></div>
+  <div class="vs-track">
+   <a class="vs-panel" href="shop.html?new=1"><img src="assets/story/look-1.webp" alt="Look 1" width="900" height="1200" loading="lazy"><span class="vs-pn">01</span><span class="vs-pt">Street Casual<small>Shop the look →</small></span></a>
+   <a class="vs-panel" href="shop.html?new=1"><img src="assets/story/look-2.webp" alt="Look 2" width="900" height="1200" loading="lazy"><span class="vs-pn">02</span><span class="vs-pt">Weekend Easy<small>Shop the look →</small></span></a>
+   <a class="vs-panel" href="shop.html?new=1"><img src="assets/story/look-3.webp" alt="Look 3" width="900" height="1200" loading="lazy"><span class="vs-pn">03</span><span class="vs-pt">Denim Days<small>Shop the look →</small></span></a>
+   <a class="vs-panel" href="shop.html?new=1"><img src="assets/story/look-4.webp" alt="Look 4" width="900" height="1200" loading="lazy"><span class="vs-pn">04</span><span class="vs-pt">Festive Fit<small>Shop the look →</small></span></a>
+   <a class="vs-panel" href="shop.html?new=1"><img src="assets/story/look-5.webp" alt="Look 5" width="900" height="1200" loading="lazy"><span class="vs-pn">05</span><span class="vs-pt">Little Stars<small>Shop the look →</small></span></a>
+  </div>
+ </div>
+</section>
