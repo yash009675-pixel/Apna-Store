@@ -1,0 +1,126 @@
+/* APNASTORE GLOBAL MOTION SYSTEM — V1
+   Reusable presentation layer. No commerce logic is changed. */
+
+:root{
+  --apna-motion-ease:cubic-bezier(.2,.7,.2,1);
+  --apna-motion-fast:.22s;
+  --apna-motion-base:.6s;
+  --apna-motion-slow:.8s;
+}
+
+@keyframes fade-rise{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes apna-fade-in{
+  from{opacity:0}
+  to{opacity:1}
+}
+
+@keyframes apna-scale-in{
+  from{opacity:0;transform:scale(.975)}
+  to{opacity:1;transform:scale(1)}
+}
+
+@keyframes apna-page-in{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.animate-fade-rise{animation:fade-rise .8s ease-out both}
+.animate-fade-rise-delay{animation:fade-rise .8s ease-out .2s both}
+.animate-fade-rise-delay-2{animation:fade-rise .8s ease-out .4s both}
+
+.apna-motion-fade{animation:apna-fade-in var(--apna-motion-base) var(--apna-motion-ease) both}
+.apna-motion-scale{animation:apna-scale-in var(--apna-motion-base) var(--apna-motion-ease) both}
+.apna-motion-page{animation:apna-page-in .45s var(--apna-motion-ease) both}
+
+[data-motion="reveal"],
+.motion-reveal{
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity var(--apna-motion-base) var(--apna-motion-ease),
+             transform var(--apna-motion-base) var(--apna-motion-ease);
+  will-change:opacity,transform;
+}
+
+[data-motion="reveal"].is-visible,
+.motion-reveal.is-visible{
+  opacity:1;
+  transform:none;
+}
+
+[data-motion="fade"]{
+  opacity:0;
+  transition:opacity var(--apna-motion-base) ease;
+}
+
+[data-motion="fade"].is-visible{opacity:1}
+
+[data-motion-delay="1"]{transition-delay:.08s}
+[data-motion-delay="2"]{transition-delay:.16s}
+[data-motion-delay="3"]{transition-delay:.24s}
+[data-motion-delay="4"]{transition-delay:.32s}
+
+.apna-motion-hover{
+  transition:transform var(--apna-motion-fast) var(--apna-motion-ease),
+             box-shadow var(--apna-motion-fast) ease;
+}
+.apna-motion-hover:hover{
+  transform:translateY(-3px);
+}
+
+.apna-motion-image{
+  overflow:hidden;
+}
+.apna-motion-image img,
+.apna-motion-image video{
+  transition:transform .7s var(--apna-motion-ease);
+}
+.apna-motion-image:hover img,
+.apna-motion-image:hover video{
+  transform:scale(1.035);
+}
+
+.apna-motion-glass{
+  transition:transform var(--apna-motion-fast) var(--apna-motion-ease),
+             background-color var(--apna-motion-fast) ease,
+             box-shadow var(--apna-motion-fast) ease;
+}
+.apna-motion-glass:hover{
+  transform:scale(1.02);
+}
+
+.apna-motion-focus:focus-visible{
+  outline:2px solid currentColor;
+  outline-offset:4px;
+}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto!important}
+
+  .animate-fade-rise,
+  .animate-fade-rise-delay,
+  .animate-fade-rise-delay-2,
+  .apna-motion-fade,
+  .apna-motion-scale,
+  .apna-motion-page{
+    animation:none!important;
+  }
+
+  [data-motion="reveal"],
+  [data-motion="fade"],
+  .motion-reveal{
+    opacity:1!important;
+    transform:none!important;
+    transition:none!important;
+  }
+
+  .apna-motion-hover,
+  .apna-motion-glass,
+  .apna-motion-image img,
+  .apna-motion-image video{
+    transition:none!important;
+  }
+}
