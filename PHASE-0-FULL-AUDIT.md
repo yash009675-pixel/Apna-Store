@@ -21,7 +21,7 @@ After sign-off the **repair-only P0 set** was applied. Everything below the P0 l
 
 **Correction to the original audit:** P0-4 originally reported the dead `seller-dashboard.html` link as a single occurrence on `supplier-procurement.html`. Because the link scan de-duplicated by URL, three additional pages were missed. The true count is **4 pages / 5 link instances**, all of which are fixed above.
 
-**Verification after the fix:** `node --check` passes on all 60 JS files · `sw.js` `APP_SHELL` 27/27 resolve · site-wide link scan reports `apna-ai.js` as the **only** remaining unresolved reference · jsdom boot clean on `admin-deals.html`, `deal-of-day.html`, `supplier-procurement.html`, `auto-replenishment.html`, `barcode-qr.html`, `coupon-center.html`, and the core storefront (`index`, `shop`, `product`, `cart`, `checkout`, `orders`, `account`).
+**Verification after the fix:** `node --check` passes on all 60 JS files · `sw.js` `APP_SHELL` 27/27 resolve · site-wide link scan is now clean after removing the stale `apna-ai.js` reference from `support.html` · jsdom boot clean on `admin-deals.html`, `deal-of-day.html`, `supplier-procurement.html`, `auto-replenishment.html`, `barcode-qr.html`, `coupon-center.html`, and the core storefront (`index`, `shop`, `product`, `cart`, `checkout`, `orders`, `account`).
 
 **Still unverified:** live browser rendering, real Supabase data, live Auth/RLS behaviour, and real Edge Function calls — this environment has no network access to `*.supabase.co`.
 
