@@ -9,12 +9,6 @@ Disallow: /orders.html
 Disallow: /order-detail.html
 Disallow: /order-success.html
 Disallow: /return-request.html
-Disallow: /seller-dashboard.html
-Disallow: /seller-earnings.html
-Disallow: /seller-onboarding.html
-Disallow: /seller-orders.html
-Disallow: /seller-product.html
-Disallow: /seller-products.html
 Disallow: /admin.html
 Disallow: /offline.html
 Disallow: /wishlist.html
