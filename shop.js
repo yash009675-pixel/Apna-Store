@@ -1,6 +1,6 @@
-let products=[];let variants=[];let categories=[];let cloudWishlistIds=new Set();let cloudWishlistLoaded=false;const initialParams=new URLSearchParams(location.search);let selected=initialParams.get("category")||"All";let newArrivals=initialParams.get("new")==="1";let currentPage=1;const PAGE_SIZE=12;let totalProducts=0;
+let products=[];let variants=[];let categories=[];let brands=[];let cloudWishlistIds=new Set();let cloudWishlistLoaded=false;const initialParams=new URLSearchParams(location.search);let selected=initialParams.get("category")||"All";let newArrivals=initialParams.get("new")==="1";let currentPage=1;const PAGE_SIZE=12;let totalProducts=0;
 const root=document.getElementById("shopProducts"),count=document.getElementById("cartCount");
-const filters={min:"",max:"",size:"",color:"",stock:"all"};
+const filters={min:"",max:"",brand:"",size:"",color:"",stock:"all"};
 function readCart(){try{const c=JSON.parse(localStorage.getItem("apnaCart")||"[]");return Array.isArray(c)?c:[]}catch{return[]}}
 function cart(){if(count)count.textContent=readCart().reduce((n,x)=>n+(Number(x.qty)||0),0)}
 function readWishlist(){try{const w=JSON.parse(localStorage.getItem("apnaWishlist")||"[]");return Array.isArray(w)?w:[]}catch{return[]}}
@@ -10,12 +10,13 @@ const SHOP_CACHE_TTL=60000;
 function readShopCache(key){try{const x=JSON.parse(sessionStorage.getItem(key)||"null");return x&&Date.now()-Number(x.at||0)<SHOP_CACHE_TTL?x.data:null}catch{return null}}
 function writeShopCache(key,data){try{sessionStorage.setItem(key,JSON.stringify({at:Date.now(),data}))}catch{}}
 function showWishlistMessage(message){let el=document.getElementById("wishlistMessage");if(!el){el=document.createElement("p");el.id="wishlistMessage";el.className="checkout-note";root.parentElement.insertBefore(el,root)}el.textContent=message;clearTimeout(showWishlistMessage.timer);showWishlistMessage.timer=setTimeout(()=>{el.textContent=""},3000)}
-function parseFilters(){const p=new URLSearchParams(location.search);filters.min=p.get("min")||"";filters.max=p.get("max")||"";filters.size=p.get("size")||"";filters.color=p.get("color")||"";filters.stock=p.get("stock")==="in"?"in":"all"}
-function syncFilterControls(){document.getElementById("minPrice").value=filters.min;document.getElementById("maxPrice").value=filters.max;document.getElementById("sizeFilter").value=filters.size;document.getElementById("colorFilter").value=filters.color;document.getElementById("stockFilter").value=filters.stock}
+function parseFilters(){const p=new URLSearchParams(location.search);filters.min=p.get("min")||"";filters.max=p.get("max")||"";filters.brand=p.get("brand")||"";filters.size=p.get("size")||"";filters.color=p.get("color")||"";filters.stock=p.get("stock")==="in"?"in":"all"}
+function syncFilterControls(){document.getElementById("minPrice").value=filters.min;document.getElementById("maxPrice").value=filters.max;const brandEl=document.getElementById("brandFilter");if(brandEl)brandEl.value=filters.brand;document.getElementById("sizeFilter").value=filters.size;document.getElementById("colorFilter").value=filters.color;document.getElementById("stockFilter").value=filters.stock}
 function buildFilterOptions(){
  const sizes=[...new Set(variants.map(v=>v.size).filter(Boolean))].sort((a,b)=>{const na=Number(a),nb=Number(b);return Number.isNaN(na)||Number.isNaN(nb)?a.localeCompare(b):na-nb});
  const colors=[...new Set(variants.map(v=>v.color).filter(Boolean))].sort();
- const sizeEl=document.getElementById("sizeFilter"),colorEl=document.getElementById("colorFilter");
+ const brandEl=document.getElementById("brandFilter"),sizeEl=document.getElementById("sizeFilter"),colorEl=document.getElementById("colorFilter");
+ if(brandEl)brandEl.innerHTML='<option value="">All brands</option>'+brands.map(v=>'<option value="'+escapeHtml(v.id)+'">'+escapeHtml(v.name)+'</option>').join("");
  sizeEl.innerHTML='<option value="">All sizes</option>'+sizes.map(v=>'<option value="'+escapeHtml(v)+'">'+escapeHtml(v)+'</option>').join("");
  colorEl.innerHTML='<option value="">All colors</option>'+colors.map(v=>'<option value="'+escapeHtml(v)+'">'+escapeHtml(v)+'</option>').join("");
  syncFilterControls();
@@ -28,17 +29,26 @@ async function loadProducts(){
   const sponsored=document.getElementById("sponsoredSection");if(sponsored)sponsored.hidden=true;
   return;
  }
- const cachedCategories=readShopCache("apnaShopCategories"),cachedVariants=readShopCache("apnaShopVariants");
+ const cachedCategories=readShopCache("apnaShopCategories"),cachedBrands=readShopCache("apnaShopBrands"),cachedVariants=readShopCache("apnaShopVariants");
  let categoryResult={data:cachedCategories,error:null};
  if(!cachedCategories){
   categoryResult=await apnaSupabase.from("categories").select("id,name,is_active,sort_order").eq("is_active",true).order("sort_order").order("name");
   if(!categoryResult.error)writeShopCache("apnaShopCategories",categoryResult.data||[]);
  }
  if(categoryResult.error){console.error("Shop category query failed:",categoryResult.error);root.innerHTML='<p class="checkout-note">Categories could not be loaded right now. Please refresh and try again.</p>';return}
+ let brandResult={data:cachedBrands,error:null};
+ if(!cachedBrands){
+  brandResult=await apnaSupabase.from("brands").select("id,name,is_active,sort_order").eq("is_active",true).order("sort_order").order("name");
+  if(!brandResult.error)writeShopCache("apnaShopBrands",brandResult.data||[]);
+ }
+ if(brandResult.error)console.warn("Shop brand query failed:",brandResult.error);
  categories=categoryResult.data||[];
+ brands=brandResult.data||[];
  const categoryMap=new Map(categories.map(c=>[c.id,c.name]));
+ const brandMap=new Map(brands.map(b=>[b.id,b.name]));
  renderCategoryChips();
  syncCategoryChip();
+ updateFilterCount();
  if(isComingSoonCategory(selected)){products=[];totalProducts=0;renderComingSoonCategory();updatePagination();const sponsored=document.getElementById("sponsoredSection");if(sponsored)sponsored.hidden=true;return;}
  let variantResult={data:cachedVariants,error:null};
  if(!cachedVariants){
@@ -51,8 +61,9 @@ async function loadProducts(){
  const categoryId=categories.find(c=>String(c.name).toLowerCase()===String(selected).toLowerCase())?.id||null;
  const matchingIds=matchingVariantIds();
  const variantFilterActive=Boolean(filters.size||filters.color||filters.stock==="in");
- let query=apnaSupabase.from("products").select("id,name,slug,description,price,category_id,created_at",{count:"planned"}).eq("status","active");
+ let query=apnaSupabase.from("products").select("id,name,slug,description,price,brand_id,category_id,created_at",{count:"planned"}).eq("status","active");
  if(categoryId)query=query.eq("category_id",categoryId);
+ if(filters.brand)query=query.eq("brand_id",filters.brand);
  if(newArrivals)query=query.order("created_at",{ascending:false});
  if(filters.min!==""&&Number.isFinite(Number(filters.min)))query=query.gte("price",Number(filters.min));
  if(filters.max!==""&&Number.isFinite(Number(filters.max)))query=query.lte("price",Number(filters.max));
@@ -77,7 +88,7 @@ async function loadProducts(){
  }
  const imageMap=new Map();
  imageRows.forEach(i=>{if(!imageMap.has(i.product_id)){const u=apnaSupabase.storage.from("product-images").getPublicUrl(i.storage_path).data.publicUrl;imageMap.set(i.product_id,u);}});
- products=(productRows||[]).map(p=>({...p,category:categoryMap.get(p.category_id)||"Apna Store",image:imageMap.get(p.id)||null}));
+ products=(productRows||[]).map(p=>({...p,brand:brandMap.get(p.brand_id)||"",category:categoryMap.get(p.category_id)||"Apna Store",image:imageMap.get(p.id)||null}));
  render();
  updatePagination();
  loadSponsored();
@@ -90,7 +101,7 @@ function renderComingSoonCategory(){
  root.innerHTML='<div class="apna-empty-products" style="grid-column:1/-1;text-align:center;padding:64px 24px"><span class="apna-empty-kicker">COMING SOON</span><strong>'+escapeHtml(title)+' products are not live yet.</strong><p>This category will be added soon. Please check back shortly.</p><a href="shop.html?category=Ladies%20Saree">Shop Ladies Sarees →</a></div>';
  const resultCount=document.getElementById("filterResultCount");if(resultCount)resultCount.textContent="0 products";
 }
-function renderCategoryChips(){const el=document.getElementById("categoryChips");if(!el)return;el.innerHTML='<button class="chip active" data-cat="All">All</button>'+categories.map(c=>'<button class="chip" data-cat="'+escapeHtml(c.name)+'">'+escapeHtml(c.name)+'</button>').join("");el.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{selected=b.dataset.cat;currentPage=1;syncCategoryChip();syncUrl();loadProducts()});syncCategoryChip()}
+function renderCategoryChips(){const el=document.getElementById("categoryChips");if(!el)return;el.innerHTML='<button class="chip active" data-cat="All">All</button>'+categories.map(c=>'<button class="chip" data-cat="'+escapeHtml(c.name)+'">'+escapeHtml(c.name)+'</button>').join("");el.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{selected=b.dataset.cat;currentPage=1;syncCategoryChip();syncUrl();updateFilterCount();setMobileFiltersOpen(false);loadProducts()});syncCategoryChip()}
 function syncCategoryChip(){const valid=["All",...categories.map(c=>c.name)];if(categories.length&&!valid.includes(selected))selected="All";document.querySelectorAll("#categoryChips .chip").forEach(x=>x.classList.toggle("active",x.dataset.cat===selected))}
 function matchingVariantIds(){
  const wantedSize=filters.size,wantedColor=filters.color,wantedStock=filters.stock==="in";
@@ -101,7 +112,7 @@ function render(){
  const hasPriceMin=Number.isFinite(min),hasPriceMax=Number.isFinite(max);
  const variantFilterActive=Boolean(filters.size||filters.color||filters.stock==="in");
  const matchingIds=variantFilterActive?matchingVariantIds():null;
- let list=products.filter(p=>(!matchingIds||matchingIds.has(p.id))&&(!hasPriceMin||Number(p.price)>=min)&&(!hasPriceMax||Number(p.price)<=max));
+ let list=products.filter(p=>(!filters.brand||String(p.brand_id||"")===(filters.brand||""))&&(!matchingIds||matchingIds.has(p.id))&&(!hasPriceMin||Number(p.price)>=min)&&(!hasPriceMax||Number(p.price)<=max));
  const w=readWishlist();
  root.innerHTML=list.length?list.map(p=>{const saved=cloudWishlistLoaded?cloudWishlistIds.has(p.id):w.some(item=>item.productId===p.id||item.name===p.name);return '<article class="product-card"><div class="product-image">'+(p.image?'<img loading="lazy" decoding="async" src="'+escapeHtml(p.image)+'" alt="'+escapeHtml(p.name)+'">':'')+'<button class="wishlist-toggle" aria-label="'+(saved?"Remove from wishlist":"Add to wishlist")+'" title="'+(saved?"Remove from wishlist":"Add to wishlist")+'" data-product-id="'+p.id+'">'+(saved?"♥":"♡")+'</button></div><div class="product-info"><a href="product.html?id='+encodeURIComponent(p.id)+'" style="text-decoration:none;color:inherit"><h3>'+escapeHtml(p.name)+'</h3><p>'+escapeHtml(p.category)+'</p><p class="price">₹'+Number(p.price).toLocaleString("en-IN")+'</p></a><button class="primary-btn add" data-view-product-id="'+p.id+'" style="margin-top:12px;padding:10px 13px;font-size:11px;gap:15px">View options →</button></div></article>'}).join(""):'<p>No products match these filters.</p>';
  root.querySelectorAll(".wishlist-toggle").forEach(b=>b.addEventListener("click",()=>wishlist(b.dataset.productId)));
@@ -132,10 +143,21 @@ function syncUrl(){
  if(selected==="All")params.delete("category");else params.set("category",selected);
  if(newArrivals)params.set("new","1");else params.delete("new");
  const sort=document.getElementById("sort").value;if(sort==="default")params.delete("sort");else params.set("sort",sort);
- for(const key of ["min","max","size","color"]){if(filters[key])params.set(key,filters[key]);else params.delete(key)}
+ for(const key of ["min","max","brand","size","color"]){if(filters[key])params.set(key,filters[key]);else params.delete(key)}
  if(filters.stock==="in")params.set("stock","in");else params.delete("stock");
  const query=params.toString();history.replaceState({}, "",query?"shop.html?"+query:"shop.html")
 }
+function updateFilterCount(){
+ const activeCount=[selected!=="All"?selected:"",filters.min,filters.max,filters.brand,filters.size,filters.color,filters.stock==="in"?"in":""].filter(Boolean).length;
+ const el=document.getElementById("activeFilterCount");if(el)el.textContent=activeCount?"("+activeCount+")":"";
+}
+function setMobileFiltersOpen(open){
+ const panel=document.getElementById("advancedFilters"),btn=document.getElementById("mobileFilterBtn");
+ if(!panel||!btn)return;
+ panel.classList.toggle("is-open",!!open);
+ btn.setAttribute("aria-expanded",open?"true":"false");
+}
+function toggleMobileFilters(){const panel=document.getElementById("advancedFilters");if(!panel)return;setMobileFiltersOpen(!panel.classList.contains("is-open"))}
 function updatePagination(){
  const box=document.getElementById("shopPagination");if(!box)return;
  const totalPages=Math.max(1,Math.ceil(totalProducts/PAGE_SIZE));
@@ -144,12 +166,13 @@ function updatePagination(){
  box.querySelector("#prevPage").onclick=()=>{if(currentPage>1){currentPage--;loadProducts()}};
  box.querySelector("#nextPage").onclick=()=>{if(currentPage<totalPages){currentPage++;loadProducts()}};
 }
-async function applyFilters(){currentPage=1;filters.min=document.getElementById("minPrice").value.trim();filters.max=document.getElementById("maxPrice").value.trim();filters.size=document.getElementById("sizeFilter").value;filters.color=document.getElementById("colorFilter").value;filters.stock=document.getElementById("stockFilter").value;if(filters.min!==""&&filters.max!==""&&Number(filters.min)>Number(filters.max)){[filters.min,filters.max]=[filters.max,filters.min];}syncFilterControls();syncUrl();await loadProducts()}
-async function clearFilters(){filters.min=filters.max=filters.size=filters.color="";filters.stock="all";currentPage=1;syncFilterControls();syncUrl();await loadProducts()}
+async function applyFilters(){currentPage=1;filters.min=document.getElementById("minPrice").value.trim();filters.max=document.getElementById("maxPrice").value.trim();filters.brand=document.getElementById("brandFilter")?.value||"";filters.size=document.getElementById("sizeFilter").value;filters.color=document.getElementById("colorFilter").value;filters.stock=document.getElementById("stockFilter").value;if(filters.min!==""&&filters.max!==""&&Number(filters.min)>Number(filters.max)){[filters.min,filters.max]=[filters.max,filters.min];}syncFilterControls();syncUrl();updateFilterCount();setMobileFiltersOpen(false);await loadProducts()}
+async function clearFilters(){filters.min=filters.max=filters.brand=filters.size=filters.color="";filters.stock="all";currentPage=1;syncFilterControls();syncUrl();updateFilterCount();setMobileFiltersOpen(false);await loadProducts()}
 document.getElementById("sort").onchange=()=>{currentPage=1;syncUrl();loadProducts()};
-window.addEventListener("popstate",async()=>{currentPage=1;const params=new URLSearchParams(location.search);selected=params.get("category")||"All";newArrivals=params.get("new")==="1";const sort=params.get("sort")||"default";document.getElementById("sort").value=["default","low","high"].includes(sort)?sort:"default";parseFilters();syncFilterControls();syncCategoryChip();await loadProducts()});
+window.addEventListener("popstate",async()=>{currentPage=1;const params=new URLSearchParams(location.search);selected=params.get("category")||"All";newArrivals=params.get("new")==="1";const sort=params.get("sort")||"default";document.getElementById("sort").value=["default","low","high"].includes(sort)?sort:"default";parseFilters();syncFilterControls();syncCategoryChip();updateFilterCount();setMobileFiltersOpen(false);await loadProducts()});
 
 document.getElementById("applyFilters")?.addEventListener("click",applyFilters);
 document.getElementById("clearFilters")?.addEventListener("click",clearFilters);
 document.getElementById("searchBtn")?.addEventListener("click",()=>location.href="search.html");
-const initialSort=new URLSearchParams(location.search).get("sort")||"default";document.getElementById("sort").value=["default","low","high"].includes(initialSort)?initialSort:"default";parseFilters();syncCategoryChip();loadCloudWishlist().then(()=>loadProducts());cart();
+document.getElementById("mobileFilterBtn")?.addEventListener("click",toggleMobileFilters);
+const initialSort=new URLSearchParams(location.search).get("sort")||"default";document.getElementById("sort").value=["default","low","high"].includes(initialSort)?initialSort:"default";parseFilters();syncCategoryChip();updateFilterCount();loadCloudWishlist().then(()=>loadProducts());cart();
