@@ -112,11 +112,24 @@ async function loadProducts(){
   apnaSupabase.from("brands").select("id,name,slug").eq("is_active",true).order("sort_order").order("name"),
   apnaSupabase.from("product_variants").select("product_id,sku")
  ]);
- if(productResult.error||categoryResult.error||brandResult.error||variantResult.error){
-  console.error("Search data query failed",productResult.error||categoryResult.error||brandResult.error||variantResult.error);
+ if(productResult.error){
+  console.error("Search products query failed",productResult.error);
   summary.textContent="Search could not load right now. Please refresh and try again.";r.innerHTML="";return;
  }
- const productRows=productResult.data||[],productIds=productRows.map(item=>item.id).filter(Boolean);
+ const productRows=productResult.data||[];
+ // An empty products inventory is a valid state, not a load failure.
+ if(productRows.length===0){
+  categories=categoryResult.data||[];
+  brands=brandResult.data||[];
+  variants=variantResult.data||[];
+  catalogReady=true;populateRefinementOptions();hydrateFromUrl(new URLSearchParams(location.search));syncUrl();
+  searchDataLoaded=true;imageLookupFailed=false;setImageNotice();render();updateClearButton();return;
+ }
+ if(categoryResult.error||brandResult.error||variantResult.error){
+  console.error("Search catalog query failed",categoryResult.error||brandResult.error||variantResult.error);
+  summary.textContent="Search could not load right now. Please refresh and try again.";r.innerHTML="";return;
+ }
+ const productIds=productRows.map(item=>item.id).filter(Boolean);
  const imageResult=productIds.length?await apnaSupabase.from("product_images").select("product_id,storage_path,alt_text,sort_order,is_primary,created_at").in("product_id",productIds).order("is_primary",{ascending:false}).order("sort_order",{ascending:true}).order("created_at",{ascending:true}):{data:[],error:null};
  imageLookupFailed=Boolean(imageResult.error);
  if(imageLookupFailed)console.warn("Search product image query failed:",imageResult.error);
