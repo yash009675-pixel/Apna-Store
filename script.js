@@ -130,7 +130,7 @@ const REFERENCE_PRODUCT_IMAGES={
  "Casual Sneakers":"https://images.unsplash.com/photo-1753707407133-5af2cc35fd21?auto=format&fit=crop&fm=jpg&q=80&w=900"
 };
 const REFERENCE_PRODUCT_IMAGE_LIST=Object.values(REFERENCE_PRODUCT_IMAGES);
-async function addReferenceProduct(product){
+async function addReferenceProduct(product,sourceButton){
  try{
    const {data:variants,error}=await apnaSupabase.from("product_variants").select("id,size,color,stock").eq("product_id",product.id).gt("stock",0).limit(1);
    if(error||!variants?.length){location.href="product.html?id="+encodeURIComponent(product.id);return}
@@ -142,6 +142,10 @@ async function addReferenceProduct(product){
    else cart.push({key,productId:product.id,variantId:v.id,name:product.name,category:product.type||"Apna Store",price:Number(product.price),size:v.size||"",color:v.color||"",qty:1});
    localStorage.setItem("apnaCart",JSON.stringify(cart));
    updateHeader();
+   if(window.apnaBagFeedback){
+     const cardImage=sourceButton&&sourceButton.closest?sourceButton.closest(".product-card")?.querySelector("img"):null;
+     window.apnaBagFeedback({imageUrl:cardImage?(cardImage.currentSrc||cardImage.src||""):"",source:cardImage||sourceButton});
+   }
  }catch(err){console.error("Reference add-to-cart failed:",err);location.href="product.html?id="+encodeURIComponent(product.id)}
 }
 function productCardMarkup(p,i,listName){
@@ -161,7 +165,7 @@ function renderProductList(target,list){
  target.innerHTML=list.length?list.map((p,i)=>productCardMarkup(p,i,"new")).join(""):'<div class="apna-empty-products"><span class="apna-empty-kicker">FRESH SOON</span><strong>New pieces are on the way.</strong><p>Fresh Apna arrivals will appear here after approval.</p><a href="shop.html">Explore all products →</a></div>';
  target.querySelectorAll(".add").forEach(b=>b.onclick=()=>{const idx=Number(b.dataset.i);const p=list[idx];location.href="product.html?id="+encodeURIComponent(p.id)});
 }
-function render(){if(!root)return;const w=getWishlist();root.innerHTML=products.length?products.map((p,i)=>productCardMarkup(p,i,"featured")).join(""):'<div class="apna-empty-products"><span class="apna-empty-kicker">COMING SOON</span><strong>Curated everyday pieces.</strong><p>Apna Store products will appear here as they are approved.</p><a href="shop.html">Browse the store →</a></div>';root.querySelectorAll(".add").forEach(b=>b.onclick=()=>addReferenceProduct(products[Number(b.dataset.i)]))}
+function render(){if(!root)return;const w=getWishlist();root.innerHTML=products.length?products.map((p,i)=>productCardMarkup(p,i,"featured")).join(""):'<div class="apna-empty-products"><span class="apna-empty-kicker">COMING SOON</span><strong>Curated everyday pieces.</strong><p>Apna Store products will appear here as they are approved.</p><a href="shop.html">Browse the store →</a></div>';root.querySelectorAll(".add").forEach(b=>b.onclick=()=>addReferenceProduct(products[Number(b.dataset.i)],b))}
 function toggleWish(p){let w=getWishlist();const i=w.findIndex(x=>x.productId===p.id||x.name===p.name);if(i>=0)w.splice(i,1);else w.push({productId:p.id,name:p.name,category:p.type,price:Number(p.price)});localStorage.setItem("apnaWishlist",JSON.stringify(w));render()}
 /* Stay Connected — homepage newsletter subscription */
 (function(){
