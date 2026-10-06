@@ -1,0 +1,380 @@
+/* APNASTORE BAG (CART) PREMIUM LAYER — V1
+ *
+ * Phase 6 — presentation only. Cart storage, stock checks, the ₹49 / ₹999
+ * delivery rule, abandoned-cart tracking and the checkout flow are unchanged.
+ *
+ * Motion tokens (--apna-motion-*) are inherited from apnastore-motion-v1.css
+ * so the bag shares the site-wide motion language.
+ */
+
+/* ------------------------------------------------------------------ *
+ * Item cards
+ * ------------------------------------------------------------------ */
+
+#cart .cart-items {
+  box-shadow: 0 12px 30px rgba(28, 24, 20, .05);
+}
+
+#cart .bag-items-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid #ece6dd;
+  background: #fbf8f3;
+}
+
+#cart .bag-items-count {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #77716a;
+}
+
+/* Image frame — matches the size the layout grid reserves for the media
+   column so the product image is never cropped by the container and no
+   empty band appears inside the card. */
+#cart .cart-item-media {
+  display: block;
+  width: 112px;
+  height: 132px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f1ede6;
+  text-decoration: none;
+}
+
+#cart .cart-item-monogram {
+  display: grid;
+  place-items: center;
+  width: 112px;
+  height: 132px;
+  background: linear-gradient(150deg, #efe9e0, #ded5c8);
+  color: #8d8479;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -.04em;
+}
+
+/* Readability lift over the legacy bag sizing. These selectors deliberately
+   mirror the specificity of the `body:not(.apna-reference-home) #cart …`
+   rules in styles.css; this file loads after it, so the later declaration
+   wins without escalating the !important arms race any further. */
+body #cart .cart-item.bag-item h3 {
+  font-size: 15px !important;
+  line-height: 1.25 !important;
+  letter-spacing: -.01em !important;
+}
+
+body #cart .cart-item.bag-item p.cart-item-variant {
+  font-size: 11px !important;
+  letter-spacing: .02em !important;
+  color: #5f594f !important;
+}
+
+body #cart .cart-item.bag-item p.cart-item-category {
+  font-size: 10px !important;
+  text-transform: uppercase !important;
+  letter-spacing: .1em !important;
+  color: #9a938a !important;
+}
+
+/* ------------------------------------------------------------------ *
+ * Quantity, remove, line total
+ * ------------------------------------------------------------------ */
+
+#cart .cart-item-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  justify-self: end;
+}
+
+#cart .bag-qty {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid #ddd6cb;
+  border-radius: 999px;
+  background: #fff;
+}
+
+#cart .bag-qty-btn {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #292724;
+  font: inherit;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color var(--apna-motion-fast, .22s) ease,
+              color var(--apna-motion-fast, .22s) ease,
+              transform var(--apna-motion-fast, .22s) var(--apna-motion-ease, cubic-bezier(.2, .7, .2, 1));
+}
+
+#cart .bag-qty-btn:hover { background: #171615; color: #fff; }
+#cart .bag-qty-btn:active { transform: scale(.9); }
+#cart .bag-qty-btn:focus-visible { outline: 2px solid #171615; outline-offset: 2px; }
+
+#cart .bag-qty-value {
+  min-width: 26px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+#cart .bag-remove {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 10px;
+  color: #8b8279;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+#cart .bag-remove:hover { color: #171615; }
+#cart .bag-remove:focus-visible { outline: 2px solid #171615; outline-offset: 3px; }
+
+#cart .cart-item-line-total {
+  font-size: 13px;
+  font-weight: 800;
+  color: #171615;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------------------------ *
+ * Summary
+ * ------------------------------------------------------------------ */
+
+#cart .bag-progress {
+  height: 4px;
+  margin: 12px 0 0;
+  border-radius: 999px;
+  background: #ece6dd;
+  overflow: hidden;
+}
+
+#cart .bag-progress-bar {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #171615, #4a443d);
+  transition: width var(--apna-motion-base, .6s) var(--apna-motion-ease, cubic-bezier(.2, .7, .2, 1));
+}
+
+#cart .bag-progress-note {
+  margin: 8px 0 0 !important;
+  font-size: 10px;
+  letter-spacing: .02em;
+}
+
+#cart .bag-checkout {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 16px;
+  padding: 15px 18px;
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: .04em;
+}
+
+#cart .bag-continue {
+  display: block;
+  margin-top: 12px;
+  text-align: center;
+  font-size: 10px;
+  color: #77716a;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+#cart .bag-items-head .bag-continue {
+  margin-top: 0;
+  text-align: left;
+}
+
+#cart .bag-reassurance {
+  margin: 14px 0 0;
+  text-align: center;
+  font-size: 9px;
+  letter-spacing: .04em;
+  color: #97908a;
+}
+
+/* ------------------------------------------------------------------ *
+ * Empty bag
+ * ------------------------------------------------------------------ */
+
+#cart .bag-empty-mark {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 34px;
+  line-height: 1;
+  color: #c9c0b4;
+}
+
+#cart .bag-empty .primary-btn {
+  border-radius: 999px;
+}
+
+body #cart .bag-empty p.bag-empty-note {
+  margin: 18px 0 0 !important;
+  font-size: 10px;
+  letter-spacing: .04em;
+  color: #97908a;
+}
+
+/* Screen-reader status region for quantity/removal feedback */
+#cart .bag-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  border: 0;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------ *
+ * Motion — reuses the apnastore-motion-v1 tokens
+ * ------------------------------------------------------------------ */
+
+@keyframes bagItemEnter {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes bagItemLeave {
+  to { opacity: 0; transform: translateX(16px) scale(.98); }
+}
+
+@keyframes bagQtyBump {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+
+@keyframes bagCheckoutPulse {
+  from { box-shadow: 0 0 0 0 rgba(23, 22, 21, .16); }
+  to { box-shadow: 0 0 0 14px rgba(23, 22, 21, 0); }
+}
+
+@keyframes apnaBagPulse {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+#cart .bag-item-enter {
+  animation: bagItemEnter var(--apna-motion-base, .6s) var(--apna-motion-ease, cubic-bezier(.2, .7, .2, 1)) both;
+}
+
+#cart .bag-item.is-removing {
+  animation: bagItemLeave .22s ease-in both;
+}
+
+#cart .bag-item.is-busy { opacity: .6; }
+#cart .bag-item.is-busy .cart-item-actions { pointer-events: none; }
+
+#cart .bag-qty-value.is-bumped {
+  animation: bagQtyBump .42s var(--apna-motion-ease, cubic-bezier(.2, .7, .2, 1)) both;
+}
+
+#cart .bag-checkout.is-checkout {
+  animation: bagCheckoutPulse var(--apna-motion-fast, .22s) ease-out both;
+}
+
+/* Product → Bag feedback (shared, also used on product/home pages) */
+.apna-bag-flight {
+  position: fixed;
+  z-index: 1200;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 18px 40px rgba(20, 18, 16, .22);
+  pointer-events: none;
+  opacity: 1;
+  transition: transform 520ms var(--apna-motion-ease, cubic-bezier(.2, .7, .2, 1)),
+              opacity 520ms ease-in;
+  will-change: transform, opacity;
+}
+
+.apna-bag-pulse {
+  animation: apnaBagPulse 520ms var(--apna-motion-ease, cubic-bezier(.2, .7, .2, 1)) both;
+}
+
+/* ------------------------------------------------------------------ *
+ * Responsive
+ * ------------------------------------------------------------------ */
+
+@media (max-width: 1024px) {
+  #cart .cart-item-actions { gap: 8px; }
+}
+
+@media (max-width: 800px) {
+  #cart .cart-summary { margin-top: 18px; }
+  #cart .bag-checkout { min-height: 48px; }
+}
+
+@media (max-width: 520px) {
+  #cart .cart-item-media,
+  #cart .cart-item-monogram {
+    width: 82px;
+    height: 105px;
+  }
+  #cart .cart-item-monogram { font-size: 18px; }
+  #cart .cart-item-actions {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    justify-self: stretch;
+  }
+  #cart .bag-remove { margin-left: auto; }
+  #cart .bag-items-head { padding: 12px 14px; }
+  #cart .bag-items-head .bag-continue { font-size: 9px; }
+}
+
+@media (max-width: 400px) {
+  #cart .bag-qty-btn { width: 28px; height: 28px; }
+  #cart .bag-qty-value { min-width: 22px; }
+}
+
+/* ------------------------------------------------------------------ *
+ * Reduced motion
+ * ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  #cart .bag-item-enter,
+  #cart .bag-item.is-removing,
+  #cart .bag-qty-value.is-bumped,
+  #cart .bag-checkout.is-checkout,
+  .apna-bag-pulse {
+    animation: none !important;
+  }
+
+  .apna-bag-flight {
+    display: none !important;
+  }
+
+  #cart .bag-progress-bar,
+  #cart .bag-qty-btn {
+    transition: none !important;
+  }
+}
